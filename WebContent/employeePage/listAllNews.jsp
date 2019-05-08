@@ -177,7 +177,7 @@
 <!-- =================================================================================== -->
                <div class="container">
                	 	<div class="row">
-               			<img src="${pageContext.request.contextPath}/tool/OutImg.do?news_no='${news_no}'" class="col">
+               			<img src="${pageContext.request.contextPath}/tools/OutImg.do?news_no='${news_no}'" class="col">
                		</div>
                </div>
 <!-- =================================================================================== -->

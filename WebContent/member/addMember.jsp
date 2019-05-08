@@ -299,7 +299,7 @@
 					var passToken=null;
 					var vstring = Math.floor(Math.random() * 1000000);
 					$("#verification").attr('src',
-							"${pageContext.request.contextPath}/tool/Verification.do?vstring=" + vstring);
+							"${pageContext.request.contextPath}/tools/Verification.do?vstring=" + vstring);
 					var pwd;
 					var pwdconfirm;
 					$("#mem_pwd_check").change(function() {
@@ -333,7 +333,7 @@
 							function() {
 								vstring = Math.floor(Math.random() * 1000000);
 								$("#verification").attr('src',
-										"${pageContext.request.contextPath}/tool/Verification.do?vstring=" + vstring);
+										"${pageContext.request.contextPath}/tools/Verification.do?vstring=" + vstring);
 							});
 					var inputconfirm
 					$("#inputconfirm").change(function() {

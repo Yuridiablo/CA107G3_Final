@@ -52,11 +52,11 @@
   
   	<servlet>
 		<servlet-name>OutImg</servlet-name>
-		<servlet-class>tool.OutImg</servlet-class>
+		<servlet-class>tools.OutImg</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>OutImg</servlet-name>
-		<url-pattern>/tool/OutImg.do</url-pattern>
+		<url-pattern>/tools/OutImg.do</url-pattern>
 	</servlet-mapping>
   
   
@@ -72,11 +72,11 @@
 
 	<servlet>
 		<servlet-name>Verification</servlet-name>
-		<servlet-class>tool.Verification</servlet-class>
+		<servlet-class>tools.Verification</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Verification</servlet-name>
-		<url-pattern>/tool/Verification.do</url-pattern>
+		<url-pattern>/tools/Verification.do</url-pattern>
 	</servlet-mapping>
   
   

@@ -374,7 +374,7 @@ to {
 	<div class="" id="chatList" style="display:none">
 <!-- 		<div class="row"> -->
 <!-- 			<div id="chatTopic" class="col-2"> -->
-<%-- 				<img class="img-group" src="<%= request.getContextPath() %>/tool/OutImg.do?mem_no='${memberVO.mem_no}'"> --%>
+<%-- 				<img class="img-group" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'"> --%>
 <!-- 			</div> -->
 <!-- 			<div id="chatTopic" class="col-10 text-left"> -->
 <%-- 				<p style="color:black;font-weight:bold">${memberVO.mem_name}</p> --%>
@@ -382,7 +382,7 @@ to {
 <!-- 		</div> -->
 <!-- 				<div class="row"> -->
 <!-- 			<div id="chatTopic" class="col-2"> -->
-<%-- 				<img class="img-group" src="<%= request.getContextPath() %>/tool/OutImg.do?mem_no='${memberVO.mem_no}'"> --%>
+<%-- 				<img class="img-group" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'"> --%>
 <!-- 			</div> -->
 <!-- 			<div id="chatTopic" class="col-10 text-left"> -->
 <%-- 				<p style="color:black;font-weight:bold">${memberVO.mem_name}</p> --%>
@@ -390,7 +390,7 @@ to {
 <!-- 		</div> -->
 <!-- 				<div class="row"> -->
 <!-- 			<div id="chatTopic" class="col-2"> -->
-<%-- 				<img class="img-group" src="<%= request.getContextPath() %>/tool/OutImg.do?mem_no='${memberVO.mem_no}'"> --%>
+<%-- 				<img class="img-group" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'"> --%>
 <!-- 			</div> -->
 <!-- 			<div id="chatTopic" class="col-10 text-left"> -->
 <%-- 				<p style="color:black;font-weight:bold">${memberVO.mem_name}</p> --%>
@@ -503,7 +503,7 @@ to {
 	        alert('sender from member = '+ mem_name);
 	        if(!memberMap.has(mem_no)){
 	        	memberMap.set(mem_no,mem_name);
-	        	$("#chatList").append($('<div/>').addClass('row').addClass('chatInner').attr('id',mem_no).append($('<div/>').attr('id','chatTopic').addClass('col-2').append($('<img>').addClass('img-group').attr('src',"<%= request.getContextPath() %>/tool/OutImg.do?mem_no="+'\''+mem_no+'\'')
+	        	$("#chatList").append($('<div/>').addClass('row').addClass('chatInner').attr('id',mem_no).append($('<div/>').attr('id','chatTopic').addClass('col-2').append($('<img>').addClass('img-group').attr('src',"<%= request.getContextPath() %>/tools/OutImg.do?mem_no="+'\''+mem_no+'\'')
 	        	)).append($('<div/>').attr('id','chatTopic').addClass('col-10').addClass('text-left').append($('<p/>').css('color','black').css('font-weight','bold').html('來自'+mem_name+'的訊息')))
 	        			);
 	        }
@@ -550,7 +550,7 @@ to {
 	$("#chatList").on('click','.chatInner',function(){
 		receiver = $(this).attr('id');
 		var chatWith= memberMap.get(receiver);
-		$(".img-group").attr('src',"<%= request.getContextPath() %>/tool/OutImg.do?mem_no="+'\''+receiver+'\'');
+		$(".img-group").attr('src',"<%= request.getContextPath() %>/tools/OutImg.do?mem_no="+'\''+receiver+'\'');
 		$("#chatWith").html(chatWith);
 		$(".chatSpace").css('display','');
 		$("#chatList").css('display','none');

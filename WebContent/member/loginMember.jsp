@@ -143,7 +143,7 @@
 					var vstring = Math.floor(Math.random() * 1000000);
 					$("#verification").attr(
 							'src',
-							"${pageContext.request.contextPath}/tool/Verification.do?vstring="
+							"${pageContext.request.contextPath}/tools/Verification.do?vstring="
 									+ vstring);
 
 					$("#refreshconfirm").on(
@@ -152,7 +152,7 @@
 								vstring = Math.floor(Math.random() * 1000000);
 								$("#verification").attr(
 										'src',
-										"${pageContext.request.contextPath}/tool/Verification.do?vstring="
+										"${pageContext.request.contextPath}/tools/Verification.do?vstring="
 												+ vstring);
 							});
 

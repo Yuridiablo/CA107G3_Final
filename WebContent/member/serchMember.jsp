@@ -59,7 +59,7 @@
 						class="col-3 all-group img-container d-flex align-items-center justify-content-center">
 <!-- 						<div class="img-inner"> -->
 							<img class="img-group"
-								src="<%= request.getContextPath() %>/tool/OutImg.do?mem_no='${memberVO.mem_no}'">
+								src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'">
 <!-- 						</div> -->
 					</div>
 					<div

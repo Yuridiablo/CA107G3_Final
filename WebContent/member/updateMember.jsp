@@ -3,7 +3,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <%@page import="com.member.model.MemberVO"%> --%>
-<%-- <%@page import="com.tool.OutImg"%> --%>
+<%-- <%@page import="com.tools.OutImg"%> --%>
 
 
 <!doctype html>
@@ -193,7 +193,7 @@
 								onchange="loadFile(event)">
 						</div>
 						<div class="col">
-							<img src="<%= request.getContextPath() %>/tool/OutImg.do?mem_no='${memberVO.mem_no}'" id="output" class="col-12">
+							<img src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'" id="output" class="col-12">
 						</div>
 					</div>
 					<div>
