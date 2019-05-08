@@ -16,7 +16,7 @@ import com.news.model.NewsVO;
 public class FeatureJDBCDAO implements FeatureDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA107TEST";
+	String userid = "CA107G3";
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 

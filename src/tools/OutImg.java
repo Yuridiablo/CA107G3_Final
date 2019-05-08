@@ -73,7 +73,7 @@ public class OutImg extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "TESTDB", "123456");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "CA107G3", "123456");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

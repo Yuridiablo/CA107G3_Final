@@ -8,7 +8,7 @@ import com.news.model.NewsVO;
 public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "TESTDB";
+	String userid = "CA107G3";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO employee (emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_hire,emp_resign,emp_stat) VALUES ('E'||LPAD(to_char(EMPLOYEE_SEQ.nextval), 9, '0'), ?, ?, ?, ?, ?, ?,?)";

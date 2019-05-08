@@ -14,7 +14,7 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "TESTDB";
+	String userid = "CA107G3";
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 

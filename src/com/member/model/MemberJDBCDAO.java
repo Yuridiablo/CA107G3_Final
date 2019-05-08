@@ -12,7 +12,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 	final static String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-	final static String USER = "TESTDB";
+	final static String USER = "CA107G3";
 	final static String PASSWORD = "123456";
 
 	// SQL

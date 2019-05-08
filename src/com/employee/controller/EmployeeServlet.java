@@ -459,6 +459,7 @@ public class EmployeeServlet extends HttpServlet {
 			try {
 				System.out.println("==================================");
 				String emp_acc = req.getParameter("emp_acc");
+				
 				String mem_accountReg = "^[0-9a-zA-z]{6,10}$";
 				if (emp_acc == null || (emp_acc.trim()).length() == 0) {
 					errorMsgs.add("請輸入帳號");
@@ -501,18 +502,20 @@ public class EmployeeServlet extends HttpServlet {
 				if (!emp_pwd.equals(emp_pwdConfirm)) {
 					errorMsgs.add("密碼錯誤");
 				}
+			
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/employeeScreen.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
+	
 				Feature_detailService feaSvc = new Feature_detailService();
 				List<Feature_detailVO> list = feaSvc.getAllFeature_detailByEmpno(employeeVO.getEmp_no());
 				HttpSession session = req.getSession();
 				session.setAttribute("account", req.getParameter("emp_acc"));
 				System.out.println(session.getAttribute("account"));
 				session.setAttribute("employeeVO", employeeVO);
-				
+			
 				session.setAttribute("featureList", list);
 				session.removeAttribute("reLogin");
 				String url = "/back-end/employeeScreen.jsp";
