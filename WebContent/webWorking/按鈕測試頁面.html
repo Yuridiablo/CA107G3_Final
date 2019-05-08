@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+   <script src="js/jquery-3.3.1.min.js"></script>
+   <script src="js/popper.min.js"></script>
+
+  <style type="text/css">
+    
+* {
+  box-sizing: border-box;
+}
+
+html,body {
+  font-size: 12px;
+}
+
+h1 {
+  margin: 10px 0 0;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+input {
+  border: 1px solid #ccc;
+  font-size: 12px;
+  height: 30px;
+  padding: 4px 8px;
+  position: absolute;
+  width: 50%;
+}
+input:focus {
+  outline: none;
+}
+
+button {
+  text-align: center;
+}
+button:focus {
+  outline: none;
+}
+button.btn-search, button.btn-reset {
+  background: #FFFF00;
+  border: none;
+  height: 30px;
+  font-size: 12px;
+  padding: 4px;
+  position: absolute;
+  width: 30px;
+}
+
+.sample {
+  display: flex;
+  height: 50px;
+  margin: 0 8%;
+  position: relative;
+  width: 34%;
+}
+.sample.one input{
+  border-radius: 15px;
+  right: 0;
+  transition: all 1.5s linear;
+  width: 50%;
+}
+.sample.one input:focus{
+  width: 100%;
+}
+.sample.one input:focus ~ button.btn-search{
+  background: #FFAA00;
+  color: #fff;
+}
+.sample.one input:focus ~ button.btn-reset{
+  right: -22px;
+}
+.sample.one button{
+  transition: all 1s ease-in-out;
+}
+.sample.one button.btn-search{
+  background: #ccc;
+  border-radius: 50%;
+  height: 26px;
+  right: 2px;
+  top: 2px;
+  transition: all 1s ease-in-out;
+  width: 26px;
+}
+
+
+
+
+
+  </style>
+</head>
+
+<body>
+
+
+<h1>CSS Animated Search Boxes</h1>
+<p>(with occasional help from javascript to assign focus)</p>
+<p>buttons don't actually function.  all animations are triggered on the focus state of the input.</p>
+
+
+<div class="sample one">
+  <input type="text" name="search" placeholder="search">
+  <button type="submit" class="btn btn-search fa fa-search"></button>
+</div>
+
+
+
+  
+</body>
+</html>

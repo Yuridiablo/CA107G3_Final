@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>桌位管理_列表</title>
+    <!-- Side Nav -->
+    <style type="text/css">
+    #sidenavOverlay {
+        display: none;
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+
+        z-index: 998;
+
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    #sidenavOverlay.active {
+        display: block;
+    }
+
+
+    #sidenav {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+
+        width: 280px;
+
+        left: -280px;
+
+        z-index: 999;
+        background: #fff;
+        color: #000;
+    }
+
+
+
+    .fullbar {
+        animation-name: full;
+        animation-duration: 0.5s;
+        animation-fill-mode: both;
+    }
+
+    .invibar {
+        animation-name: invi;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+
+
+    @keyframes full {
+        from {
+            left: -280px;
+        }
+
+        to {
+            left: 0px;
+        }
+    }
+
+    @keyframes invi {
+        from {
+            left: 0px;
+        }
+
+        to {
+            left: -280px;
+        }
+    }
+
+    /*.side-nav__section-title {
+            color: #202124;
+            display: block;
+            font-size: 18px;
+            padding-bottom: 12px;
+            padding-left: 24px;
+            padding-top: 40px;
+        }       */
+    </style>
+</head>
+<!-- ============================================================================= -->
+
+<body style="background-color: gray;">
+    <!-- Navbar -->
+    <nav class="navbar  bg-dark navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnSidenav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <span class="navbar-brand">Seek Food Table</span>
+    </nav>
+    <!-- Side Nav -->
+    <div id="sidenavOverlay"></div>
+    <nav class="nav navbar-nav bg-dark" id="sidenav">
+        <a class="nav-link text-white p-3" href="#">基本資料</a>
+        <a class="nav-link text-white p-3" href="#">訂位管理</a>
+        <a class="nav-link text-white p-3" href="#">菜單管理</a>
+        <a class="nav-link text-white p-3" href="#">帳戶管理</a>
+        <a class="nav-link text-white p-3" href="#">資訊管理</a>
+        <a class="nav-link text-white p-3" href="#">帳戶管理</a>
+        <a class="nav-link text-white p-3" href="#">桌況設定</a>
+        <a class="nav-link text-white p-3" href="#">回應管理</a>
+        <a class="nav-link text-white p-3" href="#">訂位者驗證</a>
+        <a class="nav-link text-white p-3" href="#">候位者驗證</a>
+    </nav>
+    <div class="container-fluid">
+        <div class="row justify-content-around p-3">
+            <!-- Create Tables -->
+            <div class="col-3 bg-light">
+                <form action="">
+                    <legend>新增桌位</legend>
+                    <!-- Table Size -->
+                    <div class="form-group">
+                        <label for="fciTblSize">人數</label>
+                        <br>
+                        <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" id="fciTblSize">
+                            <label class="btn btn-secondary active form-control">
+                                <input type="radio" name="tblSize" id="tblSize1" autocomplete="off" checked> 2
+                            </label>
+                            <label class="btn btn-secondary form-control">
+                                <input type="radio" name="tblSize" id="tblSize2" autocomplete="off"> 4
+                            </label>
+                            <label class="btn btn-secondary form-control">
+                                <input type="radio" name="tblSize" id="tblSize3" autocomplete="off"> 6
+                            </label>
+                            <label class="btn btn-secondary form-control">
+                                <input type="radio" name="tblSize" id="tblSize4" autocomplete="off"> 8
+                            </label>
+                            <label class="btn btn-secondary form-control">
+                                <input type="radio" name="tblSize" id="tblSize5" autocomplete="off"> 10
+                            </label>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Number of Tables -->
+                    <div class="form-group">
+                        <label for="fgiTblNum">張數</label>
+                        <input type="number" value="1" min="1" max="100" step="1" required id="fgiTblNum" />
+                    </div>
+                    <br>
+                    <!-- Table Name / Prefix -->
+                    <div class="form-group">
+                        <label for="fciTblName">名稱</label>
+                        <input type="text" class="form-control" id="fciTblName" />
+                    </div>
+                    <br>
+                    <!-- Create Tables -->
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary w-100" id="btnCreateTbl">新增</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Table List -->
+            <div class="col-6">
+                <table class="table table-hover table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">桌位名稱</th>
+                            <th scope="col">人數</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>A1</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>A2</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>B1</td>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Edit Tables -->
+            <div class="col-3 bg-light">
+                <form>
+                    <legend>編輯桌位</legend>
+                    <!-- Table Name / Prefix -->
+                    <div class="form-group">
+                        <label for="fciTblName">名稱</label>
+                        <input type="text" class="form-control" id="fciTblName" />
+                    </div>
+                    <br>
+                    <!-- Table Size -->
+                    <div class="form-group">
+                        <label for="fciTblSize">人數</label>
+                        <br>
+                        <div class="btn-group btn-group-toggle w-100" data-toggle="buttons" id="fciTblSize">
+                            <label class="btn btn-secondary active form-control">
+                                <input type="radio" name="tblSize" id="tblSize1" autocomplete="off" checked> 2
+                            </label>
+                            <label class="btn btn-secondary form-control">
+                                <input type="radio" name="tblSize" id="tblSize2" autocomplete="off"> 4
+                            </label>
+                            <label class="btn btn-secondary form-control">
+                                <input type="radio" name="tblSize" id="tblSize3" autocomplete="off"> 6
+                            </label>
+                            <label class="btn btn-secondary form-control">
+                                <input type="radio" name="tblSize" id="tblSize4" autocomplete="off"> 8
+                            </label>
+                            <label class="btn btn-secondary form-control">
+                                <input type="radio" name="tblSize" id="tblSize5" autocomplete="off"> 10
+                            </label>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Update Tables -->
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary w-100" id="btnUpdTbl">修改</button>
+                    </div>
+                    <!-- Delete Tables -->
+                    <div class="form-group">
+                        <button type="button" class="btn btn-secondary w-100" id="btnDelTbl">刪除</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Input type=number -->
+    <script src="bootstrap-input-spinner.js"></script>
+    <script>
+    $("input[type='number']").inputSpinner()
+    </script>
+    <!-- Side Nav -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#btnSidenav').on('click', function(e) {
+            $('#sidenav').removeClass('invibar');
+            $('#sidenavOverlay').addClass('active');
+            $('#sidenav').addClass('fullbar');
+        });
+
+        jQuery('#sidenavOverlay').on('click', function() {
+            $('#sidenavOverlay').removeClass('active');
+            $('#sidenav').removeClass('fullbar');
+            $('#sidenav').addClass('invibar');
+        });
+    });
+    </script>
+</body>
+
+</html>
