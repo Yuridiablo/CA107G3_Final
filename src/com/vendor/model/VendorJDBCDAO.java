@@ -21,6 +21,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 //	private static final String UPDATE = "UPDATE VENDOR SET V_PWD = ?, V_TEL = ?, V_N_CODE = ?, V_AD_CODE = ?, V_ADDRESS1 = ?, V_ADDRESS2 = ?, V_ADDRESS3 = ?, V_WALLET = ?, V_NAME = ?, V_START_TIME = ?, V_END_TIME = ?, V_DAY = ?, V_TURN_TIME = ?, V_STATUS = ? WHERE V_ACCOUNT=?";
 	private static final String UPDATE = "UPDATE VENDOR SET v_type = ?, v_start_time = ?, v_end_time = ?, v_day = ?, v_tables = ?, v_text = ? WHERE vendor_no=?";
 	private static final String UPDATE_STATU = "UPDATE VENDOR SET v_status = ? WHERE vendor_no=?";
+	private static final String UPDATE_WALLET = "UPDATE VENDOR SET v_wallet = ? WHERE vendor_no=?";
 	private static final String UPDATE_PIC = "UPDATE VENDOR SET v_pic = ? WHERE vendor_no=?";
 	private static final String UPDATE_AD = "UPDATE VENDOR SET v_ad = ? WHERE vendor_no=?";
 	private static final String DELETE = "DELETE FROM Vendor WHERE vendor_no =?";
@@ -520,7 +521,6 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
-		System.out.println(vVO.getV_status());
 		
 		try {
 			Class.forName(DRIVER);
@@ -555,7 +555,48 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		}
 		
 	}
+	
+	//修改錢包餘額
+	public void upWallet(VendorVO vVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
 
+		
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(UPDATE_WALLET);
+			
+
+			pstmt.setString(1, vVO.getV_wallet());
+			pstmt.setString(2, vVO.getVendor_no());
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException se) {
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
 	@Override
 	public void detail(VendorVO vendorVO) {
 		// TODO Auto-generated method stub

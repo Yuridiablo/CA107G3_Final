@@ -89,4 +89,12 @@ public class VendorService {
 		
 		dao.upStatus(vVO);
 	}
+	
+	public void upWallet(String v_wallet,String vendor_no) {
+		VendorVO vVO = new VendorVO();
+		vVO.setV_wallet(v_wallet);;
+		vVO.setVendor_no(vendor_no);
+		
+		dao.upWallet(vVO);
+	}
 }

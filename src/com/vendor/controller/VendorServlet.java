@@ -523,7 +523,10 @@ public class VendorServlet extends HttpServlet {
 				
 				HttpSession se = req.getSession();
 				VendorVO vVO = (VendorVO)se.getAttribute("vVO");
+				VendorService vSvc = new VendorService();
 				String vendor_no = vVO.getVendor_no();
+				vVO =vSvc.findByPK(vendor_no);
+				
 				String xxx = "good";
 				try {
 					/*************************** 1.接收請求參數 ****************************************/
@@ -541,6 +544,7 @@ public class VendorServlet extends HttpServlet {
 					}
 					
 					req.setAttribute("rtlVO3", rtlVO3);
+					se.setAttribute("vVO", vVO);
 					System.out.println(rtlVO3.getV_wallet());					
 					/*************************** 2.開始查詢資料 ****************************************/
 			

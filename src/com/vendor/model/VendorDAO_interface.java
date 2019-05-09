@@ -21,8 +21,11 @@ public interface VendorDAO_interface {
 	//新增詳情
 	public void detail(VendorVO vendorVO);
 	
-	//修改審核狀態碼
+	//修改審核狀態碼 (OK)
 	public void upStatus(VendorVO vendorVO);
+
+	//更改錢包餘額
+	public void upWallet(VendorVO vendorVO);
 	
 	//修改開放訂位狀態
 	public void waitOnOff(VendorVO vendorVO);
