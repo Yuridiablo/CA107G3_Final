@@ -118,7 +118,7 @@ to {
 		}
 		 #chatSpace{
 			width: 300px;
-			height: 380px;
+			height: 350px;
 			border-radius:10px;
 			border: 2px #fff solid;
 			background-color: #fff;
@@ -134,7 +134,7 @@ to {
 		}
 		 #chatList{
 			width: 300px;
-			height: 380px;
+			height: 350px;
 			border-radius:10px;
 			border: 2px #fff solid;
 			background-color: #fff;
@@ -152,26 +152,26 @@ to {
 			background-color: orange;
 		}
 		#chatTopic{
-			border-bottom: 2px #000 solid;
+			border-bottom: 2px #DCDCDC solid;
 			height:60px;
 			margin-bottom:10px;
 		}
 		#chatBody{
-			border-bottom: 2px #000 solid;
+/* 			border-bottom: 2px #000 solid; */
 			height:220px;
 			resize: none;
     		box-sizing: border-box;
    			overflow: auto;
 		}
 		#chatInput{
-			border-bottom: 2px #000 solid;
+/* 			border-bottom: 2px #000 solid; */
 			height:50px;
 			overflow:hidden;
 			resize:none;
 		}
 		#chatPannel{
-			border: 2px #000 solid;
- 			height:25px; 
+/* 			border: 2px #000 solid; */
+ 			height:0px; 
 		}
 		#message{
 			color: #000;
@@ -192,6 +192,9 @@ to {
 		.chatInner:hover{
 			background-color: orange;
 			cursor: pointer;
+		}
+		#closeBut_Out{
+			height:20px;
 		}
 
 
@@ -357,19 +360,20 @@ to {
 		}
 	%>
 	
-	
-
-	
-	
 	<div id="service" style="display:none">客服訊息</div>
 	
 	<div class="" id="chatSpace" style="display:none">
 		<div class="row">
 			<div id="chatTopic" class="col-2">
-				<img class="img-group" src="">
+				<img class="img-group" id="img-group-inner" src="">
 			</div>
-			<div id="chatTopic" class="col-10 text-left">
+			<div id="chatTopic" class="col-8 text-left">
 				<p id="chatWith" style="color:black;font-weight:bold"></p>
+			</div>
+			<div id="chatTopic" class="col-2">
+				<button type="button" class="close" id="closeBut" aria-label="Close">
+  					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 		</div>
 			<div id="chatBody" class="col-12">
@@ -383,38 +387,20 @@ to {
 	</div>
 	
 	<div class="" id="chatList" style="display:none">
-<!-- 		<div class="row"> -->
-<!-- 			<div id="chatTopic" class="col-2"> -->
-<%-- 				<img class="img-group" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'"> --%>
-<!-- 			</div> -->
-<!-- 			<div id="chatTopic" class="col-10 text-left"> -->
-<%-- 				<p style="color:black;font-weight:bold">${memberVO.mem_name}</p> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 				<div class="row"> -->
-<!-- 			<div id="chatTopic" class="col-2"> -->
-<%-- 				<img class="img-group" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'"> --%>
-<!-- 			</div> -->
-<!-- 			<div id="chatTopic" class="col-10 text-left"> -->
-<%-- 				<p style="color:black;font-weight:bold">${memberVO.mem_name}</p> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 				<div class="row"> -->
-<!-- 			<div id="chatTopic" class="col-2"> -->
-<%-- 				<img class="img-group" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'"> --%>
-<!-- 			</div> -->
-<!-- 			<div id="chatTopic" class="col-10 text-left"> -->
-<%-- 				<p style="color:black;font-weight:bold">${memberVO.mem_name}</p> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
+		<div class="row justify-content-end">
+			<div id="closeBut_Out" class="col-2">
+				<button type="button" class="close" id="closeBut" aria-label="Close">
+  					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
 	</div>
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -464,15 +450,25 @@ to {
 			}
     		$("#service").on('click',function(){
     			$("#service").css('display','none');
-    			$("#chatSpace").css('display','');
     			$("#chatList").css('display','');
     		});
     		
     		$('#chatInput').keydown(function(){
-    			if(event.keyCode == 13&&$('#chatInput').val()!=""){
-    				sendMessage();
+    			var input = $('#chatInput').val().trim();
+    			if(event.keyCode == 13&&input!=""){
+        			sendMessage();
     			}
     		})
+    		
+    		$("#closeBut").on('click',function(){
+    			$("#chatSpace").css('display','none');
+    			$("#chatList").css('display','');
+   			 });
+    		
+    		$("#closeBut_Out").on('click',function(){
+    			$("#chatList").css('display','none');
+    			$("#service").css('display','');
+   			 });
     		
 
 
@@ -506,16 +502,21 @@ to {
 		};
 
 		webSocket.onmessage = function(event) {
-	        alert("onMsg---");
+			
 	        var jsonObj = JSON.parse(event.data);
+	        var type = jsonObj.type;
+// 	        if(type==="history"){
+// 	        	var hisMsg = jsonObj.message;
+// 	        	console.log(hisMsg);
+// 	        	webSocket.send(JSON.stringify(hisMsg));
+// 	        	return;
+// 	        }
 	        var mem_no = jsonObj.sender;
 	        var mem_name= jsonObj.name;
-			console.log(mem_no);
-	        alert('sender from member = '+ mem_no);
-	        alert('sender from member = '+ mem_name);
-	        if(!memberMap.has(mem_no)){
+	        if(!memberMap.has(mem_no)&&mem_no!="employee"){
+	        	alert("build");
 	        	memberMap.set(mem_no,mem_name);
-	        	$("#chatList").append($('<div/>').addClass('row').addClass('chatInner').attr('id',mem_no).append($('<div/>').attr('id','chatTopic').addClass('col-2').append($('<img>').addClass('img-group').attr('src',"<%= request.getContextPath() %>/tools/OutImg.do?mem_no="+'\''+mem_no+'\'')
+	        	$("#chatList").append($('<div/>').addClass('row').addClass('chatInner').attr('id',mem_no).append($('<div/>').attr('id','chatTopic').addClass('col-2').append($('<img>').addClass('img-group').attr('src',"<%= request.getContextPath() %>/tool/OutImg.do?mem_no="+'\''+mem_no+'\'')
 	        	)).append($('<div/>').attr('id','chatTopic').addClass('col-10').addClass('text-left').append($('<p/>').css('color','black').css('font-weight','bold').html('來自'+mem_name+'的訊息')))
 	        			);
 	        }
@@ -523,17 +524,17 @@ to {
 	        
 //  ======================以下解決訊息顯示左右邊分邊問題===============================
 	
-	        if(jsonObj.sender==='${employeeVO.emp_no}'){
-	        	alert("yesyesyes");
+	        if(jsonObj.sender==='employee'){
 	        	 $("#chatBody").append(
 		 	        		$('<div/>').addClass('row justify-content-end message_container').append($('<div/>').append($('<p/>').attr('id','message').html(jsonObj.message)))
 		 	        		);
 	        }else{
-	        	alert("nononnonononno");
 	        	 $("#chatBody").append(
 	 	        		$('<div/>').addClass('row justify-content-start message_container').append($('<div/>').append($('<p/>').attr('id','message').html(jsonObj.message)))
 	 	        		);
 	        }
+	        
+	        $("#chatBody").scrollTop($("#chatBody")[0].scrollHeight);
 		};
 
 		webSocket.onclose = function(event) {
@@ -541,16 +542,19 @@ to {
 		};
 	}
 	
-	function sendMessage() {
-
-	    
-	    var inputMessage = document.getElementById("chatInput");
-	    var message = inputMessage.value.trim();
-	    
-		var jsonObj = {"type" : "send","sender" : "${employeeVO.emp_no}","receiver" : receiver,"message" : message,"name" : "${employeeVO.emp_name}"};
-	    webSocket.send(JSON.stringify(jsonObj));
-	    inputMessage.value = "";
-	    inputMessage.focus();
+	function sendMessage(hisreceiver) {
+		if(hisreceiver!=null){
+			$(".message_container").remove();
+			var jsonObj = {"type" : "history","sender" : "employee","receiver" : hisreceiver,"message" : "","name" : "${employeeVO.emp_name}"};
+			webSocket.send(JSON.stringify(jsonObj));
+		}else{
+			var inputMessage = document.getElementById("chatInput");
+		    var message = inputMessage.value.trim();
+			var jsonObj = {"type" : "send","sender" : "employee","receiver" : receiver,"message" : message,"name" : "${employeeVO.emp_name}"};
+		    webSocket.send(JSON.stringify(jsonObj));
+		    inputMessage.value = "";
+		    inputMessage.focus();
+		}
 	    
 	}
 
@@ -562,9 +566,10 @@ to {
 	$("#chatList").on('click','.chatInner',function(){
 		receiver = $(this).attr('id');
 		var chatWith= memberMap.get(receiver);
-		$(".img-group").attr('src',"<%= request.getContextPath() %>/tools/OutImg.do?mem_no="+'\''+receiver+'\'');
+		sendMessage($(this).attr('id'));
+		$("#img-group-inner").attr('src',"<%= request.getContextPath() %>/tool/OutImg.do?mem_no="+'\''+receiver+'\'');
 		$("#chatWith").html(chatWith);
-		$(".chatSpace").css('display','');
+		$("#chatSpace").css('display','');
 		$("#chatList").css('display','none');
 	});
 

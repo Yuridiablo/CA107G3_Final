@@ -41,7 +41,7 @@
 		}
 		 #chatSpace{
 			width: 300px;
-			height: 380px;
+			height: 350px;
 			border-radius:10px;
 			border: 2px #fff solid;
 			background-color: #fff;
@@ -59,26 +59,23 @@
 			background-color: orange;
 		}
 		#chatTopic{
-			border-bottom: 2px #000 solid;
+			border-bottom: 2px #DCDCDC solid;
 			height:60px;
 			margin-bottom:10px;
 		}
 		#chatBody{
-			border-bottom: 2px #000 solid;
 			height:220px;
 			resize: none;
     		box-sizing: border-box;
    			overflow: auto;
 		}
 		#chatInput{
-			border-bottom: 2px #000 solid;
 			height:50px;
 			overflow:hidden;
 			resize:none;
 		}
 		#chatPannel{
-			border: 2px #000 solid;
- 			height:25px; 
+ 			height:0px; 
 		}
 		#message{
 			color: #000;
@@ -188,16 +185,21 @@
 	<div class="container" id="chatSpace" style="display:none">
 		<div class="row">
 			<div id="chatTopic" class="col-2">
-				<img class="img-group" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'">
+				<img class="img-group" src="<%= request.getContextPath() %>/tool/OutImg.do?mem_no='${memberVO.mem_no}'">
 			</div>
-			<div id="chatTopic" class="col-10 text-left">
+			<div id="chatTopic" class="col-8 text-left">
 				<p style="color:black;font-weight:bold">${memberVO.mem_name}</p>
+			</div>
+			<div id="chatTopic" class="col-2">
+				<button type="button" class="close" id="closeBut" aria-label="Close">
+  					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
 		</div>
 			<div id="chatBody" class="col-12">
 			</div>
 		<div class="row">
-			<textarea id="chatInput" class="col" placeholder="訊息" onkeydown="if (event.keyCode == 13) sendMessage();" ></textarea>
+			<textarea id="chatInput" class="col" placeholder="訊息"></textarea>
 		</div>
 		<div class="row">
 			<div id="chatPannel" class="col"></div>
@@ -276,6 +278,12 @@
     			$("#service").css('display','none');
     			$("#chatSpace").css('display','');
     		})
+    		$('#chatInput').keydown(function(){
+    			var input = $('#chatInput').val().trim();
+    			if(event.keyCode == 13&&input!=""){
+        			sendMessage();
+    			}
+    		})
     	});
     </script>
 
@@ -338,7 +346,9 @@
 	        	 $("#chatBody").append(
 	 	        		$('<div/>').addClass('row justify-content-start message_container').append($('<div/>').append($('<p/>').attr('id','message').html(jsonObj.message)))
 	 	        		);
+	        	 
 	        }
+	        $("#chatBody").scrollTop($("#chatBody")[0].scrollHeight);
 		};
 
 		webSocket.onclose = function(event) {
@@ -365,7 +375,10 @@
 		webSocket.close();
 	}
 
-    
+    $("#closeBut").on('click',function(){
+    	$("#chatSpace").css('display','none');
+    	$("#service").css('display','');
+    });
 </script>
 <!--   ======================================webSocket===========================================   -->
     

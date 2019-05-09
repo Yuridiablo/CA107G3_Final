@@ -18,10 +18,8 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
 
-
-import com.websockis.model.*;
-
 import tools.JedisHandleMessage;
+import com.websockis.model.*;
 
 @ServerEndpoint("/FriendWS/{userName}")
 public class FriendWS {
@@ -60,11 +58,20 @@ public class FriendWS {
 		System.out.println("name="+name);
 		
 		if ("history".equals(chatMessage.getType())) {
+			System.out.println("im historyim historyim historyim historyim historyim history");
 			List<String> historyData = JedisHandleMessage.getHistoryMsg(sender, receiver);
-			String historyMsg = gson.toJson(historyData);
-			ChatMessage cmHistory = new ChatMessage("history", sender, receiver, historyMsg, name);
 			if (userSession != null && userSession.isOpen()) {
-				userSession.getAsyncRemote().sendText(gson.toJson(cmHistory));
+				for(int i=0;i<historyData.size();i++) {
+					String historyMsg = historyData.get(i);
+					synchronized(userSession) {
+						try {
+							userSession.getBasicRemote().sendText(historyMsg);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
 				return;
 			}
 		}
@@ -104,9 +111,9 @@ public class FriendWS {
 			State stateMessage = new State("close", userNameClose, userNames);
 			String stateMessageJson = gson.toJson(stateMessage);
 			Collection<Session> sessions = sessionsMap.values();
-			for (Session session : sessions) {
-				session.getAsyncRemote().sendText(stateMessageJson);
-			}
+//			for (Session session : sessions) {
+//				session.getAsyncRemote().sendText(stateMessageJson);
+//			}
 		}
 
 		String text = String.format("session ID = %s, disconnected; close code = %d%nusers: %s", userSession.getId(),
