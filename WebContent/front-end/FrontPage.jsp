@@ -98,8 +98,8 @@
                                         </div>
                                     </li>
                                     <li><a href="#" class="btn btn-outline-light top-btn" id="loginButton"
-											data-toggle="modal" data-target="#loginBar"><span class="icon-login"></span>登入</a></li>
-                                    <li><a href="#" class="btn btn-outline-light top-btn"><span class="icon-logout"></span>登出</a></li>
+											data-toggle="modal" data-target="#loginBar"><span id="icon-login" class="icon-login"></span>登入</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/member/member.do?action=logout" class="btn btn-outline-light top-btn" id="logoutButton"><span id="icon-logout" class="icon-logout"></span>登出</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -487,9 +487,28 @@
         // 100 = The point you would like to fade the nav in.
         $(".navbar").css("box-shadow", "none");
         
-
     });
     
+    </script>
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	
+    	$("#logoutButton").hide();
+    	$("#navbarDropdownMenuLink2").hide();
+    	
+    	if(${account!=null}){
+    		alert("已成功登入");
+    		alert("${errorMsgs}");
+        	$("#loginButton").hide();
+        	$("#logoutButton").show();
+        	$("#navbarDropdownMenuLink2").show();
+    	}
+    	
+    	
+    });
+   	
+   
     </script>
 </body>
 

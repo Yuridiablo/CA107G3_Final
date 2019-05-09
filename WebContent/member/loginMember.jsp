@@ -180,8 +180,9 @@
 					}
 
 					$("#fillmsg").on('click', function() {
-						$("#mem_account").val("c123456");
-						$("#mem_pwd").val("c123456");
+						$("#mem_account").val("qq1234");
+						$("#mem_pwd").val("aa1234");
+						$("#inputconfirm").val(vstring);
 					})
 
 				});

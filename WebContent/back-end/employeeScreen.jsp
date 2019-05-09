@@ -271,11 +271,11 @@ to {
 							<div class="row justify-content-center">
 								<div class="col-10">
 									<div class="form-group">
-										<input type="text" name="emp_acc" id="mem_account"
+										<input type="text" name="emp_acc" id="emp_acc"
 											class="form-control" placeholder="請輸入帳號" required>
 									</div>
 									<div class="form-group">
-										<input type="password" name="emp_pwd" id="mem_pwd"
+										<input type="password" name="emp_pwd" id="emp_pwd"
 											class="form-control" id="exampleInputPassword1"
 											placeholder="請輸入密碼" required> <small
 											id="passwordHelp" class="form-text text-muted">英文字母需區分大小寫</small>
@@ -468,7 +468,10 @@ to {
     			$("#service").css('display','');
    			 });
     		
-
+    		$("#fillmsg").on('click',function(){
+    			$("#emp_acc").val('Jimmy123');
+    			$("#emp_pwd").val('c123456');
+    		});
 
 			<c:forEach var="fealist" items="${featureList}">
 				$("#${fealist.fea_no}").removeClass('disp');

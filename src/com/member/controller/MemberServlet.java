@@ -23,6 +23,7 @@ import javax.servlet.http.Part;
 import org.json.JSONObject;
 
 import com.employee.model.EmployeeService;
+import com.google.gson.Gson;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
 import com.member_wallet_list.model.Member_Wallet_ListService;
@@ -220,7 +221,7 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				HttpSession session = req.getSession();
-				session.setAttribute("mem_account", req.getParameter("mem_account"));
+				session.setAttribute("account", req.getParameter("mem_account"));
 				session.setAttribute("memberVO", memberVO);
 
 				String url = "/front-end/FrontPage.jsp";
@@ -229,6 +230,23 @@ public class MemberServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/member/loginMember.jsp");
+				failureView.forward(req, res);
+
+			}
+		}
+		if ("logout".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				HttpSession session = req.getSession();
+				session.removeAttribute("account");
+				session.removeAttribute("memberVO");
+				String url = "/front-end/FrontPage.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
 
 			}
@@ -381,6 +399,7 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("請輸入會員帳號或暱稱");
 				}
 				if (!errorMsgs.isEmpty()) {
+					
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
