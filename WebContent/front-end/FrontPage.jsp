@@ -125,43 +125,60 @@
                         </div>
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-5 mysearch">
-                                <form class="form-wrap mt-4" action="<%= request.getContextPath() %>/member/member.do">
+                              
                                     <!-- 搜尋bar nav是上方換頁 按鈕有append的z-index是2 注意 -->
                                     <nav>
                                         <div class="nav nav-tabs nav-search" id="nav-tab" role="tablist">
                                             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">搜餐廳</a>
-                                            <a class="nav-item nav-link" id="nav-date-tab" data-toggle="tab" href="#nav-date" role="tab" aria-controls="nav-date" aria-selected="true">搜日期</a>
-                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">搜會員</a>
+                                            <a class="nav-item nav-link" id="nav-date-tab" data-toggle="tab" href="#nav-date" role="tab" aria-controls="nav-date" aria-selected="true">搜會員</a>
+                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">搜文章</a>
                                         </div>
                                     </nav>
                                     <div class="tab-content" id="nav-tabContent">
                                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        
+                                        
+                  	   <form  METHOD="post" ACTION="<%=request.getContextPath()%>/Vendor/Vendor.do" >                    
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="輸入餐廳名稱.." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                                <input type="text" class="form-control" placeholder="輸入餐廳名稱.." aria-label="Recipient's username" aria-describedby="button-addon2" name="v_name" id="text_vendor">
                                                 <div class="input-group-append">
+                                                <input type="hidden" name="scoreSelect" value="0">
+                                              		 <input type="hidden" name="action" value="search">
                                                     <button class="btn btn-warning" type="submit" id="button-addon2"><span class="icon-magnifier search-icon"></span>搜餐廳GO</button>
                                                 </div>
                                             </div>
+                                            
+                      </form>                 
+                                            
                                         </div>
                                         <div class="tab-pane fade show" id="nav-date" role="tabpanel" aria-labelledby="nav-date-tab">
+                                        
+                                        
+                         <form class="form-wrap mt-4" action="<%= request.getContextPath() %>/member/member.do">
+                                        
                                             <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="輸入日期.." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                                <input type="text" class="form-control" placeholder="輸入會員暱稱或帳號.." aria-label="Recipient's username" aria-describedby="button-addon2" name="mem_account_nickname">
                                                 <div class="input-group-append">
-                                                    <button class="btn btn-success" type="submit" id="button-addon4"><span class="icon-magnifier search-icon"></span>搜日期GO</button>
+                                                <input type="hidden" name="action" value="selectOneMember" >
+                                                    <button class="btn btn-success" type="submit" id="button-addon4"><span class="icon-magnifier search-icon"></span>找會員GO</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                       
+                                        
+                                        
+                                        </form>
+                                         </div>
                                         <div class="tab-pane fade show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                             <div class="input-group">
-                                                <input type="text" name="mem_account_nickname" class="form-control" placeholder="輸入會員暱稱或帳號.." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                                <input type="text"  class="form-control" placeholder="輸入文章標題或內文.." aria-label="Recipient's username" aria-describedby="button-addon2">
                                                 <div class="input-group-append">
-                                                	<input type="hidden" name="action" value="selectOneMember" >
-                                                    <button class="btn btn-primary" type="submit" id="button-addon3"><span class="icon-magnifier search-icon"></span>找會員GO</button>
+                                                	
+                                                    <button class="btn btn-primary" type="submit" id="button-addon3"><span class="icon-magnifier search-icon"></span>找文章GO</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                             
                             </div>
                             <!-- 中間的廢物間隔 -->
                             <div class="col-md-1"></div>
