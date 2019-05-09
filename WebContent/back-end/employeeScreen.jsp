@@ -157,20 +157,18 @@ to {
 			margin-bottom:10px;
 		}
 		#chatBody{
-/* 			border-bottom: 2px #000 solid; */
 			height:220px;
 			resize: none;
     		box-sizing: border-box;
    			overflow: auto;
 		}
 		#chatInput{
-/* 			border-bottom: 2px #000 solid; */
-			height:50px;
-			overflow:hidden;
+ 			height:50px; 
+			overflow:auto;
 			resize:none;
+			line-height: 1.5;
 		}
 		#chatPannel{
-/* 			border: 2px #000 solid; */
  			height:0px; 
 		}
 		#message{
@@ -514,7 +512,7 @@ to {
 	        var mem_no = jsonObj.sender;
 	        var mem_name= jsonObj.name;
 	        if(!memberMap.has(mem_no)&&mem_no!="employee"){
-	        	alert("build");
+	        	alert("有訊息,請盡速回復");
 	        	memberMap.set(mem_no,mem_name);
 	        	$("#chatList").append($('<div/>').addClass('row').addClass('chatInner').attr('id',mem_no).append($('<div/>').attr('id','chatTopic').addClass('col-2').append($('<img>').addClass('img-group').attr('src',"<%= request.getContextPath() %>/tools/OutImg.do?mem_no="+'\''+mem_no+'\'')
 	        	)).append($('<div/>').attr('id','chatTopic').addClass('col-10').addClass('text-left').append($('<p/>').css('color','black').css('font-weight','bold').html('來自'+mem_name+'的訊息')))
