@@ -123,6 +123,8 @@ public class EmployeeServlet extends HttpServlet {
 				Feature_detailService feaSvc = new Feature_detailService();
 				String emp_no = employeeVO.getEmp_no();
 				if(emp_permission.equals("3")||emp_permission.equals("2")||emp_permission.equals("1")) {
+					
+					feaSvc.addFeature_detail("F009", emp_no);
 					feaSvc.addFeature_detail("F003", emp_no);
 					feaSvc.addFeature_detail("F004", emp_no);
 					feaSvc.addFeature_detail("F005", emp_no);

@@ -10,6 +10,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-12 table-responsive">
 <h1>新註冊餐廳審核</h1>
 <table class="table table-hover table-dark">
   <thead>
@@ -38,7 +41,9 @@
 </c:forEach>    
   </tbody>
 </table>
-
+       </div>
+        </div>
+    </div>
 
 <!-- <h1>餐廳檢舉審核</h1> 餐廳檢舉(不是我的)  -->
 <!-- <table class="table table-hover table-dark"> -->
@@ -70,7 +75,10 @@
 <%-- </c:forEach>     --%>
 <!--   </tbody> -->
 <!-- </table> -->
-
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 <c:forEach var="vVO" items="${vlistConfirm}" varStatus="status">
 <c:if test="${vVO.v_status == 2}">
 <script>

@@ -624,7 +624,7 @@ public class VendorServlet extends HttpServlet {
 		
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				// 要改成員工主頁面
-				String url = "/Vendor/mainVendor.jsp";
+				String url = "/back-end/employeeScreen.jsp";
 //				res.sendRedirect(url);
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
