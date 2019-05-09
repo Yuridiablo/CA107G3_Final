@@ -8,13 +8,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/MyLib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="C:/MyLib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="C:/MyLib/json-20171018.jar"/>
-	<classpathentry kind="lib" path="C:/MyLib/jedis-2.9.0.jar"/>
-	<classpathentry kind="lib" path="C:/MyLib/gson-2.8.5.jar"/>
-	<classpathentry kind="lib" path="C:/MyLib/commons-pool2-2.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/MyLib/javax.mail.jar"/>
-	<classpathentry kind="lib" path="C:/MyLib/websocket-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

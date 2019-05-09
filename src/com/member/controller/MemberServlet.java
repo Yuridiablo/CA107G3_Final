@@ -171,6 +171,7 @@ public class MemberServlet extends HttpServlet {
 			try {
 				String mem_account = req.getParameter("mem_account");
 				String mem_accountReg = "^[0-9a-zA-z]{6,10}$";
+				System.out.println(mem_account);
 				if (mem_account == null || (mem_account.trim()).length() == 0) {
 					errorMsgs.add("請輸入帳號");
 				} else if (!mem_account.trim().matches(mem_accountReg)) {
@@ -222,7 +223,7 @@ public class MemberServlet extends HttpServlet {
 				session.setAttribute("mem_account", req.getParameter("mem_account"));
 				session.setAttribute("memberVO", memberVO);
 
-				String url = "/webWorking/FrontPage.jsp";
+				String url = "/front-end/FrontPage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 			} catch (Exception e) {
@@ -380,7 +381,7 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("請輸入會員帳號或暱稱");
 				}
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/webWorking/FrontPage.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -398,7 +399,7 @@ public class MemberServlet extends HttpServlet {
 				}
 				
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/webWorking/FrontPage.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -412,7 +413,7 @@ public class MemberServlet extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println("-----------------------錯誤-------------------");
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/webWorking/FrontPage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -429,14 +430,14 @@ public class MemberServlet extends HttpServlet {
 				System.out.println(mem_no);
 				req.setAttribute("myWallet", "myWallet");
 				session.setAttribute("list", list);
-				String url = "/webWorking/motherboard.jsp";
+				String url = "/front-end/motherboard.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				System.out.println("-----------------------錯誤-------------------");
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/webWorking/FrontPage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -462,14 +463,14 @@ public class MemberServlet extends HttpServlet {
 				memberVO = memberSvc.getOneMember(mem_no);
 				session.setAttribute("memberVO", memberVO);
 				session.setAttribute("list", list);
-				String url = "/webWorking/motherboard.jsp";
+				String url = "/front-end/motherboard.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				System.out.println("-----------------------錯誤-------------------");
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/webWorking/FrontPage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
 			}
 		}
