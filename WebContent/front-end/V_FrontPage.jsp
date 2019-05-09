@@ -224,7 +224,7 @@ font-size:30px;
 <%-- 		</c:forEach> --%>
 <!-- 	</ul> -->
 <%-- </c:if> --%>
-    <form method="post" action="Vendor.do" class="needs-validation" novalidate>
+    <form method="post" action="<%= request.getContextPath() %>/Vendor/Vendor.do" class="needs-validation" novalidate>
   
          
                    

@@ -228,7 +228,7 @@ to {
 		<a class="nav-link text-white p-3" href="#">訂位者驗證</a>
 		<a class="nav-link text-white p-3" href="#">候位者驗證</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listComment">測試-提款驗證</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listStatus">測試-審核驗證</a>
+		
 			
 	</nav>
 <h1>include主頁</h1>
