@@ -428,9 +428,9 @@ public class MemberServlet extends HttpServlet {
 				String url = "/member/serchMember.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
 				successView.forward(req, res);
-
+ 
 			} catch (Exception e) {
-				System.out.println("-----------------------錯誤-------------------");
+				System.out.println("-----------------ssss------錯誤-------------------");
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
