@@ -516,7 +516,7 @@ to {
 	        if(!memberMap.has(mem_no)&&mem_no!="employee"){
 	        	alert("build");
 	        	memberMap.set(mem_no,mem_name);
-	        	$("#chatList").append($('<div/>').addClass('row').addClass('chatInner').attr('id',mem_no).append($('<div/>').attr('id','chatTopic').addClass('col-2').append($('<img>').addClass('img-group').attr('src',"<%= request.getContextPath() %>/tool/OutImg.do?mem_no="+'\''+mem_no+'\'')
+	        	$("#chatList").append($('<div/>').addClass('row').addClass('chatInner').attr('id',mem_no).append($('<div/>').attr('id','chatTopic').addClass('col-2').append($('<img>').addClass('img-group').attr('src',"<%= request.getContextPath() %>/tools/OutImg.do?mem_no="+'\''+mem_no+'\'')
 	        	)).append($('<div/>').attr('id','chatTopic').addClass('col-10').addClass('text-left').append($('<p/>').css('color','black').css('font-weight','bold').html('來自'+mem_name+'的訊息')))
 	        			);
 	        }
@@ -567,7 +567,7 @@ to {
 		receiver = $(this).attr('id');
 		var chatWith= memberMap.get(receiver);
 		sendMessage($(this).attr('id'));
-		$("#img-group-inner").attr('src',"<%= request.getContextPath() %>/tool/OutImg.do?mem_no="+'\''+receiver+'\'');
+		$("#img-group-inner").attr('src',"<%= request.getContextPath() %>/tools/OutImg.do?mem_no="+'\''+receiver+'\'');
 		$("#chatWith").html(chatWith);
 		$("#chatSpace").css('display','');
 		$("#chatList").css('display','none');

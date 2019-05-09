@@ -185,7 +185,7 @@
 	<div class="container" id="chatSpace" style="display:none">
 		<div class="row">
 			<div id="chatTopic" class="col-2">
-				<img class="img-group" src="<%= request.getContextPath() %>/tool/OutImg.do?mem_no='${memberVO.mem_no}'">
+				<img class="img-group" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'">
 			</div>
 			<div id="chatTopic" class="col-8 text-left">
 				<p style="color:black;font-weight:bold">${memberVO.mem_name}</p>
