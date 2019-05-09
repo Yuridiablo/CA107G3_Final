@@ -70,9 +70,10 @@
    			overflow: auto;
 		}
 		#chatInput{
-			height:50px;
-			overflow:hidden;
+ 			height:50px; 
+			overflow:auto;
 			resize:none;
+			line-height: 1.5;
 		}
 		#chatPannel{
  			height:0px; 
@@ -284,6 +285,10 @@
         			sendMessage();
     			}
     		})
+    	    $("#closeBut").on('click',function(){
+    	    	$("#chatSpace").css('display','none');
+    	    	$("#service").css('display','');
+    	    });
     	});
     </script>
 
@@ -333,7 +338,8 @@
 		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
-		
+			var history = true;
+			sendMessage(history);
 		};
 
 		webSocket.onmessage = function(event) {
@@ -358,15 +364,19 @@
 	
 	
 	
-	function sendMessage() {
-	    
-	    var inputMessage = document.getElementById("chatInput");
-	    var message = inputMessage.value.trim();
-	    
-	    var jsonObj = {"type" : "send","sender" : "${memberVO.mem_no}","receiver" : "employee", "message" : message,"name" : "${memberVO.mem_name}"};
-	    webSocket.send(JSON.stringify(jsonObj));
-	    inputMessage.value = "";
-	    inputMessage.focus();
+	function sendMessage(hisreceiver) {
+		
+		if(hisreceiver!=null){
+			var jsonObj = {"type" : "history","sender" : "${memberVO.mem_no}","receiver" : "employee", "message" : "","name" : "${memberVO.mem_name}"};
+			webSocket.send(JSON.stringify(jsonObj));
+		}else{
+		    var inputMessage = document.getElementById("chatInput");
+		    var message = inputMessage.value.trim();
+		    var jsonObj = {"type" : "send","sender" : "${memberVO.mem_no}","receiver" : "employee", "message" : message,"name" : "${memberVO.mem_name}"};
+		    webSocket.send(JSON.stringify(jsonObj));
+		    inputMessage.value = "";
+		    inputMessage.focus();
+		}
 	    
 	}
 
@@ -375,10 +385,7 @@
 		webSocket.close();
 	}
 
-    $("#closeBut").on('click',function(){
-    	$("#chatSpace").css('display','none');
-    	$("#service").css('display','');
-    });
+
 </script>
 <!--   ======================================webSocket===========================================   -->
     
