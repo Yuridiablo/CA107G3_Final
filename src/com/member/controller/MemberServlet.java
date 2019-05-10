@@ -430,7 +430,7 @@ public class MemberServlet extends HttpServlet {
 				successView.forward(req, res);
  
 			} catch (Exception e) {
-				System.out.println("-----------------ssss------錯誤-------------------");
+				System.out.println("-----------------ssssss----錯誤-------------------");
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
