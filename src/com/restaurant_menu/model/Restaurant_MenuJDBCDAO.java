@@ -41,6 +41,9 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 			"SELECT * FROM RESTAURANT_MENU where vendor_no = ?";
 	private static final String GET_ALL_STMT = 
 			"SELECT * FROM RESTAURANT_MENU order by menu_no";
+	private static final String GETM_NAME = 
+			"SELECT	 MENU_NAME FROM RESTAURANT_MENU where (case when VENDOR_NO=? then 1 else 0 end+ case when MENU_NO=? then 1 else 0 end)>=1";
+	
 	
 	
 	@Override
@@ -450,7 +453,74 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 		
 		return list;
 	}
+	
+	
+	@Override
+	public List<Restaurant_MenuVO> getm_name(String vendor_no) {
+		List<Restaurant_MenuVO> list = new ArrayList<Restaurant_MenuVO>();
+		Restaurant_MenuVO restaurant_MenuVO = null;
+			System.out.println("come");
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GETM_NAME);
+			pstmt.setString(1, vendor_no);
+			pstmt.setString(2, vendor_no);
+			rs = pstmt.executeQuery();
+	
+			
+			
+			while (rs.next()==true) {
+				restaurant_MenuVO = new Restaurant_MenuVO();
+				restaurant_MenuVO.setMenu_name(rs.getString("Menu_name"));
+			
+			list.add(restaurant_MenuVO); // Store the row in the list
+			System.out.println(list);
+			
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+		
+		
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		Restaurant_MenuJDBCDAO dao = new Restaurant_MenuJDBCDAO();	

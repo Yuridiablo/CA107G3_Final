@@ -17,5 +17,7 @@ public interface Restaurant_MenuDAO_interface {
 	
 	public List<Restaurant_MenuVO> getVendor(String vendor_no);
 	public List<Restaurant_MenuVO> getAll();
+	
+	public List<Restaurant_MenuVO>getm_name(String vendor_no);
 
 }

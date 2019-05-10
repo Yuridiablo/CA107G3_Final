@@ -19,7 +19,7 @@ public class Restaurant_MenuVO implements Serializable{
 	private byte[] menu_pic;
 	private Integer menu_stat;
 	private String menu_text;
-	
+	private  Integer quantity;
 	
 	
 	public Restaurant_MenuVO() {
@@ -69,7 +69,12 @@ public class Restaurant_MenuVO implements Serializable{
 		this.menu_text = menu_text;
 	}
 	
-	
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 
 	
 	

@@ -89,5 +89,8 @@ public class Restaurant_MenuService {
 		return dao.getAll();
 	}
 	
+	public List<Restaurant_MenuVO> getM_name(String vendor_no){
+		return dao.getm_name(vendor_no);
+	}
 	
 }

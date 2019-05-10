@@ -70,4 +70,11 @@ public class OrdService {
 	public List<OrdVO> getAll() {
 		return dao.getAll();
 	}
+	public List<OrdVO> findBymem_no(String mem_no) {
+		return dao.findBymem_no(mem_no);
+	}
+	public List<OrdVO> findByvendor_no(String vendor_no) {
+		return dao.findByvendor_no(vendor_no);
+	}
+	
 }

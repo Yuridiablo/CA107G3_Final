@@ -317,9 +317,9 @@ $("#withdrawal").click(function(){
 	  title: '輸入提款金額',
 	  input: 'range',
 	  inputAttributes: {
-	    min: 10000,
+	    min: 0,
 	    max: '${vVO.v_wallet}',
-	    step: 1000
+	    step: 1
 	  },
 	  inputValue: '${vVO.v_wallet}'
 	}).then(function(inputValue){

@@ -2,6 +2,8 @@ package com.comments.model;
 
 import java.util.List;
 
+
+
 public class CommentsService {
 	private CommentsDAO_interface dao;
 	
@@ -31,7 +33,7 @@ public class CommentsService {
 		commentsVO.setCmnt_status(cmnt_status);
 		dao.update(commentsVO);
 		return commentsVO;
-	} 
+	}
 
 	public void deleteComments(String cmnt_no) {
 		dao.delete(cmnt_no);
@@ -40,12 +42,21 @@ public class CommentsService {
 	public CommentsVO getOneComments(String cmnt_no) {
 		return dao.findByPrimaryKey(cmnt_no);
 	}
+
+	public List<CommentsVO> getAll() {
+		return dao.getAll();
+	}
+	 
+	public List<CommentsVO> getVendor(String vendor_no) {
+		return dao.getVendor(vendor_no);
+	}
+	public CommentsVO findByord_no(String ord_no) {
+		return dao.findByord_no(ord_no);
+		
+	}
 	
 	public List<CommentsVO> getOneVendor(String vendor_no) {
 		return dao.getOneVendor(vendor_no);
 	}
 	
-	public List<CommentsVO> getAll() {
-		return dao.getAll();
-	}
 }
