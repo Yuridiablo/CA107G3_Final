@@ -167,6 +167,7 @@ public class MemberServlet extends HttpServlet {
 			}
 		}
 		if ("login".equals(action)) {
+			Gson gson = new Gson();
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
@@ -188,7 +189,9 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/member/loginMember.jsp");
+					String jerrorMsgs = gson.toJson(errorMsgs);
+					req.setAttribute("errorMsgs", jerrorMsgs);
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -201,7 +204,9 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/member/loginMember.jsp");
+					String jerrorMsgs = gson.toJson(errorMsgs);
+					req.setAttribute("errorMsgs", jerrorMsgs);
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -215,7 +220,9 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/member/loginMember.jsp");
+					String jerrorMsgs = gson.toJson(errorMsgs);
+					req.setAttribute("errorMsgs", jerrorMsgs);
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -229,7 +236,9 @@ public class MemberServlet extends HttpServlet {
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/loginMember.jsp");
+				String jerrorMsgs = gson.toJson(errorMsgs);
+				req.setAttribute("errorMsgs", jerrorMsgs);
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
 
 			}
