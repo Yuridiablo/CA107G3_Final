@@ -59,4 +59,8 @@ public class Friend_ListService {
 		return dao.getfriendlist(mem_no);
 		
 	}
+	
+	public List<Friend_ListVO> getAll(String mem_no){
+		return dao.getAll(mem_no);
+	}
 }

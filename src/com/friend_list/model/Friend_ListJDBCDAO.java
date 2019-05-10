@@ -468,5 +468,10 @@ public class Friend_ListJDBCDAO implements Friend_ListDAO_interface{
 		return list;
 		
 	}
-
+	
+	@Override
+	public List<Friend_ListVO> getAll(String mem_no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

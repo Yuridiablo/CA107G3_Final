@@ -9,12 +9,10 @@
 	
 %>
 <!DOCTYPE html>
-<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-
 <html lang="en">
 <head>
 
-
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3teApdwmpN2yUfc6dftcDkHw1dLpV2B4&callback=initMap"></script>
 
 <!-- 提交FORM表單 -->
@@ -585,8 +583,8 @@ body {
 	
 	
 
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
+	<script src="../front-end/js/jquery-3.3.1.min.js"></script>
+	<script src="../front-end/js/popper.min.js"></script>
 
 	<!-- 日期的ＪＳ -->
 	

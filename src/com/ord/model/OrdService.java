@@ -1,5 +1,6 @@
 package com.ord.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.ord.model.OrdDAO_interface;
@@ -77,4 +78,15 @@ public class OrdService {
 		return dao.findByvendor_no(vendor_no);
 	}
 	
+	public List<OrdVO> getAllVendorDate(String vendor_no, Date booking_date) {
+		return dao.findByVendor_no_Date(vendor_no, booking_date);
+	}
+	
+	public List<OrdVO> getAllVendorVerif(String vendor_no, String verif_code) {
+		return dao.findByVerifCode(vendor_no, verif_code);
+	}
+	
+	public OrdVO getOneOrdVerif(String vendor_no, String verif_code) {
+		return dao.findOrdByVerifCode(vendor_no, verif_code);
+	}
 }

@@ -1,6 +1,7 @@
 package com.ord_detail.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ord.model.OrdService;
 import com.ord.model.OrdVO;
 import com.ord_detail.model.Order_DetailService;
@@ -21,11 +24,18 @@ public class Ord_DetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
    
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
+	}
 	
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		
+		
+	
+		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
+		PrintWriter out = res.getWriter();
 		
 		if ("getOne_For_Update".equals(action)) { 
 
@@ -116,12 +126,20 @@ public class Ord_DetailServlet extends HttpServlet {
 			}
 		}
 		
+	
+			
+			if ("getOrdDetail".equals(action)) {
+				String ord_no = req.getParameter("ord_no");
+				Order_DetailService ord_DetailService = new Order_DetailService();
+				List<Order_DetailVO> list =  ord_DetailService.findbyOrd_no(ord_no);
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+				String jsonStr = gson.toJson(list);
+				out.println(jsonStr);			
+			}
+			
 		
 	}
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
-		doGet(req, res);
-	}
+	
 
 }
