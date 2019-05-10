@@ -401,8 +401,21 @@ public class MemberServlet extends HttpServlet {
 		if ("selectOneMember".equals(action)) {
 			Gson gson = new Gson();
 			List<String> errorMsgs = new LinkedList<String>();
-			
+//			
 			try {
+				HttpSession session = req.getSession();
+				String flag = req.getParameter("flag");
+				String preFlag = (String) session.getAttribute("flag");
+				
+				if(flag.equals(preFlag)) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp?");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}else {
+					session.setAttribute("flag", flag);
+				}
+				
+				
 				String mem_account_nickname = req.getParameter("mem_account_nickname");
 
 				if (mem_account_nickname == null || (mem_account_nickname.trim()).length() == 0) {
@@ -411,7 +424,7 @@ public class MemberServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					String jerrorMsgs = gson.toJson(errorMsgs);
 					req.setAttribute("errorMsgs", jerrorMsgs);
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp?");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
