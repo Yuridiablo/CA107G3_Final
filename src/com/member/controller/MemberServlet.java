@@ -390,8 +390,9 @@ public class MemberServlet extends HttpServlet {
 			}
 		}
 		if ("selectOneMember".equals(action)) {
+			Gson gson = new Gson();
 			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
+			
 			try {
 				String mem_account_nickname = req.getParameter("mem_account_nickname");
 
@@ -399,7 +400,8 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("請輸入會員帳號或暱稱");
 				}
 				if (!errorMsgs.isEmpty()) {
-					
+					String jerrorMsgs = gson.toJson(errorMsgs);
+					req.setAttribute("errorMsgs", jerrorMsgs);
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
@@ -418,6 +420,8 @@ public class MemberServlet extends HttpServlet {
 				}
 				
 				if (!errorMsgs.isEmpty()) {
+					String jerrorMsgs = gson.toJson(errorMsgs);
+					req.setAttribute("errorMsgs", jerrorMsgs);
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
@@ -432,6 +436,8 @@ public class MemberServlet extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println("-----------------ssssss----錯誤-------------------");
 				errorMsgs.add(e.getMessage());
+				String jerrorMsgs = gson.toJson(errorMsgs);
+				req.setAttribute("errorMsgs", jerrorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
 			}

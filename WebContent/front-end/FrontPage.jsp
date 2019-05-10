@@ -447,6 +447,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- //標題橘色 所有頁面適用 載入樣式 -->
+    <!-- sweet alert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <!--   <script>
           $(window).ready(function() {
               // 100 = The point you would like to fade the nav in.
@@ -498,14 +500,28 @@
     	$("#navbarDropdownMenuLink2").hide();
     	
     	if(${account!=null}){
-    		alert("已成功登入");
-    		alert("${errorMsgs}");
+    		Swal.fire({
+    			  position: 'center',
+    			  type: 'success',
+    			  title: '${memberVO.mem_name}您好',
+    			  showConfirmButton: false,
+    			  timer: 2500
+    		})
         	$("#loginButton").hide();
         	$("#logoutButton").show();
         	$("#navbarDropdownMenuLink2").show();
     	}
     	
-    	
+    	var jsonObj = JSON.parse('${errorMsgs}');
+    	if(jsonObj!=null){
+    		for(var i=0;i<jsonObj.length;i++){
+    			Swal.fire({
+    				  type: 'error',
+    				  title: 'Oops...',
+    				  text: jsonObj[i],
+    			})
+    		};
+    	}
     });
    	
    
