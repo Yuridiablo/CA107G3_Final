@@ -1,35 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ page import="java.util.*"%>
 <%@ page import="com.ord_detail.model.*"%>
-
-    
 <!DOCTYPE html>
 <html>
-
-
-<%
-	Order_DetailService O_detailSvc = new Order_DetailService();
-	List<Order_DetailVO> list = O_detailSvc.findbyOrd_no("20190511-000010");
-// 	List<Order_DetailVO> list = O_detailSvc.findbyOrd_no("20190416-000005");
-	pageContext.setAttribute("list",list);
-%>
+<head>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <head>
 <meta charset="UTF-8">
-<title>所有訂單明細查詢</title>
-</head>
-
+<title>付款檢視單筆訂單明細</title>
 <jsp:useBean id="vendorSvc" scope="page" class="com.vendor.model.VendorService" />
 <jsp:useBean id="Order_DetailSvc" scope="page" class="com.ord_detail.model.Order_DetailService" />
 <jsp:useBean id="OrdSvc" scope="page" class="com.ord.model.OrdService" />
 <jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
 <jsp:useBean id="MenuSvc" scope="page" class="com.restaurant_menu.model.Restaurant_MenuService" />
-
+</head>
 
 <style>
 
@@ -37,17 +26,13 @@
     vertical-align: ;
     }
 </style>
-
 <body>
-
-
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
         
             <div class="alert alert-info">
-               訂單明細列表</div>
+               訂單明細</div>
             <div class="alert alert-success" style="display:none;">
                 <span class="glyphicon glyphicon-ok"></span> Drag table row and change Order</div>
             <table class="table" id="xxx">
@@ -57,7 +42,7 @@
                           訂單編號
                         </th>
                          <th>
-                           餐廳名稱
+                          餐廳名稱
                         </th>
                         <th>
                            餐點名稱
@@ -75,17 +60,17 @@
                 </thead>
                 <tbody>
                  
-			<%@ include file="pages/page1.file" %>
-			
-                <c:forEach var="O_detailVO" items="${Order_DetailSvc.findbyOrd_no(param.ord_no)}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >
+		
+			o_detailVO
+               
               		
-              		<c:set var="memuVO" value="${MenuSvc.findByPK(O_detailVO.menu_no) }"/>
-              		<c:set var="ordVO" value="${OrdSvc.getOneOrd(O_detailVO.ord_no)}"/>
-              		<c:set var="ordlist" value="${ordVO.vendor_no}"/>
+              		<c:set var="memuVO" value="${MenuSvc.findByPK(o_detailVO.menu_no) }"/>
+              		<c:set var="ordVO" value="${OrdSvc.getOneOrd(o_detailVO.ord_no)}"/>
+              		<c:set var="ordlist" value="${o_detailVO.vendor_no}"/>
               		<c:set var="vVO" value="${vendorSvc.findByPK(ordlist)}"/>
                      <tr class="warning">
                         <td>
-                            ${O_detailVO.getOrd_no()}
+                            ${o_detailVO.getOrd_no()}
                         </td>
                          <td>
                             ${vVO.v_name}
@@ -94,10 +79,10 @@
                              ${memuVO.menu_name}
                         </td>
                         <td>
-                            ${O_detailVO.qty}
+                            ${o_detailVO.qty}
                         </td>
                         <td>
-                            ${(O_detailVO.price)*(O_detailVO.qty)}
+                            ${(o_detailVO.price)*(o_detailVO.qty)}
                         </td>
                         <td>
 	                	<a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp" >
@@ -116,9 +101,9 @@
 <!-- 			</td> -->
 			
 			</tr>
-                    </c:forEach>
+                 
                     </table>
-                  <%@ include file="pages/page2.file" %>
+              
                 </tbody>
            
         </div>
@@ -172,4 +157,6 @@ $(document).ready(function () {
     $.getScript("http://code.jquery.com/ui/1.9.2/jquery-ui.js").done(function (script, textStatus) { $('tbody').sortable();$(".alert-info").alert('close');$(".alert-success").show(); });
 });
 </script>
+</html>
+</body>
 </html>

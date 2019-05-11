@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.ord.model.*"%>
 <%@ page import="com.comments.model.*"%>
@@ -20,16 +21,14 @@ height:1px
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <head>
 <meta charset="UTF-8">
-<title>會員瀏覽自己評論入口</title>
+<title>會員瀏覽自己所有評論</title>
 </head>
-<%
- 	CommentsService C_Svc = new CommentsService();
-     List<CommentsVO> list = C_Svc.getVendor("V000001");
-     CommentsVO c_VO = new CommentsVO();
-     pageContext.setAttribute("list",list);
-%>
+
 <jsp:useBean id="c_Svc" scope="page" class="com.comments.model.CommentsService" />
-<c:set var="c_list" value="${c_Svc.getVendor(vendor_no)}"></c:set>
+<jsp:useBean id="v_Svc" scope="page" class="com.vendor.model.VendorService" />
+
+
+<%-- <c:set var="c_list" value="${c_VOlist}"></c:set> --%>
 <body>
 
 
@@ -37,56 +36,61 @@ height:1px
     <div class="row">
         <div class="col-md-12">
         <table class="table" id="xxx">
-        <div class="alert alert-info">
+        <div class="alert alert-info" >
                評論列表</div>
             <div class="alert alert-success" style="display:none;">
                 <span class="glyphicon glyphicon-ok"></span> Drag table row and change Order</div>
             
                 
                     <tr class="alert-info">
-                        <th>評論編號</th>
-						<th>訂單編號</th>
-						<th>廠商編號</th>
+                        
+						
+						<th>廠商名稱</th>
 						<th>評分</th>
-						<th>評論時間</th>
 						<th>評論內容</th>
-						<th>評論狀態</th>
-						<th></th>
+						<th>評論時間</th>
+						
+						
+						
                     </tr>
                 
            
               
-                 
-			<%@ include file="page1.file" %>
-			<c:forEach var="c_VO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-               
-
+<%--                  begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%> --%>
+<%-- 			<%@ include file="page1.file" %> --%>
+		
+			<c:forEach var="c_VO" items="${c_VOlist}" >
+			<c:if test="${c_VO.cmnt_status==1 }">
+               <c:set var="vendor" value="${v_Svc.findByPK(c_VO.vendor_no)}"></c:set>
+							
                      <tr class="warning">
-                        <td>${c_VO.cmnt_no}</td>
-						<td>${c_VO.ord_no}</td>
-						<td>${c_VO.vendor_no}</td>
-						<td>${c_VO.score}</td>
-						<td>${c_VO.cmnt}</td>
-						<td>${c_VO.time}</td>
-						<c:if test ="${c_VO.cmnt_status==1}" var="xxx">
-						<td>正常</td>
-						</c:if>
-						<c:if test ="${c_VO.cmnt_status==2}" var="xxx">
-						<td>被檢舉中</td> 
-						</c:if>
-						<c:if test ="${c_VO.cmnt_status==3}" var="xxx">
-						<td>黑名單</td> 
-						</c:if>
+                       
+					
+						<td><h4>${vendor.v_name }</h4></td>
+						<td><h4>${c_VO.score}</h4></td>
+						<td><h4>${c_VO.cmnt}</h4></td>
+						<td><h5><fmt:formatDate value="${c_VO.time}" pattern="yyyy-MM-dd HH:mm:ss"/></h5></td>
+						
+						
+						
+<%-- 						<c:if test ="${c_VO.cmnt_status==1}" var="xxx"> --%>
+<!-- 						<td>正常</td> -->
+<%-- 						</c:if> --%>
+<%-- 						<c:if test ="${c_VO.cmnt_status==2}" var="xxx"> --%>
+<!-- 						<td>被檢舉中</td>  -->
+<%-- 						</c:if> --%>
+<%-- 						<c:if test ="${c_VO.cmnt_status==3}" var="xxx"> --%>
+<!-- 						<td>黑名單</td>  -->
+<%-- 						</c:if> --%>
 						
 						
                     
-			  <td> 
-			  <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/comment/comment.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="評論管理">
-			     <input type="hidden" name="ord_no"  value="20190506-000006">
-			     <input type="hidden" name="mem_no"  value="M000004">
-			     <input type="hidden" name="action"	value="get_mem_display"></FORM>
-			</td>
+<!-- 			  <td>  -->
+<%-- 			  <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/comment/comment.do" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="評論管理"> -->
+<%-- 			     <input type="hidden" name="cmnt_no"  value="${c_VO.cmnt_no}"> --%>
+<!-- 			     <input type="hidden" name="action"	value="get_comments_Update"></FORM> -->
+<!-- 			</td> -->
 <!-- 			<td> -->
 <%-- 			 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/comment/comment.do" style="margin-bottom: 0px;"> --%>
 <!-- 			     <input type="submit" value="查看訂單明細"> -->
@@ -95,11 +99,12 @@ height:1px
 <!-- 			     <input type="hidden" name="action"	value="getOne_ord_detail_display"></FORM> -->
 <!-- 			</td> -->
 			</tr>
+			</c:if>
                     </c:forEach>
                      </tbody>
                     </table>
                     
-                  <%@ include file="page2.file" %>
+<%--                   <%@ include file="page2.file" %> --%>
                
            
         </div>

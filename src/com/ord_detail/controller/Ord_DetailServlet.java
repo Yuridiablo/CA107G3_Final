@@ -112,8 +112,8 @@ public class Ord_DetailServlet extends HttpServlet {
 				/***************************2.開始查詢資料*****************************************/
 				Order_DetailService o_detailSvc = new Order_DetailService();
 				Order_DetailVO o_detailVO = o_detailSvc.getOneOrder_Detail(ord_no, menu_no);
-				req.setAttribute("o_detailVO", o_detailVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/front-end/order_detail/All_ord_detail.jsp";
+				req.setAttribute("o_detailVO", o_detailVO);         
+				String url = "/front-end/order_detail/paid_one_mem_detail.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 

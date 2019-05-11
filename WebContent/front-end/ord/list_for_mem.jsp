@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.ord.model.*"%>
 
@@ -45,10 +46,10 @@ height:1px
 }
 
 </style>
-
-
+<jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
+<jsp:useBean id="VendorSvc" scope="page" class="com.vendor.model.VendorService" />
 <meta charset="UTF-8">
-<title>會員訂單明細</title>
+<title>會員全部訂單＋訂單明細</title>
 </head>
 <body>
 
@@ -63,11 +64,10 @@ height:1px
             
                 
                     <tr>
-                        <th><h4>訂單編號</h4></th>
-						<th>會員編號<br><hr style="width: 90%; height: 1px; border: none; background-color: #282828"><font color="blue">分攤會員</font></th>
-						<th>廠商編號</th>
-						<th>卓位編號</th>
-						<th>人數</th>
+                        
+						<th>會員姓名<br><hr style="width: 90%; height: 1px; border: none; background-color: #282828"><font color="blue">分攤會員</font></th>
+						<th>廠商名稱</th>
+						<th>預定人數</th>
 <!-- 						<th>分攤會員編號</th> -->
 <!-- 						<th>分攤會員編號</th> -->
 						<th>分攤金額</th>
@@ -76,36 +76,38 @@ height:1px
 						<th>訂位時間</th>
 						<th>備註</th>
 						<th>總金額</th>
-						<th>開始用餐時間</th>
-						<th>結束用餐時間</th>
+<!-- 						<th>開始用餐時間</th> -->
+<!-- 						<th>結束用餐時間</th> -->
 						
 						<th>訂單狀態</th>
                     </tr>
                 
            
+             
               
                  
 			<%@ include file="page1.file" %>
 			<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-               
-
+                <c:set var="memVO" value="${MemSvc.getOneMember('M000004')}"></c:set>
+                 <c:set var="vendorVO" value="${VendorSvc.findByPK(ordVO.vendor_no)}"></c:set>
+					
                      <tr class="warning">
-                        <td>${ordVO.ord_no}</td>
-						<td>${ordVO.mem_no}<br>
+                        
+						<td>${memVO.mem_name}<br>
 						<hr><font color="blue">${ordVO.share_mem_no1}<br></font>
 						<hr><font color="blue">${ordVO.share_mem_no2}</font></td>
-						<td>${ordVO.vendor_no}</td>
-						<td>${ordVO.tbl_no}</td>
+						<td>${vendorVO.v_name}</td>
+<%-- 						<td>${ordVO.tbl_no}</td> --%>
 						<td>${ordVO.party_size}</td>
 						
-						<td>${ordVO.share_amount}</td>
-						<td>${ordVO.ord_time}</td> 
+						<td>$${ordVO.share_amount}</td>
+						<td> <fmt:formatDate value="${ordVO.ord_time}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						<td>${ordVO.booking_date}</td> 
 						<td>${ordVO.booking_time}</td> 
 						<td>${ordVO.notes}</td> 
-						<td>${ordVO.total}</td> 
-						<td>${ordVO.arrival_time}</td> 
-						<td>${ordVO.finish_time}</td> 
+						<td>$${ordVO.total}</td> 
+<%-- 						<td>${ordVO.arrival_time}</td>  --%>
+<%-- 						<td>${ordVO.finish_time}</td>  --%>
 						
 						<c:if test ="${ordVO.status==0}" var="xxx">
 						<td>已付款</td> 

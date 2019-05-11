@@ -119,7 +119,7 @@ height:1px
 			      <input type="hidden" name="menu_no" value="${O_detailVO.menu_no}">
 			     <input type="hidden" name="action"	value="getOne_ord_detail_display"></FORM>
 			     
-			     <A href="<%=request.getContextPath()%>/comment/comment.do?ord_no=${OrdVO.ord_no}&action=insert_comments">發表評論</a>
+<%-- 			     <A href="<%=request.getContextPath()%>/comment/comment.do?ord_no=${OrdVO.ord_no}&action=insert_comments">發表評論</a> --%>
 <%-- 			      <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;"> --%>
 <!-- 			     <input type="submit" value="評論"> -->
 <%-- 			     <input type="hidden" name="ord_no"  value="${ordVO.ord_no}"> --%>

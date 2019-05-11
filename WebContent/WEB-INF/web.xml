@@ -111,7 +111,7 @@
 
 	<servlet>
 		<servlet-name>Comments_Servlet</servlet-name>
-		<servlet-class>com.controller.model.Comments_Servlet</servlet-class>
+		<servlet-class>com.comments.controller.Comments_Servlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Comments_Servlet</servlet-name>

@@ -9,10 +9,12 @@
 	
 %>
 <!DOCTYPE html>
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+
 <html lang="en">
 <head>
 
-<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3teApdwmpN2yUfc6dftcDkHw1dLpV2B4&callback=initMap"></script>
 
 <!-- 提交FORM表單 -->
@@ -223,23 +225,22 @@ body {
 </style>
 <body onload="connect();" onunload="disconnect();">
 
-	<!--============================= HEADER =============================-->
-	${ordVO}
+
 
 	
-		
+	<div class="container">
+	<div class=" col-md-12">	
+
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-md-8">
-				<ul class="nav nav-tabs justify-content-center" id="myTab"
-					role="tablist">
-					
-					<li class="nav-item"><a class="nav-link" id="profile-tab"
+			<div class="col-md-12">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+  					<li class="nav-item"><a class="nav-link" id="profile-tab"
 						data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-						aria-selected="true">資訊</a></li>
-					<li class="nav-item"><a class="nav-link " id="home-tab"
-						data-toggle="tab" href="#home" role="tab" aria-controls="home"
-						aria-selected="false">訂位</a></li>
+						aria-selected="false">資訊</a></li>
+					  <li class="nav-item">
+					    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">訂位
+					    </a></li>
 					<li class="nav-item"><a class="nav-link" id="contact-tab"
 						data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
 						aria-selected="false">評論</a></li>
@@ -271,7 +272,7 @@ body {
 			<div class="col-md-12">
 	
 				<div class="tab-content" id="myTabContent">
-				  <div class="tab-pane fade  " id="home" role="tabpanel" aria-labelledby="home-tab">...
+				 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 				  	<c:if test="${not empty errorMsgs}">
 							<font style="color: red">請修正以下錯誤:</font>
 							<ul>
@@ -285,9 +286,10 @@ body {
 					<form id="form1" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
 						<input type="hidden" name="action" id="action" value="updateDate">
 						<input type="hidden" name="vendor_no" value="${param.vendor_no}">
+						
 						<div class="container">
 							<div class="row justify-content-center">
-								<div class="col-md-8x">
+								<div class="col-md-8">
 										<div class="date" >	
 											用餐日期<input name="booking_date" id="f_date1" type="text"
 														value="${ordVO.booking_date}"  style="width: 400px;">
@@ -324,18 +326,15 @@ body {
 			<div class="row justify-content-center">
 				<div class="col-md-8">
 					<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/ord/ord.do" id="form2">
-						<input type="hidden" name="mem_no" value="M000004">
-						
+						<input type="hidden" name="mem_no" value="M000004">	
 						<input type="hidden" name="vendor_no" value="${param.vendor_no}">
 						<input type="hidden" name="tbl_no" value="T000001"> 
 						<input type="hidden" name="share_mem_no1" value="${ordVO.share_mem_no1}"> 
 						<input type="hidden" name="share_mem_no2" value="${ordVO.share_mem_no2}">
 						<input type="hidden" name="share_amount" value="0">
-<!-- 					<input type="hidden" name="booking_time" value="12:30">	  -->
 						<input type="hidden" name="ord_time"
 								value="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/>">
-	
-						
+
 						<input type="hidden" name="arrival_time" value="${ordVO.arrival_time}"> 
 						<input type="hidden" name="finish_time" value="${ordVO.finish_time}"> 
 						<input type="hidden" name="status" value="0"> 
@@ -399,7 +398,7 @@ body {
 									</div>
 								</div>
 								<c:set  var="vendorVO" value="${venSvc.findByPK(param.vendor_no)}" /> 
-          
+          <div class="container">
 								<dl data-v-2ee1f21e="" class="info-list reset-list">
 								<dt data-v-2ee1f21e="">餐廳位置</dt>
 								<hr>
@@ -430,7 +429,7 @@ body {
 									Pay )、LINE Pay 、微信支付、支付寶</dd>
 								<hr>
 							</dl>
-							
+							</div>
 							</div>
 						</div>
 					</div>
@@ -438,100 +437,94 @@ body {
 				
 				<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 			
-				<div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-12">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-xs-12 col-md-4 text-right">
-                        <h1 class="rating-num">
-                            ${avgscore}</h1>
-                        <div class="rating">
-                            <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
-                            </span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
-                            </span><span class="glyphicon glyphicon-star-empty"></span>
-                        </div>
-                        <div>
-                            <span class="glyphicon glyphicon-user"></span>1,050,008 total
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-8">
-                        <div class="row rating-desc">
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>5
-                            </div>
-                            <div class="col-xs-8 col-md-8">
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                        <span class="sr-only">80%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 5 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>4
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="sr-only">60%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 4 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>3
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 3 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>2
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                        <span class="sr-only">20%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 2 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>1
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                                        <span class="sr-only">15%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 1 -->
-                        </div>
-                        <!-- end row -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-				
-				
 					<div class="container">
-						<div class="row justify-content-center">
-							<div class="col-12 ">
-								<div class="container">
-								${avgscore}
+					    <div class="row">
+					        <div class="col-xs-12 col-md-12">
+					            <div class="well well-sm">
+					                <div class="row">
+					                    <div class="col-xs-12 col-md-4 text-right">
+					                        <h1 class="rating-num">
+					                            ${avgscore}</h1>
+					                        <div class="rating">
+					                        <div class='starrr' id="avgscore"></div>
+					                            
+					                        </div>
+					                        <div>
+					                            <span class="glyphicon glyphicon-user"></span>1,050,008 total
+					                        </div>
+					                    </div>
+					                    <div class="col-xs-12 col-md-8">
+					                        <div class="row rating-desc">
+					                            <div class="col-xs-3 col-md-3 text-right">
+					                                <span class="glyphicon glyphicon-star"></span>很棒
+					                            </div>
+					                            <div class="col-xs-8 col-md-9">
+					                                <div class="progress progress-striped">
+					                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+					                                        aria-valuemin="0" aria-valuemax="100" style="width: ${E}%">
+					                                        <span class="sr-only">80%</span>
+					                                    </div>
+					                                </div>
+					                            </div>
+					                            <!-- end 5 -->
+					                            <div class="col-xs-3 col-md-3 text-right">
+					                                <span class="glyphicon glyphicon-star"></span>非常好
+					                            </div>
+					                            <div class="col-xs-8 col-md-9">
+					                                <div class="progress">
+					                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+					                                        aria-valuemin="0" aria-valuemax="100" style="width: ${D}%">
+					                                        <span class="sr-only">60%</span>
+					                                    </div>
+					                                </div>
+					                            </div>
+					                            <!-- end 4 -->
+					                            <div class="col-xs-3 col-md-3 text-right">
+					                                <span class="glyphicon glyphicon-star"></span>一般
+					                            </div>
+					                            <div class="col-xs-8 col-md-9">
+					                                <div class="progress">
+					                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+					                                        aria-valuemin="0" aria-valuemax="100" style="width: ${C}%">
+					                                        <span class="sr-only">40%</span>
+					                                    </div>
+					                                </div>
+					                            </div>
+					                            <!-- end 3 -->
+					                            <div class="col-xs-3 col-md-3 text-right">
+					                                <span class="glyphicon glyphicon-star"></span>不好
+					                            </div>
+					                            <div class="col-xs-8 col-md-9">
+					                                <div class="progress">
+					                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+					                                        aria-valuemin="10" aria-valuemax="100" style="width: ${B}%">
+					                                        <span class="sr-only">20%</span>
+					                                    </div>
+					                                </div>
+					                            </div>
+					                            <!-- end 2 -->
+					                            <div class="col-xs-3 col-md-3 text-right">
+					                                <span class="glyphicon glyphicon-star"></span>很差
+					                            </div>
+					                            <div class="col-xs-8 col-md-9">
+					                                <div class="progress">
+					                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+					                                        aria-valuemin="0" aria-valuemax="100" style="width: ${A}%">
+					                                        <span class="sr-only">15%</span>
+					                                    </div>
+					                                </div>
+					                            </div>
+					                            <!-- end 1 -->
+					                        </div>
+					                        <!-- end row -->
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+					<div class="container">
+						<div class="row ">
 								<c:forEach var="cmapVO" items="${cMap}">
 								  <div class="well">
 								      <div class="media">
@@ -562,13 +555,44 @@ body {
 								            </li>
 											</ul>
 								       </div>
+								       
 								    </div>
+								    <div class="media-body">
+				            	    <div class="card-body">
+				            	        <div class="row">
+				                    	    <div class="col-md-8">
+<!-- 								  ＝＝＝拿出每一篇回應,判斷評論的編號是否跟回應評論的編號一樣＝＝＝-->				                    	     
+				                    	        <c:forEach var="rrVO" items="${rrlist}">
+												  <c:set var="rr" value="${rrVO. cmnt_no}"></c:set>
+												   <c:if test="${(rr)==(cmapVO.value.cmnt_no)}">
+														<c:set var="rrtext" value="${rrVO.res_text}"></c:set>
+														<c:set var="rrtime" value="${rrVO.res_time}"></c:set>
+														 <h5 class="mt-0">店家回覆</h5>
+														<div class="panel panel-default arrow right">
+											                <div class="panel-body">
+											                  <header class="text-right"></header>
+											                  <div class="comment-post">
+											                    <h3><p>
+											                    ${rrtext }
+											                    </p></h3>
+											                    <span><i class="glyphicon glyphicon-calendar"></i> 
+													  			<fmt:formatDate type="both"  value="${rrtime }" /> </span>
+													            </div>
+											                  </div>
+											                  </div>
+														</c:if>
+												  	 </c:forEach>
+				                    	    </div>
+				            	        </div>
+				            	    </div>
+					            </div>
 								  </div>
-								  </c:forEach>
+								</c:forEach>
 								  </div>
   
 								</div>
 							</div>
+							
 						</div>
 				
 				
@@ -577,14 +601,11 @@ body {
 		</div>
 	</div>
 </div>
+</div>
+</div>
 
-	
-
-	
-	
-
-	<script src="../front-end/js/jquery-3.3.1.min.js"></script>
-	<script src="../front-end/js/popper.min.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
 
 	<!-- 日期的ＪＳ -->
 	
@@ -640,9 +661,13 @@ body {
 
 	</script>
 	
+<script>
 
+$(function () {
+  $('#myTab li:last-child a').tab('show')
+})
 
-
+</script>
 	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -757,5 +782,17 @@ function connect() {
     
     </script>
 </c:forEach>
+  <script type="text/javascript">
+    $('#avgscore').starrr({
+    	
+    	max: 5,
+    	rating:${avgscore},
+    	readOnly: true,
+    	emptyClass: 'fa fa-star-o',
+        fullClass: 'fa fa-star'
+        
+      });
+    
+    </script>
 </body>
 </html>

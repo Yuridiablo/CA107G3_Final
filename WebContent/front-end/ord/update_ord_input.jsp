@@ -66,6 +66,12 @@
 </c:if>
 <div class="row justify-content-center" style="margin-top: 100px">
 
+
+
+
+
+
+
 <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/ord/ord.do" name="form1">
 <table>
 	<tr>
