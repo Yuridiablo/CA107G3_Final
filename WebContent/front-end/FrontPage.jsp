@@ -161,7 +161,7 @@
                                                 <input type="text" class="form-control" placeholder="輸入會員暱稱或帳號.." aria-label="Recipient's username" aria-describedby="button-addon2" name="mem_account_nickname">
                                                 <div class="input-group-append">
                                                 <input type="hidden" name="action" value="selectOneMember" >
-                                                <input type="hidden" name="flag" id="flag" value="" >
+                                                <input type="hidden" name="flag" id="flag" value="">
                                                     <button class="btn btn-success" type="submit" id="button-addon4"><span class="icon-magnifier search-icon"></span>找會員GO</button>
                                                 </div>
                                             </div>
@@ -508,8 +508,9 @@
         	$("#navbarDropdownMenuLink2").show();
     	}
     	
-    	var jsonObj = JSON.parse('${errorMsgs}');
-    	if(jsonObj!=null){
+    	
+    	if(${errorMsgs!=null}){
+    		var jsonObj = JSON.parse('${errorMsgs}');
     		for(var i=0;i<jsonObj.length;i++){
     			Swal.fire({
     				  type: 'error',
@@ -518,22 +519,12 @@
     			})
     		};
     	}
-    	$("#loginButton").on('click',function(){
-	    	Swal.fire({
-	  			  position: 'center',
-	  			  type: 'success',
-	  			  title: '${memberVO.mem_name}您好',
-	  			  showConfirmButton: false,
-	  			  timer: 2500
-	  			})
-    	})
 
   
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
-    	var randomFlag = Math.floor(Math.random()*10000+1);
     	
-    	$("#flag").val(randomFlag);
-
+ 		var randomFlag = Math.floor(Math.random()*10000+1);
+ 		$("#flag").val(randomFlag);
     });
 
     </script>
@@ -546,7 +537,7 @@
 				  title: '${memberVO.mem_name}您好',
 				  showConfirmButton: false,
 				  timer: 2500
-				})
+				});
 			</script>
 			<c:set var="loginFlag" scope="session" value="true"/>
 		</c:if>
