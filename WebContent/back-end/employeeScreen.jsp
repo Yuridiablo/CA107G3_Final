@@ -18,7 +18,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
-<title>桌位管理_列表</title>
+<title>後臺管理系統</title>
 <!-- Side Nav -->
 <style type="text/css">
 #sidenavOverlay {
@@ -410,6 +410,8 @@ to {
 	<script	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<!-- Input type=number -->
 	<script src="bootstrap-input-spinner.js"></script>
+	<!-- sweet alert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 	<script>
 		$("input[type='number']").inputSpinner();
 	</script>
@@ -516,7 +518,13 @@ to {
 	        var mem_no = jsonObj.sender;
 	        var mem_name= jsonObj.name;
 	        if(!memberMap.has(mem_no)&&mem_no!="employee"){
-	        	alert("有訊息,請盡速回復");
+	        	Swal.fire({
+	        		  title: '有訊息,請盡速回復',
+	        		  animation: false,
+	        		  customClass: {
+	        		    popup: 'animated tada'
+	        		  }
+	        		})
 	        	memberMap.set(mem_no,mem_name);
 	        	$("#chatList").append($('<div/>').addClass('row').addClass('chatInner').attr('id',mem_no).append($('<div/>').attr('id','chatTopic').addClass('col-2').append($('<img>').addClass('img-group').attr('src',"<%= request.getContextPath() %>/tools/OutImg.do?mem_no="+'\''+mem_no+'\'')
 	        	)).append($('<div/>').attr('id','chatTopic').addClass('col-10').addClass('text-left').append($('<p/>').css('color','black').css('font-weight','bold').html('來自'+mem_name+'的訊息')))

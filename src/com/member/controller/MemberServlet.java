@@ -401,8 +401,9 @@ public class MemberServlet extends HttpServlet {
 		if ("selectOneMember".equals(action)) {
 			Gson gson = new Gson();
 			List<String> errorMsgs = new LinkedList<String>();
-//			
-//			try {
+			req.removeAttribute("errorMsgs");
+			
+			try {
 				HttpSession session = req.getSession();
 				String flag = req.getParameter("flag");
 				String preFlag = (String) session.getAttribute("flag");
@@ -455,14 +456,14 @@ public class MemberServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
 				successView.forward(req, res);
  
-//			} catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("-----------------ssssss----錯誤-------------------");
-//				errorMsgs.add(e.getMessage());
+				errorMsgs.add(e.getMessage());
 				String jerrorMsgs = gson.toJson(errorMsgs);
 				req.setAttribute("errorMsgs", jerrorMsgs);
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
-//			}
+			}
 		}
 		if ("myWallet".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();

@@ -335,7 +335,6 @@
 	function connect() {
 		alert(endPointURL);
 		// 建立 websocket 物件
-		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
 			var history = true;
