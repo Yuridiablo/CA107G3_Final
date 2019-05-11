@@ -8,13 +8,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberJDBCDAO implements MemberDAO_interface {
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-	final static String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-	final static String USER = "CA107G3";
-	final static String PASSWORD = "123456";
+public class MemberDAO implements MemberDAO_interface {
 
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	// SQL
 	private static final String INSERT_STMT = "INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE = "UPDATE MEMBER SET MEM_NAME = ?, MEM_PWD = ?, MEM_GENDER = ?, MEM_TEL = ?, MEM_STATUS = ?,MEM_PIC = ? , MEM_BALANCE = ?, MEM_NICKNAME = ? WHERE MEM_ACCOUNT = ?";
@@ -27,13 +37,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	private static final String GET_ALL_STMT_BY_NAME = "SELECT * FROM MEMBER WHERE MEM_NAME = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM MEMBER ";
 
-	static {
-		try {
-			Class.forName(DRIVER);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	@Override
 	public int updateWithoutPic(MemberVO memberVO) {
@@ -42,7 +46,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(UPDATE_WITHOUT_PIC);
 			pstm.setString(1, memberVO.getMem_name());
 			pstm.setString(2, memberVO.getMem_pwd());
@@ -79,7 +83,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		return rs;
 	}
 
-	public MemberJDBCDAO() {
+	public MemberDAO() {
 		
 	}
 
@@ -90,7 +94,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(UPDATE_BALANCE);
 			pstm.setDouble(1, memberVO.getMem_balance());
 			pstm.setString(2, memberVO.getMem_no());
@@ -129,7 +133,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		try {
 
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			System.out.println("連線成功!");
 			pstm = con.prepareStatement(INSERT_STMT);
 			pstm.setString(1, memberVO.getMem_name());
@@ -178,7 +182,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		MemberVO member = null;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ONE_STMT_BY_ACCOUNT);
 			pstm.setString(1, mem_account);
 			rs = pstm.executeQuery();
@@ -230,7 +234,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(UPDATE);
 			pstm.setString(1, memberVO.getMem_name());
 			pstm.setString(2, memberVO.getMem_pwd());
@@ -277,7 +281,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		ResultSet rs = null;
 		MemberVO member = null;
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ALL_STMT_BY_NAME);
 			pstm.setString(1, mem_name);
 			rs = pstm.executeQuery();
@@ -330,7 +334,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(DELETE);
 			pstm.setString(1, mem_no);
 			rs = pstm.executeUpdate();
@@ -370,7 +374,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		MemberVO member = null;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ONE_STMT);
 			pstm.setString(1, mem_no);
 			rs = pstm.executeQuery();
@@ -425,7 +429,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 		try {
 
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ALL_STMT);
 			rs = pstm.executeQuery();
 
@@ -478,7 +482,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		ResultSet rs = null;
 		MemberVO member = null;
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ALL_STMT_BY_NICKNAME);
 			pstm.setString(1, mem_nickname);
 			rs = pstm.executeQuery();
@@ -525,7 +529,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 	public static void main(String[] args) {
 
-		MemberDAO_interface memberDAO = new MemberJDBCDAO();
+		MemberDAO_interface memberDAO = new MemberDAO();
 
 		// 新增
 //		MemberVO mb1 = 
