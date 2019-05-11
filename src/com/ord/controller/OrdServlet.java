@@ -269,7 +269,7 @@ public class OrdServlet extends HttpServlet {
 				}
 		
 		
-		
+		 
 		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
