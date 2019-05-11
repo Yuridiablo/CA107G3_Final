@@ -17,7 +17,7 @@ import com.exception_date.model.Exception_DateService;
 import com.exception_date.model.Exception_DateVO;
 import com.reservation_table_number.model.Reservation_Table_NumberService;
 import com.reservation_table_number.model.Reservation_Table_NumberVO;
-import com.reservation_time.model.Reservation_TimeJDBCDAO;
+import com.reservation_time.model.Reservation_TimeDAO;
 import com.reservation_time.model.Reservation_TimeService;
 import com.reservation_time.model.Reservation_TimeVO;
 
@@ -282,7 +282,7 @@ req.getRequestDispatcher("/emp/select_page.jsp");//回首頁
 								reservation_timeVO.setR_time(open_hours[i]);
 								reservation_timeVO.setRt_no(rt_no[i]);
 								reservation_timeVO.setVendor_no(vendor_no);
-								Reservation_TimeJDBCDAO r_tDAO=new Reservation_TimeJDBCDAO();
+								Reservation_TimeDAO r_tDAO=new Reservation_TimeDAO();
 								r_tDAO.update(reservation_timeVO);
 //								Reservation_TimeService res_timeSvc = new Reservation_TimeService();
 //								reservation_timeVO=res_timeSvc.updateReservation_timeDAO(rt_no[i], vendor_no, open_hours[j]);

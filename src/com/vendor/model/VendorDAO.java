@@ -8,12 +8,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VendorJDBCDAO implements VendorDAO_interface {
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-	final static String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-	final static String USER = "CA107G3";
-	final static String PASSWORD = "123456";
+public class VendorDAO implements VendorDAO_interface {
+
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// SQL
 	private static final String INSERT_STMT = "INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),?,?,?,?,?,?,?,?,?,?,?,0,0,0,?,?,?,?,NULL,NULL,?)";
@@ -30,13 +40,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT * FROM Vendor ";
 	private static final String SEARCH_STMT = "SELECT * FROM Vendor WHERE V_NAME like ? ";
 
-	static {
-		try {
-			Class.forName(DRIVER);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	@Override
 	public int insert(VendorVO vendorVO) {
@@ -45,7 +49,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			System.out.println("連線成功!");
 			pstm = con.prepareStatement(INSERT_STMT);
 			pstm.setString(1, vendorVO.getV_account());
@@ -87,7 +91,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			System.out.println("連線成功!");
 			pstm = con.prepareStatement(CREAT_STMT);
 			pstm.setString(1, vendorVO.getV_account());
@@ -128,7 +132,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			System.out.println("連線成功!");
 			pstm = con.prepareStatement(UPDATE);
 
@@ -163,7 +167,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			System.out.println("連線成功!");
 			pstm = con.prepareStatement(DELETE);
 			pstm.setString(1, vendor_no);
@@ -190,7 +194,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		VendorVO vendor = null;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ONE_STMT);
 			pstm.setString(1, vendor_no);
 			rs = pstm.executeQuery();
@@ -257,7 +261,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		VendorVO vendor = null;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ACC_STMT);
 			pstm.setString(1, v_account);
 			rs = pstm.executeQuery();
@@ -323,7 +327,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			System.out.println("連線成功!更新一張圖");
 			pstm = con.prepareStatement(UPDATE_PIC);
 			
@@ -357,7 +361,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			System.out.println("連線成功!");
 			pstm = con.prepareStatement(UPDATE_AD);
 
@@ -388,7 +392,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		VendorVO vendor = null;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ALL_STMT);
 			rs = pstm.executeQuery();
 
@@ -456,7 +460,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 		VendorVO vendor = null;
 
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstm = con.prepareStatement(SEARCH_STMT);
 			pstm.setString(1, "%" + v_name + "%");
 			rs = pstm.executeQuery();
@@ -523,8 +527,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 
 		
 		try {
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STATU);
 			
 
@@ -533,8 +536,6 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -563,8 +564,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 
 		
 		try {
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_WALLET);
 			
 
@@ -573,8 +573,6 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -611,7 +609,7 @@ public class VendorJDBCDAO implements VendorDAO_interface {
 	
 	
 	public static void main(String[] args) {
-			VendorDAO_interface vDAO = new VendorJDBCDAO();
+			VendorDAO_interface vDAO = new VendorDAO();
 			
 			//新增
 			VendorVO vVO = new VendorVO();

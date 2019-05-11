@@ -9,18 +9,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
-import com.ord_detail.model.Order_DetailJDBCDAO;
+import com.ord_detail.model.Order_DetailDAO;
 import com.ord_detail.model.Order_DetailVO;
 
-public class OrdJDBCDAO implements OrdDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	final static String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	final static String userid = "CA107G3";
-	final static String passwd = "123456";
-//	String url = "jdbc:oracle:thin:@localhost:49161:XE";
-//	String userid = "WEST";
-//	String passwd = "800627";
+public class OrdDAO implements OrdDAO_interface {
+
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private static final String INSERT_STMT = 
 			"INSERT INTO ord (ord_no, mem_no, vendor_no, tbl_no, party_size, share_mem_no1, share_mem_no2, share_amount, ord_time, booking_date, booking_time, notes, total, arrival_time, finish_time, verif_code, status)" + 			
 			" VALUES (to_char(sysdate,'yyyymmdd')||'-'||LPAD(to_char(ord_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -61,8 +69,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, ordVO.getMem_no());
@@ -128,10 +135,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -161,8 +164,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, ordVO.getMem_no());
@@ -186,10 +188,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -219,8 +217,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, tbl_no);
@@ -228,10 +225,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -263,8 +256,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, tbl_no);
@@ -294,10 +286,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -339,8 +327,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -368,10 +355,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -403,7 +386,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 	}
 
 	public static void main(String[] args) {
-		OrdJDBCDAO dao = new OrdJDBCDAO();
+		OrdDAO dao = new OrdDAO();
 
 		// 新增
 //		OrdVO ordVO1 = new OrdVO();
@@ -504,8 +487,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			
 			// 1●設定於 pstm.executeUpdate()之前
     		con.setAutoCommit(false);
@@ -583,7 +565,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
     					}
     					rs.close();
     					// 再同時新增訂單明細
-    					Order_DetailJDBCDAO dao = new Order_DetailJDBCDAO();
+    					Order_DetailDAO dao = new Order_DetailDAO();
     					System.out.println("list.size()-A="+list.size());
     					for (Order_DetailVO order_detail : list) {
     						
@@ -598,10 +580,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
     							+ "筆同時被新增");
     					
     					// Handle any driver errors
-    				} catch (ClassNotFoundException e) {
-    					throw new RuntimeException("Couldn't load database driver. "
-    							+ e.getMessage());
-    					// Handle any SQL errors
     				} catch (SQLException se) {
     					if (con != null) {
     						try {
@@ -649,8 +627,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ORD_FOR_VENDOR);
 
 			pstmt.setString(1, vendor_no);
@@ -681,10 +658,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -726,8 +699,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ORD_FOR_MEM);
 
 			pstmt.setString(1, mem_no);
@@ -758,10 +730,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -804,8 +772,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_VENDOR_DATE_STMT);
 			pstmt.setString(1, vendor_no);
 			pstmt.setDate(2, booking_date);
@@ -835,10 +802,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -880,8 +843,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_VENDOR_VERIF_STMT);
 			pstmt.setString(1, vendor_no);
 			pstmt.setString(2, verif_code + "%");
@@ -911,10 +873,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -954,8 +912,7 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_VENDOR_VERIF_STMT);
 
 			pstmt.setString(1, vendor_no);
@@ -986,10 +943,6 @@ public class OrdJDBCDAO implements OrdDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

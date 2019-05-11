@@ -7,7 +7,7 @@ public class Member_Wallet_ListService {
 	private  Member_Wallet_ListDAO_interface dao;
 	
 	public  Member_Wallet_ListService() {
-		dao = new  Member_Wallet_ListJDBCDAO();
+		dao = new  Member_Wallet_ListDAO();
 	}
 	
 	//新增一條錢包明細-支付個人訂單或好友訂單 (stat在SQL句中會寫死 自己支付是1，支付好友訂單是2，提款是3)

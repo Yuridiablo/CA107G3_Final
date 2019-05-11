@@ -7,10 +7,10 @@ import java.util.List;
 
 public class Reservation_Table_OrderedService {
 
-	private Reservation_Table_OrderedJDBCDAO dao;
+	private Reservation_Table_OrderedDAO dao;
 
 	public Reservation_Table_OrderedService() {
-		dao = new Reservation_Table_OrderedJDBCDAO();
+		dao = new Reservation_Table_OrderedDAO();
 	}
 
 	public Reservation_Table_OrderedVO addEmp(String vendor_no, Date booking_date ,  String booking_time,

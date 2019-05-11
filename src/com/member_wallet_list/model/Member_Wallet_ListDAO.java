@@ -8,14 +8,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.comment_reported.model.Comment_ReportedVO;
 
-public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interface {
+public class Member_Wallet_ListDAO implements Member_Wallet_ListDAO_interface {
 	
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA107G3";
-	String passwd = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = 
 //			('MWL'||LPAD(to_char(MEMBER_WALLET_LIST_SEQ.NEXTVAL), 7, '0'),'M000001',sysdate,'5566',1,null,'20190330-000001'
@@ -36,8 +46,7 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, Member_Wallet_ListVO.getMem_no());
@@ -48,8 +57,6 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -76,8 +83,7 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
 			
 
@@ -86,8 +92,6 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -115,16 +119,13 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, list_no);
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -158,8 +159,7 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			pstmt.setString(1, mem_no);
 			rs = pstmt.executeQuery();
@@ -177,8 +177,6 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 				list.add(mwl);
 				
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -212,8 +210,7 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
@@ -229,8 +226,6 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 				list.add(mwl);
 				
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -254,7 +249,7 @@ public class Member_Wallet_ListJDBCDAO implements Member_Wallet_ListDAO_interfac
 	}
 
 	public static void main(String[] args) {
-		Member_Wallet_ListJDBCDAO dao = new Member_Wallet_ListJDBCDAO();	
+		Member_Wallet_ListDAO dao = new Member_Wallet_ListDAO();	
 		
 		//新增
 		Member_Wallet_ListVO mwl = new Member_Wallet_ListVO();

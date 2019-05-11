@@ -3,14 +3,14 @@ package com.ord_detail.model;
 import java.util.List;
 
 import com.ord_detail.model.Order_DetailDAO_interface;
-import com.ord_detail.model.Order_DetailJDBCDAO;
+import com.ord_detail.model.Order_DetailDAO;
 import com.ord_detail.model.Order_DetailVO;
 
 public class Order_DetailService {
 	private Order_DetailDAO_interface dao;
 	
 	public Order_DetailService() {
-		dao = new Order_DetailJDBCDAO();
+		dao = new Order_DetailDAO();
 	}
 	
 	public Order_DetailVO addOrder_Detail(String ord_no, String menu_no, Integer qty, Integer price) {		 

@@ -38,7 +38,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
-import com.ord.model.OrdJDBCDAO;
+import com.ord.model.OrdDAO;
 import com.ord.model.OrdService;
 import com.ord.model.OrdVO;
 import com.ord_detail.model.Order_DetailService;
@@ -1005,7 +1005,7 @@ public class OrdServlet extends HttpServlet {
 				Integer status = (Integer) session.getAttribute("status");
 
 				/*************************** 2.開始新增資料 ***************************************/
-				OrdJDBCDAO dao = new OrdJDBCDAO();
+				OrdDAO dao = new OrdDAO();
 
 				OrdVO ordVO = new OrdVO();
 
@@ -1133,7 +1133,7 @@ public class OrdServlet extends HttpServlet {
 				VendorVO vVO = VendorSvc.findByPK(vendor_no);
 				String v_name = vVO.getV_name();
 
-				OrdJDBCDAO dao = new OrdJDBCDAO();
+				OrdDAO dao = new OrdDAO();
 				/*************************** 2.開始新增資料 ***************************************/
 
 				OrdVO ordVO = new OrdVO();

@@ -10,16 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 
 
 
 public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interface {
-	final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-	final String USER = "CA107G3";
-	final String PASSWORD = "123456";
 	
-	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = "INSERT INTO RES_TRANSACTION_LIST VALUES('RTL'||LPAD(to_char(RES_T_L_SEQ.NEXTVAL), 7, '0'),?,?,sysdate,?,?)";
 			
@@ -43,8 +52,7 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 		
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, res_transaction_listVO.getVendor_no());
@@ -55,10 +63,6 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 			pstmt.executeUpdate();
 				System.out.println("新增了一筆資料");
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -91,7 +95,7 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 //		try {
 //
 //			Class.forName(DRIVER);
-//			con = DriverManager.getConnection(URL, USER, PASSWORD);
+//			con = ds.getConnection();
 //			pstmt = con.prepareStatement(UPDATE);
 //
 //			pstmt.setString(1, res_transaction_listVO.getVendor_no() );
@@ -141,7 +145,7 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 //		try {
 //
 //			Class.forName(DRIVER);
-//			con = DriverManager.getConnection(URL, USER, PASSWORD);
+//			con = ds.getConnection();
 //			pstmt = con.prepareStatement(DELETE);
 //
 //			pstmt.setString(1, trst_no);
@@ -186,8 +190,7 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 		try {
 			
 			
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(STATUS);
 	
 			pstmt.setInt(1, res_transaction_listVO.getV_wallet() );
@@ -197,10 +200,6 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 			pstmt.executeUpdate();
 			System.out.println("更新了交易明細狀態");
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -235,8 +234,7 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_VENDOR);
 			
 			pstmt.setString(1, vendor_no);
@@ -256,10 +254,6 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -301,8 +295,7 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 
 			try {
 
-				Class.forName(DRIVER);
-				con = DriverManager.getConnection(URL, USER, PASSWORD);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ONE_STMT);
 
 				pstmt.setString(1, trst_no);
@@ -322,10 +315,6 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 				}
 
 				// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -368,8 +357,7 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 
 		try {
 
-			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -388,10 +376,6 @@ public  class RES_Transaction_ListDAO implements RES_Transaction_ListDAO_Interfa
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

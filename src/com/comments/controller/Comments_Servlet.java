@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.comments.model.CommentsJDBCDAO;
+import com.comments.model.CommentsDAO;
 import com.comments.model.CommentsService;
 import com.comments.model.CommentsVO;
 import com.ord.model.OrdService;
@@ -82,7 +82,7 @@ public class Comments_Servlet extends HttpServlet {
 				C_VO.setVendor_no(vendor_no);
 			
 				CommentsService C_Svc=new CommentsService();
-				CommentsJDBCDAO C_dao =new CommentsJDBCDAO();
+				CommentsDAO C_dao =new CommentsDAO();
 				C_dao.insert(C_VO);
 				
 //				C_Svc.addComments(ord_no, vendor_no, score, cmnt, cmnt_status);
@@ -153,7 +153,7 @@ public class Comments_Servlet extends HttpServlet {
 						C_VO.setVendor_no(vendor_no);
 //					
 						
-						CommentsJDBCDAO C_dao =new CommentsJDBCDAO();
+						CommentsDAO C_dao =new CommentsDAO();
 						C_dao.insert(C_VO);
 						
 						C_Svc.addComments(ord_no, vendor_no, score, cmnt, cmnt_status);

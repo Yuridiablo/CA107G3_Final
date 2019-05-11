@@ -3,14 +3,14 @@ package com.tables.model;
 import java.util.List;
 
 import com.tables.model.TablesDAO_interface;
-import com.tables.model.TablesJDBCDAO;
+import com.tables.model.TablesDAO;
 import com.tables.model.TablesVO;
 
 public class TablesService {
 	private TablesDAO_interface dao;
 	
 	public TablesService() {
-		dao = new TablesJDBCDAO();
+		dao = new TablesDAO();
 	}
 	
 	public TablesVO addTables(String vendor_no, String tbl_name, Integer tbl_size, Integer tbl_type, Integer tbl_x, Integer tbl_y) {

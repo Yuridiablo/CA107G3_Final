@@ -8,16 +8,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.comment_reported.model.Comment_ReportedVO;
 import com.comments.model.CommentsVO;
 import com.member_wallet_list.model.Member_Wallet_ListVO;
 
 public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_interface {
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA107G3";
-	String passwd = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT =
 //			('MWL'||LPAD(to_char(MEMBER_WALLET_LIST_SEQ.NEXTVAL), 7, '0'),'M000001',sysdate,'5566',1,null,'20190330-000001'
@@ -36,8 +46,7 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, Restaurant_ResponsesVO.getCmnt_no());
@@ -45,8 +54,6 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 
 		} finally {
@@ -74,8 +81,7 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
 			pstmt.setString(1, Restaurant_ResponsesVO.getRes_text());
@@ -83,8 +89,6 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 
 		} finally {
@@ -116,8 +120,7 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_VENDOR);
 			pstmt.setString(1, vendor_no);
 			rs = pstmt.executeQuery();
@@ -135,10 +138,6 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -176,16 +175,13 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, res_no);
 
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 
 		} finally {
@@ -215,7 +211,7 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			pstmt.setString(1, cmnt_no);
 			rs = pstmt.executeQuery();
@@ -269,8 +265,7 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 		ResultSet rs = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -284,8 +279,6 @@ public class Restaurant_ResponsesJDBCDAO implements Restaurant_ResponsesDAO_inte
 				list.add(rr);
 
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 
 		} finally {

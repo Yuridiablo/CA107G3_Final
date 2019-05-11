@@ -4,14 +4,14 @@ import java.sql.Date;
 import java.util.List;
 
 import com.ord.model.OrdDAO_interface;
-import com.ord.model.OrdJDBCDAO;
+import com.ord.model.OrdDAO;
 import com.ord.model.OrdVO;
 
 public class OrdService {
 	private OrdDAO_interface dao;
 	
 	public OrdService() {
-		dao = new OrdJDBCDAO();
+		dao = new OrdDAO();
 	}
 	
 	public OrdVO addOrd(String mem_no, String vendor_no, String tbl_no, Integer party_size, String share_mem_no1, String share_mem_no2, Integer share_amount, java.sql.Timestamp ord_time, java.sql.Date booking_date, String booking_time, String notes, Integer total, String arrival_time, String finish_time, String verif_code, Integer status) {

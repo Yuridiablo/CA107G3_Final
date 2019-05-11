@@ -8,16 +8,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.restaurant_menu.model.Restaurant_MenuVO;
 
-public class CommentsJDBCDAO implements CommentsDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-//	String url = "jdbc:oracle:thin:@localhost:49161:XE";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA107G3";
-	String passwd = "123456";
-//	String userid = "WEST";
-//	String passwd = "800627";
+public class CommentsDAO implements CommentsDAO_interface {
+
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = 
 			"INSERT INTO comments (cmnt_no, ord_no, vendor_no, score, cmnt, time, cmnt_status)" + 
@@ -43,8 +51,7 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, commentsVO.getOrd_no());
@@ -56,10 +63,6 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -89,8 +92,7 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, commentsVO.getOrd_no());
@@ -104,10 +106,6 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -137,8 +135,7 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, cmnt_no);
@@ -146,10 +143,6 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -181,8 +174,7 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, cmnt_no);
@@ -202,10 +194,6 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -247,8 +235,7 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -266,10 +253,6 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -301,7 +284,7 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 	}
 	
 	public static void main(String[] args) {
-		CommentsJDBCDAO dao = new CommentsJDBCDAO();
+		CommentsDAO dao = new CommentsDAO();
 
 		// ?���?
 		CommentsVO commentsVO1 = new CommentsVO();
@@ -362,8 +345,7 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_VENDOR);
 			pstmt.setString(1, vendor_no);
 			rs = pstmt.executeQuery();
@@ -382,8 +364,6 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 				list.add(cm);
 				
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -416,8 +396,7 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 
 			try {
 
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_BY_ORD_NO);
 
 				pstmt.setString(1, ord_no);
@@ -437,10 +416,6 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 				}
 			
 				// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -483,8 +458,7 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_VENDOR);
 			pstmt.setString(1, vendor_no);
 			rs = pstmt.executeQuery();
@@ -503,10 +477,6 @@ public class CommentsJDBCDAO implements CommentsDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

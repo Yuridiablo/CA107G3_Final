@@ -11,15 +11,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.comment_reported.model.Comment_ReportedVO;
 import com.member_wallet_list.model.Member_Wallet_ListVO;
 
-public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
+public class Restaurant_MenuDAO implements Restaurant_MenuDAO_interface {
 	
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA107G3";
-	String passwd = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = 		
 			"INSERT INTO RESTAURANT_MENU (MENU_NO,VENDOR_NO,MENU_NAME,MENU_PRICE,MENU_PIC,MENU_STAT,MENU_TEXT) VALUES ('RM'||LPAD(to_char(RESTAURANT_MENU_SEQ.NEXTVAL), 8, '0'),?,?,?,?,?,?)";	
@@ -53,8 +63,7 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, Restaurant_MenuVO.getVendor_no());
@@ -66,8 +75,6 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -95,8 +102,7 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
 			
 
@@ -109,8 +115,6 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -139,7 +143,7 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 		int rs = 0;
 
 		try {
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			System.out.println("連線成功!更新一張餐點圖");
 			pstm = con.prepareStatement(UPDATE_PIC);
 			
@@ -170,8 +174,7 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 				PreparedStatement pstmt = null;
 				
 				try {
-					Class.forName(driver);
-					con = DriverManager.getConnection(url, userid, passwd);
+					con = ds.getConnection();
 					pstmt = con.prepareStatement(UPDATE_3INFO);
 					
 
@@ -182,8 +185,6 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 					
 					pstmt.executeUpdate();
 					
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
 				} catch (SQLException se) {
 					
 				} finally {
@@ -212,8 +213,7 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 				PreparedStatement pstmt = null;
 				
 				try {
-					Class.forName(driver);
-					con = DriverManager.getConnection(url, userid, passwd);
+					con = ds.getConnection();
 					pstmt = con.prepareStatement(UPDATE_STATU);
 					
 
@@ -222,8 +222,6 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 					
 					pstmt.executeUpdate();
 					
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
 				} catch (SQLException se) {
 					
 				} finally {
@@ -252,16 +250,13 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, menu_no);
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -292,7 +287,7 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 		
 		try {
 
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, menu_no);
@@ -352,8 +347,7 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 				ResultSet rs = null;
 				
 				try {
-					Class.forName(driver);
-					con = DriverManager.getConnection(url, userid, passwd);
+					con = ds.getConnection();
 					pstmt = con.prepareStatement(GET_ONE_VENDOR);
 					pstmt.setString(1, vendor_no);
 					rs = pstmt.executeQuery();
@@ -373,8 +367,6 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 						list.add(rm);
 						
 					}
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
 				} catch (SQLException se) {
 					
 				} finally {
@@ -408,8 +400,7 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			
@@ -430,8 +421,6 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 				list.add(rm);
 				
 			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException se) {
 			
 		} finally {
@@ -466,8 +455,7 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GETM_NAME);
 			pstmt.setString(1, vendor_no);
 			pstmt.setString(2, vendor_no);
@@ -485,10 +473,6 @@ public class Restaurant_MenuJDBCDAO implements Restaurant_MenuDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

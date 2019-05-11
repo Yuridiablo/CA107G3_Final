@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.reservation_time.model.Reservation_TimeJDBCDAO;
+import com.reservation_time.model.Reservation_TimeDAO;
 import com.reservation_time.model.Reservation_TimeVO;
 
 

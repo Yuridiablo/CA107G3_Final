@@ -8,7 +8,7 @@ public class CommentsService {
 	private CommentsDAO_interface dao;
 	
 	public CommentsService() {
-		dao = new CommentsJDBCDAO();
+		dao = new CommentsDAO();
 	}
 	
 	public CommentsVO addComments(String ord_no, String vendor_no, Integer score, String cmnt, Integer cmnt_status) {

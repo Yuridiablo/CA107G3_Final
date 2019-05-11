@@ -6,10 +6,10 @@ import java.util.List;
 
 public class Reservation_TimeService {
 
-	private Reservation_TimeJDBCDAO dao;
+	private Reservation_TimeDAO dao;
 
 	public Reservation_TimeService() {
-		dao = new Reservation_TimeJDBCDAO();
+		dao = new Reservation_TimeDAO();
 	}
 
 	public Reservation_TimeVO addReservation_time(String vendor_no, String r_time) {

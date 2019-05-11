@@ -9,16 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_NumberDAO_interface {
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class Reservation_Table_NumberDAO implements Reservation_Table_NumberDAO_interface {
 	
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	final static String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	final static String userid = "CA107G3";
-	final static String passwd = "123456";
-//	String url = "jdbc:oracle:thin:@localhost:49161:XE";
-//	String userid = "WEST";
-//	String passwd = "800627";
-	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = "INSERT INTO RESERVATION_TABLE_NUMBER VALUES ('ETN'||LPAD(to_char(RESERVATION_TABLE_NUMBER_SEQ.NEXTVAL), 7, '0'),?,?,?,?,?,?)";
 	
@@ -43,8 +49,7 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, reservation_table_numberVO.getVendor_no());
@@ -57,10 +62,6 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 			pstmt.executeUpdate();
 				System.out.println("OK1");
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -92,8 +93,7 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, reservation_table_numberVO.getVendor_no() );
@@ -108,10 +108,6 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -145,7 +141,7 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 //		try {
 //
 //			Class.forName(driver);
-//			con = DriverManager.getConnection(url, userid, passwd);
+//			con = ds.getConnection();
 //			pstmt = con.prepareStatement(DELETE);
 //
 //			pstmt.setString(1, rtn_no);
@@ -190,8 +186,7 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, rtn_no);
@@ -211,10 +206,6 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -258,8 +249,7 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 
 			try {
 
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ALL_STMT);
 				rs = pstmt.executeQuery();
 
@@ -279,10 +269,6 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 				}
 
 				// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -323,7 +309,7 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 	public static void main(String[] args) {
 		
 
-		Reservation_Table_NumberJDBCDAO dao = new Reservation_Table_NumberJDBCDAO();
+		Reservation_Table_NumberDAO dao = new Reservation_Table_NumberDAO();
 		Reservation_Table_NumberVO resVO1 = new Reservation_Table_NumberVO();
 		
 		//insert
@@ -394,8 +380,7 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_BY_VENDOR);
 			pstmt.setString(1, vendor_no);
 			rs = pstmt.executeQuery();
@@ -419,10 +404,6 @@ public class Reservation_Table_NumberJDBCDAO implements Reservation_Table_Number
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

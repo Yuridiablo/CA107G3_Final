@@ -7,7 +7,7 @@ public class VendorService {
 	private VendorDAO_interface dao;
 	
 	public VendorService() {
-		dao = new VendorJDBCDAO();
+		dao = new VendorDAO();
 	}
 	
 

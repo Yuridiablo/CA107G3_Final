@@ -9,7 +9,7 @@ public class Restaurant_MenuService {
 	private Restaurant_MenuDAO_interface dao;
 	
 	public Restaurant_MenuService() {
-		dao = new Restaurant_MenuJDBCDAO();
+		dao = new Restaurant_MenuDAO();
 	}
 	
 	//店家新增菜單

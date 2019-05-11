@@ -6,10 +6,10 @@ import java.util.List;
 
 public class Reservation_Table_NumberService {
 
-	private Reservation_Table_NumberJDBCDAO dao;
+	private Reservation_Table_NumberDAO dao;
 
 	public Reservation_Table_NumberService() {
-		dao = new Reservation_Table_NumberJDBCDAO();
+		dao = new Reservation_Table_NumberDAO();
 	}
 
 	public Reservation_Table_NumberVO addReservation_Table_Number(String vendor_no, Integer rtbl_o_num1, Integer rtbl_o_num2,
