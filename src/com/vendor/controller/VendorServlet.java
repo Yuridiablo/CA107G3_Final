@@ -930,6 +930,35 @@ public class VendorServlet extends HttpServlet {
 			}
 		
 		}
+		
+		
+		if ("waitPos".equals(action)) {
+			
+			System.out.println("actioooooooooooo");
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+														
+//				VendorVO vVO = (VendorVO) se.getAttribute("vVO");
+//				String vendor_no = vVO.getVendor_no();
+//				TablesService tablesService = new TablesService();
+//				List<TablesVO> mglist = tablesService.getAllByVendor_no(vendor_no);
+//				req.setAttribute("mglist", mglist);
+								
+				String  watingFlag = "watingFlag";
+				req.setAttribute("watingFlag", watingFlag);
+				/*************************** 2.開始查詢資料 ****************************************/
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				String url = "/Vendor/mainVendor.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+	
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
 	}
 
 }
