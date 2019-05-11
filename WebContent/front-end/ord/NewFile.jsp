@@ -76,7 +76,7 @@ height:1px
                      <tr class="warning">
                         <td>${ordVO.ord_no}</td>
                         <input type="hidden" name="ord_no" value="${ordVO.ord_no}"/>
-						<td>${ordVO.mem_no}<br>
+						<td>${ordVO.mem_no}<br> 
 						<hr><font color="blue">${ordVO.share_mem_no1}<br></font>
 						<hr><font color="blue">${ordVO.share_mem_no2}</font></td>
 						<td>${ordVO.vendor_no}</td>
