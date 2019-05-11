@@ -6,6 +6,7 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
 import com.tables.model.*;
+import com.vendor.model.VendorVO;
 
 public class TablesServlet extends HttpServlet {
 	
@@ -31,11 +32,16 @@ public class TablesServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
+		
 			
 			try {
-				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String vendor_no = req.getParameter("vendor_no");
 				
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				HttpSession se = req.getSession();
+				VendorVO vVO = (VendorVO) se.getAttribute("vVO");
+				String vendor_no = vVO.getVendor_no();
+				
+			
 				int tbl_number;
 				try {
 					tbl_number = Integer.parseInt(req.getParameter("tbl_number").trim());
@@ -61,7 +67,7 @@ public class TablesServlet extends HttpServlet {
 					req.setAttribute("tbl_size_add", tbl_size);
 					
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/tables/table_management_list.jsp");
+							.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -77,7 +83,7 @@ public class TablesServlet extends HttpServlet {
 				}
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/tables_jsp/table_management_list.jsp";
+				String url = "/Vendor/Vendor.do?action=listTableinfo";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 				
@@ -85,7 +91,7 @@ public class TablesServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("新增資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
+						.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
 				failureView.forward(req, res);
 			}				
 		}
@@ -99,7 +105,6 @@ public class TablesServlet extends HttpServlet {
 			try {
 				
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-							
 				String tbl_no = req.getParameter("tbl_no");
 				
 				String vendor_no = req.getParameter("vendor_no");
@@ -121,7 +126,7 @@ public class TablesServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("tablesVO", tablesVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/tables/table_management_list.jsp");
+							.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -131,7 +136,7 @@ public class TablesServlet extends HttpServlet {
 				tablesService.updateTablesBasic(tbl_no, tbl_name, tbl_size);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/tables_jsp/table_management_list.jsp";
+				String url = "/Vendor/Vendor.do?action=listTableinfo";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);	
 				
@@ -139,7 +144,7 @@ public class TablesServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
+						.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
 				failureView.forward(req, res);
 			}
 			
@@ -172,7 +177,7 @@ public class TablesServlet extends HttpServlet {
 				tablesService.deleteTables(tbl_no);
 	
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
-				String url = "/tables_jsp/table_management_list.jsp";
+				String url = "/Vendor/Vendor.do?action=listTableinfo";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
@@ -182,7 +187,7 @@ public class TablesServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/tables/table_management_list.jsp");
+						.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
 				failureView.forward(req, res);
 			}
 		}
@@ -231,7 +236,7 @@ public class TablesServlet extends HttpServlet {
 //				tablesService.updateTablesBasic(tbl_no, tbl_name, tbl_size);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/tables_jsp/table_management_graph.jsp";
+				String url = "/Vendor/Vendor.do?action=listTableGraph";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);	
 				

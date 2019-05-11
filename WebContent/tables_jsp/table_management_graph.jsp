@@ -5,9 +5,9 @@
 <%@ page import="java.util.*" %>
 
 <%
-	TablesService tablesService = new TablesService();
-	List<TablesVO> list = tablesService.getAllByVendor_no("V000001");
-	pageContext.setAttribute("list", list);
+// 	TablesService tablesService = new TablesService();
+// 	List<TablesVO> mglist = tablesService.getAllByVendor_no("V000001");
+// 	pageContext.setAttribute("mglist", mglist);
 %>
 
 <!doctype html>
@@ -116,27 +116,8 @@
   </head>
 
   <!-- ============================================================================= -->
-  <body style="background-color: gray;">
+  <body>
 
-
-  	<!-- Navbar -->
-	<nav class="navbar  bg-dark navbar-dark">
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnSidenav">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>	  
-	  <span class="navbar-brand">Seek Food Table</span>
-	</nav>
-	
-	<!-- Side Nav -->
-	<div id="sidenavOverlay"></div>
-
-    <nav class="nav navbar-nav bg-dark" id="sidenav">
-	  <a class="nav-link text-white p-3" href="#">Active</a>
-	  <a class="nav-link text-white p-3" href="#">Link</a>
-	  <a class="nav-link text-white p-3" href="#">Link</a>
-	  <a class="nav-link text-white p-3" href="#">Disabled</a>
-	</nav>
-	
 	<!-- Content -->
 	<div class="container-fluid">
 		<div class="row justify-content-around p-3">
@@ -177,7 +158,7 @@
 				      <div class="card-body p-0">
 				      
 				        
-<c:forEach var="tablesVO" items="${list}">
+<c:forEach var="tablesVO" items="${mglist}">
 	<c:if test="${tablesVO.tbl_size == 1}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}" ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'} >
 					     ${tablesVO.tbl_name}	
@@ -219,7 +200,7 @@
 					<!-- card body -->
 				    <div id="collapseTblSize2" class="collapse p-0" aria-labelledby="headingTblSize2" data-parent="#accordion">
 				      <div class="card-body p-0">
-<c:forEach var="tablesVO" items="${list}">
+<c:forEach var="tablesVO" items="${mglist}">
 	<c:if test="${tablesVO.tbl_size == 2}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}"  ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'}>
 					     ${tablesVO.tbl_name}	
@@ -260,7 +241,7 @@
 					<!-- card body -->
 				    <div id="collapseTblSize3" class="collapse p-0" aria-labelledby="headingTblSize3" data-parent="#accordion">
 				      <div class="card-body p-0">
-<c:forEach var="tablesVO" items="${list}">
+<c:forEach var="tablesVO" items="${mglist}">
 	<c:if test="${tablesVO.tbl_size == 3}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}"  ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'}>
 					     ${tablesVO.tbl_name}
@@ -301,7 +282,7 @@
 					<!-- card body -->
 				    <div id="collapseTblSize4" class="collapse p-0" aria-labelledby="headingTblSize4" data-parent="#accordion">
 				      <div class="card-body p-0">
-<c:forEach var="tablesVO" items="${list}">
+<c:forEach var="tablesVO" items="${mglist}">
 	<c:if test="${tablesVO.tbl_size == 4}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}"  ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'}>
 					   		${tablesVO.tbl_name}	
@@ -342,7 +323,7 @@
 					<!-- card body -->
 				    <div id="collapseTblSize5" class="collapse p-0" aria-labelledby="headingTblSize5" data-parent="#accordion">
 				      <div class="card-body p-0">
-<c:forEach var="tablesVO" items="${list}">
+<c:forEach var="tablesVO" items="${mglist}">
 	<c:if test="${tablesVO.tbl_size == 5}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}"  ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'}>
 					     ${tablesVO.tbl_name}
@@ -372,7 +353,7 @@
 			<div class="col-9">
 				
 					<div id="floorplan1">
-<c:forEach var="tablesVO" items="${list}">
+<c:forEach var="tablesVO" items="${mglist}">
 	<c:if test="${tablesVO.tbl_x != null && tablesVO.tbl_y != null}">						
 						<div class="${tablesVO.tbl_type == 1 ? 'square' : 'round'}Table" id="${tablesVO.tbl_no}c" title="${tablesVO.tbl_no}" style="position: absolute; opacity: 1; z-index: 800; left: ${tablesVO.tbl_x}px; top: ${tablesVO.tbl_y}px;">
 							${tablesVO.tbl_name}

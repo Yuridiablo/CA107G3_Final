@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.tables.model.*" %>
 <%@ page import="java.util.*" %>
 
 <%
-	TablesService tablesService = new TablesService();
-	List<TablesVO> list = tablesService.getAllByVendor_no("V000001");
-	pageContext.setAttribute("list", list);
+// 	TablesService tablesService = new TablesService();
+// 	List<TablesVO> list = tablesService.getAllByVendor_no("V000001");
+// 	pageContext.setAttribute("list", list);
+	List<TablesVO> tmlist = (List<TablesVO>)request.getAttribute("tmlist");
 %>
  
 <!DOCTYPE html>
@@ -17,17 +19,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-	 <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	
 	<!-- Input type=number -->
-	<script src="bootstrap-input-spinner.js"></script>
+	<script src="../front-end/js/bootstrap-input-spinner.js"></script>
 	
     <title>桌位管理_列表</title>
 	
@@ -82,28 +75,9 @@
 		}
 	</style>
 </head>
-<body style="background-color: gray;">
+<body>
 
-
-  	<!-- Navbar -->
-	<nav class="navbar  bg-dark navbar-dark">
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnSidenav">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	  <span class="navbar-brand">Seek Food Table</span>
-	</nav>
-	
-	<!-- Side Nav -->
-	<div id="sidenavOverlay"></div>
-
-    <nav class="nav navbar-nav bg-dark" id="sidenav">
-	  <a class="nav-link text-white p-3" href="#">基本資料</a>
-	  <a class="nav-link text-white p-3" href="#">訂位管理</a>
-	  <a class="nav-link text-white p-3" href="#">菜單管理</a>
-	  <a class="nav-link text-white p-3" href="#">桌位管理</a>
-	</nav>
-	
-	<div class="container-fluid">
+		<div class="container-fluid">
 		<div class="row justify-content-around p-3">
 
 			<!-- Create Tables -->
@@ -166,7 +140,7 @@
 						<button type="submit" class="btn btn-secondary w-100" id="btnCreateTbl">新增</button>
 					</div>
 					<input type="hidden" name="action" value="insert">
-					<input type="hidden" name="vendor_no"	value="V000001">
+<!-- 					<input type="hidden" name="vendor_no"	value="V000001"> -->
 				</form>
 			</div>
 
@@ -183,7 +157,7 @@
 				  </thead>
 				  <tbody>
 <% pageContext.setAttribute("pageIndex", pageIndex); %>				  
-<c:forEach var="tablesVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">		
+<c:forEach var="tablesVO" items="${tmlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">		
 					<tr class="tblObj">
 						<th scope="row">${tablesVO.tbl_no}</th>
 						<td>${tablesVO.tbl_name}</td>
@@ -210,20 +184,20 @@
 				  	<!-- 上一頁 -->
 				 <%if(pageIndex >= rowsPerPage){%>
 				    <li class="page-item">
-				      <a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">Previous</a>
+				      <a class="page-link" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo&whichPage=<%=whichPage-1%>">Previous</a>
 				    </li>
 				 <%}%>
 				    
 				    <!-- 頁數 -->
 				 <% for (int i = 1; i <= pageNumber; i++) { %>
-				 	<li class='page-item <%= i == whichPage ? "active" : ""%>'><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=i%>"><%= i %></a></li>
+				 	<li class='page-item <%= i == whichPage ? "active" : ""%>'><a class="page-link" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo&whichPage=<%=i%>"><%= i %></a></li>
 				 <%}%>  
 				    
 				    
 				    <!-- 下一頁 -->
 				 <%if(pageIndex < pageIndexArray[pageNumber-1]){%>
 				    <li class="page-item">
-				      <a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>">Next</a>
+				      <a class="page-link" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo&whichPage=<%=whichPage+1%>">Next</a>
 				    </li>
 				 <%}%>   
 				  </ul>
@@ -291,6 +265,20 @@
 			</div>
 		</div>
 	</div>
+	
+	<script src="../front-end/js/jquery-3.3.1.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<!-- Input type=number -->
+	<script src="../front-end/js/bootstrap-input-spinner.js"></script>
+	<!--     sweetalert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 	
 
 	<script>		

@@ -30,7 +30,7 @@
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 	<!-- Input type=number -->
-	<script src="bootstrap-input-spinner.js"></script>
+	<script src="../front-end/js/bootstrap-input-spinner.js"></script>
 	<!--     sweetalert -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 	
@@ -218,16 +218,16 @@ to {
 	<div id="sidenavOverlay"></div>
 	<nav class="nav navbar-nav bg-dark" id="sidenav">
 		<a class="nav-link text-white p-3" href="#">概況一覽</a> 
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upVendor">資訊管理</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upVendor">資訊修改</a>
 		<a class="nav-link text-white p-3" href="#">訂單狀態</a>
-		<a class="nav-link text-white p-3" href="#">桌況設定</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo">桌位設定</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableGraph">桌位配置</a>
 		<a class="nav-link text-white p-3" href="#">桌況管理</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listMenu">菜單管理</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listVendor">帳戶管理</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listComment">回應管理</a>
-		<a class="nav-link text-white p-3" href="#">訂位者驗證</a>
-		<a class="nav-link text-white p-3" href="#">候位者驗證</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listComment">測試-提款驗證</a>
+		<a class="nav-link text-white p-3" href="#">訂位驗證</a>
+		<a class="nav-link text-white p-3" href="#">候位控制系統</a>
 		
 			
 	</nav>
@@ -255,8 +255,12 @@ to {
 <jsp:include page="/Restaurant_Menu/listMenu.jsp" />
 </c:if>
 
-<c:if test="${not empty vlistConfirm}">
-<jsp:include page="/employeePage/confirmVendor.jsp" />
+<c:if test="${not empty tmlist}">
+<jsp:include page="/tables_jsp/table_management_list.jsp" />
+</c:if>
+
+<c:if test="${not empty mglist}">
+<jsp:include page="/tables_jsp/table_management_graph.jsp" />
 </c:if>
 
 
