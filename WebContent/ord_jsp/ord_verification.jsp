@@ -5,11 +5,9 @@
 
 <%	
 	String vendor_no = null;
-	if (request.getParameter("vendor_no") != null) {
-		vendor_no = request.getParameter("vendor_no");
-	} else {
-		vendor_no = "V000001";
-	}
+	if (request.getAttribute("vendor_no") != null) {
+		vendor_no = (String)request.getAttribute("vendor_no");
+	} 
 %>    
 <!doctype html>
 <html>
@@ -96,24 +94,6 @@
   <body style="background-color: gray;">
 
 
-  	<!-- Navbar -->
-	<nav class="navbar  bg-dark navbar-dark">
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnSidenav">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	  <span class="navbar-brand">Seek Food Table</span>
-	</nav>
-
-	<!-- Side Nav -->
-	<div id="sidenavOverlay"></div>
-
-    <nav class="nav navbar-nav bg-dark" id="sidenav">
-	  <a class="nav-link text-white p-3" href="#">基本資料</a>
-	  <a class="nav-link text-white p-3" href="#">訂位管理</a>
-	  <a class="nav-link text-white p-3" href="#">菜單管理</a>
-	  <a class="nav-link text-white p-3" href="#">桌位管理</a>
-	</nav>
-	
 	<div class="container-fluid">
 	
 		<div class="col-12  p-5">		

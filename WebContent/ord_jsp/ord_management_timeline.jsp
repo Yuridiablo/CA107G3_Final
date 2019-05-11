@@ -49,10 +49,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Icon資源池 -->
-	<link rel="stylesheet" href="css/themify-icons.css">
+	<link rel="stylesheet" href="../front-end/css/themify-icons.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>訂單管理_桌位安排</title>
@@ -269,15 +268,6 @@ margin-left: 20px;
   <!-- ============================================================================= -->
   <body style="background-color: gray;">
 
-
-  	<!-- Navbar -->
-	<nav class="navbar  bg-dark navbar-dark">
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnSidenav">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	  <span class="navbar-brand">Seek Food Table</span>
-	</nav>
-
 	<!-- sub Navbar -->
 	<nav class="navbar bg-light navbar-light subNavbar justify-content-center">
 	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnBack">
@@ -304,19 +294,9 @@ margin-left: 20px;
 	    <span class="ti-angle-right"></span>
 	  </button>
 
-	 
 	</nav>
 	
-	<!-- Side Nav -->
-	<div id="sidenavOverlay"></div>
 
-    <nav class="nav navbar-nav bg-dark" id="sidenav">
-	  <a class="nav-link text-white p-3" href="#">基本資料</a>
-	  <a class="nav-link text-white p-3" href="#">訂位管理</a>
-	  <a class="nav-link text-white p-3" href="#">菜單管理</a>
-	  <a class="nav-link text-white p-3" href="#">桌位管理</a>
-	</nav>
-	
 	<!-- Content -->
 		<div class="outer">
 			<!-- Ord List -->
@@ -383,7 +363,7 @@ margin-left: 20px;
 
 			<!-- Table Timeline -->
 			<div class="divRight">
-				<div class="timelineContainer">
+				<div class="timelineContainer" style="width:1000px;height:900px;overflow:auto;">
 					<div class="tblLeft">
 						<div class="tblHeadLeft">桌位名稱</div>
 					<% for(int i = 0; i < tblList.size(); i++) { %>
@@ -521,9 +501,9 @@ function dropped (e) {
 <!--=============================== datetimepicker ======================================-->
 
 <!-- 參考網站: https://xdsoft.net/jqplugins/datetimepicker/ -->
-<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" />
+<link   rel="stylesheet" type="text/css" href="../ord_jsp/datetimepicker/jquery.datetimepicker.css" />
 <!--  <script src="datetimepicker/jquery.js"></script>-->
-<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="../ord_jsp/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <script>
 $(document).ready(function(){
