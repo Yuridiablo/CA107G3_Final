@@ -7,7 +7,7 @@ public class EmployeeService {
 	private EmployeeDAO_interface dao;
 
 	public EmployeeService() {
-		dao = new EmployeeJDBCDAO();
+		dao = new EmployeeDAO();
 	}
 
 	public EmployeeVO addEmployee(String emp_name, String emp_sex, String emp_acc, String emp_pwd,

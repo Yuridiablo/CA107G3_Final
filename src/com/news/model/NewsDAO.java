@@ -8,14 +8,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.feature.model.FeatureJDBCDAO;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import com.feature.model.FeatureDAO;
 import com.feature.model.FeatureVO;
 
-public class NewsJDBCDAO implements NewsDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA107G3";
-	String passwd = "123456";
+public class NewsDAO implements NewsDAO_interface {
+	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO news (news_no,emp_no,news_cont,news_pic,news_rea) VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),?, ?, ?,?)";
@@ -37,8 +48,7 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 			PreparedStatement pstmt = null;
 			
 			try {
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(INSERT_STMT);
 				
 				pstmt.setString(1, newsVO.getEmp_no());
@@ -48,10 +58,6 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 				
 				updateCount = pstmt.executeUpdate();
 				// Handle any driver errors
-						} catch (ClassNotFoundException e) {
-							throw new RuntimeException("Couldn't load database driver. "
-									+ e.getMessage());
-							// Handle any SQL errors
 						} catch (SQLException se) {
 							throw new RuntimeException("A database error occured. "
 									+ se.getMessage());
@@ -84,9 +90,7 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 			ResultSet rs = null;
 
 			try {
-				System.out.println("findByEmployeeNamefindByEmployeeNamefindByEmployeeName");
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ALL_STMT_BY_EMPNO);
 				pstmt.setString(1, emp_no);
 				rs = pstmt.executeQuery();
@@ -103,10 +107,6 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 				}
 
 				// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -144,8 +144,7 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 			
 			try {
 				
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(UPDATE);
 				
 				pstmt.setString(1, newsVO.getNews_cont());
@@ -153,10 +152,6 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 				
 				updateCount = pstmt.executeUpdate();
 				// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -187,8 +182,7 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 			
 			try {
 
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(DELETE);
 				
 				pstmt.setString(1, news_no);
@@ -196,11 +190,7 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 				updateCount = pstmt.executeUpdate();
 
 				// Handle any driver errors
-			}catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
-			} catch (SQLException se) {
+			}catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
 				// Clean up JDBC resources
@@ -231,8 +221,7 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 			
 			try {
 				
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ONE_STMT);
 				
 				pstmt.setString(1, news_no);
@@ -248,10 +237,6 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 					newsVO.setNews_pic(rs.getBytes("news_pic"));
 					newsVO.setNews_rea(rs.getDate("news_rea"));
 				}// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -292,8 +277,7 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 
 			try {
 				
-				Class.forName(driver);
-				con = DriverManager.getConnection(url, userid, passwd);
+				con = ds.getConnection();
 				pstmt = con.prepareStatement(GET_ALL_STMT);
 				rs = pstmt.executeQuery();
 
@@ -309,10 +293,6 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 				}
 
 				// Handle any driver errors
-			} catch (ClassNotFoundException e) {
-				throw new RuntimeException("Couldn't load database driver. "
-						+ e.getMessage());
-				// Handle any SQL errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -345,7 +325,7 @@ public class NewsJDBCDAO implements NewsDAO_interface {
 		
 		public static void main(String[] args) {
 
-			NewsJDBCDAO dao = new NewsJDBCDAO();
+			NewsDAO dao = new NewsDAO();
 
 			 //新增
 //			 NewsVO newsVO1 = new NewsVO();

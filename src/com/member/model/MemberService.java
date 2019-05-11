@@ -6,7 +6,7 @@ public class MemberService {
 	private MemberDAO_interface dao;
 
 	public MemberService() {
-		dao = new MemberJDBCDAO();
+		dao = new MemberDAO();
 	}
 
 	public MemberVO addMember(String mem_name, String mem_account, String mem_pwd, String mem_gender,

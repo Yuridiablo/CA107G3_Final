@@ -8,7 +8,7 @@ public class Feature_detailService {
 	private Feature_detailDAO_interface dao;
 	
 	public Feature_detailService() {
-		dao = new Feature_detailJDBCDAO();
+		dao = new Feature_detailDAO();
 	}
 	
 	public Feature_detailVO addFeature_detail(String fea_no,String emp_no) {

@@ -3,14 +3,25 @@ package com.employee.model;
 import java.sql.*;
 import java.util.*;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.news.model.NewsVO;
 
-public class EmployeeJDBCDAO implements EmployeeDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA107G3";
-	String passwd = "123456";
+public class EmployeeDAO implements EmployeeDAO_interface {
 
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private static final String INSERT_STMT = "INSERT INTO employee (emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_hire,emp_resign,emp_stat) VALUES ('E'||LPAD(to_char(EMPLOYEE_SEQ.nextval), 9, '0'), ?, ?, ?, ?, ?, ?,?)";
 	private static final String GET_ALL_STMT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee order by emp_no";
 	private static final String GET_ALL_STMT_BYNAME = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_name=? order by emp_no";
@@ -26,8 +37,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, employeeVO.getEmp_name());
@@ -40,9 +50,6 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 
 			updateCount = pstmt.executeUpdate();
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -73,9 +80,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 		ResultSet rs = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT_BYACCOUNT);
 
 			pstmt.setString(1, emp_acc);
@@ -94,9 +99,6 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				employeeVO.setEmp_resign(rs.getDate("emp_resign"));
 				employeeVO.setEmp_stat(rs.getInt("emp_stat"));
 			} // Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -137,8 +139,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT_BYNAME);
 			
 			pstmt.setString(1, emp_name);
@@ -159,9 +160,6 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -202,8 +200,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setString(1, employeeVO.getEmp_name());
@@ -215,9 +212,6 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 
 			updateCount = pstmt.executeUpdate();
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -247,9 +241,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, emp_no);
@@ -257,9 +249,6 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			updateCount = pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -290,9 +279,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 		ResultSet rs = null;
 
 		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, emp_no);
@@ -311,9 +298,6 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				employeeVO.setEmp_resign(rs.getDate("emp_resign"));
 				employeeVO.setEmp_stat(rs.getInt("emp_stat"));
 			} // Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -353,8 +337,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -373,9 +356,6 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -407,7 +387,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 
 	public static void main(String[] args) {
 
-		EmployeeJDBCDAO dao = new EmployeeJDBCDAO();
+		EmployeeDAO dao = new EmployeeDAO();
 
 		// 新增
 //		 EmployeeVO empVO1 = new EmployeeVO();
