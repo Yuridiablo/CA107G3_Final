@@ -7,7 +7,7 @@ public class NewsService {
 	private NewsDAO_interface dao;
 
 	public NewsService() {
-		dao = new NewsJDBCDAO();
+		dao = new NewsDAO();
 	}
 
 	public NewsVO addNews(String emp_no, String news_cont, byte[] news_pic, Date news_rea) {

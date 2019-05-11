@@ -8,15 +8,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.feature.model.FeatureJDBCDAO;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import com.feature.model.FeatureDAO;
 import com.feature.model.FeatureVO;
 import com.news.model.NewsVO;
 
-public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA107G3";
-	String passwd = "123456";
+public class Feature_detailDAO implements Feature_detailDAO_interface {
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = 
 		"INSERT INTO feature_detail (fea_no,emp_no) VALUES (?, ?)";
@@ -40,8 +50,7 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT_ByEmpno);
 			pstmt.setString(1, emp_no);
 			rs = pstmt.executeQuery();
@@ -55,10 +64,6 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -97,8 +102,7 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			
@@ -107,10 +111,6 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 			
 			updateCount = pstmt.executeUpdate();
 			// Handle any driver errors
-					} catch (ClassNotFoundException e) {
-						throw new RuntimeException("Couldn't load database driver. "
-								+ e.getMessage());
-						// Handle any SQL errors
 					} catch (SQLException se) {
 						throw new RuntimeException("A database error occured. "
 								+ se.getMessage());
@@ -141,8 +141,7 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, emp_no);
@@ -151,11 +150,7 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 			updateCount = pstmt.executeUpdate();
 
 			// Handle any driver errors
-		}catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
@@ -186,8 +181,7 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 		
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
 			pstmt.setString(1, emp_no);
@@ -201,10 +195,6 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 				feature_detailVO.setEmp_no(rs.getString("emp_no"));
 				feature_detailVO.setFea_no(rs.getString("fea_no"));
 			}// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -245,8 +235,7 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 
 		try {
 			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -259,14 +248,9 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
 				try {
@@ -295,7 +279,7 @@ public class Feature_detailJDBCDAO implements Feature_detailDAO_interface {
 	
 	public static void main(String[] args) {
 
-		Feature_detailJDBCDAO dao = new Feature_detailJDBCDAO();
+		Feature_detailDAO dao = new Feature_detailDAO();
 
 		 //新增
 //		 Feature_detailVO feadetVO1  = new Feature_detailVO();
