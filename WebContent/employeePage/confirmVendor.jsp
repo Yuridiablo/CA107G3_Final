@@ -13,7 +13,6 @@
 <div class="container ">
         <div class="row justify-content-center">
             <div class="col-12 table-responsive">
-<h1>新註冊餐廳審核</h1>
 <table class="table table-hover table-dark">
   <thead>
     <tr>

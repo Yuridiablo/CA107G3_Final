@@ -34,12 +34,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <!-- Icon資源池 -->
-    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="../front-end/css/themify-icons.css">
 
     <title>桌位管理_列表</title>
 	
@@ -102,14 +99,9 @@
   <body style="background-color: gray;">
 
 
-  	<!-- Navbar -->
-	<nav class="navbar  bg-dark navbar-dark">
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnSidenav">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	  <span class="navbar-brand">Seek Food Table</span>
-	</nav>
-
+ 	
+	
+	<div class="container-fluid">
 	<!-- sub Navbar -->
 	<nav class="navbar bg-light navbar-light subNavbar justify-content-center">
 	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnBack">
@@ -135,23 +127,10 @@
 	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnForward">
 	    <span class="ti-angle-right"></span>
 	  </button>
-
 	 
-	</nav>
+	</nav>	
 	
-	<!-- Side Nav -->
-	<div id="sidenavOverlay"></div>
-
-    <nav class="nav navbar-nav bg-dark" id="sidenav">
-	  <a class="nav-link text-white p-3" href="#">基本資料</a>
-	  <a class="nav-link text-white p-3" href="#">訂位管理</a>
-	  <a class="nav-link text-white p-3" href="#">菜單管理</a>
-	  <a class="nav-link text-white p-3" href="#">桌位管理</a>
-	</nav>
-	
-	<div class="container-fluid">
 		<div class="row  p-3">			
-
 			<!-- Order List -->
 			<div class="col-12 flex-column" id="order-list">
 				<table class="table table-hover table-light" id="reservation-list">
@@ -232,7 +211,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="../front-end/js/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	
@@ -324,9 +303,9 @@
 <!--=============================== datetimepicker ======================================-->
 
 <!-- 參考網站: https://xdsoft.net/jqplugins/datetimepicker/ -->
-<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" />
+<link   rel="stylesheet" type="text/css" href="../ord_jsp/datetimepicker/jquery.datetimepicker.css" />
 <!--  <script src="datetimepicker/jquery.js"></script>-->
-<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="../ord_jsp/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <script>
 $(document).ready(function(){

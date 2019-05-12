@@ -219,15 +219,15 @@ to {
 	<nav class="nav navbar-nav bg-dark" id="sidenav">
 		<a class="nav-link text-white p-3" href="#">概況一覽</a> 
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upVendor">資訊修改</a>
-		<a class="nav-link text-white p-3" href="#">訂單狀態</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo">桌位設定</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo">桌型資料設定</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableGraph">桌位配置</a>
-		<a class="nav-link text-white p-3" href="#">桌況管理</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=OrdMgList">訂單狀態</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=OrdMgTimeLine">訂單安排桌位</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listMenu">菜單管理</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listVendor">帳戶管理</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listComment">回應管理</a>
-		<a class="nav-link text-white p-3" href="#">訂位驗證</a>
-		<a class="nav-link text-white p-3" href="#">候位控制系統</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=ordConfirm">訂位驗證</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=waitPos">候位控制系統</a>
 		
 			
 	</nav>
@@ -261,6 +261,23 @@ to {
 
 <c:if test="${not empty mglist}">
 <jsp:include page="/tables_jsp/table_management_graph.jsp" />
+</c:if>
+
+
+<c:if test="${not empty watingFlag}">
+<jsp:include page="/wait_pos_jsp/wait_vendor.jsp" />
+</c:if>
+
+<c:if test="${not empty ordConfirm}">
+<jsp:include page="/ord_jsp/ord_verification.jsp" />
+</c:if>
+
+<c:if test="${not empty ordMgList}">
+<jsp:include page="/ord_jsp/ord_management_list.jsp" />
+</c:if>
+
+<c:if test="${not empty OrdMgTimeLine}">
+<jsp:include page="/ord_jsp/ord_management_timeline.jsp" />
 </c:if>
 
 
@@ -303,6 +320,113 @@ to {
 
     </script>
     
+    
+<%@ page import="com.wait_pos.controller.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="org.apache.commons.collections4.map.ListOrderedMap" %>
+<%@ page import="javax.websocket.Session" %>
+
+<% 
+String vendor_no = null;
+if (request.getParameter("vendor_no") == null) {
+	vendor_no = "V000001";
+} else {
+	vendor_no = request.getParameter("vendor_no");
+}
+Map<String, Map<Integer, Wait_Line>> wait_line_all = (Map) application.getAttribute("wait_line_all");
+
+Map<Integer, Wait_Line> wait_line_vendor = (Map) wait_line_all.get(vendor_no);				
+if (wait_line_vendor == null) {
+	
+	wait_line_vendor = new HashMap<Integer, Wait_Line>();
+	wait_line_all.put(vendor_no, wait_line_vendor);
+	
+	wait_line_vendor.put(1, new Wait_Line());
+	wait_line_vendor.put(2, new Wait_Line());
+	wait_line_vendor.put(3, new Wait_Line());
+	wait_line_vendor.put(4, new Wait_Line());
+	wait_line_vendor.put(5, new Wait_Line());
+}
+Wait_Line wait_line;
+ListOrderedMap<String, PersonInLine> wait_line_queue;
+
+Map<String, Set<Session>> vendor_wait_sessions = (Map) application.getAttribute("vendor_wait_sessions");
+Set<Session> vendor_wait_session = (Set) vendor_wait_sessions.get(vendor_no);
+if (vendor_wait_session == null) {	
+	vendor_wait_session = Collections.synchronizedSet(new HashSet<Session>());
+	vendor_wait_sessions.put(vendor_no, vendor_wait_session);
+}
+
+%>   
+    <script>
+var vendorWaitMgmtWS;
+	
+	// connect
+	window.addEventListener("load", function() {
+		var MyPoint = "/VendorWS/<%= vendor_no %>"; // servlet ServerEndpoint
+		var path = window.location.pathname; // /WebSocketChatWeb/index.html
+		var webCtx = path.substring(0, path.indexOf('/', 1)); // /WebSocketChatWeb
+		var endPointURL = "ws://" + window.location.host + webCtx + MyPoint; 
+		
+		// create a websocket
+		vendorWaitMgmtWS = new WebSocket(endPointURL); // connect ot server ServerEndpoint servlet
+
+		
+		// onopen
+		vendorWaitMgmtWS.onopen = function(event) {
+			showAlert("alert-success", "Web Socket 已連線");
+		};
+		
+		// onmessage
+		vendorWaitMgmtWS.onmessage = function(event) {
+			
+			var jsonObj = JSON.parse(event.data);
+			switch (jsonObj.action) {
+				case "openWaitFun": // 變更候位功能狀態
+					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌候位功能已" + (jsonObj.open_wait ? "開啟" : "關閉"));										
+					openWaitFun(jsonObj.tbl_size, jsonObj.open_wait);
+					break;
+				case "setDeadline": // 叫號
+					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌 " + jsonObj.numberPlate + " 號叫號成功");
+					setDeadline(jsonObj.tbl_size, jsonObj.mem_no, jsonObj.deadline);
+					break;
+				case "returnZero": // 刷新隊伍
+					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌候位號碼已歸零");										
+					setNumberNow(jsonObj.tbl_size, 1);
+					break;
+				case "refreshLine": // 刷新隊伍
+					if (jsonObj.event == "insert") {
+						var jsonObj2 = JSON.parse(jsonObj.result);
+						showAlert("alert-info", jsonObj2.result);
+						setNumberNow(jsonObj.tbl_size, jsonObj2.number_now);
+					} else {
+						showAlert("alert-info", jsonObj.result);
+					}															
+					refreshLine(jsonObj.tbl_size, jsonObj.w_line);
+					break;
+				case "clearLine": // 清空隊伍
+					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌候位列表已清空");										
+					clearLine(jsonObj.tbl_size);
+					break;
+				//case "renewNumberNow": // 更新號碼牌
+				//	setNumberNow(jsonObj.tbl_size, jsonObj.number_now);
+				//	break;
+					
+			}
+		};
+		
+		// onclose
+		vendorWaitMgmtWS.onclose = function(event) {
+			showAlert("alert-danger", "Web Socket 已斷線");
+		};
+	} ,false);
+	
+	// disconnect
+	window.addEventListener("unload", function() {
+		vendorWaitMgmtWS.close();
+	},false);
+    
+    </script>	
 
 </body>
 
