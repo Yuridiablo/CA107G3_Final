@@ -64,6 +64,9 @@
 #confirmrow {
 	margin-top: 10px;
 }
+body{
+	background-color: #FFFDED;
+}
 </style>
 </head>
 
@@ -81,7 +84,7 @@
 		method="post" enctype="multipart/form-data">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-6">
+				<div class="col-8">
 					
 					<label id="topicBar" class="col-12">SeakFoodTable 會員註冊</label>
 					<div class="form-row">

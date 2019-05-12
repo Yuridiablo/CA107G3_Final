@@ -155,7 +155,7 @@ public class MemberServlet extends HttpServlet {
 				MemberService memberSvc = new MemberService();
 				memberVO = memberSvc.addMember(mem_name, mem_account, mem_pwd, mem_gender, mem_mail, mem_id, mem_tel,
 						mem_status, mem_pic, mem_balance, mem_nickname);
-				String url = "/member/loginMember.jsp";
+				String url = "/front-end/FrontPage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
@@ -260,6 +260,7 @@ public class MemberServlet extends HttpServlet {
 
 			}
 		}
+
 		if ("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -469,19 +470,16 @@ public class MemberServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
-				
 				HttpSession session = req.getSession();
 				MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 				String mem_no = memberVO.getMem_no();
 				Member_Wallet_ListService walletSvc = new Member_Wallet_ListService();
 				List<Member_Wallet_ListVO> list = walletSvc.findByMem(mem_no);
-				System.out.println(mem_no);
 				req.setAttribute("myWallet", "myWallet");
 				session.setAttribute("list", list);
 				String url = "/front-end/motherboard.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
 				successView.forward(req, res);
-
 			} catch (Exception e) {
 				System.out.println("-----------------------錯誤-------------------");
 				errorMsgs.add(e.getMessage());

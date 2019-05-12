@@ -101,6 +101,7 @@
                                     <li><a href="#" class="btn btn-outline-light top-btn" id="loginButton"
 											data-toggle="modal" data-target="#loginBar"><span id="icon-login" class="icon-login"></span>登入</a></li>
                                     <li><a href="${pageContext.request.contextPath}/member/member.do?action=logout" class="btn btn-outline-light top-btn" id="logoutButton"><span id="icon-logout" class="icon-logout"></span>登出</a></li>
+                                	<li><a href="${pageContext.request.contextPath}/member/addMember.jsp" class="btn btn-outline-light top-btn" id="addButton"><span id="icon-logout" class="icon-logout"></span>註冊</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -502,7 +503,7 @@
     	$("#navbarDropdownMenuLink2").hide();
     	
     	if(${account!=null}){
-
+			$("#addButton").hide();
         	$("#loginButton").hide();
         	$("#logoutButton").show();
         	$("#navbarDropdownMenuLink2").show();

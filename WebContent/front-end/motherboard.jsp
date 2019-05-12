@@ -180,6 +180,7 @@
 		}
 	%>
 	
+	
 	<div id="service" onclick="connect();">線上客服</div>
 
 	
@@ -263,7 +264,7 @@
     <script src="js/popper.min.js"></script>
     <!-- 貓頭鷹 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- //標題橘色 所有頁面適用 載入樣式 -->
       <script>
