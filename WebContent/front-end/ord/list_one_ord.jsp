@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ page import="java.util.*"%>
 <%@ page import="com.ord.model.*"%>
 
 
-${OrdVO}
+
 
 
 
@@ -92,9 +93,9 @@ height:1px
 						<td>${OrdVO.party_size}</td>
 						
 						<td>${OrdVO.share_amount}</td>
-						<td>${OrdVO.ord_time}</td> 
+						<td> <fmt:formatDate value="${OrdVO.ord_time}" pattern="yyyy-MM-dd HH:mm:ss"/></td> 
 						<td>${OrdVO.booking_date}</td> 
-						<td>${OrdVO.booking_time}</td> 
+						<td>${OrdVO.booking_time}</td>
 						<td>${OrdVO.notes}</td> 
 						<td>${OrdVO.total}</td> 
 						<td>${OrdVO.arrival_time}</td> 

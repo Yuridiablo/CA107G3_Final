@@ -64,14 +64,16 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<div class="row justify-content-center" style="margin-top: 100px">
+<div class="row " style="margin-top: 100px">
 
 
 
 
 
 
-
+<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
 <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/ord/ord.do" name="form1">
 <table>
 	<tr>
@@ -91,6 +93,26 @@
 <!-- 		<td>卓號:</td> -->
 		<td>卓號:<input type="TEXT" name="tbl_no" size="45" value="<%=ordVO.getTbl_no()%>" /></td>
 	</tr>
+	
+	<tr>
+<!-- 		<td>用餐日期:</td> -->
+		<td>用餐日期:<input type="TEXT" name="booking_date"  id="f_date1" size="45"	value="${ordVO.booking_date}" /></td>
+	</tr>
+	
+									
+	人數選擇 :
+	<td><select  style="width: 500px" name="party_size">
+											
+		<option  name="2" value="2">二人</option>
+		<option  name="3" value="3">三人</option>
+		<option  name="4" value="4">四人</option>
+		<option  name="5" value="5">五人</option>
+		<option  name="6" value="6">六人</option>
+		<option  name="7" value="7">七人</option>
+		<option  name="8" value="8">八人</option>
+		<option  name="9" value="10">十人</option>
+											
+	</select></td>
 	<tr>
 <!-- 		<td>付款好友1:</td> -->
 		<td>付款好友1:<input type="TEXT" name="share_mem_no1" size="45" readonly="readonly"	value="${ordVO.share_mem_no1}" /></td>
@@ -134,10 +156,7 @@
 <!-- 		<td>狀態碼:</td> -->
 		<td>狀態碼:<input type="TEXT" name="status" size="45"	value="<%=ordVO.getStatus()%>" /></td>
 	</tr>
-	<tr>
-<!-- 		<td>用餐日期:</td> -->
-		<td>用餐日期:<input type="TEXT" name="booking_date"  id="f_date1" size="45"	value="${ordVO.booking_date}" /></td>
-	</tr>
+	
 	
 	
 			
@@ -145,20 +164,7 @@
 								
 	<jsp:useBean id="ordSvc" scope="page" class="com.ord.model.OrdService"/>
 							
-									
-	人數選擇 :
-	<select  style="width: 500px" name="party_size">
-											
-		<option  name="2" value="2">二人</option>
-		<option  name="3" value="3">三人</option>
-		<option  name="4" value="4">四人</option>
-		<option  name="5" value="5">五人</option>
-		<option  name="6" value="6">六人</option>
-		<option  name="7" value="7">七人</option>
-		<option  name="8" value="8">八人</option>
-		<option  name="9" value="10">十人</option>
-											
-	</select>
+	
 									
 							
 	</div>
@@ -177,6 +183,9 @@
 
 </table>
 <input type="submit" value="送出修改"></FORM>
+</div>
+</div>
+</div>
 </body>
 
 
