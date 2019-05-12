@@ -2,6 +2,7 @@ package com.ord_detail.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class Ord_DetailServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		PrintWriter out = res.getWriter();
+		
 		
 		if ("getOne_For_Update".equals(action)) { 
 
@@ -81,12 +82,14 @@ public class Ord_DetailServlet extends HttpServlet {
 
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				Order_DetailService o_detailSvc = new Order_DetailService();
+				OrdService ordSvc=new OrdService();
 				String ord_no = req.getParameter("ord_no");
-				String menu_no=req.getParameter("menu_no");
-//				if (str == null || (str.trim()).length() == 0) {
-//					errorMsgs.add("Please insert ord_no");
-//					System.out.println("13");
-//				}
+				OrdVO ordVO=ordSvc.getOneOrd(ord_no);
+
+				List<Order_DetailVO> od_list=o_detailSvc.findbyOrd_no(ord_no);
+				
+
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = 
@@ -95,33 +98,18 @@ public class Ord_DetailServlet extends HttpServlet {
 					return;//程式中斷
 				}
 				
-//				String ord_no = null;
-//				try {
-//					ord_no = new String(str);
-//				} catch (Exception e) {
-//					errorMsgs.add("error ord_no");
-//				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = 
-//					req.getRequestDispatcher("/ord/ord/select_page.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
-				
 				/***************************2.開始查詢資料*****************************************/
-				Order_DetailService o_detailSvc = new Order_DetailService();
-				Order_DetailVO o_detailVO = o_detailSvc.getOneOrder_Detail(ord_no, menu_no);
-				req.setAttribute("o_detailVO", o_detailVO);         
+				req.setAttribute("ordVO", ordVO);
+				req.setAttribute("od_list", od_list);
 				String url = "/front-end/order_detail/paid_one_mem_detail.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/emp/listAllOrd.jsp");
+						.getRequestDispatcher("front-end/ord/list_for_mem.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -129,6 +117,7 @@ public class Ord_DetailServlet extends HttpServlet {
 	
 			
 			if ("getOrdDetail".equals(action)) {
+				PrintWriter out = res.getWriter();
 				String ord_no = req.getParameter("ord_no");
 				Order_DetailService ord_DetailService = new Order_DetailService();
 				List<Order_DetailVO> list =  ord_DetailService.findbyOrd_no(ord_no);

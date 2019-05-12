@@ -728,7 +728,7 @@ public class OrdServlet extends HttpServlet {
 		
 		 // 資料庫取出的empVO物件,存入req
 		
-		String url = "/front-end/ord/addOrd2.jsp";
+		String url = "/front-end/ord/start_ord.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 		successView.forward(req, res);
 		
