@@ -491,9 +491,21 @@ public class MemberServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
+				HttpSession session = req.getSession();
+				
+				String flag = req.getParameter("flag");
+				String preFlag = (String) session.getAttribute("flag");
+				if(flag.equals(preFlag)) {
+					req.setAttribute("myWallet", "myWallet");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
+					failureView.forward(req, res);
+					return;
+				}else {
+					session.setAttribute("flag", flag);
+				}
+				
 				String list_dep = req.getParameter("list_dep");
 				
-				HttpSession session = req.getSession();
 				MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 				String mem_no = memberVO.getMem_no();
 				Member_Wallet_ListService walletSvc = new Member_Wallet_ListService();

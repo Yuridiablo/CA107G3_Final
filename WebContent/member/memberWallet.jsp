@@ -4,6 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
 	List<Member_Wallet_ListVO> list = (List<Member_Wallet_ListVO>) session.getAttribute("list");
@@ -83,7 +84,7 @@
 			<div class="col-12">
 				<div class="col-12 row" id="buttonBar">
 					<div class="col-form-label justify-content-end">
-						<label class="rest" id="rest">目前餘額:${memberVO.mem_balance}元</label>
+						<label class="rest" id="rest">目前餘額:<fmt:formatNumber value="${memberVO.mem_balance}" maxFractionDigits = "0"/>元</label>
 					</div>
 						<button type="button" class="btn btn-outline-success buttonInTop"
 							id="deposit" data-toggle="modal" data-target="#modalForDeposit">儲值</button>
@@ -152,6 +153,7 @@
 			<div class="modal-body">
 			<form action="${pageContext.request.contextPath}/member/member.do" method="post" id="my-form" enctype="multipart/form-data" >
 			<input type="hidden" name="action" value="deposit">
+			<input id="flag" type="hidden" name="flag" value="">
 <!-- =================================================================================== -->
         
           <div class="form-group">
@@ -229,6 +231,10 @@
 				$("#credit4").val("7799");
 				$("#credit5").val("466");
 			});
+
+			var randomFlag = Math.floor(Math.random()*10000+1);
+	 		$("#flag").val(randomFlag);
+			
 		});
 	</script>
 </body>
