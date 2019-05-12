@@ -589,7 +589,6 @@ body {
 								  </div>
 								</c:forEach>
 								  </div>
-  
 								</div>
 							</div>
 							
