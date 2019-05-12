@@ -8,7 +8,7 @@
 
 <%
 // 	 String mem_no=(String)request.getAttribute("mem_no"); 
-//	 OrdService ordSvc = new OrdService();
+	 OrdService ordSvc = new OrdService();
 //   List<OrdVO> list = ordSvc.findBymem_no(mem_no); 
 //   List<OrdVO> list = ordSvc.findBymem_no("M000004");
 //   OrdVO ordVO = new OrdVO();
@@ -90,7 +90,7 @@ height:1px
                  
 			<%@ include file="pageForOrder.file" %>
 			<c:forEach var="ordVO" items="${olist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-                <c:set var="memVO" value="${MemSvc.getOneMember('M000004')}"></c:set>
+                <c:set var="memVO" value="${MemSvc.getOneMember(mVO.mem_no)}"></c:set>
                  <c:set var="vendorVO" value="${VendorSvc.findByPK(ordVO.vendor_no)}"></c:set>
 				
 						
@@ -125,7 +125,7 @@ height:1px
                     
 			 
 			<td>
-			 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;">
+				 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="查看訂單明細">
 			     <input type="hidden" name="ord_no"  value="${ordVO.ord_no}">
 			     <c:set var="o_detailVOlist" value="${ord_detailSvc.findbyOrd_no(ordVO.ord_no)}" ></c:set>
