@@ -232,7 +232,7 @@ body {
 	<div class=" col-md-12">	
 
 	<div class="container">
-		<div class="row justify-content-center">
+		<div class="row justify-content-center"> 
 			<div class="col-md-12">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
   					<li class="nav-item"><a class="nav-link" id="profile-tab"
