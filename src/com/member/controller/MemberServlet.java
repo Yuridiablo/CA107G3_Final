@@ -28,7 +28,8 @@ import com.member.model.MemberService;
 import com.member.model.MemberVO;
 import com.member_wallet_list.model.Member_Wallet_ListService;
 import com.member_wallet_list.model.Member_Wallet_ListVO;
-
+import com.ord.model.OrdService;
+import com.ord.model.OrdVO;
 
 import tools.MailService;
 import tools.RedisTTL;
@@ -575,6 +576,30 @@ public class MemberServlet extends HttpServlet {
 				e.getMessage();
 			}
 		}
-
+		
+		
+		if ("myOrder".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				HttpSession session = req.getSession();
+				MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+				String mem_no = memberVO.getMem_no();
+				
+				OrdService ordSvc = new OrdService();
+				
+				List<OrdVO> olist = ordSvc.findBymem_no(mem_no);
+											
+				req.setAttribute("olist", olist);
+				String url = "/front-end/motherboard.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				System.out.println("-----------------------錯誤-------------------");
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
+				failureView.forward(req, res);
+			}
+		}
 	}
 }

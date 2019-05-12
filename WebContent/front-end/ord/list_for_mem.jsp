@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
@@ -7,21 +6,19 @@
 
 
 <%
-// 	/* String mem_no=(String)request.getAttribute("mem_no"); */
-	OrdService ordSvc = new OrdService();
-/*     List<OrdVO> list = ordSvc.findBymem_no(mem_no); */
-    List<OrdVO> list = ordSvc.findBymem_no("M000004");
-    OrdVO ordVO = new OrdVO();
-    pageContext.setAttribute("list",list);
+// 	 String mem_no=(String)request.getAttribute("mem_no"); 
+//	 OrdService ordSvc = new OrdService();
+//   List<OrdVO> list = ordSvc.findBymem_no(mem_no); 
+//   List<OrdVO> list = ordSvc.findBymem_no("M000004");
+//   OrdVO ordVO = new OrdVO();
+   	 List<OrdVO> olist = (List<OrdVO>)request.getAttribute("olist");
 %>
 
 
 
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 
 
@@ -29,6 +26,8 @@
 <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
 
 <head>
+
+
 <style>
 .hrr {
 border:0;
@@ -86,8 +85,8 @@ height:1px
              
               
                  
-			<%@ include file="page1.file" %>
-			<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<%@ include file="pageForOrder.file" %>
+			<c:forEach var="ordVO" items="${olist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                 <c:set var="memVO" value="${MemSvc.getOneMember('M000004')}"></c:set>
                  <c:set var="vendorVO" value="${VendorSvc.findByPK(ordVO.vendor_no)}"></c:set>
 					
@@ -146,11 +145,10 @@ height:1px
         </div>
     </div>
 </div>
+<c:if test="${not empty openModal}">
 
-<c:if test="${openModal!=null}">
-
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
+<div class="modal fade" id="basic1" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 				
 			<div class="modal-header">
@@ -173,9 +171,14 @@ height:1px
 	</div>
 </div>
 
-          <script>
-          $("#basicModal").modal({show: true});
-        </script>
+ <script>
+         	
+    $(window).on('load',function(){
+    	$('#basic1').modal('show')
+    });
+    
+</script>       
+
  </c:if>
 
 

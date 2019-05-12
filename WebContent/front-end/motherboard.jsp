@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +18,20 @@
     <link rel="stylesheet" type="text/css" href="../front-end/css/set1.css">
     <!-- 自訂 CSS主檔 -->
     <link rel="stylesheet" type="text/css" href="../front-end/css/style.css">
+    
+    <!-- Script 注意載入順序 -->
+    <script src="../front-end/js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../front-end/js/popper.min.js"></script>
+    <!-- 貓頭鷹 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <style type="text/css">
-    	#body{
+    	body{
     		margin-top: 100px;
     		margin-bottom: 100px;
+    		font-family:"微軟正黑體";
     	}
     	#service{
 			width: 60px;
@@ -106,8 +117,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="navbar navbar-expand-lg navbar-light">
-                            <img src="../front-end/images/SeeKFoodA.png" id="logo">
-                            <a class="navbar-brand" href="#">SeekFoodTable</a>
+                            <a  href="<%=request.getContextPath()%>/front-end/FrontPage.jsp"><img src="../front-end/images/SeeKFoodA.png" id="logo" ></a>
+                            <a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/FrontPage.jsp">SeekFoodTable</a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="icon-menu"></span>
                             </button>
@@ -153,8 +164,8 @@
                                             <a class="dropdown-item" href="#"><span class="icon-people"></span>好友列表</a>
                                             <a class="dropdown-item" href="#"><span class="icon-people"></span>我的追蹤會員</a>
                                             <a class="dropdown-item" href="#"><span class="icon-like"></span>我的收藏店家</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-docs"></span>我的訂單</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-wallet"></span>我的錢包</a>
+                                   			<a class="dropdown-item" href="<%=request.getContextPath()%>/member/member.do?action=myOrder"><span class="icon-docs"></span>我的訂單</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
                                         </div>
                                     </li>
                                     <li><a href="#" class="btn btn-outline-light top-btn"><span class="icon-login"></span>登入</a></li>
@@ -179,6 +190,10 @@
 	<%
 		}
 	%>
+	
+<c:if test="${not empty olist}">
+<jsp:include page="/front-end/ord/list_for_mem.jsp" />
+</c:if>
 	
 	
 	<div id="service" onclick="connect();">線上客服</div>
@@ -256,17 +271,10 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <!-- 貓頭鷹 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- //標題橘色 所有頁面適用 載入樣式 -->
+      
       <script>
         $(window).ready(function() {
             // 100 = The point you would like to fade the nav in.
@@ -389,8 +397,6 @@
 </script>
 <!--   ======================================webSocket===========================================   -->
     
-    <script type="text/javascript" src="bootstrap-datepicker-1.6.4-dist/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="bootstrap-datepicker-1.6.4-dist/js/bootstrap-datepicker.zh-TW.js"></script>
-
+ 
 </body>
 </html>

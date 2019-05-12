@@ -35,7 +35,7 @@ public class Ord_DetailServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		PrintWriter out = res.getWriter();
+	
 		
 		if ("getOne_For_Update".equals(action)) { 
 
@@ -129,6 +129,8 @@ public class Ord_DetailServlet extends HttpServlet {
 	
 			
 			if ("getOrdDetail".equals(action)) {
+				
+				PrintWriter out = res.getWriter();
 				String ord_no = req.getParameter("ord_no");
 				Order_DetailService ord_DetailService = new Order_DetailService();
 				List<Order_DetailVO> list =  ord_DetailService.findbyOrd_no(ord_no);

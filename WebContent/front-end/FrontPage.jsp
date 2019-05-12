@@ -47,8 +47,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="navbar navbar-expand-lg navbar-light">
-                            <img src="<%= request.getContextPath() %>/webWorking/images/SeeKFoodA.png" id="logo">
-                            <a class="navbar-brand" href="#">SeekFoodTable</a>
+                            <a  href="<%=request.getContextPath()%>/front-end/FrontPage.jsp"><img src="../front-end/images/SeeKFoodA.png" id="logo" ></a>
+                            <a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/FrontPage.jsp">SeekFoodTable</a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="icon-menu"></span>
                             </button>
@@ -94,7 +94,7 @@
                                             <a class="dropdown-item" href="#"><span class="icon-people"></span>好友列表</a>
                                             <a class="dropdown-item" href="#"><span class="icon-people"></span>我的追蹤會員</a>
                                             <a class="dropdown-item" href="#"><span class="icon-like"></span>我的收藏店家</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-docs"></span>我的訂單</a>
+                                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/member.do?action=myOrder"><span class="icon-docs"></span>我的訂單</a>
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
                                         </div>
                                     </li>

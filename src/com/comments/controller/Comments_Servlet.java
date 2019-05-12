@@ -34,6 +34,8 @@ public class Comments_Servlet extends HttpServlet {
 		
 		if ("insert_comments".equals(action)) {
 			try {
+				
+		
 				// Retrieve form parameters.
 				String ord_no = req.getParameter("ord_no");
 //				
@@ -51,12 +53,12 @@ public class Comments_Servlet extends HttpServlet {
 				req.setAttribute("ord_no", ord_no);
 				req.setAttribute("vendor_no", vendor_no);
 				//Bootstrap_modal
-				boolean openModal=true;
+				String openModal= "XXX";
 				req.setAttribute("openModal",openModal );
 				
 				// 取出的empVO送給listOneEmp.jsp
 				RequestDispatcher successView = req
-						.getRequestDispatcher("/front-end/ord/list_for_mem.jsp");
+						.getRequestDispatcher("/member/member.do?action=myOrder");
 				successView.forward(req, res);
 				return;
 
