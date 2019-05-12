@@ -87,6 +87,10 @@ font-family:"微軟正黑體";
 	color: #fff;
     display:inline-block;
 }
+
+.yourpick:hover{
+	cursor: pointer;
+}
 </style>
 
 <body>
@@ -172,7 +176,7 @@ font-family:"微軟正黑體";
                                 <img  class="img-fluid resultpic" onerror="this.src='../front-end/images/SeeKFoodA.png'" alt="#" src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${sMap.key.vendor_no}'&pic=1">
                                                                         <span class="featured-rating-green">${sMap.value[0]}</span>
                                     <div class="featured-title-box">
-                                        <h5>${sMap.key.v_name}</h5>
+                                        <h5><a class="yourpick" href="<%=request.getContextPath()%>/ord/ord.do?action=selected&vendor_no=${sMap.key.vendor_no}">${sMap.key.v_name}</a></h5>
                                         <p>${sMap.key.v_type} </p> <span>• </span>
                                         <p>${sMap.value[1]} 評論</p> <span> • </span>
                                         <p><span>$$$</span>$$</p>
