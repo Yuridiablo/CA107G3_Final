@@ -84,7 +84,7 @@
                             ${(o_detailVO.price)*(o_detailVO.qty)}
                         </td>
                         <td>
-	                	<a href="<%=request.getContextPath()%>/front-end/ord/listAllOrd.jsp" >
+	                	<a href="<%=request.getContextPath()%>/front-end/ord/list_for_mem.jsp" >
 							<button class="btn btn-success " >查看其他訂單<span class="glyphicon glyphicon-shopping-cart"></span></button>
 						</a>
 					</td>
