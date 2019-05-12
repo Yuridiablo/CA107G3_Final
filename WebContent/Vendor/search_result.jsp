@@ -200,10 +200,15 @@ font-family:"微軟正黑體";
                                     <div class="col-5">
                                         <div class="media">
                                         	
-                                           <img src="<%= request.getContextPath()%>/ShowImg.do?mem_no='${sMap.value[4]}'" class="mr-3 memshow" onerror="this.src='../front-end/images/SeeKFoodA.png'" alt="..."> 
+                                           <a class="yourpick" href="<%=request.getContextPath()%>/member/member.do?action=meminfo&seletcted_mem=${sMap.value[4]}">
+                                           <img src="<%= request.getContextPath()%>/ShowImg.do?mem_no='${sMap.value[4]}'" class="mr-3 memshow" onerror="this.src='../front-end/images/SeeKFoodA.png'" alt="...">
+                                           </a>
                                           
                                             <div class="media-body">
-                                                <div class="nickname">${sMap.value[7]}</div><h5 class="mt-0"> ${sMap.value[6]}</h5>
+                                                <div class="nickname">${sMap.value[7]}</div>
+                                                <h5 class="mt-0">
+                                                <a class="yourpick" href="<%=request.getContextPath()%>/member/member.do?action=meminfo&seletcted_mem=${sMap.value[4]}">${sMap.value[6]}</a>
+                                                </h5>
                                                 ${sMap.value[2]}
                                             </div>
                                         </div>

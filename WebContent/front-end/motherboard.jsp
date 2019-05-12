@@ -194,6 +194,10 @@
 <c:if test="${not empty olist}">
 <jsp:include page="/front-end/ord/list_for_mem.jsp" />
 </c:if>
+
+<c:if test="${not empty select_mVO}">
+<jsp:include page="/member/mem_infoView.jsp" />
+</c:if>
 	
 	
 	<div id="service" onclick="connect();">線上客服</div>

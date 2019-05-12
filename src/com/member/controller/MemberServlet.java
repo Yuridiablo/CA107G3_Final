@@ -6,8 +6,11 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +25,8 @@ import javax.servlet.http.Part;
 
 import org.json.JSONObject;
 
+import com.comments.model.CommentsService;
+import com.comments.model.CommentsVO;
 import com.employee.model.EmployeeService;
 import com.google.gson.Gson;
 import com.member.model.MemberService;
@@ -30,6 +35,8 @@ import com.member_wallet_list.model.Member_Wallet_ListService;
 import com.member_wallet_list.model.Member_Wallet_ListVO;
 import com.ord.model.OrdService;
 import com.ord.model.OrdVO;
+import com.vendor.model.VendorService;
+import com.vendor.model.VendorVO;
 
 import tools.MailService;
 import tools.RedisTTL;
@@ -611,6 +618,53 @@ public class MemberServlet extends HttpServlet {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
+			}
+		}
+		
+		if ("meminfo".equals(action)) {
+	
+			try {
+				HttpSession se = req.getSession();
+				MemberService mSvc = new MemberService();
+				MemberVO memberVO = (MemberVO)se.getAttribute("memberVO");
+				OrdService oSvc = new OrdService();
+				CommentsService cSvc = new CommentsService();
+				VendorService vSvc = new VendorService();
+				
+			
+				
+				String selectmem = req.getParameter("seletcted_mem");
+				MemberVO select_mVO = mSvc.getOneMember(selectmem);
+				List<OrdVO> selectmemOrd =  oSvc.getAll().stream().filter(o -> o.getMem_no().equals(selectmem)).collect(Collectors.toList());
+				List<CommentsVO> selectmemComm = new ArrayList<>();
+				Map<VendorVO, CommentsVO> vcMap = new LinkedHashMap<>();
+				for (OrdVO oVO : selectmemOrd ) {
+					
+					CommentsVO cVO = cSvc.getAll().stream().filter(c -> c.getOrd_no().equals(oVO.getOrd_no())).findFirst().get();
+					VendorVO vVO = vSvc.findByPK(cVO.getVendor_no());
+					
+					vcMap.put(vVO, cVO);
+				
+				
+				}
+				
+				if (memberVO != null) {
+					String mem_no = memberVO.getMem_no();
+					if(mem_no.equals(selectmem)) {
+						req.setAttribute("self", true);
+					}
+				}
+				
+				req.setAttribute("select_mVO", select_mVO);
+				req.setAttribute("vcMap", vcMap);
+				req.setAttribute("selectmemOrd", selectmemOrd);
+			
+				String url = "/front-end/motherboard.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				System.out.println("-----------------------錯誤-------------------");
+				e.printStackTrace();
 			}
 		}
 	}
