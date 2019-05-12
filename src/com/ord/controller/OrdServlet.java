@@ -114,9 +114,9 @@ public class OrdServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("ordVO", ordVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("ordVO", ordVO); 
 				String url = "/ord/ord/listOneOrd.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
@@ -186,9 +186,9 @@ public class OrdServlet extends HttpServlet {
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("ordVO", ordVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("ordVO", ordVO); 
 				String url = "/front-end/ord/list_for_mem.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
@@ -269,12 +269,11 @@ public class OrdServlet extends HttpServlet {
 				}
 		
 		
-		 
 		
 		
-		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+		
+		if ("getOne_For_Update".equals(action)) { 
 
-				System.out.println("9999999999999999");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -287,9 +286,9 @@ public class OrdServlet extends HttpServlet {
 				OrdService ordSvc = new OrdService();
 				OrdVO ordVO = ordSvc.getOneOrd(ord_no);
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.setAttribute("ordVO", ordVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/front-end/ord/NewFile.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				req.setAttribute("ordVO", ordVO);  
+				String url = "/front-end/ord/update_ord.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理**********************************/
@@ -302,64 +301,88 @@ public class OrdServlet extends HttpServlet {
 		}
 		
 		
-		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
+		if ("update".equals(action)) { 
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			try {
+//			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String ord_no = new String(req.getParameter("ord_no").trim());
 				String mem_no = req.getParameter("mem_no");
 				String vendor_no  = req.getParameter("vendor_no");
 				String tbl_no ="";
 				try {
-					tbl_no = new String(req.getParameter("tbl_no").trim());
-				} catch (Exception e) {
-					errorMsgs.add("please insert tbl_no.");
+					tbl_no = req.getParameter("tbl_no").trim();
+				}catch(NullPointerException e) {
+					tbl_no="T000001";
 				}
-				Integer party_size =new Integer(req.getParameter("party_size"));
+				catch (Exception e) {
+					errorMsgs.add("請重新輸入桌號");
+				}
+				
+				Integer party_size=null;
+				try {
+					party_size =new Integer(req.getParameter("party_size"));
+				}catch(NullPointerException e) {
+					errorMsgs.add("請輸入訂位人數");
+				}catch(Exception e) {
+					errorMsgs.add("請輸入正確訂位人數");
+				}
+				 
+				
 				String share_mem_no1 =req.getParameter("share_mem_no1");
 				String share_mem_no2 =req.getParameter("share_mem_no2");
-				Integer share_amount =new Integer(req.getParameter("share_amount"));
+				Integer share_amount =Integer.valueOf(req.getParameter("share_amount"));
 				java.sql.Timestamp ord_time =java.sql.Timestamp.valueOf(req.getParameter("ord_time"));
 				java.sql.Date booking_date=null;
 				try {
 					booking_date = java.sql.Date.valueOf(req.getParameter("booking_date").trim());
 				} catch (IllegalArgumentException e) {
 					booking_date=new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("please choose date!");
+					errorMsgs.add("請輸入訂位日期");
 				}
-				String booking_time=new String(req.getParameter("booking_time").trim());
-				if (booking_time == null || booking_time.trim().length() == 0) {
+				
+				String booking_time=null;
+				try {
+					booking_time=req.getParameter("booking_time").trim();
+				}catch( NullPointerException e) {
 					errorMsgs.add("booking_time must be insert");
 				}
+				
+			
+				
 				String notes=req.getParameter("notes");
 				Integer total=null;
 				try {
-					total = new Integer(req.getParameter("total").trim());
+					total = Integer.valueOf(req.getParameter("total").trim());
 					} catch (NumberFormatException e) {
 						total = 0;
-						errorMsgs.add("please. insert right total");
+						errorMsgs.add("請輸入正確金額");
 					}catch (NullPointerException b ) {
 					total = 0;
-					errorMsgs.add("please insert total number");}
+					errorMsgs.add("請輸入金額");}
 				
-				String arrival_time=req.getParameter("arrival_time");
+				String arrival_time=null;
+				try {
+					 arrival_time=req.getParameter("arrival_time");
+				}catch(NumberFormatException  e) {
+					errorMsgs.add("請輸入正確到達時間");
+				}catch(Exception  e) {
+					errorMsgs.add("請輸入正確格式,如1300");
+				}
+				
 				String finish_time=req.getParameter("finish_time");
 				String verif_code=req.getParameter("verif_code");
 				
-				Integer status=null;
+				Integer status=0;
 				try {
-				status = new Integer(req.getParameter("status").trim());
-				} catch (NumberFormatException e) {
-				status = 0;
-					errorMsgs.add("please. insert right status number");
+				status = Integer.valueOf(req.getParameter("status").trim());
 				}catch (NullPointerException e) {
-				System.out.println("66666666");
-					status = 0;
-					errorMsgs.add("please insert  status number");
+					errorMsgs.add("請務必輸入狀態碼");
+				} catch (Exception e) {
+					errorMsgs.add("請輸入正確狀態碼");
 				}
 //					System.out.println(java.sql.Timestamp((System.currentTimeMillis())));
 				OrdVO ordVO = new OrdVO();
@@ -386,7 +409,7 @@ public class OrdServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("ordVO", ordVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/ord/update_ord_input.jsp");
+							.getRequestDispatcher("/front-end/ord/update_ord.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -396,18 +419,18 @@ public class OrdServlet extends HttpServlet {
 				ordVO = ordSvc.updateOrd(ord_no, mem_no, vendor_no, tbl_no, party_size, share_mem_no1, share_mem_no2, share_amount, ord_time, booking_date, booking_time, notes, total, arrival_time, finish_time, verif_code, status);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("ordVO", ordVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/front-end/ord/listOneOrd.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+				req.setAttribute("OrdVO", ordVO); 
+				String url = "/front-end/ord/list_one_ord.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 //				/***************************其他可能的錯誤處理*************************************/
-			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/ord/update_ord_input.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("修改資料失敗請重新修改");
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/ord/update_ord.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 
         
@@ -527,7 +550,7 @@ public class OrdServlet extends HttpServlet {
 			session.setAttribute("cMap", cMap);
 			session.setAttribute("avgscore", result);
 			session.setAttribute("vendor_no",vendor_no);
-			String url = "/front-end/ord/addOrd2.jsp";
+			String url = "/front-end/ord/start_ord.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 
@@ -705,7 +728,7 @@ public class OrdServlet extends HttpServlet {
 		
 		 // 資料庫取出的empVO物件,存入req
 		
-		String url = "/front-end/ord/addOrd2.jsp";
+		String url = "/front-end/ord/start_ord.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 		successView.forward(req, res);
 		
@@ -1216,7 +1239,7 @@ public class OrdServlet extends HttpServlet {
 						// send the ErrorPage view.
 						req.setAttribute("errorMsgs", errorMsgs);
 							System.out.println("insert");
-//						try {
+						try {
 							/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 							String mem_no = (String) session.getAttribute("mem_no");
 							
@@ -1370,12 +1393,12 @@ public class OrdServlet extends HttpServlet {
 							successView.forward(req, res);				
 							
 				/***************************其他可能的錯誤處理**********************************/
-//						} catch (Exception e) {
-//							errorMsgs.add(e.getMessage());
-//							RequestDispatcher failureView = req
-//									.getRequestDispatcher("/frond-end/ord/addOrd2.jsp");
-//							failureView.forward(req, res);
-//						}
+						} catch (Exception e) {
+							errorMsgs.add(e.getMessage());
+							RequestDispatcher failureView = req
+									.getRequestDispatcher("/frond-end/ord/addOrd2.jsp");
+							failureView.forward(req, res);
+						}
 					}
 				 }
 				 

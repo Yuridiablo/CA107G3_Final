@@ -38,9 +38,7 @@
             <table class="table" id="xxx">
                 <thead>
                     <tr>
-                        <th>
-                          訂單編號
-                        </th>
+                       
                          <th>
                           餐廳名稱
                         </th>
@@ -51,27 +49,25 @@
                           數量
                         </th>
                          <th>
-                          價格
+                          單價
                         </th>
                          <th>
-                          
+                          總額
+                        </th>
+                        <th>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                 
-		
-			o_detailVO
-               
+
+              	
+              		<c:forEach var="o_detailVO" items="${od_list}">
               		
               		<c:set var="memuVO" value="${MenuSvc.findByPK(o_detailVO.menu_no) }"/>
-              		<c:set var="ordVO" value="${OrdSvc.getOneOrd(o_detailVO.ord_no)}"/>
-              		<c:set var="ordlist" value="${o_detailVO.vendor_no}"/>
-              		<c:set var="vVO" value="${vendorSvc.findByPK(ordlist)}"/>
+              		<c:set var="ord_vendor" value="${ordVO.vendor_no}"/>
+              		<c:set var="vVO" value="${vendorSvc.findByPK(ord_vendor)}"/>
                      <tr class="warning">
-                        <td>
-                            ${o_detailVO.getOrd_no()}
-                        </td>
+                      
                          <td>
                             ${vVO.v_name}
                         </td>
@@ -80,6 +76,9 @@
                         </td>
                         <td>
                             ${o_detailVO.qty}
+                        </td>
+                        <td>
+                            ${o_detailVO.price}
                         </td>
                         <td>
                             ${(o_detailVO.price)*(o_detailVO.qty)}
@@ -103,7 +102,7 @@
 			</tr>
                  
                     </table>
-              
+              </c:forEach>
                 </tbody>
            
         </div>

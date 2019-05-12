@@ -5,6 +5,7 @@
 <%@ page import="com.ord.model.*"%>
 
 
+
 <%
 // 	 String mem_no=(String)request.getAttribute("mem_no"); 
 //	 OrdService ordSvc = new OrdService();
@@ -47,6 +48,8 @@ height:1px
 </style>
 <jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
 <jsp:useBean id="VendorSvc" scope="page" class="com.vendor.model.VendorService" />
+<jsp:useBean id="ord_detailSvc" scope="page" class="com.ord_detail.model.Order_DetailService" />
+
 <meta charset="UTF-8">
 <title>會員全部訂單＋訂單明細</title>
 </head>
@@ -89,7 +92,8 @@ height:1px
 			<c:forEach var="ordVO" items="${olist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                 <c:set var="memVO" value="${MemSvc.getOneMember('M000004')}"></c:set>
                  <c:set var="vendorVO" value="${VendorSvc.findByPK(ordVO.vendor_no)}"></c:set>
-					
+				
+						
                      <tr class="warning">
                         
 						<td>${memVO.mem_name}<br>
@@ -124,7 +128,8 @@ height:1px
 			 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="查看訂單明細">
 			     <input type="hidden" name="ord_no"  value="${ordVO.ord_no}">
-			      <input type="hidden" name="menu_no" value="${O_detailVO.menu_no}">
+			     <c:set var="o_detailVOlist" value="${ord_detailSvc.findbyOrd_no(ordVO.ord_no)}" ></c:set>
+							
 			     <input type="hidden" name="action"	value="getOne_ord_detail_display"></FORM>
 			     
 			     <A href="<%=request.getContextPath()%>/comment/comment.do?ord_no=${ordVO.ord_no}&action=insert_comments">發表評論</a>

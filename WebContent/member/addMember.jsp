@@ -242,6 +242,9 @@ body{
 <!-- =================================================================================== -->
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">請於2分鐘內輸入電子郵件內驗證碼 :</label>
+			<button type="button" class="close" id="closeBut" aria-label="Close">
+  				<span aria-hidden="true">&times;</span>
+			</button>
             <input type="text" class="form-control" placeholder="輸入驗證碼"
             name="confirmCode" id="confirmCode">
           </div>
@@ -368,7 +371,10 @@ body{
 						})
 					
 						$("#confirmletter").on('click',function(){
-								$("#confirmletter").css('pointer-events','none');
+							$('#modalForconfirm').modal({
+								  keyboard: false,
+								  backdrop: 'static'
+								})
 								$.ajax({
 									url:"<%= request.getContextPath()%>/member/member.do",
 									type:"post",
@@ -379,7 +385,7 @@ body{
 						});
 						
 						$("#confirmSub").on('click',function(){
-							$("#confirmletter").css('pointer-events','');
+							
 							$.ajax({
 								url:"<%= request.getContextPath()%>/member/member.do",
 								type:"post",
@@ -400,8 +406,11 @@ body{
 								},
 							})
 						});
+						$("#closeBut").on('click',function(){
+							$('#modalForconfirm').modal('hide');
+						});
 					
-
+						
 
 				});
 		var loadFile = function(e) {
