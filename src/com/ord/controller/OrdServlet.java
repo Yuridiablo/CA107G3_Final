@@ -437,13 +437,17 @@ public class OrdServlet extends HttpServlet {
 
         
 		
-        
+		HttpSession session = req.getSession();
         
         if("selected".equals(action)) {
-        	HttpSession session = req.getSession();
+        	
         	List<String> errorMsgs = new LinkedList<String>();
         	req.setAttribute("errorMsgs", errorMsgs);
+        	MemberVO memVO=(MemberVO) session.getAttribute("memberVO");
+        	System.out.println("memberVO+++++"+memVO);
         	
+        	String mem_no=memVO.getMem_no();
+        	System.out.println("mem_no++++"+mem_no);
         	String vendor_no = new String(req.getParameter("vendor_no"));
         
         	try {
@@ -552,6 +556,8 @@ public class OrdServlet extends HttpServlet {
 			session.setAttribute("cMap", cMap);
 			session.setAttribute("avgscore", result);
 			session.setAttribute("vendor_no",vendor_no);
+			session.setAttribute("mem_no", mem_no);
+			session.setAttribute("memVO", memVO);
 			String url = "/front-end/ord/start_ord.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
@@ -602,7 +608,7 @@ public class OrdServlet extends HttpServlet {
 		
 		
 		
-		HttpSession session = req.getSession();
+		
 			
 		if("updateDate".equals(action)){
 				System.out.println("有近來");
@@ -742,7 +748,8 @@ public class OrdServlet extends HttpServlet {
 		if(action.equals("sel_time")) {
 			
 			String vendor_no=req.getParameter("vendor_no");
-			String mem_no =req.getParameter("mem_no");
+			String mem_no=(String) session.getAttribute("mem_no");
+			
 			System.out.println("mem_no======"+mem_no);
 			java.sql.Timestamp ord_time =java.sql.Timestamp.valueOf(req.getParameter("ord_time"));
 			java.sql.Date booking_date = java.sql.Date.valueOf(req.getParameter("booking_date").trim());
@@ -991,7 +998,7 @@ public class OrdServlet extends HttpServlet {
 						String email3="ji394z06z06@yahoo.com.tw";
 						String email4="j0933473201@icloud.com";
 						
-						  String  URL= "http://localhost:8082/CA107_G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
+						  String  URL= "http://localhost:8082/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
 						  String subject = "請點擊付款";
 					      String messageText = "Hello! " + name + 
 					    		  " 您的好友已完成訂位及選購餐點 ，您需要支付的金額為"
@@ -1002,7 +1009,7 @@ public class OrdServlet extends HttpServlet {
 					    		  "\r\n"+ 
 					    		  "請在2小時內完成付款，否則訂單不成立"; 
 					      
-					      String  URL1= "http://localhost:8082/CA107_G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no2+"&amount="+share_amount2+"&name1="+name1;
+					      String  URL1= "http://localhost:8082/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no2+"&amount="+share_amount2+"&name1="+name1;
 						  String subject1 = "請點擊付款";
 					      String messageText1= "Hello! " + name1 + 
 					    		  " 您的好友已完成訂位及選購餐點 ，您需要支付的金額為"
@@ -1041,7 +1048,7 @@ public class OrdServlet extends HttpServlet {
 			 }
 				 
 				 
-				 //個人付款
+				 //個人信用卡付款
 				 if (action.equals("tocredit")) {
 					 
 					 double amount = 0;
@@ -1061,6 +1068,28 @@ public class OrdServlet extends HttpServlet {
 						RequestDispatcher rd = req.getRequestDispatcher(url);
 						rd.forward(req, res);
 					 }
+				 
+				 
+				 //個人錢包付款
+				 if (action.equals("to_wallet_pay")) {
+					 
+					 double amount = 0;
+						for (int i = 0; i < buylist.size(); i++) {
+							Restaurant_MenuVO menu = buylist.get(i);
+							Integer price = Integer.parseInt(menu.getMenu_price());
+							Integer quantity = menu.getQuantity();
+							amount += (price * quantity);
+						}
+						
+						String booking_time=(String) session.getAttribute("booking_time");
+						Integer total =(int)amount;
+						System.out.println("total55555"+total);
+						session.setAttribute("total", total);
+						String url = "/front-end/wallet/confirm_wallet_left.jsp";
+						RequestDispatcher rd = req.getRequestDispatcher(url);
+						rd.forward(req, res);
+					 }
+				 
 				 
 				 
 				 	//繳費後檢查是否分攤好友皆有完成
@@ -1338,22 +1367,22 @@ public class OrdServlet extends HttpServlet {
 							
 							//傳送信件
 							
-//							 String to = "ji394z06z06@yahoo.com.tw";
-//						      
-//						      String subject = "成功訂位";
-//						      
-//						      String ch_name = m_name;
-//						  
-//						      String messageText =
-//						      "Hello! " + ch_name + " 恭喜你已經完成訂位,請於"+booking_date  +"\r\n"+
-//						      "當日"+booking_time+"攜帶愉快的心情於"  +"\r\n"
-//						      +v_name+"餐廳"+"\r\n"+
-//						      "享受美好的一餐"+"\r\n"+
-//						      "切記出示驗證碼"+verif_code+"或是"+"QRcode進行驗證"
-//						      ; 
-//						       
-//						      MailService mailService = new MailService();
-//						      mailService.sendMail(to, subject, messageText);
+							 String to = "ji394z06z06@yahoo.com.tw";
+						      
+						      String subject = "成功訂位";
+						      
+						      String ch_name = m_name;
+						  
+						      String messageText =
+						      "Hello! " + ch_name + " 恭喜你已經完成訂位,請於"+booking_date  +"\r\n"+
+						      "當日"+booking_time+"攜帶愉快的心情於"  +"\r\n"
+						      +v_name+"餐廳"+"\r\n"+
+						      "享受美好的一餐"+"\r\n"+
+						      "切記出示驗證碼"+verif_code+"或是"+"QRcode進行驗證"
+						      ; 
+						       
+						      MailService mailService = new MailService();
+						      mailService.sendMail(to, subject, messageText);
 							
 							// Send the use back to the form, if there were errors
 							if (!errorMsgs.isEmpty()) {
@@ -1520,22 +1549,22 @@ public class OrdServlet extends HttpServlet {
 							
 							//傳送信件
 							
-//							 String to = "ji394z06z06@yahoo.com.tw";
-//						      
-//						      String subject = "成功訂位";
-//						      
-//						      String ch_name = m_name;
-//						  
-//						      String messageText =
-//						      "Hello! " + ch_name + " 恭喜你已經完成訂位,請於"+booking_date  +"\r\n"+
-//						      "當日"+booking_time+"攜帶愉快的心情於"  +"\r\n"
-//						      +v_name+"餐廳"+"\r\n"+
-//						      "享受美好的一餐"+"\r\n"+
-//						      "切記出示驗證碼"+verif_code+"或是"+"QRcode進行驗證"
-//						      ; 
-//						       
-//						      MailService mailService = new MailService();
-//						      mailService.sendMail(to, subject, messageText);
+							 String to = "ji394z06z06@yahoo.com.tw";
+						      
+						      String subject = "成功訂位";
+						      
+						      String ch_name = m_name;
+						  
+						      String messageText =
+						      "Hello! " + ch_name + " 恭喜你已經完成訂位,請於"+booking_date  +"\r\n"+
+						      "當日"+booking_time+"攜帶愉快的心情於"  +"\r\n"
+						      +v_name+"餐廳"+"\r\n"+
+						      "享受美好的一餐"+"\r\n"+
+						      "切記出示驗證碼"+verif_code+"或是"+"QRcode進行驗證"
+						      ; 
+						       
+						      MailService mailService = new MailService();
+						      mailService.sendMail(to, subject, messageText);
 							
 							// Send the use back to the form, if there were errors
 							if (!errorMsgs.isEmpty()) {

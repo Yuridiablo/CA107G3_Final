@@ -120,10 +120,17 @@ body {
 					</form>
 					
 					<form name="check" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
-					<button type="submit" class="btn btn-success btn-lg btn2-block" id="pay"> Pay Now<span class="glyphicon glyphicon-usd"></span></button>
-						<input type="hidden" name="mem_no" value="M000004">
+					<button type="submit" class="btn btn-success btn-lg btn2-block" id="pay"> 信用卡付款<span class="glyphicon glyphicon-usd"></span></button>
+						<input type="hidden" name="mem_no" value="${mem_no}">
 <%-- 						<input type="hidden" name="mem_no" value="${mem_no}"> --%>
 					<input type="hidden" name="action" value="tocredit">
+					</form>
+					
+					<form name="check2" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
+					<button type="submit" class="btn btn-success btn-lg btn2-block" id="pay"> 會員錢包付款<span class="glyphicon glyphicon-usd"></span></button>
+						<input type="hidden" name="mem_no" value="${mem_no }">
+<%-- 						<input type="hidden" name="mem_no" value="${mem_no}"> --%>
+					<input type="hidden" name="action" value="to_wallet_pay">
 					</form>
 		           </td>
                 </tr>

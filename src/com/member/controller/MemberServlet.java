@@ -418,7 +418,7 @@ public class MemberServlet extends HttpServlet {
 				String preFlag = (String) session.getAttribute("flag");
 				
 				if(flag.equals(preFlag)) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp?");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}else {
@@ -434,7 +434,7 @@ public class MemberServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					String jerrorMsgs = gson.toJson(errorMsgs);
 					req.setAttribute("errorMsgs", jerrorMsgs);
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp?");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
@@ -459,9 +459,11 @@ public class MemberServlet extends HttpServlet {
 					return;// 程式中斷
 				}
 
-
-				req.setAttribute("memberVO", memberList);
-				String url = "/member/serchMember.jsp";
+				
+				req.setAttribute("memberVOList", memberList);
+				req.setAttribute("serchMember", "serchMember");
+				String url = "/front-end/motherboard.jsp";
+//				String url = "/member/serchMember.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
 				successView.forward(req, res);
  

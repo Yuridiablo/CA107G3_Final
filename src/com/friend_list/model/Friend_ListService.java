@@ -8,7 +8,7 @@ public class Friend_ListService {
 	private Friend_ListDAO_interface dao;
 	
 	public Friend_ListService() {
-		dao = new Friend_ListJDBCDAO();
+		dao = new Friend_ListDAO();
 	}
 	
 	public Friend_ListVO addFriend_List(String mem_no,String frie_no,

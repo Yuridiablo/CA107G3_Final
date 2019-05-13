@@ -21,7 +21,7 @@ public class Friend_ListDAO implements Friend_ListDAO_interface{
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
