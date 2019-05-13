@@ -355,7 +355,6 @@
 		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
-			alert("open");
 			var history = true;
 			sendMessage(history);
 		};
@@ -384,7 +383,6 @@
 	
 	function sendMessage(hisreceiver) {
 		if(hisreceiver!=null){
-			alert("send1");
 			var jsonObj = {"type" : "history","sender" : "${memberVO.mem_no}","receiver" : "employee", "message" : "","name" : "${memberVO.mem_name}"};
 			webSocket.send(JSON.stringify(jsonObj));
 		}else{

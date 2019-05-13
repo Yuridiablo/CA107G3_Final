@@ -149,7 +149,7 @@
 									</c:if>
 								</td>
 								<td>${employeeVO.emp_hire}</td>
-								<td>${employeeVO.emp_resign}</td>
+								<td class="resign">${employeeVO.emp_resign}</td>
 								<td><c:choose>
 										<c:when test="${employeeVO.emp_stat==1}"> 
 											在職
@@ -164,7 +164,12 @@
 										<input type="hidden" name="action" value="resignEmp">
 										<input type="hidden" name="emp_no"
 											value="${employeeVO.emp_no}">
-										<button type="submit" class="btn btn-outline-danger">確定</button>
+										<c:if test="${employeeVO.emp_resign==null}">
+											<button type="submit" class="btn btn-outline-danger">確定</button>
+										</c:if>
+										<c:if test="${employeeVO.emp_resign!=null}">
+											<button type="button" class="btn btn-outline-danger">確定</button>
+										</c:if>
 									</form>
 								</td>
 								<td>
@@ -221,6 +226,9 @@
 			$("#allEmp").on('click', function() {
 				$("#serchBar").addClass('serchBar');
 			});
+			if($(".resign").val()!=null){
+				$(this)
+			}
 		});
 	</script>
 </body>
