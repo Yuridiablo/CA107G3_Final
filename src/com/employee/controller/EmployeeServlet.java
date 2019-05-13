@@ -173,7 +173,7 @@ public class EmployeeServlet extends HttpServlet {
 			try {
 				
 				String emp_name = req.getParameter("emp_name");
-				String emp_nameReg = "^[\u4E00-\u9FA5]{2,3}$";
+				String emp_nameReg = "^[\u4E00-\u9FA5]{2,4}$";
 				if (emp_name == null || (emp_name.trim()).length() == 0) {
 					errorMsgs.add("請輸入姓名");
 				} else if (!emp_name.trim().matches(emp_nameReg)) {
@@ -191,6 +191,17 @@ public class EmployeeServlet extends HttpServlet {
 				
 				EmployeeService employeeSvc = new EmployeeService();
 				List<EmployeeVO> list = employeeSvc.getOneEmployeeByName(emp_name);
+				if(list.size()==0) {
+					errorMsgs.add("無此員工");
+				}
+				
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("errorPage","errorPage");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/employeeScreen.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
 				req.setAttribute("list", list);
 				req.setAttribute("listAllEmp", "listAllEmp");
 				String url = "/back-end/employeeScreen.jsp";

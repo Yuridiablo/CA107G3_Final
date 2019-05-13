@@ -434,7 +434,7 @@
 				 	 title: 'Oops...',
 				 	 text: '${message}',
 				})
-// 				alert('${message}');
+
 			</script>
 		</c:forEach>
 	</c:if>
