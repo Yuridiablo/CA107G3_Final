@@ -10,10 +10,10 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" -->
+<!-- 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" -->
+<!-- 	crossorigin="anonymous"> -->
 <title>註冊</title>
 <style type="text/css">
 .col-form-label {
@@ -86,7 +86,6 @@ body{
 			<div class="row justify-content-center">
 				<div class="col-8">
 					
-					<label id="topicBar" class="col-12">SeakFoodTable 會員註冊</label>
 					<div class="form-row">
 						<div class="col-2 col-form-label">
 							<label for="validationTooltip01">姓名 :</label>
@@ -395,6 +394,7 @@ body{
 								success: function(data){
 									if(data.canPass==="Yes"){
 										$("#modalForconfirm").modal('hide');
+										
 										$("#confirmletter").css('pointer-events','none');
 										passToken = "pass";
 										swal("驗證成功", "請繼續完成註冊", "success");

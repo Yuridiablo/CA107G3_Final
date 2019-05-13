@@ -1,7 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!DOCTYPE html>
 
-<!doctype html>
+
 <html lang="en">
 
 <head>
@@ -101,7 +104,7 @@
                                     <li><a href="#" class="btn btn-outline-light top-btn" id="loginButton"
 											data-toggle="modal" data-target="#loginBar"><span id="icon-login" class="icon-login"></span>登入</a></li>
                                     <li><a href="${pageContext.request.contextPath}/member/member.do?action=logout" class="btn btn-outline-light top-btn" id="logoutButton"><span id="icon-logout" class="icon-logout"></span>登出</a></li>
-                                	<li><a href="${pageContext.request.contextPath}/member/addMember.jsp" class="btn btn-outline-light top-btn" id="addButton"><span id="icon-logout" class="icon-logout"></span>註冊</a></li>
+                                	<li><a href="${pageContext.request.contextPath}/member/member.do?action=addMember" class="btn btn-outline-light top-btn" id="addButton"><span id="icon-logout" class="icon-logout"></span>註冊</a></li>
                                 </ul>
                             </div>
                         </div>

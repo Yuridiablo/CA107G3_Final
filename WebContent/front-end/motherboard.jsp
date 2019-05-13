@@ -207,6 +207,14 @@
 		}
 	%>
 	
+	<%
+		if (request.getAttribute("addMember")!= null) {
+	%>
+		<jsp:include page="/member/addMember.jsp" />
+	<%
+		}
+	%>
+	
 	<div id="service" onclick="connect();">線上客服</div>
 
 	
@@ -332,18 +340,7 @@
             };
         });
     </script> -->
-    <!-- 貓頭鷹的自動捲動腳本 -->
-    <script>
-     var owl = $('.owl-carousel');
-        owl.owlCarousel({
-            items:1,
-            loop:true,
-            margin:10,
-            autoplay:true,
-            autoplayTimeout:5000,
-            autoplayHoverPause:true
-        });
-    </script>
+
 <!--   ======================================webSocket===========================================   -->
     <script>
     
