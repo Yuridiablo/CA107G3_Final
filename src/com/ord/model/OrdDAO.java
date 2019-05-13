@@ -61,6 +61,8 @@ public class OrdDAO implements OrdDAO_interface {
 			"SELECT ord_no, mem_no, vendor_no, tbl_no, party_size, share_mem_no1, share_mem_no2, share_amount, ord_time, booking_date, booking_time, notes, total, arrival_time, finish_time, verif_code, status" + 
 			" FROM ord" +
 			" where vendor_no=? and verif_code=?";
+	private static final String UPDATE_TBLNO = "UPDATE ord set tbl_no=? where ord_no = ?";
+	private static final String UPDATE_STATUS = "UPDATE ord set status=? where ord_no = ?";
 	
 	@Override
 	public void insert(OrdVO ordVO) {
@@ -971,6 +973,89 @@ public class OrdDAO implements OrdDAO_interface {
 			}
 		}
 		return ordVO;
+	}
+	
+	@Override
+	public void updateTbl_no(OrdVO ordVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_TBLNO);
+		
+			if (ordVO.getTbl_no() != null) {
+				pstmt.setString(1, ordVO.getTbl_no());
+			} else {
+				pstmt.setNull(1, java.sql.Types.VARCHAR);
+			}
+			pstmt.setString(2, ordVO.getOrd_no());
+			
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void updateStatus(OrdVO ordVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+
+		
+			pstmt.setInt(1, ordVO.getStatus());			
+			pstmt.setString(2, ordVO.getOrd_no());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 }

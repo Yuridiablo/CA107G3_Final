@@ -107,7 +107,15 @@
 		<servlet-name>OrdServlet</servlet-name>
 		<url-pattern>/ord/ord.do</url-pattern>
 	</servlet-mapping>
-
+	
+	<servlet>
+    	<servlet-name>OrdServlet_vendor</servlet-name>
+    	<servlet-class>com.ord.controller.OrdServlet_vendor</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  	  <servlet-name>OrdServlet_vendor</servlet-name>
+  	  <url-pattern>/ord/ord_vendor.do</url-pattern>
+ 	 </servlet-mapping>
 
 	<servlet>
 		<servlet-name>Comments_Servlet</servlet-name>
@@ -160,6 +168,7 @@
 	<servlet>
 		<servlet-name>TablesServlet</servlet-name>
 		<servlet-class>com.tables.controller.TablesServlet</servlet-class>
+		<load-on-startup>10</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>TablesServlet</servlet-name>
@@ -174,7 +183,10 @@
 		<servlet-name>SearchServlet</servlet-name>
 		<url-pattern>/search/search.do</url-pattern>
 	</servlet-mapping>
-
+	
+	<listener>
+    	<listener-class>com.wait_pos.controller.MemberWS</listener-class>
+  	</listener>
 
 	<filter>
 		<filter-name>setCharacterEncoding</filter-name>

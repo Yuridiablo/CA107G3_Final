@@ -2,10 +2,19 @@ package com.tables.controller;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+import javax.websocket.Session;
+
 import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.tables.model.*;
+import com.wait_pos.controller.Wait_Line;
 
 public class TablesServlet extends HttpServlet {
 	
@@ -244,7 +253,103 @@ public class TablesServlet extends HttpServlet {
 //			}
 			
 
-		}
+		} // End of updateAxis
 		
+		if ("newWI".equals(action)) {
+			
+			String tbl_no = req.getParameter("tbl_no");				
+			String vendor_no = req.getParameter("vendor_no");
+			Integer party_size = Integer.parseInt(req.getParameter("party_size"));			
+			
+			JsonObject jbMsg = new JsonObject();
+			String result = null;
+			Integer status = null;
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();			
+			Bill bill = null;
+			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+			if (tbls_all != null) {
+				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);				
+				if (vendor_tbls != null) {	
+					bill = new Bill(tbl_no, party_size);					
+					synchronized(vendor_tbls) {
+						vendor_tbls.putBill(bill);
+						vendor_tbls.setBillToTbl(bill);
+					}
+					status = 1;
+					result = "新增客人成功";					
+				} else {
+					System.out.println(vendor_no + " 桌位管理功能未初始化");
+					status = 0;
+					result = "廠商桌位管理功能未初始化";
+				}
+			} else {
+				System.out.println(vendor_no + " server 桌位管理功能未初始化");
+				status = 0;
+				result = "系統桌位管理功能未初始化";
+			}
+			// push to vendor
+			
+			JsonElement jeBill = gson.toJsonTree(bill);
+			
+			jbMsg.addProperty("result", result);
+			jbMsg.addProperty("status", status);
+			jbMsg.addProperty("bill_no", bill.getBill_no());
+			jbMsg.add("bill", jeBill);
+			String jsonStr = gson.toJson(jbMsg);
+			out.print(jsonStr);
+			
+		} // end of newWI
+		
+		if ("setTblStatus".equals(action)) {
+			
+			String tbl_no = req.getParameter("tbl_no");				
+			String vendor_no = req.getParameter("vendor_no");
+			Integer tbl_status = Integer.parseInt(req.getParameter("tbl_status"));
+			Integer bill_status = Integer.parseInt(req.getParameter("bill_status"));
+
+			JsonObject jbMsg = new JsonObject();
+			String result = null;
+			Integer status = null;
+			
+			Tbl tbl = null;
+			Bill bill = null;			
+			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+			if (tbls_all != null) {
+				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);				
+				if (vendor_tbls != null) {	
+					tbl = vendor_tbls.getTbls().get(tbl_no);
+					bill = tbl.getBill();
+					synchronized(tbl) {
+						tbl.setStatus(tbl_status);
+						bill.setSource(bill_status);
+					}
+					status = 1;
+					result = "變更桌況成功";					
+				} else {
+					System.out.println(vendor_no + " 桌位管理功能未初始化");
+					status = 0;
+					result = "廠商桌位管理功能未初始化";
+				}
+			} else {
+				System.out.println(vendor_no + " server 桌位管理功能未初始化");
+				status = 0;
+				result = "系統桌位管理功能未初始化";
+			}
+			// push to vendor
+						
+			jbMsg.addProperty("result", result);
+			jbMsg.addProperty("status", status);
+			String jsonStr = jbMsg.toString();
+			out.print(jsonStr);
+			
+		} // end of setTblStatus
+		
+	} // end of doPost
+	
+	@Override
+	public void init() throws ServletException {
+		ServletContext context = getServletContext();
+		context.setAttribute("tbls_all", new HashMap<String, Tbls>());
 	}
 }

@@ -21,6 +21,7 @@ public interface OrdDAO_interface {
     public List<OrdVO> findByVendor_no_Date(String vendor_no, Date booking_date);
     public List<OrdVO> findByVerifCode(String vendor_no, String verif_code);
     public OrdVO findOrdByVerifCode(String vendor_no, String verif_code);
-
+    public void updateTbl_no(OrdVO ordVO);
+    public void updateStatus(OrdVO ordVO);
     
 }
