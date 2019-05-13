@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
 <link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
     <style>
       .bd-placeholder-img {
@@ -39,7 +39,7 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="form-validation.css" rel="stylesheet">
+   
     
     <jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
     <jsp:useBean id="mem_walletSvc" scope="page" class="com.member_wallet_list.model.Member_Wallet_ListService" />
@@ -79,7 +79,7 @@
     
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3"></h4>
-     <form name="insert_by_wallet" action="<%=request.getContextPath()%>/ord/ord.do" method="get">>
+     <form name="insert_by_wallet" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
        
 
         <h4 class="mb-3">我的錢包</h4>
@@ -89,8 +89,9 @@
           <div class="col-md-6 mb-3">
             <label for="cc-name">錢包餘額:</label>
             <input type="hidden" class="form-control" id="cc-name" placeholder="" required>
-            <c:set var="mVO" value="${MemSvc.getOneMember('M000001') }"/>
+            <c:set var="mVO" value="${MemSvc.getOneMember(mem_no) }"/>
            <br> <big class="text-muted">$${mVO.mem_balance }</big>
+           <input type="hidden" name="mem_balance" id="mem_balance" value="${mVO.mem_balance }">
             <div class="invalid-feedback">
               Name on card is required
             </div>
@@ -99,6 +100,7 @@
             <label for="cc-number">扣款金額:</label>
             <input type="hidden" class="form-control" id="cc-number" placeholder="" required>
             <br> <big class="text-muted">$${total }</big>
+            <input type="hidden" name="total" id="total" value="${total }">
             <div class="invalid-feedback">
                 Name on card is required
             </div>
@@ -107,10 +109,10 @@
         
         <hr class="mb-5">
       
-        <button class="btn btn-info btn-lg btn-block" type="submit">付款</button>
+        <button class="btn btn-info btn-lg btn-block" type="submit" id="topay">付款</button>
         <div><a href="http://www.stackoverflow.com/">
 		    <button class="btn btn-warning btn-lg btn-block">去儲值</button>
-		    <input type="hidden" name="mem_no" value="M000004">
+		    <input type="hidden" name="mem_no" value="${mem_no }">
 			<input type="hidden" name="action" value="insert_by_wallet">
 		</a> 
 		</div>
@@ -123,7 +125,24 @@
 <script>
 
 </script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-        <script src="form-validation.js"></script></body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+      
+       </body>
+ <script>
+
+var total= $("#total").val();
+var mem_balance=$("#mem_balance").val();
+ $(document).ready(function(){
+	if(total>mem_balance){
+		$("#topay").css('display','none'); 
+		 Swal.fire({
+			  type: 'warning',
+			  title: '非常抱歉.',
+			  text: '您的錢包餘額不足,請前往儲值!',
+			
+			})
+		
+	}
+ })
+ </script>
 </html>
