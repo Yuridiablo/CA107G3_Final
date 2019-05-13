@@ -40,7 +40,7 @@ height:1px
 
 </style>
 
-
+<jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
 <meta charset="UTF-8">
 <title>會員檢視即時訂單</title>
 </head>
@@ -57,10 +57,10 @@ height:1px
             
                 
                     <tr>
-                        <th><h4>訂單編號</h4></th>
-						<th>會員編號<br><hr style="width: 90%; height: 1px; border: none; background-color: #282828"><font color="blue">分攤會員</font></th>
-						<th>廠商編號</th>
-						<th>卓位編號</th>
+                     
+						<th>會員名稱<br><hr style="width: 90%; height: 1px; border: none; background-color: #282828"><font color="blue">分攤會員</font></th>
+						<th>廠商名稱</th>
+<!-- 						<th>卓位編號</th> -->
 						<th>人數</th>
 <!-- 						<th>分攤會員編號</th> -->
 <!-- 						<th>分攤會員編號</th> -->
@@ -70,8 +70,8 @@ height:1px
 						<th>訂位時間</th>
 						<th>備註</th>
 						<th>總金額</th>
-						<th>開始用餐時間</th>
-						<th>結束用餐時間</th>
+<!-- 						<th>開始用餐時間</th> -->
+<!-- 						<th>結束用餐時間</th> -->
 						
 						<th>訂單狀態</th>
                     </tr>
@@ -82,14 +82,16 @@ height:1px
 			
 			
                
-
+  				<c:set var="memVO" value="${MemSvc.getOneMember(OrdVO.mem_no) }"></c:set>
+                 <c:set var="vendorVO" value="${VendorSvc.findByPK(ordVO.vendor_no)}"></c:set>
                      <tr class="warning">
-                        <td>${OrdVO.ord_no}</td>
-						<td>${OrdVO.mem_no}<br>
+<%--                         <td>${OrdVO.ord_no}</td> --%>
+
+						<td>${memVO.mem_name}<br>
 						<hr><font color="blue">${OrdVO.share_mem_no1}<br></font>
 						<hr><font color="blue">${OrdVO.share_mem_no2}</font></td>
-						<td>${OrdVO.vendor_no}</td>
-						<td>${OrdVO.tbl_no}</td>
+						<td>${vendorVO.v_name}</td>
+<%-- 						<td>${OrdVO.tbl_no}</td> --%>
 						<td>${OrdVO.party_size}</td>
 						
 						<td>${OrdVO.share_amount}</td>
@@ -98,8 +100,8 @@ height:1px
 						<td>${OrdVO.booking_time}</td>
 						<td>${OrdVO.notes}</td> 
 						<td>${OrdVO.total}</td> 
-						<td>${OrdVO.arrival_time}</td> 
-						<td>${OrdVO.finish_time}</td> 
+<%-- 						<td>${OrdVO.arrival_time}</td>  --%>
+<%-- 						<td>${OrdVO.finish_time}</td>  --%>
 						
 						<c:if test ="${OrdVO.status==0}" var="xxx">
 						<td>已付款</td> 

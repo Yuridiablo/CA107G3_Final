@@ -326,7 +326,7 @@ body {
 			<div class="row justify-content-center">
 				<div class="col-md-8">
 					<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/ord/ord.do" id="form2">
-						<input type="hidden" name="mem_no" value="M000004">	
+						<input type="hidden" name="mem_no" value="${mem_no}">	
 						<input type="hidden" name="vendor_no" value="${param.vendor_no}">
 						<input type="hidden" name="tbl_no" value="T000001"> 
 						<input type="hidden" name="share_mem_no1" value="${ordVO.share_mem_no1}"> 

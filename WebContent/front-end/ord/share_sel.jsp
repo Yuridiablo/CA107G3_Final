@@ -47,7 +47,7 @@
 					
 					  
 					  <tbody><form action="<%=request.getContextPath()%>/ord/ord.do" method="get">
-					  <c:forEach var="fVO" items="${fSvc.getfriendlist('M000004')}">	
+					  <c:forEach var="fVO" items="${fSvc.getfriendlist(mem_no)}">	
 					  
 					    <tr>
 					      <td><h4><input type="checkbox" name="share_mem_no" value="${fVO.frie_no}"> <a href="#"><i class="icon-star-empty"></i></a></h3></td>
