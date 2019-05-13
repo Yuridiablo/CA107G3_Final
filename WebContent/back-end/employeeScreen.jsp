@@ -586,6 +586,19 @@ to {
     
 </script>
 
+	<c:if test="${not empty errorMsgs}">
+		<c:forEach var="message" items="${errorMsgs}">
+			<script type="text/javascript">
+				Swal.fire({
+				 	 type: 'error',
+				 	 title: 'Oops...',
+				 	 text: '${message}',
+				})
+
+			</script>
+		</c:forEach>
+	</c:if>
+
 </body>
 
 </html>
