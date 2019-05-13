@@ -9,7 +9,7 @@
 
 <%  
 	// 資料總筆數 [rowNumber]
-    rowNumber=tmlist.size(); 
+    rowNumber=list.size(); 
     
     // 總頁數 Math.ceil [pageNumber]
     if (rowNumber%rowsPerPage !=0) 

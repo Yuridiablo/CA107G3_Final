@@ -49,13 +49,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Icon資源池 -->
-	<link rel="stylesheet" href="../front-end/css/themify-icons.css">
+	<link rel="stylesheet" href="css/themify-icons.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <title>訂單管理_桌位安排</title>
+	<style type="text/css">
+body {
+	background-color: #eee;
+	font-family: "微軟正黑體";
+}
+
+#sidenavOverlay {
+	display: none;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 998;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+#sidenavOverlay.active {
+	display: block;
+}
+
+#sidenav {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 280px;
+	left: -280px;
+	z-index: 999;
+	background: #fff;
+	color: #000;
+}
+
+.fullbar {
+	animation-name: full;
+	animation-duration: 0.5s;
+	animation-fill-mode: both;
+}
+
+.invibar {
+	animation-name: invi;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+.col-form-label {
+	text-align: right;
+	font: 18px 微軟正黑體;
+}
+
+#refreshconfirm {
+	text-align: right;
+	margin-bottom: 5px;
+}
+
+.nav-link .btn-primary {
+	background-color: orange;
+	border-color: orange;
+	margin-top: 10%;
+}
+
+#topicBar {
+	border: 1px;
+	border: solid;
+	border-color: #7c7c7c;
+	background-color: #7c7c7c;
+	color: white;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#confirmletter {
+	display: inline-block;
+	font: 15px/40px Helvetica;
+	text-align: center;
+	background: #F5F5F5;
+	border: 1px solid #cccccc;
+	color: #000000;
+	margin: 0px 8px 0px 0px;
+	position: relative;
+	top: -2px; #
+	top: 1px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.needs-validation {
+	margin-top: 15%;
+}
+
+.form-row {
+	margin-top: 2%;
+}
+
+.resTitle {
+	font-size: 30px;
+	margin-left: 5%;
+}
+
+.nav .btn{
+	margin-top:80%;
+ padding-left: 123px;
+ padding-right: 123px;
+ box-sizing: border-box;
+
+}
+
+.nav .text-white:hover{
+	background-color: #f00;
+}
+
+img {
+	width: 800px;
+	max-width: 500px;
+}
+
+@keyframes full {from { left:-280px;
 	
+}
+
+to {
+	left: 0px;
+}
+
+}
+@keyframes invi {from { left:0px;
+	
+}
+
+to {
+	left: -280px;
+}
+}
+
+/*.side-nav__section-title {
+            color: #202124;
+            display: block;
+            font-size: 18px;
+            padding-bottom: 12px;
+            padding-left: 24px;
+            padding-top: 40px;
+        }       */
+</style>
 	<!-- Side Nav -->
 	<style type="text/css">
 		#sidenavOverlay {
@@ -268,35 +411,45 @@ margin-left: 20px;
   <!-- ============================================================================= -->
   <body style="background-color: gray;">
 
-	<!-- sub Navbar -->
-	<nav class="navbar bg-light navbar-light subNavbar justify-content-center">
-	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnBack">
-	    <span class="ti-angle-left"></span>
-	  </button>
 
-	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnSelDate">
-	    <span class="ti-calendar"></span>
-	  </button>
-	  
-	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnToday">
-	    <span class="ti-control-record"></span>
-	  </button>
+	<!-- Navbar -->
+	<nav class="navbar  bg-dark navbar-dark">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#collapsibleNavbar" id="btnSidenav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 		
-	   <div style="width: 110px">
-		  <span class="navbar-toggler mr-2" id="spanDate_now">
-		 	 <%= today %>	 	 
-		  </span>
-	  </div>
-	  <input type="hidden" id="inputDate_now" name="date" value="<%= System.currentTimeMillis() %>">
-
-	  
-	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnForward">
-	    <span class="ti-angle-right"></span>
-	  </button>
+		<c:if test="${vVO.v_status == 1}">
+		<span class="navbar-brand resTitle">${vVO.v_name}，您好！</span>
+		</c:if>
+		<c:if test="${vVO.v_status == 2}">
+		<span class="navbar-brand resTitle"><span style="color:orange">[審核中]</span>${vVO.v_name}，您好！</span>
+		</c:if>
+		<c:if test="${vVO.v_status == 3}">
+		<span class="navbar-brand resTitle">${vVO.v_name}，您好！</span>
+		</c:if>
+		<span class="navbar-brand">Seek Food Table<a class="btn btn-danger" role="botton" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=logout">登出</a></span>
+		
 
 	</nav>
+	<!-- Side Nav -->
+	<div id="sidenavOverlay"></div>
+	<nav class="nav navbar-nav bg-dark" id="sidenav">
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/mainVendor.jsp">概況一覽</a> 
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upVendor">資訊修改</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_list.jsp">桌型資料設定</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_graph.jsp">桌位配置</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_management_list.jsp">訂單狀態</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_management_timeline.jsp">訂單安排桌位</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listMenu">菜單管理</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listVendor">帳戶管理</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listComment">回應管理</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_verification.jsp">訂位驗證</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/wait_pos_jsp/wait_vendor.jsp">候位控制系統</a>
+		
+			
+	</nav>
 	
-
 	<!-- Content -->
 		<div class="outer">
 			<!-- Ord List -->
@@ -363,7 +516,7 @@ margin-left: 20px;
 
 			<!-- Table Timeline -->
 			<div class="divRight">
-				<div class="timelineContainer" style="width:1000px;height:900px;overflow:auto;">
+				<div class="timelineContainer">
 					<div class="tblLeft">
 						<div class="tblHeadLeft">桌位名稱</div>
 					<% for(int i = 0; i < tblList.size(); i++) { %>
@@ -501,9 +654,9 @@ function dropped (e) {
 <!--=============================== datetimepicker ======================================-->
 
 <!-- 參考網站: https://xdsoft.net/jqplugins/datetimepicker/ -->
-<link   rel="stylesheet" type="text/css" href="../ord_jsp/datetimepicker/jquery.datetimepicker.css" />
+<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" />
 <!--  <script src="datetimepicker/jquery.js"></script>-->
-<script src="../ord_jsp/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -617,16 +770,19 @@ function timeFmt(time) {
 
    <!-- Side Nav -->
     <script type="text/javascript">
-        $(document).ready(function () {                     
-            $('#btnSidenav').on('click', function () {
-                $('#sidenavOverlay').addClass('active');
-                $('#sidenav').addClass('active');             
-            });
-            $('#sidenavOverlay').on('click', function () {
-                $('#sidenavOverlay').removeClass('active'); 
-                $('#sidenav').removeClass('active');              
-            });
+    $(document).ready(function() {
+        $('#btnSidenav').on('click', function(e) {
+            $('#sidenav').removeClass('invibar');
+            $('#sidenavOverlay').addClass('active');
+            $('#sidenav').addClass('fullbar');
         });
+
+        jQuery('#sidenavOverlay').on('click', function() {
+            $('#sidenavOverlay').removeClass('active');
+            $('#sidenav').removeClass('fullbar');
+            $('#sidenav').addClass('invibar');
+        });
+    });
     </script>
   </body>
 </html>

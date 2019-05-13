@@ -217,17 +217,17 @@ to {
 	<!-- Side Nav -->
 	<div id="sidenavOverlay"></div>
 	<nav class="nav navbar-nav bg-dark" id="sidenav">
-		<a class="nav-link text-white p-3" href="#">概況一覽</a> 
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/mainVendor.jsp">概況一覽</a> 
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upVendor">資訊修改</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo">桌型資料設定</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableGraph">桌位配置</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=OrdMgList">訂單狀態</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=OrdMgTimeLine">訂單安排桌位</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_list.jsp">桌型資料設定</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_graph.jsp">桌位配置</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_management_list.jsp">訂單狀態</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_management_timeline.jsp">訂單安排桌位</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listMenu">菜單管理</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listVendor">帳戶管理</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listComment">回應管理</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=ordConfirm">訂位驗證</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=waitPos">候位控制系統</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_verification.jsp">訂位驗證</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/wait_pos_jsp/wait_vendor.jsp">候位控制系統</a>
 		
 			
 	</nav>
@@ -255,30 +255,30 @@ to {
 <jsp:include page="/Restaurant_Menu/listMenu.jsp" />
 </c:if>
 
-<c:if test="${not empty tmlist}">
-<jsp:include page="/tables_jsp/table_management_list.jsp" />
-</c:if>
+<%-- <c:if test="${not empty tmlist}"> --%>
+<%-- <jsp:include page="/tables_jsp/table_management_list.jsp" /> --%>
+<%-- </c:if> --%>
 
-<c:if test="${not empty mglist}">
-<jsp:include page="/tables_jsp/table_management_graph.jsp" />
-</c:if>
+<%-- <c:if test="${not empty mglist}"> --%>
+<%-- <jsp:include page="/tables_jsp/table_management_graph.jsp" /> --%>
+<%-- </c:if> --%>
 
 
-<c:if test="${not empty watingFlag}">
-<jsp:include page="/wait_pos_jsp/wait_vendor.jsp" />
-</c:if>
+<%-- <c:if test="${not empty watingFlag}"> --%>
+<%-- <jsp:include page="/wait_pos_jsp/wait_vendor.jsp" /> --%>
+<%-- </c:if> --%>
 
-<c:if test="${not empty ordConfirm}">
-<jsp:include page="/ord_jsp/ord_verification.jsp" />
-</c:if>
+<%-- <c:if test="${not empty ordConfirm}"> --%>
+<%-- <jsp:include page="/ord_jsp/ord_verification.jsp" /> --%>
+<%-- </c:if> --%>
 
-<c:if test="${not empty ordMgList}">
-<jsp:include page="/ord_jsp/ord_management_list.jsp" />
-</c:if>
+<%-- <c:if test="${not empty ordMgList}"> --%>
+<%-- <jsp:include page="/ord_jsp/ord_management_list.jsp" /> --%>
+<%-- </c:if> --%>
 
-<c:if test="${not empty OrdMgTimeLine}">
-<jsp:include page="/ord_jsp/ord_management_timeline.jsp" />
-</c:if>
+<%-- <c:if test="${not empty OrdMgTimeLine}"> --%>
+<%-- <jsp:include page="/ord_jsp/ord_management_timeline.jsp" /> --%>
+<%-- </c:if> --%>
 
 
 
