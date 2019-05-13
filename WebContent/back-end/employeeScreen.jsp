@@ -534,16 +534,7 @@ to {
 	        
 //  ======================以下解決訊息顯示左右邊分邊問題===============================
 	
-// 			$.each(jsonObj[i].sender==='employee'){
-// 				 $("#chatBody").append(
-// 		 	        		$('<div/>').addClass('row justify-content-end message_container').append($('<div/>').append($('<p/>').attr('id','message').html(jsonObj.message)))
-// 		 	        		);
-// 			}else{
-// 				 $("#chatBody").append(
-// 		 	        		$('<div/>').addClass('row justify-content-start message_container').append($('<div/>').append($('<p/>').attr('id','message').html(jsonObj.message)))
-// 		 	        		);
-// 			}
-			
+
 	        if(jsonObj.sender==='employee'){
 	        	 $("#chatBody").append(
 		 	        		$('<div/>').addClass('row justify-content-end message_container').append($('<div/>').append($('<p/>').attr('id','message').html(jsonObj.message)))

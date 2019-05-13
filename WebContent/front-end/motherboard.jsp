@@ -168,7 +168,7 @@
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
                                         </div>
                                     </li>
-                                    <li><a href="#" class="btn btn-outline-light top-btn"><span class="icon-login"></span>登入</a></li>
+                                    <li><a href="#" class="btn btn-outline-light top-btn" id="loginBut"><span class="icon-login"></span>登入</a></li>
                                     <li><a href="#" class="btn btn-outline-light top-btn"><span class="icon-logout"></span>登出</a></li>
                                 </ul>
                             </div>
@@ -302,6 +302,10 @@
     	    	$("#chatSpace").css('display','none');
     	    	$("#service").css('display','');
     	    });
+    		
+        	if(${account!=null}){
+            	$("#loginBut").hide();
+        	}
     	});
     </script>
 
