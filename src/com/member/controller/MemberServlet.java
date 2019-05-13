@@ -174,6 +174,20 @@ public class MemberServlet extends HttpServlet {
 
 			}
 		}
+		if ("addMember".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				req.setAttribute("addMember", "addMemeber");
+				String url = "/front-end/motherboard.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		if ("login".equals(action)) {
 			Gson gson = new Gson();
 			List<String> errorMsgs = new LinkedList<String>();
