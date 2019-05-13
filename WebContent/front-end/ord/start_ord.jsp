@@ -709,7 +709,6 @@ $("#xx${exc.booking_time}").click(async function(event){
 		}).then((result) => {
 			  if (result.value) {
 				    Swal.fire(
-				    
 				    )
 					var yyy=$("#xx${exc.booking_time}").val();
 					$("#realyvalue").val(yyy);
