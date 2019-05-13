@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
+
 <html>
 <head>
 <title>所有菜單清單</title>
@@ -197,6 +200,10 @@
 
 <c:if test="${not empty select_mVO}">
 <jsp:include page="/member/mem_infoView.jsp" />
+</c:if>
+
+<c:if test="${not empty mem123}">
+<jsp:include page="/member/serchMember.jsp" />
 </c:if>
 	
 	

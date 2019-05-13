@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!doctype html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- Required meta tags -->
@@ -9,10 +11,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
+
 
 <title>查詢會員</title>
 
@@ -54,7 +53,7 @@
 	<div class="container">
 		<div class="row justify-content-center ">
 			<div class="col-6 row justify-content-center ">
-				<c:forEach var="memberVO" items="${memberVO}">
+				<c:forEach var="memberVO" items="${mem123}">
 					<div
 						class="col-3 all-group img-container d-flex align-items-center justify-content-center">
 <!-- 						<div class="img-inner"> -->

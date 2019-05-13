@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.vendor.model.*"%>
 
-<jsp:useBean id="vVO" scope="session" class="com.vendor.model.VendorVO" />
-
 <!doctype html>
 <html lang="en">
 

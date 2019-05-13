@@ -18,9 +18,10 @@
 }
 
 .resultpic{
-	width:150px;
+	width:100px;
 	height:100px;
 	object-fit:cover;
+	border-radius: 0px !important;
 }
 
 
