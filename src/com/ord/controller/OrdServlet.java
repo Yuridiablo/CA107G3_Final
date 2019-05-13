@@ -1605,7 +1605,7 @@ public class OrdServlet extends HttpServlet {
 //＝＝＝＝＝＝＝＝＝取得菜單資訊＝＝＝＝＝＝＝＝＝
 	private Restaurant_MenuVO getMenu(HttpServletRequest req) {
 		String menu_no = req.getParameter("menu_no");
-		String vendor_no = req.getParameter("vendor_no");
+		String vendor_no = req.getParameter("vendor_no"); 
 		String menu_name = req.getParameter("menu_name");
 		String menu_price = req.getParameter("menu_price");
 //		Integer menu_stat = Integer.parseInt(req.getParameter("menu_stat"));
