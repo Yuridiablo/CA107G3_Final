@@ -202,7 +202,7 @@ font-family:"微軟正黑體";
                                         <div class="media">
                                         	
                                            <a class="yourpick" href="<%=request.getContextPath()%>/search/search.do?action=meminfo&seletcted_mem=${sMap.value[4]}">
-                                           <img src="<%= request.getContextPath()%>/ShowImg.do?mem_no='${sMap.value[4]}'" class="mr-3 memshow" onerror="this.src='../front-end/images/SeeKFoodA.png'" alt="...">
+                                           <img src="<%= request.getContextPath()%>/ShowImg.do?mem_no='${sMap.value[4]}'" class="mr-3 memshow" onerror="this.src='../front-end/images/dog.png'" alt="...">
                                            </a>
                                           
                                             <div class="media-body">
