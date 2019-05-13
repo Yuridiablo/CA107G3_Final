@@ -513,16 +513,6 @@
     	}
     	
     	
-    	if(${errorMsgs!=null}){
-    		var jsonObj = JSON.parse('${errorMsgs}');
-    		for(var i=0;i<jsonObj.length;i++){
-    			Swal.fire({
-    				  type: 'error',
-    				  title: 'Oops...',
-    				  text: jsonObj[i],
-    			})
-    		};
-    	}
 
   
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
@@ -549,5 +539,16 @@
 		<c:if test="${account==null&&loginFlag!=null}">
 			<c:remove var="loginFlag"/>
 		</c:if>
- 
+ 		
+ 	<c:if test="${not empty errorMsgs}">
+		<c:forEach var="message" items="${errorMsgs}">
+			<script type="text/javascript">
+				Swal.fire({
+				 	 type: 'error',
+				 	 title: 'Oops...',
+				 	 text: '${message}',
+				})
+			</script>
+		</c:forEach>
+	</c:if>
 </html>

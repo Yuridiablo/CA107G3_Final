@@ -594,9 +594,9 @@ to {
 				 	 title: 'Oops...',
 				 	 text: '${message}',
 				})
-
 			</script>
 		</c:forEach>
+		<c:remove var="errorMsgs"/>
 	</c:if>
 
 </body>
