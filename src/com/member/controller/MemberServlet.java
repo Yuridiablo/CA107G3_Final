@@ -460,7 +460,7 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				
-				req.setAttribute("memberVO", memberList);
+				req.setAttribute("memberVOList", memberList);
 				req.setAttribute("serchMember", "serchMember");
 				String url = "/front-end/motherboard.jsp";
 //				String url = "/member/serchMember.jsp";

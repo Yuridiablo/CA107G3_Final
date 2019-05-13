@@ -8,11 +8,11 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
+<!-- <!-- Bootstrap CSS -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" -->
+<!-- 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" -->
+<!-- 	crossorigin="anonymous"> -->
 
 <title>查詢會員</title>
 
@@ -46,6 +46,9 @@
 #mem_nickname{
 	margin-top: 10px;
 }
+.memberResult{
+	height:800px;
+}
 
 
 </style>
@@ -53,8 +56,8 @@
 <body>
 	<div class="container">
 		<div class="row justify-content-center ">
-			<div class="col-6 row justify-content-center ">
-				<c:forEach var="memberVO" items="${memberVO}">
+			<div class="col-6 row justify-content-center memberResult ">
+				<c:forEach var="memberVO" items="${memberVOList}">
 					<div
 						class="col-3 all-group img-container d-flex align-items-center justify-content-center">
 <!-- 						<div class="img-inner"> -->
