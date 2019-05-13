@@ -552,7 +552,7 @@
  	<c:if test="${not empty errorMsgs}">
 		<c:forEach var="message" items="${errorMsgs}">
 			<script type="text/javascript">
-				if($.cookie("error")!="seen"){
+				if($.cookie("error")!="${sessionScope.flag}"){
 					Swal.fire({
 					 	 type: 'error',
 					 	 title: 'Oops...',
@@ -562,7 +562,7 @@
 			</script>
 		</c:forEach>
 			<script type="text/javascript">
-				$.cookie("error", "seen");
+				$.cookie("error", "${sessionScope.flag}");
 			</script>
 	</c:if>
 </html>
