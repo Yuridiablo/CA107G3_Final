@@ -1085,7 +1085,7 @@ public class OrdServlet extends HttpServlet {
 						Integer total =(int)amount;
 						System.out.println("total55555"+total);
 						session.setAttribute("total", total);
-						String url = "/front-end/wallet/confirm_wallet_left.jsp";
+						String url = "/front-end/wallet_pay/confirm_wallet_left.jsp";
 						RequestDispatcher rd = req.getRequestDispatcher(url);
 						rd.forward(req, res);
 					 }

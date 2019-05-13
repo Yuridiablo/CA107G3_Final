@@ -335,7 +335,7 @@ font-family:"微軟正黑體";
 		      
 		      $('#big${sMap.key.vendor_no}').mouseover(function(){
 		      	console.log(marker${sMap.key.vendor_no});
-// 		      	map.setZoom(10);
+ 		      	map.setZoom(10);
 		        map.setCenter(marker${sMap.key.vendor_no}.getPosition());
 		        marker${sMap.key.vendor_no}.setAnimation(google.maps.Animation.BOUNCE);
 		      });
