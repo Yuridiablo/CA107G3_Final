@@ -27,6 +27,9 @@
     <!-- 貓頭鷹 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- sweet alert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
     <style type="text/css">
     	body{
     		margin-top: 100px;
@@ -160,7 +163,7 @@
                                             <span class="icon-arrow-down"></span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#"><span class="icon-user"></span>編輯個人資訊</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=updateInFront"><span class="icon-user"></span>編輯個人資訊</a>
                                             <a class="dropdown-item" href="#"><span class="icon-people"></span>好友列表</a>
                                             <a class="dropdown-item" href="#"><span class="icon-people"></span>我的追蹤會員</a>
                                             <a class="dropdown-item" href="#"><span class="icon-like"></span>我的收藏店家</a>
@@ -169,7 +172,7 @@
                                         </div>
                                     </li>
                                     <li><a href="#" class="btn btn-outline-light top-btn" id="loginBut"><span class="icon-login"></span>登入</a></li>
-                                    <li><a href="#" class="btn btn-outline-light top-btn"><span class="icon-logout"></span>登出</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/member/member.do?action=logout" class="btn btn-outline-light top-btn" id="logoutBut"><span class="icon-logout"></span>登出</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -211,6 +214,14 @@
 		if (request.getAttribute("addMember")!= null) {
 	%>
 		<jsp:include page="/member/addMember.jsp" />
+	<%
+		}
+	%>
+	
+	<%
+		if (request.getAttribute("updateInFront")!= null) {
+	%>
+		<jsp:include page="/member/updateMember.jsp" />
 	<%
 		}
 	%>
@@ -321,6 +332,12 @@
         	if(${account!=null}){
             	$("#loginBut").hide();
         	}
+        	
+        	if(${account!=null}){
+            	$("#loginBut").hide();
+        	}else{
+        		$("#logoutBut").hide();
+        	}
     	});
     </script>
 
@@ -408,7 +425,19 @@
 
 </script>
 <!--   ======================================webSocket===========================================   -->
-    
+
+	<c:if test="${not empty errorMsgs}">
+		<c:forEach var="message" items="${errorMsgs}">
+			<script type="text/javascript">
+				Swal.fire({
+				 	 type: 'error',
+				 	 title: 'Oops...',
+				 	 text: '${message}',
+				})
+
+			</script>
+		</c:forEach>
+	</c:if>
  
 </body>
 </html>

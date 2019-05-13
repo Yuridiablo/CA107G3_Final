@@ -93,7 +93,7 @@
                                             <span class="icon-arrow-down"></span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#"><span class="icon-user"></span>編輯個人資訊</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=updateInFront"><span class="icon-user"></span>編輯個人資訊</a>
                                             <a class="dropdown-item" href="#"><span class="icon-people"></span>好友列表</a>
                                             <a class="dropdown-item" href="#"><span class="icon-people"></span>我的追蹤會員</a>
                                             <a class="dropdown-item" href="#"><span class="icon-like"></span>我的收藏店家</a>
