@@ -61,15 +61,18 @@
 					<div
 						class="col-3 all-group img-container d-flex align-items-center justify-content-center">
 <!-- 						<div class="img-inner"> -->
-							<img class="img-group"
+							<a href="<%=request.getContextPath()%>/search/search.do?action=meminfo&seletcted_mem=${memberVO.mem_no}">
+								<img class="img-group"
 								src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'">
+							</a>
 <!-- 						</div> -->
 					</div>
 					<div
 						class="col-7 all-group deatil-container justify-content-center">
 						<div class="detail-inner">
-							<a href="#" class="h5">${memberVO.mem_name}</a>
-							<p class="h6" id="mem_nickname">${memberVO.mem_nickname}</p>
+					
+							${memberVO.mem_name}
+							<p class="h6" id="mem_nickname" ><a href="<%=request.getContextPath()%>/search/search.do?action=meminfo&seletcted_mem=${memberVO.mem_no}">${memberVO.mem_nickname}</a></p>
 							<p>${memberVO.mem_account}</p>
 						</div>
 					</div>

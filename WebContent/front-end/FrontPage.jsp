@@ -159,12 +159,12 @@
                                         <div class="tab-pane fade show" id="nav-date" role="tabpanel" aria-labelledby="nav-date-tab">
                                         
                                         
-                         <form class="form-wrap mt-4" action="<%= request.getContextPath() %>/search/search.do">
+                         <form class="form-wrap mt-4" action="<%= request.getContextPath() %>/member/member.do">
                                         
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="輸入會員暱稱或帳號.." aria-label="Recipient's username" aria-describedby="button-addon2" name="mem_account_nickname">
                                                 <div class="input-group-append">
-                                                <input type="hidden" name="action" value="mem_result" >
+                                                <input type="hidden" name="action" value="selectOneMember" >
                                                 <input type="hidden" name="flag" id="flag" value="">
                                                     <button class="btn btn-success" type="submit" id="button-addon4"><span class="icon-magnifier search-icon"></span>找會員GO</button>
                                                 </div>
