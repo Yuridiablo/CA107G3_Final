@@ -432,6 +432,36 @@ margin-left: 20px;
 		
 
 	</nav>
+	
+	<!-- sub Navbar -->
+	<nav class="navbar bg-light navbar-light subNavbar justify-content-center">
+	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnBack">
+	    <span class="ti-angle-left"></span>
+	  </button>
+
+	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnSelDate">
+	    <span class="ti-calendar"></span>
+	  </button>
+	  
+	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnToday">
+	    <span class="ti-control-record"></span>
+	  </button>
+		
+	   <div style="width: 110px">
+		  <span class="navbar-toggler mr-2" id="spanDate_now">
+		 	 <%= today %>	 	 
+		  </span>
+	  </div>
+	  <input type="hidden" id="inputDate_now" name="date" value="<%= System.currentTimeMillis() %>">
+
+	  
+	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnForward">
+	    <span class="ti-angle-right"></span>
+	  </button>
+
+	 
+	</nav>
+	
 	<!-- Side Nav -->
 	<div id="sidenavOverlay"></div>
 	<nav class="nav navbar-nav bg-dark" id="sidenav">
