@@ -22,11 +22,11 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO employee (emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_hire,emp_resign,emp_stat) VALUES ('E'||LPAD(to_char(EMPLOYEE_SEQ.nextval), 9, '0'), ?, ?, ?, ?, ?, ?,?)";
-	private static final String GET_ALL_STMT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee order by emp_no";
-	private static final String GET_ALL_STMT_BYNAME = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_name=? order by emp_no";
-	private static final String GET_ONE_STMT_BYACCOUNT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_acc=?";
-	private static final String GET_ONE_STMT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_no = ?";
+	private static final String INSERT_STMT = "INSERT INTO employee (emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,emp_hire,emp_resign,emp_stat) VALUES ('E'||LPAD(to_char(EMPLOYEE_SEQ.nextval), 9, '0'), ?, ?, ?, ?, ?, ?,?,?)";
+	private static final String GET_ALL_STMT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee order by emp_no";
+	private static final String GET_ALL_STMT_BYNAME = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_name=? order by emp_no";
+	private static final String GET_ONE_STMT_BYACCOUNT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_acc=?";
+	private static final String GET_ONE_STMT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_no = ?";
 	private static final String DELETE = "DELETE FROM employee where emp_no = ?";
 	private static final String UPDATE = "UPDATE employee set emp_name=?, emp_pwd=?,emp_hire=?, emp_resign=?, emp_stat=? where emp_no = ?";
 
@@ -43,10 +43,11 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 			pstmt.setString(1, employeeVO.getEmp_name());
 			pstmt.setString(2, employeeVO.getEmp_sex());
 			pstmt.setString(3, employeeVO.getEmp_acc());
-			pstmt.setString(4, employeeVO.getEmp_pwd());
-			pstmt.setDate(5, employeeVO.getEmp_hire());
-			pstmt.setDate(6, employeeVO.getEmp_resign());
-			pstmt.setInt(7, employeeVO.getEmp_stat());
+			pstmt.setString(4, employeeVO.getEmp_mail());
+			pstmt.setString(5, employeeVO.getEmp_pwd());
+			pstmt.setDate(6, employeeVO.getEmp_hire());
+			pstmt.setDate(7, employeeVO.getEmp_resign());
+			pstmt.setInt(8, employeeVO.getEmp_stat());
 
 			updateCount = pstmt.executeUpdate();
 			// Handle any driver errors
@@ -95,6 +96,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 				employeeVO.setEmp_sex(rs.getString("emp_sex"));
 				employeeVO.setEmp_acc(rs.getString("emp_acc"));
 				employeeVO.setEmp_pwd(rs.getString("emp_pwd"));
+				employeeVO.setEmp_mail(rs.getString("emp_mail"));
 				employeeVO.setEmp_hire(rs.getDate("emp_hire"));
 				employeeVO.setEmp_resign(rs.getDate("emp_resign"));
 				employeeVO.setEmp_stat(rs.getInt("emp_stat"));
@@ -153,6 +155,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 				employeeVO.setEmp_sex(rs.getString("emp_sex"));
 				employeeVO.setEmp_acc(rs.getString("emp_acc"));
 				employeeVO.setEmp_pwd(rs.getString("emp_pwd"));
+				employeeVO.setEmp_mail(rs.getString("emp_mail"));
 				employeeVO.setEmp_hire(rs.getDate("emp_hire"));
 				employeeVO.setEmp_resign(rs.getDate("emp_resign"));
 				employeeVO.setEmp_stat(rs.getInt("emp_stat"));
@@ -294,6 +297,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 				employeeVO.setEmp_sex(rs.getString("emp_sex"));
 				employeeVO.setEmp_acc(rs.getString("emp_acc"));
 				employeeVO.setEmp_pwd(rs.getString("emp_pwd"));
+				employeeVO.setEmp_mail(rs.getString("emp_mail"));
 				employeeVO.setEmp_hire(rs.getDate("emp_hire"));
 				employeeVO.setEmp_resign(rs.getDate("emp_resign"));
 				employeeVO.setEmp_stat(rs.getInt("emp_stat"));
@@ -349,6 +353,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 				employeeVO.setEmp_sex(rs.getString("emp_sex"));
 				employeeVO.setEmp_acc(rs.getString("emp_acc"));
 				employeeVO.setEmp_pwd(rs.getString("emp_pwd"));
+				employeeVO.setEmp_mail(rs.getString("emp_mail"));
 				employeeVO.setEmp_hire(rs.getDate("emp_hire"));
 				employeeVO.setEmp_resign(rs.getDate("emp_resign"));
 				employeeVO.setEmp_stat(rs.getInt("emp_stat"));

@@ -89,15 +89,7 @@ label {
 </head>
 
 <body>
-<%-- 	<%-- 錯誤表列 --%> --%>
-<%-- 	<c:if test="${not empty errorMsgs}"> --%>
-<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
-<!-- 		<ul> -->
-<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 				<li style="color: red">${message}</li> --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</ul> -->
-<%-- 	</c:if> --%>
+
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-7">
@@ -349,7 +341,9 @@ label {
 		timepicker : false, //timepicker:true,
 		step : 1, //step: 60 (這是timepicker的預設間隔60分鐘)
 		format : 'Y-m-d', //format:'Y-m-d H:i:s',
-		value : ${employeeVO.emp_resign}
+		value : ${employeeVO.emp_resign},
+		maxDate:'+1970-01-01',
+		startDate:new Date()  // 起始日
 	// value:   new Date(),
 	//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 	//startDate:	            '2017/07/10',  // 起始日

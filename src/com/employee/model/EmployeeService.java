@@ -10,7 +10,7 @@ public class EmployeeService {
 		dao = new EmployeeDAO();
 	}
 
-	public EmployeeVO addEmployee(String emp_name, String emp_sex, String emp_acc, String emp_pwd,
+	public EmployeeVO addEmployee(String emp_name, String emp_sex, String emp_acc, String emp_pwd,String emp_mail,
 			Date emp_hire) {
 		EmployeeVO employeeVO = new EmployeeVO();
 
@@ -18,6 +18,7 @@ public class EmployeeService {
 		employeeVO.setEmp_sex(emp_sex);
 		employeeVO.setEmp_acc(emp_acc);
 		employeeVO.setEmp_pwd(emp_pwd);
+		employeeVO.setEmp_mail(emp_mail);
 		employeeVO.setEmp_hire(emp_hire);
 		employeeVO.setEmp_stat(1);
 		dao.insert(employeeVO);

@@ -13,6 +13,7 @@ public class EmployeeVO implements java.io.Serializable{
 	private Date emp_hire;
 	private Date emp_resign;
 	private Integer emp_stat;
+	private String emp_mail;
 	
 	public EmployeeVO(){
 		
@@ -66,6 +67,15 @@ public class EmployeeVO implements java.io.Serializable{
 	public void setEmp_stat(Integer emp_stat) {
 		this.emp_stat = emp_stat;
 	}
+
+	public String getEmp_mail() {
+		return emp_mail;
+	}
+
+	public void setEmp_mail(String emp_mail) {
+		this.emp_mail = emp_mail;
+	}
+
 	
 	
 }
