@@ -38,6 +38,9 @@ public class Member_Wallet_ListDAO implements Member_Wallet_ListDAO_interface {
 			"SELECT * FROM Member_Wallet_list where mem_no = ?";
 	private static final String GET_ALL_STMT = 
 			"SELECT * FROM Member_Wallet_list order by list_no";
+	private static final String INSERT2_STMT = 
+//			('MWL'||LPAD(to_char(MEMBER_WALLET_LIST_SEQ.NEXTVAL), 7, '0'),'M000001',sysdate,'5566',1,null,'20190330-000001'
+			"INSERT INTO Member_Wallet_list (list_no,mem_no,list_time,list_wit,list_stat,list_dep,pay_for) VALUES ('MWL'||LPAD(to_char(MEMBER_WALLET_LIST_SEQ.NEXTVAL), 7, '0'),?,sysdate,?,?,null,?)";
 
 	@Override
 	//支付紀錄的insert
@@ -296,6 +299,45 @@ public class Member_Wallet_ListDAO implements Member_Wallet_ListDAO_interface {
 			System.out.println(mwlVO.getPay_for());
 			System.out.println("--------");
 		}
+	}
+
+	@Override
+	//支付訂單時一併新增錢包支付明細
+	public void insertwithord(Member_Wallet_ListVO Member_Wallet_ListVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT2_STMT);
+			
+			pstmt.setString(1, Member_Wallet_ListVO.getMem_no());
+			pstmt.setString(2, Member_Wallet_ListVO.getList_wit());
+			pstmt.setInt(3, Member_Wallet_ListVO.getList_stat());
+			pstmt.setString(4, Member_Wallet_ListVO.getPay_for());
+
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 }

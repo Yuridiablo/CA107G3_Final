@@ -34,4 +34,16 @@ public class Member_Wallet_ListService {
 		return dao.getAll();
 	}
 	
+	public void insertwithord(String mem_no, String list_wit, int list_stat,String pay_for) {
+		
+		Member_Wallet_ListVO mwlVO=new  Member_Wallet_ListVO();
+		mwlVO.setMem_no(mem_no);
+		mwlVO.setList_wit(list_wit);
+		mwlVO.setList_stat(list_stat);
+		mwlVO.setPay_for(pay_for);
+		System.out.println("走到這裡了");
+		dao.insertwithord(mwlVO);
+		
+	};
+	
 }

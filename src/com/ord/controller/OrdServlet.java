@@ -32,6 +32,8 @@ import com.exception_date.model.Exception_DateVO;
 import com.friend_list.model.Friend_ListVO;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
+import com.member_wallet_list.model.Member_Wallet_ListService;
+import com.member_wallet_list.model.Member_Wallet_ListVO;
 import com.ord.model.OrdDAO;
 import com.ord.model.OrdService;
 import com.ord.model.OrdVO;
@@ -834,15 +836,10 @@ public class OrdServlet extends HttpServlet {
 				System.out.println("menu_no========"+menu_no);
 				
 				String total = String.valueOf(amount);
-				System.out.println("total======"+total);
 				session.setAttribute("total", total);
 				session.setAttribute("quantity", quantity);
-				System.out.println("quantity========="+quantity);
 				session.setAttribute("price", price);
-				System.out.println("price==========="+price);
-				System.out.println("==============="+session.getAttribute("buylist"));
 				session.setAttribute("shoppingcart", buylist);
-				System.out.println(session.getAttribute("shoppingcart"));
 				session.setAttribute("vendor", vendor);
 				
 				
@@ -1106,7 +1103,7 @@ public class OrdServlet extends HttpServlet {
 					 Integer share_amount=share_amount1+share_amount2;
 					 System.out.println(" ====total"+total);
 					 if(share_amount<total) {   //付款金額相加小於總total
-						 String url = "/front-end/ord/addOrd2.jsp";
+						 String url = "/front-end/ord/start_ord.jsp";
 							RequestDispatcher successView = req.getRequestDispatcher(url); 
 							successView.forward(req, res);		
 					 }else {
@@ -1222,7 +1219,7 @@ public class OrdServlet extends HttpServlet {
 							session.removeAttribute("share_mem_no2");
 				
 						/***************************3.新增完成,準備轉交(Send the Success view)***********/
-						String url = "/frond-end/ord/addOrd2.jsp";
+						String url = "/frond-end/ord/start_ord.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 						successView.forward(req, res);	
 //						 
@@ -1232,7 +1229,7 @@ public class OrdServlet extends HttpServlet {
 				 
 				 
 				 
-				 if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
+				 if ("insert".equals(action)) { 
 						
 						List<String> errorMsgs = new LinkedList<String>();
 						// Store this set in the request scope, in case we need to
@@ -1329,7 +1326,6 @@ public class OrdServlet extends HttpServlet {
 							OrdVO ordVO2=dao.insertWithOrd_detail(ordVO,testList);
 									ordVO.setOrd_no(ordVO2.getOrd_no());
 							System.out.println("ordVO2.getOrd_no()==="+ordVO2.getOrd_no());
-//							System.out.println("cominginging");
 //							
 //								String menu_no = (String) session.getAttribute("menu_no");
 //								Integer price =(Integer) session.getAttribute("price");
@@ -1363,7 +1359,7 @@ public class OrdServlet extends HttpServlet {
 							if (!errorMsgs.isEmpty()) {
 								req.setAttribute("ordVO", ordVO); 
 								RequestDispatcher failureView = req
-										.getRequestDispatcher("/frond-end/ord/addOrd2.jsp");
+										.getRequestDispatcher("/frond-end/ord/start_ord.jsp");
 								failureView.forward(req, res);
 								return;
 							}
@@ -1396,11 +1392,196 @@ public class OrdServlet extends HttpServlet {
 						} catch (Exception e) {
 							errorMsgs.add(e.getMessage());
 							RequestDispatcher failureView = req
-									.getRequestDispatcher("/frond-end/ord/addOrd2.jsp");
+									.getRequestDispatcher("/frond-end/ord/start_ord.jsp");
 							failureView.forward(req, res);
 						}
 					}
+				 
+				 
+				 
+				 
+				 //錢包付款
+				 if ("insert_by_wallet".equals(action)) { 
+						
+						List<String> errorMsgs = new LinkedList<String>();
+						// Store this set in the request scope, in case we need to
+						// send the ErrorPage view.
+						req.setAttribute("errorMsgs", errorMsgs);
+							System.out.println("insert");
+//						try {
+							/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+							String mem_no = (String) session.getAttribute("mem_no");
+							 vendor_no  = (String) session.getAttribute("vendor_no");
+							String tbl_no =(String) session.getAttribute("tbl_no");
+							Integer party_size =(Integer) (session.getAttribute("party_size"));
+							String share_mem_no1 =req.getParameter("share_mem_no1");
+							String share_mem_no2 =req.getParameter("share_mem_no2");
+							Integer share_amount =(Integer) (session.getAttribute("share_amount"));
+							java.sql.Timestamp ord_time =new java.sql.Timestamp(System.currentTimeMillis());
+							System.out.println("ordtime======"+ord_time);
+							java.sql.Date booking_date=null;
+							try {
+								booking_date = (Date) session.getAttribute("booking_date");
+							} catch (IllegalArgumentException e) {
+								booking_date=new java.sql.Date(System.currentTimeMillis());
+								errorMsgs.add("please choose date!");
+							}
+							String booking_time=(String) session.getAttribute("booking_time");
+							String notes=(String) session.getAttribute("notes");
+							Integer total=null;
+							try {
+								total = (Integer) session.getAttribute("total");
+								} catch (NumberFormatException e) {
+									errorMsgs.add("please. insert right total");
+								}catch (NullPointerException b ) {
+								System.out.println("66666666");
+								
+									errorMsgs.add("please insert total number");}
+							
+							String arrival_time=req.getParameter("arrival_time");
+							String finish_time=req.getParameter("finish_time");
+							String verif_code=randomString(10);
+							Integer status=(Integer) session.getAttribute("status");
+
+//							＝＝＝＝拿取會員姓名＝＝＝＝
+							MemberService memSvc=new MemberService();
+							MemberVO memVO=memSvc.getOneMember(mem_no);
+							String m_name=memVO.getMem_name();
+							
+//							＝＝＝＝拿取餐廳名稱＝＝＝＝＝
+							VendorService VendorSvc=new VendorService();
+							VendorVO vVO=VendorSvc.findByPK(vendor_no);
+							String v_name=vVO.getV_name();
+						
+//							＝＝＝＝＝＝＝取得會員餘額,設定新增錢包明細資料＝＝＝＝＝＝＝＝
+							
+							Member_Wallet_ListService mwlSvc=new Member_Wallet_ListService();
+							Double mem_balance=memVO.getMem_balance();
+							String list_wit=String.valueOf((int) ((mem_balance)-total));
+							int list_stat=1;
+							
+							
+							
+							OrdDAO dao = new OrdDAO();
+				/***************************2.開始新增資料***************************************/
+							
+							OrdVO ordVO = new OrdVO();
+							
+							ordVO.setMem_no(mem_no);
+							ordVO.setVendor_no(vendor_no);
+							ordVO.setTbl_no(tbl_no);
+							ordVO.setParty_size(party_size);
+							ordVO.setShare_mem_no1(share_mem_no1);
+							ordVO.setShare_mem_no2(share_mem_no2);
+							ordVO.setShare_amount(share_amount);
+							ordVO.setOrd_time(ord_time);
+							ordVO.setBooking_date(booking_date);
+							ordVO.setBooking_time(booking_time);
+							ordVO.setNotes(notes);
+							ordVO.setTotal(total);
+							ordVO.setArrival_time(arrival_time);
+							ordVO.setFinish_time(finish_time);
+							ordVO.setVerif_code(verif_code);
+							ordVO.setStatus(status);
+							
+							List<Order_DetailVO>testList = new ArrayList<Order_DetailVO>();
+							
+							List<Restaurant_MenuVO> buy = (Vector<Restaurant_MenuVO>) session.getAttribute("shoppingcart");
+							
+							for(Restaurant_MenuVO RVO:buy ) {
+								Order_DetailVO  Order_DetailVO =new Order_DetailVO();
+//								String menu_no = (String) session.getAttribute("menu_no");
+//								Integer price =(Integer) session.getAttribute("price");
+//								Integer qty = (Integer) session.getAttribute("quantity");
+								Order_DetailVO.setMenu_no(RVO.getMenu_no());
+								Order_DetailVO.setPrice(Integer.parseInt(RVO.getMenu_price()));
+								Order_DetailVO.setQty(RVO.getQuantity());
+								testList.add(Order_DetailVO);
+							}
+							
+							OrdVO ordVO2=dao.insertWithOrd_detail(ordVO,testList);
+									ordVO.setOrd_no(ordVO2.getOrd_no());
+							System.out.println("ordVO2.getOrd_no()==="+ordVO2.getOrd_no());
+							Member_Wallet_ListVO mwlVO=new  Member_Wallet_ListVO();
+							mwlVO.setList_stat(list_stat);
+							mwlVO.setList_wit(list_wit);
+							mwlVO.setMem_no(mem_no);
+							mwlVO.setPay_for(ordVO2.getOrd_no());
+							
+						mwlSvc.insertwithord(mem_no, list_wit, list_stat, ordVO2.getOrd_no());
+//								String menu_no = (String) session.getAttribute("menu_no");
+//								Integer price =(Integer) session.getAttribute("price");
+//								Integer qty = (Integer) session.getAttribute("quantity");
+//								
+//								Order_DetailVO.setMenu_no(menu_no);
+//								Order_DetailVO.setPrice(price);
+//								Order_DetailVO.setQty(qty);
+//								testList.add(Order_DetailVO);
+							
+							//傳送信件
+							
+//							 String to = "ji394z06z06@yahoo.com.tw";
+//						      
+//						      String subject = "成功訂位";
+//						      
+//						      String ch_name = m_name;
+//						  
+//						      String messageText =
+//						      "Hello! " + ch_name + " 恭喜你已經完成訂位,請於"+booking_date  +"\r\n"+
+//						      "當日"+booking_time+"攜帶愉快的心情於"  +"\r\n"
+//						      +v_name+"餐廳"+"\r\n"+
+//						      "享受美好的一餐"+"\r\n"+
+//						      "切記出示驗證碼"+verif_code+"或是"+"QRcode進行驗證"
+//						      ; 
+//						       
+//						      MailService mailService = new MailService();
+//						      mailService.sendMail(to, subject, messageText);
+							
+							// Send the use back to the form, if there were errors
+							if (!errorMsgs.isEmpty()) {
+								req.setAttribute("ordVO", ordVO); 
+								RequestDispatcher failureView = req
+										.getRequestDispatcher("/frond-end/ord/start_ord.jsp");
+								failureView.forward(req, res);
+								return;
+							}
+							
+							 /***************************刪除session的所有物件***********/
+							session.removeAttribute("mem_no");
+							session.removeAttribute("vendor_no");
+							session.removeAttribute("total");
+							session.removeAttribute("quantity");
+							session.removeAttribute("buylist");
+							session.removeAttribute("price");
+							session.removeAttribute("shoppingcart");
+							session.removeAttribute("vendor");
+							session.removeAttribute("booking_date");
+							session.removeAttribute("booking_time");
+							session.removeAttribute("date");
+							session.removeAttribute("notes");
+							session.removeAttribute("party_size");
+							session.removeAttribute("party_size");
+							
+							
+						
+				/***************************3.新增完成,準備轉交(Send the Success view)***********/
+							req.setAttribute("OrdVO",ordVO);
+							String url = "/front-end/ord/list_one_ord.jsp";
+							RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+							successView.forward(req, res);				
+							
+				/***************************其他可能的錯誤處理**********************************/
+//						} catch (Exception e) {
+//							errorMsgs.add(e.getMessage());
+//							RequestDispatcher failureView = req
+//									.getRequestDispatcher("/frond-end/ord/start_ord.jsp");
+//							failureView.forward(req, res);
+//						}
+					}
 				 }
+	
+	
+					
 				 
 			
 

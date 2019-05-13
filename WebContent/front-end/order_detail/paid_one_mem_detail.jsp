@@ -58,10 +58,11 @@
                         </th>
                     </tr>
                 </thead>
+             <c:forEach var="o_detailVO" items="${odVOlist}">
                 <tbody>
 
-              	
-              		<c:forEach var="o_detailVO" items="${od_list}">
+              	   
+              		
               		
               		<c:set var="memuVO" value="${MenuSvc.findByPK(o_detailVO.menu_no) }"/>
               		<c:set var="ord_vendor" value="${ordVO.vendor_no}"/>
@@ -87,8 +88,7 @@
 	                	<a href="<%=request.getContextPath()%>/front-end/ord/list_for_mem.jsp" >
 							<button class="btn btn-success " >查看其他訂單<span class="glyphicon glyphicon-shopping-cart"></span></button>
 						</a>
-					</td>
-                    
+						</td>
 <!-- 			  <td> -->
 <%-- 			  <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;"> --%>
 <!-- 			     <input type="submit" value="修改">  -->
@@ -99,12 +99,10 @@
 <!-- 			     <input type="hidden" name="action"	    value="getOne_For_Update"></FORM> -->
 <!-- 			</td> -->
 			
-			</tr>
-                 
-                    </table>
-              </c:forEach>
+					</tr>
                 </tbody>
-           
+                </c:forEach>
+              </table>
         </div>
     </div>
 </div>

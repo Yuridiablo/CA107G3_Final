@@ -90,13 +90,13 @@ height:1px
                  
 			<%@ include file="pageForOrder.file" %>
 			<c:forEach var="ordVO" items="${olist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-                <c:set var="memVO" value="${MemSvc.getOneMember(mVO.mem_no)}"></c:set>
+                <c:set var="memVO" value="${MemSvc.getOneMember(memberVO.mem_no)}"></c:set>
                  <c:set var="vendorVO" value="${VendorSvc.findByPK(ordVO.vendor_no)}"></c:set>
 				
 						
                      <tr class="warning">
                         
-						<td>${memVO.mem_name}<br>
+						<td>${memberVO.mem_name}<br>
 						<hr><font color="blue">${ordVO.share_mem_no1}<br></font>
 						<hr><font color="blue">${ordVO.share_mem_no2}</font></td>
 						<td>${vendorVO.v_name}</td>

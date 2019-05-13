@@ -18,6 +18,8 @@ import com.ord.model.OrdService;
 import com.ord.model.OrdVO;
 import com.ord_detail.model.Order_DetailService;
 import com.ord_detail.model.Order_DetailVO;
+import com.vendor.model.VendorService;
+import com.vendor.model.VendorVO;
 
 
 public class Ord_DetailServlet extends HttpServlet {
@@ -83,6 +85,13 @@ public class Ord_DetailServlet extends HttpServlet {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String ord_no = req.getParameter("ord_no");
 				String menu_no=req.getParameter("menu_no");
+				Order_DetailService odSvc=new Order_DetailService();
+				List<Order_DetailVO> odVOlist=odSvc.findbyOrd_no(ord_no);
+				VendorService vSvc=new VendorService();
+				OrdService oSvc=new OrdService();
+				OrdVO ordVO=oSvc.getOneOrd(ord_no);
+				
+				
 //				if (str == null || (str.trim()).length() == 0) {
 //					errorMsgs.add("Please insert ord_no");
 //					System.out.println("13");
@@ -110,9 +119,10 @@ public class Ord_DetailServlet extends HttpServlet {
 //				}
 				
 				/***************************2.開始查詢資料*****************************************/
-				Order_DetailService o_detailSvc = new Order_DetailService();
-				Order_DetailVO o_detailVO = o_detailSvc.getOneOrder_Detail(ord_no, menu_no);
-				req.setAttribute("o_detailVO", o_detailVO);         
+				
+//				Order_DetailVO o_detailVO = o_detailSvc.getOneOrder_Detail(ord_no, menu_no);
+				req.setAttribute("odVOlist", odVOlist); 
+				req.setAttribute("ordVO", ordVO);
 				String url = "/front-end/order_detail/paid_one_mem_detail.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);

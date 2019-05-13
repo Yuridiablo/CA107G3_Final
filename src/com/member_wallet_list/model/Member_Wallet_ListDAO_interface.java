@@ -11,5 +11,5 @@ public interface Member_Wallet_ListDAO_interface {
 	public void delete(String list_no);
 	public List<Member_Wallet_ListVO> findByMem(String mem_no);
 	public List<Member_Wallet_ListVO> getAll();
-
+	public void insertwithord(Member_Wallet_ListVO Member_Wallet_ListVO);
 }
