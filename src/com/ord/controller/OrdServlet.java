@@ -837,22 +837,19 @@ public class OrdServlet extends HttpServlet {
 					session.setAttribute("menu", menu);
 				}
 				
-			System.out.println("vendor_no888888888"+vendor_no);
 			session.setAttribute("vendor_no", vendor_no);
 				session.setAttribute("menu_no",menu_no);
 				System.out.println("menu_no========"+menu_no);
 				
-				String total = String.valueOf(amount);
-				session.setAttribute("total", total);
+//				String total = String.valueOf(amount);
+				session.setAttribute("total", amount);
 				session.setAttribute("quantity", quantity);
 				session.setAttribute("price", price);
 				session.setAttribute("shoppingcart", buylist);
 				session.setAttribute("vendor", vendor);
 				
 				
-				
-			String vendro_no=(String) session.getAttribute("vendor_no");
-			System.out.println(vendro_no);
+
 				String url = "/front-end/ord/ordfood.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, res);

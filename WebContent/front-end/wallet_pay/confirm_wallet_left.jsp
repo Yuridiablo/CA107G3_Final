@@ -110,13 +110,15 @@
         <hr class="mb-5">
       
         <button class="btn btn-info btn-lg btn-block" type="submit" id="topay">付款</button>
-        <div><a href="http://www.stackoverflow.com/">
-		    <button class="btn btn-warning btn-lg btn-block">去儲值</button>
-		    <input type="hidden" name="mem_no" value="${mem_no }">
+        <div>
+		    <input type="hidden" name="mem_no" value="${mem_no}">
 			<input type="hidden" name="action" value="insert_by_wallet">
-		</a> 
+			
+		
 		</div>
       </form>
+       <a href="/front-end/FrontPage.jsp">
+		    <button class="btn btn-warning btn-lg btn-block">去儲值</button></a>
     </div>
   </div>
 

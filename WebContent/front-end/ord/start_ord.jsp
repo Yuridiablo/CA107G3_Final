@@ -699,17 +699,28 @@ $("#xx${exc.booking_time}").click(async function(event){
 		  padding: '3em',
 		  background: '#fff url(https://sweetalert2.github.io/#examplesimages/trees.png)',
 		  showConfirmButton:true,
+		  showCancelButton: true,
 		  backdrop: `
 		    rgba(0,0,123,0.4)
 		    url("https://sweetalert2.github.io/#examplesimages/nyan-cat.gif")
 		    center left
 		    no-repeat
 		  `
-		}).then(function(){
-			var yyy=$("#xx${exc.booking_time}").val();
-			$("#realyvalue").val(yyy);
-			$('#form2').submit();
-		})
+		}).then((result) => {
+			  if (result.value) {
+				    Swal.fire(
+				    
+				    )
+					var yyy=$("#xx${exc.booking_time}").val();
+					$("#realyvalue").val(yyy);
+					$('#form2').submit();
+				  }
+				})
+		
+		
+		
+		
+		
 })
  
 
