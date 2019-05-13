@@ -68,6 +68,10 @@ public class EmployeeServlet extends HttpServlet {
 					errorMsgs.add("請填寫6-10位混和英數字,英文需區分大小寫");
 				}
 				
+				String emp_mail = req.getParameter("emp_acc");
+				if (emp_acc == null || (emp_acc.trim()).length() == 0) {
+					errorMsgs.add("請填寫帳號");
+				} 
 				
 				java.sql.Date emp_hire = null;
 				try {
@@ -81,6 +85,7 @@ public class EmployeeServlet extends HttpServlet {
 				
 				EmployeeVO employeeVO = new EmployeeVO();
 				employeeVO.setEmp_acc(emp_acc);
+				employeeVO.setEmp_mail(emp_mail);
 				employeeVO.setEmp_hire(emp_hire);
 				employeeVO.setEmp_name(emp_name);
 				employeeVO.setEmp_sex(emp_sex);
@@ -109,14 +114,14 @@ public class EmployeeServlet extends HttpServlet {
 			      
 			      String ch_name = emp_name;
 			      String passRandom = emp_pwd;
-			      String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
+			      String messageText = "Hello! " + ch_name+"\r\n" + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
 			       
 			      MailService mailService = new MailService();
 			      mailService.sendMail(to, subject, messageText);
 				//=========================寄送郵件=============================	
 				
 				EmployeeService employeeSvc = new EmployeeService();
-				employeeSvc.addEmployee(emp_name, emp_sex, emp_acc, emp_pwd, emp_hire);
+				employeeSvc.addEmployee(emp_name, emp_sex,emp_mail, emp_acc, emp_pwd, emp_hire);
 				employeeVO = employeeSvc.getOneEmployeeByAccount(emp_acc);
 				List<EmployeeVO> list = employeeSvc.getOneEmployeeByName(emp_name);
 				
