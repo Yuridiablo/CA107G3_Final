@@ -168,7 +168,7 @@
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
                                         </div>
                                     </li>
-                                    <li><a href="#" class="btn btn-outline-light top-btn"><span class="icon-login"></span>登入</a></li>
+                                    <li><a href="#" class="btn btn-outline-light top-btn" id="loginBut"><span class="icon-login"></span>登入</a></li>
                                     <li><a href="#" class="btn btn-outline-light top-btn"><span class="icon-logout"></span>登出</a></li>
                                 </ul>
                             </div>
@@ -302,6 +302,10 @@
     	    	$("#chatSpace").css('display','none');
     	    	$("#service").css('display','');
     	    });
+    		
+        	if(${account!=null}){
+            	$("#loginBut").hide();
+        	}
     	});
     </script>
 
@@ -346,10 +350,12 @@
 	var webSocket;
 	
 	function connect() {
-		alert(endPointURL);
+		
 		// 建立 websocket 物件
+		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
+			alert("open");
 			var history = true;
 			sendMessage(history);
 		};
@@ -377,8 +383,8 @@
 	
 	
 	function sendMessage(hisreceiver) {
-		
 		if(hisreceiver!=null){
+			alert("send1");
 			var jsonObj = {"type" : "history","sender" : "${memberVO.mem_no}","receiver" : "employee", "message" : "","name" : "${memberVO.mem_name}"};
 			webSocket.send(JSON.stringify(jsonObj));
 		}else{
