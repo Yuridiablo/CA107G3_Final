@@ -138,7 +138,7 @@ var mem_balance=$("#mem_balance").val();
 		 Swal.fire({
 			  type: 'warning',
 			  title: '非常抱歉.',
-			  text: '您的錢包餘額不足,請前往儲值!',
+			  text: '您的錢包餘額不足,請前往儲值!', 
 			
 			})
 		
