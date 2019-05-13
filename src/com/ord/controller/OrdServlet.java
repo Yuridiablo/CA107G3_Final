@@ -444,9 +444,13 @@ public class OrdServlet extends HttpServlet {
         	List<String> errorMsgs = new LinkedList<String>();
         	req.setAttribute("errorMsgs", errorMsgs);
         	MemberVO memVO=(MemberVO) session.getAttribute("memberVO");
+        	String mem_no = null;
         	System.out.println("memberVO+++++"+memVO);
         	
-        	String mem_no=memVO.getMem_no();
+        	if (memVO != null) {
+        		mem_no=memVO.getMem_no();
+        	}
+        	
         	System.out.println("mem_no++++"+mem_no);
         	String vendor_no = new String(req.getParameter("vendor_no"));
         
