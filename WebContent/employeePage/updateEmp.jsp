@@ -245,7 +245,7 @@ label {
 		</div>
 	</form>
 	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<!-- jQuery first, then Popper.js,   then Bootstrap JS -->
 
 
 	<script
