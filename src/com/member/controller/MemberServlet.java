@@ -683,5 +683,20 @@ public class MemberServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		if ("updateInFront".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				req.setAttribute("updateInFront", "updateInFront");
+				String url = "/front-end/motherboard.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				System.out.println("-----------------------錯誤-------------------");
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
+				failureView.forward(req, res);
+			}
+		}
 	}
 }
