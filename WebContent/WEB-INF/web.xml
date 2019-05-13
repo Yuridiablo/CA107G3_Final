@@ -165,6 +165,15 @@
 		<servlet-name>TablesServlet</servlet-name>
 		<url-pattern>/tables/tables.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SearchServlet</servlet-name>
+		<servlet-class>com.search.controller.SearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SearchServlet</servlet-name>
+		<url-pattern>/search/search.do</url-pattern>
+	</servlet-mapping>
 
 
 	<filter>

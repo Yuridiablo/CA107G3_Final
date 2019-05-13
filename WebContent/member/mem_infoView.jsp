@@ -18,9 +18,10 @@
 }
 
 .resultpic{
-	width:150px;
+	width:100px;
 	height:100px;
 	object-fit:cover;
+	border-radius: 0px !important;
 }
 
 
@@ -71,7 +72,7 @@
                         <div class="customer-review_wrap">
                             <div class="customer-img">
                                 <img  class="img-fluid resultpic" onerror="this.src='../front-end/images/SeeKFoodA.png'" alt="#" src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${vcVO.key.vendor_no}'&pic=1">
-                                <p>${vcVO.key.v_name}</p>
+                                <p><a class="yourpick" href="<%=request.getContextPath()%>/ord/ord.do?action=selected&vendor_no=${vcVO.key.vendor_no}">${vcVO.key.v_name}</a></p>
                                 <span>35 Reviews</span>
                             </div>
                             <div class="customer-content-wrap">
