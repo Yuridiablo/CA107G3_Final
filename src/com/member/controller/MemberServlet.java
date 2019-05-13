@@ -287,6 +287,7 @@ public class MemberServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
+				req.setAttribute("updateInFront", "updateInFront");
 				String mem_nickname = req.getParameter("mem_nickname");
 				String mem_nicknameReg = "^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,10}$";
 				if (mem_nickname == null || (mem_nickname.trim()).length() == 0) {
@@ -339,14 +340,14 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/member/updateMember.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/member/updateMember.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -357,13 +358,13 @@ public class MemberServlet extends HttpServlet {
 						mem_tel, memberVO.getMem_status(), mem_pic, memberVO.getMem_balance(), mem_nickname,
 						memberVO.getMem_account());
 				System.out.println("----------------update---------------------");
-				String url = "/member/updateMember.jsp";
+				String url = "/front-end/motherboard.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/updateMember.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
 				failureView.forward(req, res);
 
 			}

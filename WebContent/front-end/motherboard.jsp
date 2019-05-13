@@ -27,6 +27,8 @@
     <!-- 貓頭鷹 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- sweet alert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
     <style type="text/css">
     	body{
@@ -423,7 +425,19 @@
 
 </script>
 <!--   ======================================webSocket===========================================   -->
-    
+
+	<c:if test="${not empty errorMsgs}">
+		<c:forEach var="message" items="${errorMsgs}">
+			<script type="text/javascript">
+				Swal.fire({
+				 	 type: 'error',
+				 	 title: 'Oops...',
+				 	 text: '${message}',
+				})
+// 				alert('${message}');
+			</script>
+		</c:forEach>
+	</c:if>
  
 </body>
 </html>
