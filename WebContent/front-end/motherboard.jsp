@@ -27,6 +27,7 @@
     <!-- 貓頭鷹 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <style type="text/css">
     	body{
     		margin-top: 100px;
@@ -169,7 +170,7 @@
                                         </div>
                                     </li>
                                     <li><a href="#" class="btn btn-outline-light top-btn" id="loginBut"><span class="icon-login"></span>登入</a></li>
-                                    <li><a href="#" class="btn btn-outline-light top-btn"><span class="icon-logout"></span>登出</a></li>
+                                    <li><a href="#" class="btn btn-outline-light top-btn" id="logoutBut"><span class="icon-logout"></span>登出</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -320,6 +321,12 @@
     		
         	if(${account!=null}){
             	$("#loginBut").hide();
+        	}
+        	
+        	if(${account!=null}){
+            	$("#loginBut").hide();
+        	}else{
+        		$("#logoutBut").hide();
         	}
     	});
     </script>
