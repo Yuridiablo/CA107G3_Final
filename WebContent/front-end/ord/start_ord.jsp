@@ -9,7 +9,7 @@
 	
 %>
 <!DOCTYPE html>
-<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+
 
 <html lang="en">
 <head>
@@ -71,8 +71,7 @@
     </script>
 
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- 日曆樣式 -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
@@ -81,7 +80,7 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../front-end/css/starrr.css">
 <!-- 評論區樣式 -->
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/> -->
@@ -96,7 +95,9 @@
 <jsp:useBean id="commentSvc" scope="page" class="com.comments.model.CommentsService" />
 <jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 
+<%@ include file="/front-end/header_footer/header_css.txt" %>
 </head>
+
 <style>
 ul, ol, dl {
 	list-style-type: none
@@ -218,21 +219,28 @@ body {
 	height: 300px;
 	object-fit: cover;
 }
-.nav-link {
-    margin-inline-start: 100px;
-    margin-right: 100px;
+
+.bigbody{
+	margin-top:100px;
+}
+.resimg{
+	max-width:600px;
+	height:400px;
+	object-fit:cover;
+
 }
 </style>
+
+<%@ include file="/front-end/header_footer/header.txt" %>
 <body onload="connect();" onunload="disconnect();">
 
 
 
 	
-	<div class="container">
+	<div class="container bigbody">
 	<div class=" col-md-12">	
 
-	<div class="container">
-		<div class="row justify-content-center"> 
+			<div class="row justify-content-center"> 
 			<div class="col-md-12">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
   					<li class="nav-item"><a class="nav-link" id="profile-tab"
@@ -365,7 +373,7 @@ body {
 					</div>
 						<div class="container">
 							<div class="row justify-content-center">
-								<div class="col-md-6">			
+								<div class="col-md-8">			
 								<input type="hidden" name="action" value="sel_time"> 
 <!-- 								<input type="submit" value="送出新增"> -->
 								</div>
@@ -385,15 +393,11 @@ body {
 				  <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
 				  	<div class="container">
 						<div class="row">
-							<div class="col-md-10">
+							<div class="col-md-12">
 								<div class="find-place-img_wrap">
 									<div class="grid">
-										<figure class="effect-ruby">
-											<img src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${param.vendor_no}'&pic=1"/>
-											<figcaption>
-													<h5></h5>
-	
-											</figcaption>
+										<figure class="effect-ruby resimg">
+											<img  src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${param.vendor_no}'&pic=1"/>
 										</figure>
 									</div>
 								</div>
@@ -409,7 +413,7 @@ body {
 								<hr>
 								<dt data-v-2ee1f21e="">餐廳E-mail</dt>
 								<hr>
-								<dd data-v-2ee1f21e="">${ vendorVO.v_mail}</dd>
+								<dd data-v-2ee1f21e="">${vendorVO.v_mail}</dd>
 								<!---->
 								<hr>
 								<dt data-v-2ee1f21e="">店家電話</dt>
@@ -602,7 +606,7 @@ body {
 </div>
 </div>
 </div>
-
+<%@ include file="/front-end/header_footer/footer.txt" %>
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 
@@ -804,5 +808,7 @@ function connect() {
       });
     
     </script>
+    
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
 </body>
 </html>
