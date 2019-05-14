@@ -827,7 +827,7 @@ public class OrdServlet extends HttpServlet {
 					}
 				
 				}
-				double amount= 0;
+				Integer amount= 0;
 				Integer quantity=0;
 				Integer price=0;
 				String menu_no=null;

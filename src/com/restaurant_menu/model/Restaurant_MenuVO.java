@@ -19,7 +19,7 @@ public class Restaurant_MenuVO implements Serializable{
 	private byte[] menu_pic;
 	private Integer menu_stat;
 	private String menu_text;
-	private  Integer quantity;
+	private Integer quantity;
 	
 	
 	public Restaurant_MenuVO() {

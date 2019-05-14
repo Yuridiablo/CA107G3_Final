@@ -9,7 +9,6 @@
 
 <!DOCTYPE html>
 <html>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <jsp:useBean id="res_menuSvc" scope="page" class="com.restaurant_menu.model.Restaurant_MenuService" />
 <jsp:useBean id="res_tboSvc" scope="page" class="com.reservation_table_ordered.model.Reservation_Table_OrderedService" />
 <jsp:useBean id="rev_tSvc" scope="page" class="com.reservation_time.model.Reservation_TimeService" />
@@ -35,9 +34,10 @@
 <head>
 <meta charset="UTF-8">
 <title>訂餐</title>
+<%@ include file="/front-end/header_footer/header_css.txt" %>
 </head>
 <body>
-
+<%@ include file="/front-end/header_footer/header.txt" %>
 
 
 <!------ Include the above in your HEAD tag ---------->
@@ -132,8 +132,8 @@
 
 
 
-
+<%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
 </body>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </html>

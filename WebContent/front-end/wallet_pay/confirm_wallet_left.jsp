@@ -1,10 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <%@ page import="com.ord.model.*"%>
 <%@ page import="com.restaurant_menu.model.*"%>
 <%@ page import="com.vendor.model.*,java.util.* "%>
+
+ <jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
+ <jsp:useBean id="mem_walletSvc" scope="page" class="com.member_wallet_list.model.Member_Wallet_ListService" />
+ 
 <!DOCTYPE html>
 
 <html lang="en">
@@ -16,11 +19,9 @@
     <meta name="generator" content="Jekyll v3.8.5">
     <title>會員錢包付款頁面1</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/checkout/">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   
     <!-- Bootstrap core CSS -->
-<link href="/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
     <style>
       .bd-placeholder-img {
@@ -41,12 +42,12 @@
     <!-- Custom styles for this template -->
    
     
-    <jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
-    <jsp:useBean id="mem_walletSvc" scope="page" class="com.member_wallet_list.model.Member_Wallet_ListService" />
+   
     
-    
+   <%@ include file="/front-end/header_footer/header_css.txt" %> 
   </head>
   <body class="bg-light">
+  <%@ include file="/front-end/header_footer/header.txt" %>
     <div class="container">
   
   <div class="row">
@@ -147,4 +148,6 @@ var mem_balance=$("#mem_balance").val();
 	}
  })
  </script>
+ <%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
 </html>

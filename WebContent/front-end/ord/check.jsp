@@ -10,7 +10,6 @@
 <!DOCTYPE html>
 <html>
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <head>
@@ -30,10 +29,10 @@ body {
 .btn2-block {
     width: 100%;
 </style>
-
+<%@ include file="/front-end/header_footer/header_css.txt" %>
 </head>
 <body>
-
+<%@ include file="/front-end/header_footer/header.txt" %>
 <div class="container">
     <div class="row">
         <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
@@ -152,6 +151,10 @@ body {
      <jsp:include page="/front-end/ord/share_sel.jsp" flush="true" />
   	</c:if>
 </div>
+
+<%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
+
 </body>
 
 </html>

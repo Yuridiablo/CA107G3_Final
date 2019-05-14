@@ -33,8 +33,6 @@
     <link rel="stylesheet" type="text/css" href="../front-end/css/starrr.css">
 <!-- 評論區樣式 -->
 
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/> -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3teApdwmpN2yUfc6dftcDkHw1dLpV2B4&callback=initMap"></script>
 
@@ -199,6 +197,8 @@ body {
 
 </style>
 
+
+<%@ include file="/front-end/header_footer/header_css.txt" %>
 </head>
 
 <body onload="connect();" onunload="disconnect();">
@@ -581,8 +581,6 @@ body {
 </div>
 </div>
 
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
 
 	<!-- 日期的ＪＳ -->
 	
@@ -641,12 +639,9 @@ body {
 // })
 </script>
 	
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script
-		src="http://www.5imoban.net/download/jquery/jquery-1.8.3.min.js"></script>
-	<!-- 星星 -->
-    <script src="../front-end/js/starrr.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<!-- 星星 -->
+    <script src="<%= request.getContextPath()%>/front-end/js/starrr.js"></script>
 	
 	<script>
 		$(function() {
