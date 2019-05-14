@@ -764,7 +764,7 @@ function connect() {
 				alert($(this).val());
 				$(this).hide(2000);
 			}
-		})			
+		})			 
 	};
 	};
 	
