@@ -1,0 +1,67 @@
+﻿    <div class="nav-menu">
+        <div class="bg transition">
+            <div class="container-fluid fixed">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="navbar navbar-expand-lg navbar-light">
+                            <a  href="<%=request.getContextPath()%>/front-end/FrontPage.jsp"><img src="<%= request.getContextPath() %>/front-end/images/SeeKFoodA.png" id="logo" ></a>
+                            <a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/FrontPage.jsp">SeekFoodTable</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="icon-menu"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            城市美食
+                                            <span class="icon-arrow-down"></span>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">北部</a>
+                                            <a class="dropdown-item" href="#">中部</a>
+                                            <a class="dropdown-item" href="#">南部</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            風格料理
+                                            <span class="icon-arrow-down"></span>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="#">中式料理</a>
+                                            <a class="dropdown-item" href="#">美式餐廳</a>
+                                            <a class="dropdown-item" href="#">日本料理</a>
+                                            <a class="dropdown-item" href="#">義式料理</a>
+                                            <a class="dropdown-item" href="#">東南亞風味</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="#">文章列表</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">關於我們</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            會員管理
+                                            <span class="icon-arrow-down"></span>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=updateInFront"><span class="icon-user"></span>編輯個人資訊</a>
+                                            <a class="dropdown-item" href="#"><span class="icon-people"></span>好友列表</a>
+                                            <a class="dropdown-item" href="#"><span class="icon-people"></span>我的追蹤會員</a>
+                                            <a class="dropdown-item" href="#"><span class="icon-like"></span>我的收藏店家</a>
+                                   			<a class="dropdown-item" href="<%=request.getContextPath()%>/member/member.do?action=myOrder"><span class="icon-docs"></span>我的訂單</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
+                                        </div>
+                                    </li>
+                                    <li><a href="#" class="btn btn-outline-light top-btn" id="loginBut"><span class="icon-login"></span>登入</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/member/member.do?action=logout" class="btn btn-outline-light top-btn" id="logoutBut"><span class="icon-logout"></span>登出</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

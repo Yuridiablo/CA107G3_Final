@@ -827,6 +827,9 @@ public class VendorServlet extends HttpServlet {
 						if (cut < 0) {
 							cut = forSub.indexOf(",", 0);
 						}
+						if (cut < 0) {
+							cut = 6;
+						}
 						String title = forSub.substring(0,cut);
 						// 6
 						infoString.add(title);
