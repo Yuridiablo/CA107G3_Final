@@ -43,9 +43,10 @@ body {
 							<div class="col-xs-6">
 							 <% @SuppressWarnings("unchecked")
 							   Vector<Restaurant_MenuVO> cart = (Vector<Restaurant_MenuVO>) session.getAttribute("shoppingcart");
-							   String total =  (String) session.getAttribute("total");%>
+							%>
 							<%if (cart != null && (cart.size() > 0)) {%>
 								<h5><span class="glyphicon glyphicon-shopping-cart"></span> ${param.vendor}</h5>
+								<c:set var="total" value="${total}"/>
 							</div>
 							
 						</div>
