@@ -306,17 +306,20 @@ public class TablesServlet extends HttpServlet {
 			String tbl_no = req.getParameter("tbl_no");				
 			String vendor_no = req.getParameter("vendor_no");
 			Integer tbl_status = Integer.parseInt(req.getParameter("tbl_status"));
-			Integer bill_status = Integer.parseInt(req.getParameter("bill_status"));
+			Integer bill_status = null;
+			if (!"".equals(req.getParameter("bill_status")))
+				bill_status = Integer.parseInt(req.getParameter("bill_status"));
 
 			JsonObject jbMsg = new JsonObject();
 			String result = null;
 			Integer status = null;
 			
 			Tbl tbl = null;
-			Bill bill = null;			
+			Bill bill = null;
+			Tbls vendor_tbls = null;
 			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
 			if (tbls_all != null) {
-				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);				
+				vendor_tbls = (Tbls) tbls_all.get(vendor_no);				
 				if (vendor_tbls != null) {	
 					tbl = vendor_tbls.getTbls().get(tbl_no);
 					bill = tbl.getBill();
@@ -342,6 +345,8 @@ public class TablesServlet extends HttpServlet {
 			jbMsg.addProperty("status", status);
 			String jsonStr = jbMsg.toString();
 			out.print(jsonStr);
+			
+			System.out.println(vendor_tbls);
 			
 		} // end of setTblStatus
 		

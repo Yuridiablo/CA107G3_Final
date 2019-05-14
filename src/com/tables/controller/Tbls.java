@@ -75,27 +75,34 @@ public class Tbls {
 		this.bills.put(bill.getBill_no(),bill);
 	}
 	
-		// set bill to tbl
-		public void setBillToTbl(Bill bill) {
-			if (bill == null) {
-				System.out.println("setBillToTbl: null Bill");
-				return;
-			}
-			
-			String tbl_no = bill.getTbl_no();
-			if (tbl_no == null) {
-				System.out.println("setBillToTbl: null tbl_no");
-				return;
-			}
-			
-			Tbl tbl = this.tbls.get(tbl_no);
-			if (tbl == null) {
-				System.out.println("setBillToTbl: null tbl");
-				return;
-			}
-			
-			tbl.setBill(bill);
-			tbl.setStatus(1);
+	// set bill to tbl
+	public void setBillToTbl(Bill bill) {
+		if (bill == null) {
+			System.out.println("setBillToTbl: null Bill");
+			return;
 		}
+		
+		String tbl_no = bill.getTbl_no();
+		if (tbl_no == null) {
+			System.out.println("setBillToTbl: null tbl_no");
+			return;
+		}
+		
+		Tbl tbl = this.tbls.get(tbl_no);
+		if (tbl == null) {
+			System.out.println("setBillToTbl: null tbl");
+			return;
+		}
+		
+		tbl.setBill(bill);
+		tbl.setStatus(1);
+	}
+
+	@Override
+	public String toString() {
+		return "Tbls [tbls=" + tbls + ", billNo=" + billNo + ", bills=" + bills + "]";
+	}
+	
+	
 	
 }
