@@ -5,16 +5,37 @@
 <%@ page import="com.ord.model.*"%>
 <%@ page import="com.vendor.model.*" %>
 
-<%
-	
-%>
-<!DOCTYPE html>
+<jsp:useBean id="res_tboSvc" scope="page" class="com.reservation_table_ordered.model.Reservation_Table_OrderedService" />
+<jsp:useBean id="rev_tSvc" scope="page" class="com.reservation_time.model.Reservation_TimeService" />
+<jsp:useBean id="now" scope="page" class="java.util.Date" />
+<jsp:useBean id="ordSvc" scope="page" class="com.ord.model.OrdService" />
+<jsp:useBean id="exc_dateSvc" scope="page" class="com.exception_date.model.Exception_DateService" />
+<jsp:useBean id="commentSvc" scope="page" class="com.comments.model.CommentsService" />
+<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 
+
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
 
+<script src="<%=request.getContextPath()%>/front-end/js/jquery-3.3.1.min.js"></script>
 
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- 日曆樣式 -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+
+ <!-- 星星圖庫來源樣式 -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../front-end/css/starrr.css">
+<!-- 評論區樣式 -->
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/> -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3teApdwmpN2yUfc6dftcDkHw1dLpV2B4&callback=initMap"></script>
 
 <!-- 提交FORM表單 -->
@@ -24,7 +45,6 @@
 // 			$('#form1').submit();
 // 		})
 		$('#inlineFormCustomSelectPref').change(function() {
-
 			$('#form1').submit();
 		})
 		
@@ -33,7 +53,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
   <script>
-
     $(function(){
     // 取得使用者輸入的地址
       var addr = $('#addr').val();
@@ -70,111 +89,73 @@
     });
     </script>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- 日曆樣式 -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 
- <!-- 星星圖庫來源樣式 -->
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../front-end/css/starrr.css">
-<!-- 評論區樣式 -->
-
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/> -->
 
 
 <title>餐廳首頁</title>
-<jsp:useBean id="res_tboSvc" scope="page" class="com.reservation_table_ordered.model.Reservation_Table_OrderedService" />
-<jsp:useBean id="rev_tSvc" scope="page" class="com.reservation_time.model.Reservation_TimeService" />
-<jsp:useBean id="now" scope="page" class="java.util.Date" />
-<jsp:useBean id="ordSvc" scope="page" class="com.ord.model.OrdService" />
-<jsp:useBean id="exc_dateSvc" scope="page" class="com.exception_date.model.Exception_DateService" />
-<jsp:useBean id="commentSvc" scope="page" class="com.comments.model.CommentsService" />
-<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 
 <%@ include file="/front-end/header_footer/header_css.txt" %>
-</head>
 
 <style>
 ul, ol, dl {
 	list-style-type: none
 }
-
   .xdsoft_datetimepicker .xdsoft_datepicker {
            width:  300px;   /* width:  300px; */
   }
   .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
            height: 151px;   /* height:  151px; */
   }
-
-
 img {
 	border: none;
 }
-
 .clearfix {
 	*zoom: 1;
 }
-
 .clearfix:before, .clearfix:after {
 	display: table;
 	line-height: 0;
 	content: "";
 }
-
 .clearfix:after {
 	clear: both;
 }
-
 .p20 {
 	padding: 20px;
 }
-
 .mb20 {
 	margin-bottom: 20px;
 }
-
 .mr20 {
 	margin-right: 20px;
 }
-
 .fl {
 	float: left;
 	display: block;
 }
-
 .fr {
 	float: right;
 	display: block;
 }
-
-
 body {
 	margin-top: 40px;
 }
-
 .stepwizard-step p {
 	margin-top: 10px;
 }
-
 .stepwizard-row {
 	display: table-row;
 }
-
 .stepwizard {
 	display: table;
 	width: 100%;
 	position: relative;
 }
-
 .stepwizard-step button {
 	opacity: 1 !important;
 	filter: alpha(opacity = 100) !important;
 }
-
 .stepwizard-row:before {
 	top: 14px;
 	bottom: 0;
@@ -185,13 +166,11 @@ body {
 	background-color: #ccc;
 	z-order: 0;
 }
-
 .stepwizard-step {
 	display: table-cell;
 	text-align: center;
 	position: relative;
 }
-
 .btn-circle {
 	width: 30px;
 	height: 30px;
@@ -201,46 +180,37 @@ body {
 	line-height: 1.428571429;
 	border-radius: 15px;
 }
-
-
 .animated {
 	-webkit-transition: height 0.2s;
 	-moz-transition: height 0.2s;
 	transition: height 0.2s;
 }
-
-
-
 .card-inner {
 	margin-left: 4rem;
 }
-
 #hotp1 {
 	height: 300px;
 	object-fit: cover;
 }
 
-.bigbody{
+.firstbody{
 	margin-top:100px;
 }
-.resimg{
-	max-width:600px;
-	height:400px;
-	object-fit:cover;
 
-}
 </style>
 
-<%@ include file="/front-end/header_footer/header.txt" %>
+</head>
+
 <body onload="connect();" onunload="disconnect();">
 
-
+<%@ include file="/front-end/header_footer/header.txt" %>
 
 	
-	<div class="container bigbody">
+	<div class="container firstbody">
 	<div class=" col-md-12">	
 
-			<div class="row justify-content-center"> 
+	<div class="container">
+		<div class="row justify-content-center"> 
 			<div class="col-md-12">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
   					<li class="nav-item"><a class="nav-link" id="profile-tab"
@@ -373,7 +343,7 @@ body {
 					</div>
 						<div class="container">
 							<div class="row justify-content-center">
-								<div class="col-md-8">			
+								<div class="col-md-6">			
 								<input type="hidden" name="action" value="sel_time"> 
 <!-- 								<input type="submit" value="送出新增"> -->
 								</div>
@@ -393,11 +363,15 @@ body {
 				  <div class="tab-pane fade " id="profile" role="tabpanel" aria-labelledby="profile-tab">
 				  	<div class="container">
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-10">
 								<div class="find-place-img_wrap">
 									<div class="grid">
-										<figure class="effect-ruby resimg">
-											<img  src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${param.vendor_no}'&pic=1"/>
+										<figure class="effect-ruby">
+											<img src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${param.vendor_no}'&pic=1"/>
+											<figcaption>
+													<h5></h5>
+	
+											</figcaption>
 										</figure>
 									</div>
 								</div>
@@ -413,7 +387,7 @@ body {
 								<hr>
 								<dt data-v-2ee1f21e="">餐廳E-mail</dt>
 								<hr>
-								<dd data-v-2ee1f21e="">${vendorVO.v_mail}</dd>
+								<dd data-v-2ee1f21e="">${ vendorVO.v_mail}</dd>
 								<!---->
 								<hr>
 								<dt data-v-2ee1f21e="">店家電話</dt>
@@ -606,7 +580,7 @@ body {
 </div>
 </div>
 </div>
-<%@ include file="/front-end/header_footer/footer.txt" %>
+
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 
@@ -643,10 +617,8 @@ body {
 	                     }
 	                     return [true, ""];
 	             }});
-
 	        
 // 	             2.以下為某一天之後的日期無法選擇
-
 					
 				
 // 	            var somedate2 = new Date();
@@ -661,15 +633,12 @@ body {
 //                      }
 //                      return [true, ""];
 //              }});
-
 	</script>
 	
 <script>
-
 // $(function () {
 //   $('#myTab li:last-child a').tab('show')
 // })
-
 </script>
 	
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -727,25 +696,18 @@ $("#${exc.rto_no}").click(async function(event){
 		
 })
  
-
-
 </script>
 
 </c:forEach>
 <c:forEach var="exc" items="${lhs}">
 <script>
-
-
 var MyPoint = "/MyEchoServer/${booking_date}/${party_size}";
 var host = window.location.host;
 var path = window.location.pathname;
 var webCtx = path.substring(0, path.indexOf('/', 1));
 var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
-
 var webSocket;
 var myID;
-
-
 function connect() {
 	// 建立 websocket 物件
 	webSocket = new WebSocket(endPointURL);
@@ -768,7 +730,7 @@ function connect() {
 				alert($(this).val());
 				$(this).hide(2000);
 			}
-		})			 
+		})			
 	};
 	};
 	
@@ -785,7 +747,6 @@ function connect() {
 		
 	}
 	
-
 </script>
 </c:forEach>
 <c:forEach var="cmapVO" items="${cMap}">
@@ -815,6 +776,8 @@ function connect() {
     
     </script>
     
-<%@ include file="/front-end/header_footer/footer_js.txt" %>
+ <%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>   
+    
 </body>
 </html>
