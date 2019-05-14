@@ -344,7 +344,7 @@ body {
 						<div class=" btn-group-toggle" data-toggle="buttons" id="btngp">
 									
 										<c:forEach var="exc" items="${lhs}">	
-										<input class="btn2 btn-primary" type="button" id="xx${exc.booking_time}"  value="${exc.booking_time}" onclick="sendMessage();" >
+									<input class="btn2 btn-primary"  type="button" name="${exc.rto_no}" id="${exc.rto_no}"  value="${exc.booking_time}" onclick="sendMessage('${exc.rto_no}',${param.party_size});" >
 
 										</c:forEach>	
 								</div>
@@ -662,9 +662,9 @@ body {
 	
 <script>
 
-$(function () {
-  $('#myTab li:last-child a').tab('show')
-})
+// $(function () {
+//   $('#myTab li:last-child a').tab('show')
+// })
 
 </script>
 	
@@ -691,7 +691,7 @@ $(function () {
 
 <c:forEach var="exc" items="${lhs}">
 <script type="text/javascript">
-$("#xx${exc.booking_time}").click(async function(event){
+$("#${exc.rto_no}").click(async function(event){
 	
 	const {value: file} = Swal.fire({
 		  title: "您選擇的<br>日期：${param.booking_date}<br>人數：${param.party_size}人<br>時段：${exc.booking_time}",
@@ -711,7 +711,7 @@ $("#xx${exc.booking_time}").click(async function(event){
 				    Swal.fire(
 				    )
 				    
-					var yyy=$("#xx${exc.booking_time}").val();
+					var yyy=$("#${exc.rto_no}").val();
 					$("#realyvalue").val(yyy);
 					$('#form2').submit();
 				  }
@@ -755,18 +755,24 @@ function connect() {
 		
 	webSocket.onmessage = function(event) {
 		var data=event.data
-		if(data=='open'){
-			document.getElementById("xx${exc.booking_time}").disabled = true;
-			document.getElementById("xx${exc.booking_time}").style.color="#ff0000";
-			alert("${exc.booking_time}");
-		}
 		
-
+		var btns=document.getElementsByClassName("btn2");
+	
+		$.each(btns,function(i,value){
+			if($(this).attr('id')==data){
+// 				btns[i].disabled=true;
+				alert($(this).val());
+				$(this).hide(2000);
+			}
+		})			
 	};
 	};
 	
-	function sendMessage() {
-		webSocket.send("open");
+	function sendMessage(rto_no,party_size) {
+		var jsonobj={
+				"rto_no":rto_no ,"party_size":party_size
+		};
+		webSocket.send(JSON.stringify(jsonobj));
 		
 		
  	}

@@ -654,6 +654,7 @@ public class OrdServlet extends HttpServlet {
 			 for (Exception_DateVO exc : exclist) {
 					if(booking_date!=exc.getExc_date()) {
 						for(Reservation_Table_OrderedVO rto : rtolist2) {
+							System.out.println("888888"+rto.getRto_no());
 						lhs.add(rto);
 						}	
 					}
