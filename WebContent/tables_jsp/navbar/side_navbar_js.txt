@@ -1,0 +1,16 @@
+﻿<!-- Side Nav -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#btnSidenav').on('click', function(e) {
+		$('#sidenav').removeClass('invibar');
+		$('#sidenavOverlay').addClass('active');
+		$('#sidenav').addClass('fullbar');
+	});
+
+	jQuery('#sidenavOverlay').on('click', function() {
+		$('#sidenavOverlay').removeClass('active');
+		$('#sidenav').removeClass('fullbar');
+		$('#sidenav').addClass('invibar');
+	});
+});
+</script>

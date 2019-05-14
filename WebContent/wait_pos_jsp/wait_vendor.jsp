@@ -51,196 +51,7 @@ if (vendor_wait_session == null) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-
-<!-- Side Nav -->
-
-<style type="text/css">
-body {
-	background-color: #eee;
-	font-family: "微軟正黑體";
-}
-
-#sidenavOverlay {
-	display: none;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	top: 0;
-	z-index: 998;
-	background: rgba(0, 0, 0, 0.5);
-}
-
-#sidenavOverlay.active {
-	display: block;
-}
-
-#sidenav {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	width: 280px;
-	left: -280px;
-	z-index: 999;
-	background: #fff;
-	color: #000;
-}
-
-.fullbar {
-	animation-name: full;
-	animation-duration: 0.5s;
-	animation-fill-mode: both;
-}
-
-.invibar {
-	animation-name: invi;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-}
-
-.col-form-label {
-	text-align: right;
-	font: 18px 微軟正黑體;
-}
-
-#refreshconfirm {
-	text-align: right;
-	margin-bottom: 5px;
-}
-
-.nav-link .btn-primary {
-	background-color: orange;
-	border-color: orange;
-	margin-top: 10%;
-}
-
-#topicBar {
-	border: 1px;
-	border: solid;
-	border-color: #7c7c7c;
-	background-color: #7c7c7c;
-	color: white;
-	text-align: center;
-	font-size: 20px;
-	font-weight: bold;
-}
-
-#confirmletter {
-	display: inline-block;
-	font: 15px/40px Helvetica;
-	text-align: center;
-	background: #F5F5F5;
-	border: 1px solid #cccccc;
-	color: #000000;
-	margin: 0px 8px 0px 0px;
-	position: relative;
-	top: -2px; #
-	top: 1px;
-	cursor: pointer;
-	text-decoration: none;
-}
-
-.needs-validation {
-	margin-top: 15%;
-}
-
-.form-row {
-	margin-top: 2%;
-}
-
-.resTitle {
-	font-size: 30px;
-	margin-left: 5%;
-}
-
-.nav .btn{
-	margin-top:80%;
- padding-left: 123px;
- padding-right: 123px;
- box-sizing: border-box;
-
-}
-
-.nav .text-white:hover{
-	background-color: #f00;
-}
-
-img {
-	width: 800px;
-	max-width: 500px;
-}
-
-@keyframes full {from { left:-280px;
-	
-}
-
-to {
-	left: 0px;
-}
-
-}
-@keyframes invi {from { left:0px;
-	
-}
-
-to {
-	left: -280px;
-}
-}
-
-/*.side-nav__section-title {
-            color: #202124;
-            display: block;
-            font-size: 18px;
-            padding-bottom: 12px;
-            padding-left: 24px;
-            padding-top: 40px;
-        }       */
-</style>
-
-<style type="text/css">
-	#sidenavOverlay {
-	    display: none;
-
-	    position: fixed;
-	    bottom: 0;
-	    left: 0;
-	    right: 0;
-   		top: 0;
-
-   		z-index: 998;
-
-	    background: rgba(0, 0, 0, 0.5);
-	}
-	#sidenavOverlay.active {
-	    display: block;
-	}
-
-
-	#sidenav {
-		position: fixed;
-	    top: 0;
-	    bottom: 0;
-
-	    width: 280px;
-
-	    left: -280px;
-
-	    z-index: 999;
-	    background: #fff;
-	    color: #000;
-
-	    box-shadow: 8px 0 6px -6px #333;
-	}
-	#sidenav.active {
-	    left: 0;
-	}
-	
-	.navbar {
-		box-shadow: 0 8px 6px -6px #333;
-	}
-
-</style>
+<%@ include file="navbar/nav_css.txt" %>
 
 <!-- switch toggle -->
 <style>
@@ -376,51 +187,13 @@ input:checked + .slider:before {
 		overflow: auto;
 	}
 	
-	body {
-		background-color: #aaa;
-	}
 </style>
 
 </head>
 <body>
 
-	<!-- Navbar -->
-	<nav class="navbar  bg-dark navbar-dark">
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#collapsibleNavbar" id="btnSidenav">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		
-		<c:if test="${vVO.v_status == 1}">
-		<span class="navbar-brand resTitle">${vVO.v_name}，您好！</span>
-		</c:if>
-		<c:if test="${vVO.v_status == 2}">
-		<span class="navbar-brand resTitle"><span style="color:orange">[審核中]</span>${vVO.v_name}，您好！</span>
-		</c:if>
-		<c:if test="${vVO.v_status == 3}">
-		<span class="navbar-brand resTitle">${vVO.v_name}，您好！</span>
-		</c:if>
-		<span class="navbar-brand">Seek Food Table<a class="btn btn-danger" role="botton" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=logout">登出</a></span>
-		
-
-	</nav>
-	<!-- Side Nav -->
-	<div id="sidenavOverlay"></div>
-	<nav class="nav navbar-nav bg-dark" id="sidenav">
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/mainVendor.jsp">概況一覽</a> 
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upVendor">資訊修改</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_list.jsp">桌型資料設定</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_graph.jsp">桌位配置</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_management_list.jsp">訂單狀態</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_management_timeline.jsp">訂單安排桌位</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listMenu">菜單管理</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listVendor">帳戶管理</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listComment">回應管理</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_verification.jsp">訂位驗證</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/wait_pos_jsp/wait_vendor.jsp">候位控制系統</a>
-		
-			
-	</nav>
+<%@ include file="navbar/navbar.txt" %>
+<%@ include file="navbar/side_navbar.txt" %>
 
 <div class="container-fluid">
 <div class="row justify-content-around p-3 flex-nowrap">
@@ -490,7 +263,6 @@ for (int i = 0; i < wait_line_queue.size(); i++){
 
 </div>
 
-<%-- visibility:<%= wait_line_queue.getValue(i).getIsCall() ? "visible" : "hidden"%> --%>
 <div class="divTimer" style='display: <%= wait_line_queue.getValue(i).getIsCall() ? "flex" : "none"%>'>
 	<input type="hidden" name="deadline" value="<%= wait_line_queue.getValue(i).getDeadline()%>">
 	<div class="spanTimer"><div class="spanM"></div>:<div class="spanS"></div>:<div class="spanMs"></div></div>
@@ -954,19 +726,7 @@ function createAlert(alertType, msg) {
 	return divAlert;
 }
 
-$(document).ready(function() {
-    $('#btnSidenav').on('click', function(e) {
-        $('#sidenav').removeClass('invibar');
-        $('#sidenavOverlay').addClass('active');
-        $('#sidenav').addClass('fullbar');
-    });
-
-    jQuery('#sidenavOverlay').on('click', function() {
-        $('#sidenavOverlay').removeClass('active');
-        $('#sidenav').removeClass('fullbar');
-        $('#sidenav').addClass('invibar');
-    });
-});
 </script>
+<%@ include file="navbar/side_navbar_js.txt" %>
 </body>
 </html>

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ page import="com.tables.model.*" %>
 <%@ page import="java.util.*" %>
@@ -7,6 +8,8 @@
 	TablesService tablesService = new TablesService();
 	List<TablesVO> list = tablesService.getAllByVendor_no("V000001");
 	pageContext.setAttribute("list", list);
+	
+	int tblWidth = 100;
 %>
 
 <!doctype html>
@@ -15,193 +18,18 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
+    <title>桌位管理_平面圖</title>
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
- <title>桌位管理-平面圖</title>
-<!-- Side Nav -->
-<style type="text/css">
-body {
-	background-color: #eee;
-	font-family: "微軟正黑體";
-}
-
-#sidenavOverlay {
-	display: none;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	top: 0;
-	z-index: 998;
-	background: rgba(0, 0, 0, 0.5);
-}
-
-#sidenavOverlay.active {
-	display: block;
-}
-
-#sidenav {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	width: 280px;
-	left: -280px;
-	z-index: 999;
-	background: #fff;
-	color: #000;
-}
-
-.fullbar {
-	animation-name: full;
-	animation-duration: 0.5s;
-	animation-fill-mode: both;
-}
-
-.invibar {
-	animation-name: invi;
-	animation-duration: 0.5s;
-	animation-fill-mode: forwards;
-}
-
-.col-form-label {
-	text-align: right;
-	font: 18px 微軟正黑體;
-}
-
-#refreshconfirm {
-	text-align: right;
-	margin-bottom: 5px;
-}
-
-.nav-link .btn-primary {
-	background-color: orange;
-	border-color: orange;
-	margin-top: 10%;
-}
-
-#topicBar {
-	border: 1px;
-	border: solid;
-	border-color: #7c7c7c;
-	background-color: #7c7c7c;
-	color: white;
-	text-align: center;
-	font-size: 20px;
-	font-weight: bold;
-}
-
-#confirmletter {
-	display: inline-block;
-	font: 15px/40px Helvetica;
-	text-align: center;
-	background: #F5F5F5;
-	border: 1px solid #cccccc;
-	color: #000000;
-	margin: 0px 8px 0px 0px;
-	position: relative;
-	top: -2px; #
-	top: 1px;
-	cursor: pointer;
-	text-decoration: none;
-}
-
-.needs-validation {
-	margin-top: 15%;
-}
-
-.form-row {
-	margin-top: 2%;
-}
-
-.resTitle {
-	font-size: 30px;
-	margin-left: 5%;
-}
-
-.nav .btn{
-	margin-top:80%;
- padding-left: 123px;
- padding-right: 123px;
- box-sizing: border-box;
-
-}
-
-.nav .text-white:hover{
-	background-color: #f00;
-}
-
-img {
-	width: 800px;
-	max-width: 500px;
-}
-
-@keyframes full {from { left:-280px;
 	
-}
+	<%@ include file="navbar/nav_css.txt" %>
 
-to {
-	left: 0px;
-}
-
-}
-@keyframes invi {from { left:0px;
-	
-}
-
-to {
-	left: -280px;
-}
-}
-
-/*.side-nav__section-title {
-            color: #202124;
-            display: block;
-            font-size: 18px;
-            padding-bottom: 12px;
-            padding-left: 24px;
-            padding-top: 40px;
-        }       */
-</style>
-<style type="text/css">
-		#sidenavOverlay {
-		    display: none;
-
-		    position: fixed;
-		    bottom: 0;
-		    left: 0;
-		    right: 0;
-    		top: 0;
-
-    		z-index: 998;
-
-		    background: rgba(0, 0, 0, 0.5);
-		}
-		#sidenavOverlay.active {
-		    display: block;
-		}
-
-
-		#sidenav {
-			position: fixed;
-		    top: 0;
-		    bottom: 0;
-
-		    width: 280px;
-
-		    left: -280px;
-
-		    z-index: 999;
-		    background: #fff;
-		    color: #000;
-		}
-		#sidenav.active {
-		    left: 0;
-		}
+	<style type="text/css">
 
 		#floorplan1{
 			width:100%;
@@ -219,22 +47,22 @@ to {
 		}
 
 		.roundTable{
-			width:50px;
-			height:50px;
+			width:<%=tblWidth%>px;
+			height:<%=tblWidth%>px;
 			background-color: lightpink;
 			border-radius: 50%;
 
 			text-align: center;
-			line-height: 50px;
+			line-height: <%=tblWidth%>px;
 		}
 		
 		.squareTable{
-			width:50px;
-			height:50px;
+			width:<%=tblWidth%>px;
+			height:<%=tblWidth%>px;
 			background-color: lightpink;
 
 			text-align: center;
-			line-height: 50px;
+			line-height: <%=tblWidth%>px;
 		}
 
 		/*tbl Checkbox*/
@@ -253,58 +81,14 @@ to {
 		  border-radius: 0;
 		}
 	</style>
-<!-- 秀圖的JS裝置 -->
-<script type="text/javascript">
-	function changePic(e) {		
-		
-  		document.getElementById("#upimg").src = URL.createObjectURL(event.target.files[0]); 		
-	}
-</script>
 
+  </head>
 
-</head>
-<!-- ============================================================================= -->
+  <!-- ============================================================================= -->
+  <body>
+	<%@ include file="navbar/navbar.txt" %>
+	<%@ include file="navbar/side_navbar.txt" %>
 
-<body>
-
-	<!-- Navbar -->
-	<nav class="navbar  bg-dark navbar-dark">
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#collapsibleNavbar" id="btnSidenav">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		
-		<c:if test="${vVO.v_status == 1}">
-		<span class="navbar-brand resTitle">${vVO.v_name}，您好！</span>
-		</c:if>
-		<c:if test="${vVO.v_status == 2}">
-		<span class="navbar-brand resTitle"><span style="color:orange">[審核中]</span>${vVO.v_name}，您好！</span>
-		</c:if>
-		<c:if test="${vVO.v_status == 3}">
-		<span class="navbar-brand resTitle">${vVO.v_name}，您好！</span>
-		</c:if>
-		<span class="navbar-brand">Seek Food Table<a class="btn btn-danger" role="botton" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=logout">登出</a></span>
-		
-
-	</nav>
-	<!-- Side Nav -->
-	<div id="sidenavOverlay"></div>
-	<nav class="nav navbar-nav bg-dark" id="sidenav">
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/mainVendor.jsp">概況一覽</a> 
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upVendor">資訊修改</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_list.jsp">桌型資料設定</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_graph.jsp">桌位配置</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_management_list.jsp">訂單狀態</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_management_timeline.jsp">訂單安排桌位</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listMenu">菜單管理</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listVendor">帳戶管理</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listComment">回應管理</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/ord_jsp/ord_verification.jsp">訂位驗證</a>
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/wait_pos_jsp/wait_vendor.jsp">候位控制系統</a>
-		
-			
-	</nav>
-	
 	<!-- Content -->
 	<div class="container-fluid">
 		<div class="row justify-content-around p-3">
@@ -341,7 +125,7 @@ to {
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize1" class="collapse p-0" aria-labelledby="headingTblSize1" data-parent="#accordion">
+				    <div id="collapseTblSize1" class="collapse show p-0" aria-labelledby="headingTblSize1"> <!--  data-parent="#accordion" -->
 				      <div class="card-body p-0">
 				      
 				        
@@ -385,7 +169,7 @@ to {
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize2" class="collapse p-0" aria-labelledby="headingTblSize2" data-parent="#accordion">
+				    <div id="collapseTblSize2" class="collapse show p-0" aria-labelledby="headingTblSize2">
 				      <div class="card-body p-0">
 <c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_size == 2}">		
@@ -426,7 +210,7 @@ to {
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize3" class="collapse p-0" aria-labelledby="headingTblSize3" data-parent="#accordion">
+				    <div id="collapseTblSize3" class="collapse show p-0" aria-labelledby="headingTblSize3">
 				      <div class="card-body p-0">
 <c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_size == 3}">		
@@ -467,7 +251,7 @@ to {
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize4" class="collapse p-0" aria-labelledby="headingTblSize4" data-parent="#accordion">
+				    <div id="collapseTblSize4" class="collapse show p-0" aria-labelledby="headingTblSize4">
 				      <div class="card-body p-0">
 <c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_size == 4}">		
@@ -508,7 +292,7 @@ to {
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize5" class="collapse p-0" aria-labelledby="headingTblSize5" data-parent="#accordion">
+				    <div id="collapseTblSize5" class="collapse show p-0" aria-labelledby="headingTblSize5">
 				      <div class="card-body p-0">
 <c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_size == 5}">		
@@ -565,23 +349,7 @@ to {
 	<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <!-- Side Nav -->
-    <script type="text/javascript">
-	    $(document).ready(function() {
-	        $('#btnSidenav').on('click', function(e) {
-	            $('#sidenav').removeClass('invibar');
-	            $('#sidenavOverlay').addClass('active');
-	            $('#sidenav').addClass('fullbar');
-	        });
-	
-	        jQuery('#sidenavOverlay').on('click', function() {
-	            $('#sidenavOverlay').removeClass('active');
-	            $('#sidenav').removeClass('fullbar');
-	            $('#sidenav').addClass('invibar');
-	        });
-	    });
-
-    </script>
+    <%@ include file="navbar/side_navbar_js.txt" %>
 	
 	<!-- floorplan -->    
 	<script type="text/javascript">
