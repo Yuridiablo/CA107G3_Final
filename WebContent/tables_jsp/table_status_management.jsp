@@ -59,11 +59,6 @@ int tblWidth = 100;
 			height:600px;
 			background-color: lightgray;
 			position: relative;
-			
-			/* grid background*/
-			background-size: 40px 40px;
-		    /*background-image: linear-gradient(to right, #b4bd9e 1px, transparent 1px), linear-gradient(#b4bd9e 1px, transparent 1px);*/
-		
 		}
 		
 		.floorplan .tbl {
@@ -98,7 +93,7 @@ int tblWidth = 100;
 
   </head>
 
-  <!-- ============================================================================= -->
+  <!-- ===================================== body ======================================== -->
   <body>
 	<%@ include file="navbar/navbar.txt" %>
 	<%@ include file="navbar/side_navbar.txt" %>
@@ -272,11 +267,24 @@ $("#btnNewWI").click(function(){
 	$('#newWIModal').modal('hide');
 });
 
+
+// 桌況設定
+$("#btnTblStat_empty").click(function(){
+	setTblStatus(0, null);
+});
+$("#btnTblStat_seated").click(function(){
+	setTblStatus(1, 1);
+});
 $("#btnTblStat_dining").click(function(){
 	setTblStatus(1, 2);
 });
+$("#btnTblStat_clean").click(function(){
+	setTblStatus(2, null);
+});
+$("#btnTblStat_keep").click(function(){
+	setTblStatus(3, null);
+});
 
-	
 }); // End of $(document).ready
 
 
@@ -299,10 +307,10 @@ function setTblStatus(tbl_status, bill_status) {
 	    success: function(response) {
 	    	if (response.status == 1) {
 	    		showAlert("alert-success", response.result);
-	    		var tbl = $("#" + tbl_no);
-	    		$(tbl).attr("data-tbl_status", tbl_status);
-	    		$(tbl).attr("data-bill_status", bill_status);
-	    		$(tbl).css("background-color", colorFmt(tbl_status, bill_status));	
+	    		var tbl = $("#" + this.tbl_no);
+	    		$(tbl).attr("data-tbl_status", this.tbl_status);
+	    		$(tbl).attr("data-bill_status", this.bill_status);
+	    		$(tbl).css("background-color", colorFmt(this.tbl_status, this.bill_status));	
 	    	} else if (response.status == 0) {
 	    		showAlert("alert-danger", response.result);
 	    	}
