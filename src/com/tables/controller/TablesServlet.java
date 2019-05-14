@@ -2,11 +2,19 @@ package com.tables.controller;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+import javax.websocket.Session;
+
 import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.tables.model.*;
-import com.vendor.model.VendorVO;
+import com.wait_pos.controller.Wait_Line;
 
 public class TablesServlet extends HttpServlet {
 	
@@ -32,16 +40,11 @@ public class TablesServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-		
 			
 			try {
-				
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				HttpSession se = req.getSession();
-				VendorVO vVO = (VendorVO) se.getAttribute("vVO");
-				String vendor_no = vVO.getVendor_no();
+				String vendor_no = req.getParameter("vendor_no");
 				
-			
 				int tbl_number;
 				try {
 					tbl_number = Integer.parseInt(req.getParameter("tbl_number").trim());
@@ -67,7 +70,7 @@ public class TablesServlet extends HttpServlet {
 					req.setAttribute("tbl_size_add", tbl_size);
 					
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
+							.getRequestDispatcher("/tables/table_management_list.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -83,7 +86,7 @@ public class TablesServlet extends HttpServlet {
 				}
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/Vendor/Vendor.do?action=listTableinfo";
+				String url = "/tables_jsp/table_management_list.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 				
@@ -91,7 +94,7 @@ public class TablesServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("新增資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
+						.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
 				failureView.forward(req, res);
 			}				
 		}
@@ -105,6 +108,7 @@ public class TablesServlet extends HttpServlet {
 			try {
 				
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+							
 				String tbl_no = req.getParameter("tbl_no");
 				
 				String vendor_no = req.getParameter("vendor_no");
@@ -126,7 +130,7 @@ public class TablesServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("tablesVO", tablesVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
+							.getRequestDispatcher("/tables/table_management_list.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -136,7 +140,7 @@ public class TablesServlet extends HttpServlet {
 				tablesService.updateTablesBasic(tbl_no, tbl_name, tbl_size);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/Vendor/Vendor.do?action=listTableinfo";
+				String url = "/tables_jsp/table_management_list.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);	
 				
@@ -144,7 +148,7 @@ public class TablesServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
+						.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
 				failureView.forward(req, res);
 			}
 			
@@ -177,7 +181,7 @@ public class TablesServlet extends HttpServlet {
 				tablesService.deleteTables(tbl_no);
 	
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/
-				String url = "/Vendor/Vendor.do?action=listTableinfo";
+				String url = "/tables_jsp/table_management_list.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
@@ -187,7 +191,7 @@ public class TablesServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/Vendor/Vendor.do?action=listTableinfo");
+						.getRequestDispatcher("/tables/table_management_list.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -236,7 +240,7 @@ public class TablesServlet extends HttpServlet {
 //				tablesService.updateTablesBasic(tbl_no, tbl_name, tbl_size);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/Vendor/Vendor.do?action=listTableGraph";
+				String url = "/tables_jsp/table_management_graph.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);	
 				
@@ -249,7 +253,103 @@ public class TablesServlet extends HttpServlet {
 //			}
 			
 
-		}
+		} // End of updateAxis
 		
+		if ("newWI".equals(action)) {
+			
+			String tbl_no = req.getParameter("tbl_no");				
+			String vendor_no = req.getParameter("vendor_no");
+			Integer party_size = Integer.parseInt(req.getParameter("party_size"));			
+			
+			JsonObject jbMsg = new JsonObject();
+			String result = null;
+			Integer status = null;
+			
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();			
+			Bill bill = null;
+			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+			if (tbls_all != null) {
+				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);				
+				if (vendor_tbls != null) {	
+					bill = new Bill(tbl_no, party_size);					
+					synchronized(vendor_tbls) {
+						vendor_tbls.putBill(bill);
+						vendor_tbls.setBillToTbl(bill);
+					}
+					status = 1;
+					result = "新增客人成功";					
+				} else {
+					System.out.println(vendor_no + " 桌位管理功能未初始化");
+					status = 0;
+					result = "廠商桌位管理功能未初始化";
+				}
+			} else {
+				System.out.println(vendor_no + " server 桌位管理功能未初始化");
+				status = 0;
+				result = "系統桌位管理功能未初始化";
+			}
+			// push to vendor
+			
+			JsonElement jeBill = gson.toJsonTree(bill);
+			
+			jbMsg.addProperty("result", result);
+			jbMsg.addProperty("status", status);
+			jbMsg.addProperty("bill_no", bill.getBill_no());
+			jbMsg.add("bill", jeBill);
+			String jsonStr = gson.toJson(jbMsg);
+			out.print(jsonStr);
+			
+		} // end of newWI
+		
+		if ("setTblStatus".equals(action)) {
+			
+			String tbl_no = req.getParameter("tbl_no");				
+			String vendor_no = req.getParameter("vendor_no");
+			Integer tbl_status = Integer.parseInt(req.getParameter("tbl_status"));
+			Integer bill_status = Integer.parseInt(req.getParameter("bill_status"));
+
+			JsonObject jbMsg = new JsonObject();
+			String result = null;
+			Integer status = null;
+			
+			Tbl tbl = null;
+			Bill bill = null;			
+			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+			if (tbls_all != null) {
+				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);				
+				if (vendor_tbls != null) {	
+					tbl = vendor_tbls.getTbls().get(tbl_no);
+					bill = tbl.getBill();
+					synchronized(tbl) {
+						tbl.setStatus(tbl_status);
+						bill.setSource(bill_status);
+					}
+					status = 1;
+					result = "變更桌況成功";					
+				} else {
+					System.out.println(vendor_no + " 桌位管理功能未初始化");
+					status = 0;
+					result = "廠商桌位管理功能未初始化";
+				}
+			} else {
+				System.out.println(vendor_no + " server 桌位管理功能未初始化");
+				status = 0;
+				result = "系統桌位管理功能未初始化";
+			}
+			// push to vendor
+						
+			jbMsg.addProperty("result", result);
+			jbMsg.addProperty("status", status);
+			String jsonStr = jbMsg.toString();
+			out.print(jsonStr);
+			
+		} // end of setTblStatus
+		
+	} // end of doPost
+	
+	@Override
+	public void init() throws ServletException {
+		ServletContext context = getServletContext();
+		context.setAttribute("tbls_all", new HashMap<String, Tbls>());
 	}
 }

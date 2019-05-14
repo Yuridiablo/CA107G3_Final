@@ -5,9 +5,11 @@
 
 <%	
 	String vendor_no = null;
-	if (request.getAttribute("vendor_no") != null) {
-		vendor_no = (String)request.getAttribute("vendor_no");
-	} 
+	if (request.getParameter("vendor_no") != null) {
+		vendor_no = request.getParameter("vendor_no");
+	} else {
+		vendor_no = "V000001";
+	}
 %>    
 <!doctype html>
 <html>
@@ -15,68 +17,15 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	<title>訂單序號核銷</title>
+	
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
-    <title>訂單序號核銷</title>
-	
-	<!-- Side Nav -->
-	<style type="text/css">
-		#sidenavOverlay {
-		    display: none;
-
-		    position: fixed;
-		    bottom: 0;
-		    left: 0;
-		    right: 0;
-    		top: 0;
-
-    		z-index: 998;
-
-		    background: rgba(0, 0, 0, 0.5);
-		}
-		#sidenavOverlay.active {
-		    display: block;
-		}
-
-
-		#sidenav {
-			position: fixed;
-		    top: 0;
-		    bottom: 0;
-
-		    width: 280px;
-
-		    left: -280px;
-
-		    z-index: 999;
-		    background: #fff;
-		    color: #000;
-
-		    box-shadow: 8px 0 6px -6px #333;
-		}
-		#sidenav.active {
-		    left: 0;
-		}
-		
-		.navbar {
-			box-shadow: 0 8px 6px -6px #333;
-		}
-
-		#order-detail {
-			display: none;
-		}
-
-		#order-detail.active {
-			display: inline-flex;
-		}
-
-	</style>
-	
 	<!-- jQuery UI CSS -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+	<%@ include file="navbar/nav_css.txt" %>
 	
 	<style>
 	  .ui-autocomplete-loading {
@@ -91,8 +40,9 @@
   </head>
 
   <!-- ============================================================================= -->
-  <body style="background-color: gray;">
-
+  <body>
+	<%@ include file="navbar/navbar.txt" %>
+	<%@ include file="navbar/side_navbar.txt" %>
 
 	<div class="container-fluid">
 	
@@ -158,21 +108,8 @@
 	<!-- jQuery UI -->
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	
-	
-    <!-- Side Nav -->
-    <script type="text/javascript">
-        $(document).ready(function () {                     
-            $('#btnSidenav').on('click', function () {
-                $('#sidenavOverlay').addClass('active');
-                $('#sidenav').addClass('active');             
-            });
-            $('#sidenavOverlay').on('click', function () {
-                $('#sidenavOverlay').removeClass('active'); 
-                $('#sidenav').removeClass('active');              
-            });
-        });
-    </script>
-
+	<%@ include file="navbar/side_navbar_js.txt" %>
+    
 <script>
 $( function() {
  
@@ -180,7 +117,7 @@ $( function() {
     	minLength: 3,
         source: function( request, response ) {
         	$.ajax({
-			    url: "<%= request.getContextPath() %>/ord/ord.do",
+			    url: "<%= request.getContextPath() %>/ord/ord_vendor.do",
 			    type: 'post',
 			    data: {
 			      action : "getOrdListByVerifCode",
@@ -204,7 +141,7 @@ $( function() {
         }, // End of source
         select: function(event, ui) {
             $.ajax({
-			    url: "<%= request.getContextPath() %>/ord/ord.do",
+			    url: "<%= request.getContextPath() %>/ord/ord_vendor.do",
 			    type: 'post',
 			    data: {
 			      action : "getOrdByVerifCode",
@@ -229,7 +166,7 @@ $( function() {
     $("#btnVerify").click(function(){
     	var ord_no = $("#reservation-list tbody input[name=ord_no]").val();
     	$.ajax({
-		    url: "<%= request.getContextPath() %>/ord/ord.do",
+		    url: "<%= request.getContextPath() %>/ord/ord_vendor.do",
 		    type: 'post',
 		    data: {
 		      action : "ordVerify",

@@ -89,4 +89,20 @@ public class OrdService {
 	public OrdVO getOneOrdVerif(String vendor_no, String verif_code) {
 		return dao.findOrdByVerifCode(vendor_no, verif_code);
 	}
+	
+	public OrdVO updateOrdTblNo(String ord_no, String tbl_no) {
+		OrdVO ordVO = new OrdVO();
+		ordVO.setOrd_no(ord_no);
+		ordVO.setTbl_no(tbl_no);		
+		dao.updateTbl_no(ordVO);
+		return ordVO;
+	}
+	
+	public OrdVO updateOrdStatus(String ord_no, Integer status) {
+		OrdVO ordVO = new OrdVO();
+		ordVO.setOrd_no(ord_no);
+		ordVO.setStatus(status);		
+		dao.updateStatus(ordVO);
+		return ordVO;
+	}
 }

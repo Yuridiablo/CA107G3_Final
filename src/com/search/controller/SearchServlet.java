@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -75,7 +76,12 @@ public class SearchServlet extends HttpServlet {
 					CommentsVO cVO = cSvc.getAll().stream().filter(c -> c.getOrd_no().equals(oVO.getOrd_no()))
 							.findFirst().get();
 					VendorVO vVO = vSvc.findByPK(cVO.getVendor_no());
-
+					double vavg = cSvc.getAll().stream().filter(v -> v.getVendor_no().equals(vVO.getVendor_no())).mapToDouble(c -> c.getScore()).average().getAsDouble();
+					long vsum = cSvc.getAll().stream().filter(v -> v.getVendor_no().equals(vVO.getVendor_no())).count();
+					String avgresult = String.format("%.1f", vavg);
+					String sumresult = String.valueOf(vsum);
+					vVO.setV_address3(avgresult);
+					vVO.setV_address2(sumresult);
 					vcMap.put(vVO, cVO);
 
 				}

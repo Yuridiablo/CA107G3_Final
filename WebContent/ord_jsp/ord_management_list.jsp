@@ -34,55 +34,18 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <!-- Icon資源池 -->
-    <link rel="stylesheet" href="../front-end/css/themify-icons.css">
+    <link rel="stylesheet" href="css/themify-icons.css">
 
     <title>桌位管理_列表</title>
-	
-	<!-- Side Nav -->
+
+<%@ include file="navbar/nav_css.txt" %>
+
 	<style type="text/css">
-		#sidenavOverlay {
-		    display: none;
-
-		    position: fixed;
-		    bottom: 0;
-		    left: 0;
-		    right: 0;
-    		top: 0;
-
-    		z-index: 998;
-
-		    background: rgba(0, 0, 0, 0.5);
-		}
-		#sidenavOverlay.active {
-		    display: block;
-		}
-
-
-		#sidenav {
-			position: fixed;
-		    top: 0;
-		    bottom: 0;
-
-		    width: 280px;
-
-		    left: -280px;
-
-		    z-index: 999;
-		    background: #fff;
-		    color: #000;
-
-		    box-shadow: 8px 0 6px -6px #333;
-		}
-		#sidenav.active {
-		    left: 0;
-		}
-		
-		.navbar {
-			box-shadow: 0 8px 6px -6px #333;
-		}
-
 		#order-detail {
 			display: none;
 		}
@@ -96,12 +59,8 @@
   </head>
 
   <!-- ============================================================================= -->
-  <body style="background-color: gray;">
-
-
- 	
-	
-	<div class="container-fluid">
+  <body>
+<%@ include file="navbar/navbar.txt" %>
 	<!-- sub Navbar -->
 	<nav class="navbar bg-light navbar-light subNavbar justify-content-center">
 	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnBack">
@@ -127,10 +86,14 @@
 	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnForward">
 	    <span class="ti-angle-right"></span>
 	  </button>
+
 	 
-	</nav>	
+	</nav>
+<%@ include file="navbar/side_navbar.txt" %>	
 	
+	<div class="container-fluid">
 		<div class="row  p-3">			
+
 			<!-- Order List -->
 			<div class="col-12 flex-column" id="order-list">
 				<table class="table table-hover table-light" id="reservation-list">
@@ -211,25 +174,11 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../front-end/js/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	
-	
-    <!-- Side Nav -->
-    <script type="text/javascript">
-        $(document).ready(function () {                     
-            $('#btnSidenav').on('click', function () {
-                $('#sidenavOverlay').addClass('active');
-                $('#sidenav').addClass('active');             
-            });
-            $('#sidenavOverlay').on('click', function () {
-                $('#sidenavOverlay').removeClass('active'); 
-                $('#sidenav').removeClass('active');              
-            });
-        });
-    </script>
-
+<%@ include file="navbar/side_navbar_js.txt" %>
     <!-- reservation list -->
     <script type="text/javascript">
     	$(document).ready(function(){    		
@@ -255,7 +204,7 @@
 			$('#order-list').removeClass('col-12');
 			$('#order-list').addClass('col-7');
 			$.ajax({
-			    url: "<%=request.getContextPath()%>/ord_detail/ord_detail.do",
+			    url: "<%=request.getContextPath()%>/o_detail/o_detail.do",
 			    type: 'post',
 			    data: {
 			      action : "getOrdDetail",
@@ -285,6 +234,7 @@
 			    error: function(xhr) {
 			    	var coln = $("#order-detail-list thead th").length;
 			    	var odTbody = $("#order-detail-list tbody");
+			    	$(odTbody).empty();
 			    	$(odTbody).append("<tr><td colspan='" + coln + "'>查無資料</td></tr>");
 			    }
 
@@ -303,9 +253,9 @@
 <!--=============================== datetimepicker ======================================-->
 
 <!-- 參考網站: https://xdsoft.net/jqplugins/datetimepicker/ -->
-<link   rel="stylesheet" type="text/css" href="../ord_jsp/datetimepicker/jquery.datetimepicker.css" />
+<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" />
 <!--  <script src="datetimepicker/jquery.js"></script>-->
-<script src="../ord_jsp/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -394,7 +344,7 @@ $(document).ready(function(){
         
         function getOrdByDate(date) {
         	$.ajax({
-			    url: "<%=request.getContextPath()%>/ord/ord.do",
+			    url: "<%=request.getContextPath()%>/ord/ord_vendor.do",
 			    type: 'post',
 			    date: date,
 			    data: {

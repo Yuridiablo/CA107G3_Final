@@ -26,6 +26,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.tables.controller.Bill;
+import com.tables.controller.Tbls;
 import com.tables.model.TablesService;
 import com.tables.model.TablesVO;
 
@@ -178,7 +180,24 @@ public class Wait_PosServlet extends HttpServlet {
 			}
 			
 
-			// mem_no 移到桌位管理
+			// mem_no 移到桌位管理 已驗證
+			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+			if (tbls_all != null) {
+				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);				
+				if (vendor_tbls != null) {	
+					Bill bill = new Bill(personInLine);					
+					synchronized(vendor_tbls) {
+						vendor_tbls.putBill(bill);
+						// push to vendor
+					}
+					
+				} else {
+					System.out.println(vendor_no + " 桌位管理功能未初始化");
+				}
+			} else {
+				System.out.println(vendor_no + " server 桌位管理功能未初始化");
+			}
+			
 
 			
 		} // end of check_member

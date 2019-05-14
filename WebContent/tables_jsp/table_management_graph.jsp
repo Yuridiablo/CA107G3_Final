@@ -5,9 +5,11 @@
 <%@ page import="java.util.*" %>
 
 <%
-// 	TablesService tablesService = new TablesService();
-// 	List<TablesVO> mglist = tablesService.getAllByVendor_no("V000001");
-// 	pageContext.setAttribute("mglist", mglist);
+	TablesService tablesService = new TablesService();
+	List<TablesVO> list = tablesService.getAllByVendor_no("V000001");
+	pageContext.setAttribute("list", list);
+	
+	int tblWidth = 100;
 %>
 
 <!doctype html>
@@ -16,50 +18,18 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
+    <title>桌位管理_平面圖</title>
+    
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="../front-end/js/bootstrap-input-spinner.js"></script>
-    <title>桌位管理_平面圖</title>
 	
-	<!-- Side Nav -->
+	<%@ include file="navbar/nav_css.txt" %>
+
 	<style type="text/css">
-		#sidenavOverlay {
-		    display: none;
-
-		    position: fixed;
-		    bottom: 0;
-		    left: 0;
-		    right: 0;
-    		top: 0;
-
-    		z-index: 998;
-
-		    background: rgba(0, 0, 0, 0.5);
-		}
-		#sidenavOverlay.active {
-		    display: block;
-		}
-
-
-		#sidenav {
-			position: fixed;
-		    top: 0;
-		    bottom: 0;
-
-		    width: 280px;
-
-		    left: -280px;
-
-		    z-index: 999;
-		    background: #fff;
-		    color: #000;
-		}
-		#sidenav.active {
-		    left: 0;
-		}
 
 		#floorplan1{
 			width:100%;
@@ -77,22 +47,22 @@
 		}
 
 		.roundTable{
-			width:50px;
-			height:50px;
+			width:<%=tblWidth%>px;
+			height:<%=tblWidth%>px;
 			background-color: lightpink;
 			border-radius: 50%;
 
 			text-align: center;
-			line-height: 50px;
+			line-height: <%=tblWidth%>px;
 		}
 		
 		.squareTable{
-			width:50px;
-			height:50px;
+			width:<%=tblWidth%>px;
+			height:<%=tblWidth%>px;
 			background-color: lightpink;
 
 			text-align: center;
-			line-height: 50px;
+			line-height: <%=tblWidth%>px;
 		}
 
 		/*tbl Checkbox*/
@@ -116,6 +86,8 @@
 
   <!-- ============================================================================= -->
   <body>
+	<%@ include file="navbar/navbar.txt" %>
+	<%@ include file="navbar/side_navbar.txt" %>
 
 	<!-- Content -->
 	<div class="container-fluid">
@@ -153,11 +125,11 @@
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize1" class="collapse p-0" aria-labelledby="headingTblSize1" data-parent="#accordion">
+				    <div id="collapseTblSize1" class="collapse show p-0" aria-labelledby="headingTblSize1"> <!--  data-parent="#accordion" -->
 				      <div class="card-body p-0">
 				      
 				        
-<c:forEach var="tablesVO" items="${mglist}">
+<c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_size == 1}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}" ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'} >
 					     ${tablesVO.tbl_name}	
@@ -197,9 +169,9 @@
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize2" class="collapse p-0" aria-labelledby="headingTblSize2" data-parent="#accordion">
+				    <div id="collapseTblSize2" class="collapse show p-0" aria-labelledby="headingTblSize2">
 				      <div class="card-body p-0">
-<c:forEach var="tablesVO" items="${mglist}">
+<c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_size == 2}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}"  ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'}>
 					     ${tablesVO.tbl_name}	
@@ -238,9 +210,9 @@
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize3" class="collapse p-0" aria-labelledby="headingTblSize3" data-parent="#accordion">
+				    <div id="collapseTblSize3" class="collapse show p-0" aria-labelledby="headingTblSize3">
 				      <div class="card-body p-0">
-<c:forEach var="tablesVO" items="${mglist}">
+<c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_size == 3}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}"  ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'}>
 					     ${tablesVO.tbl_name}
@@ -279,9 +251,9 @@
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize4" class="collapse p-0" aria-labelledby="headingTblSize4" data-parent="#accordion">
+				    <div id="collapseTblSize4" class="collapse show p-0" aria-labelledby="headingTblSize4">
 				      <div class="card-body p-0">
-<c:forEach var="tablesVO" items="${mglist}">
+<c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_size == 4}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}"  ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'}>
 					   		${tablesVO.tbl_name}	
@@ -320,9 +292,9 @@
 				    </div>
 
 					<!-- card body -->
-				    <div id="collapseTblSize5" class="collapse p-0" aria-labelledby="headingTblSize5" data-parent="#accordion">
+				    <div id="collapseTblSize5" class="collapse show p-0" aria-labelledby="headingTblSize5">
 				      <div class="card-body p-0">
-<c:forEach var="tablesVO" items="${mglist}">
+<c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_size == 5}">		
 					   <div class="tbl w-100 rounded-0 btn btn-light" id="${tablesVO.tbl_no}"  ${tablesVO.tbl_x == null && tablesVO.tbl_y == null ? '' : 'style="display: none;"'}>
 					     ${tablesVO.tbl_name}
@@ -352,7 +324,7 @@
 			<div class="col-9">
 				
 					<div id="floorplan1">
-<c:forEach var="tablesVO" items="${mglist}">
+<c:forEach var="tablesVO" items="${list}">
 	<c:if test="${tablesVO.tbl_x != null && tablesVO.tbl_y != null}">						
 						<div class="${tablesVO.tbl_type == 1 ? 'square' : 'round'}Table" id="${tablesVO.tbl_no}c" title="${tablesVO.tbl_no}" style="position: absolute; opacity: 1; z-index: 800; left: ${tablesVO.tbl_x}px; top: ${tablesVO.tbl_y}px;">
 							${tablesVO.tbl_name}
@@ -377,19 +349,7 @@
 	<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <!-- Side Nav -->
-    <script type="text/javascript">
-        $(document).ready(function () {                     
-            $('#btnSidenav').on('click', function () {
-                $('#sidenavOverlay').addClass('active');
-                $('#sidenav').addClass('active');             
-            });
-            $('#sidenavOverlay').on('click', function () {
-                $('#sidenavOverlay').removeClass('active'); 
-                $('#sidenav').removeClass('active');              
-            });
-        });
-    </script>
+    <%@ include file="navbar/side_navbar_js.txt" %>
 	
 	<!-- floorplan -->    
 	<script type="text/javascript">

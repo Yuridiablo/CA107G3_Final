@@ -45,53 +45,13 @@ if (vendor_wait_session == null) {
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>候位管理</title>
 <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-
-<!-- Side Nav -->
-<style type="text/css">
-	#sidenavOverlay {
-	    display: none;
-
-	    position: fixed;
-	    bottom: 0;
-	    left: 0;
-	    right: 0;
-   		top: 0;
-
-   		z-index: 998;
-
-	    background: rgba(0, 0, 0, 0.5);
-	}
-	#sidenavOverlay.active {
-	    display: block;
-	}
-
-
-	#sidenav {
-		position: fixed;
-	    top: 0;
-	    bottom: 0;
-
-	    width: 280px;
-
-	    left: -280px;
-
-	    z-index: 999;
-	    background: #fff;
-	    color: #000;
-
-	    box-shadow: 8px 0 6px -6px #333;
-	}
-	#sidenav.active {
-	    left: 0;
-	}
-	
-	.navbar {
-		box-shadow: 0 8px 6px -6px #333;
-	}
-
-</style>
+<%@ include file="navbar/nav_css.txt" %>
 
 <!-- switch toggle -->
 <style>
@@ -227,13 +187,13 @@ input:checked + .slider:before {
 		overflow: auto;
 	}
 	
-	body {
-		background-color: #aaa;
-	}
 </style>
 
 </head>
 <body>
+
+<%@ include file="navbar/navbar.txt" %>
+<%@ include file="navbar/side_navbar.txt" %>
 
 <div class="container-fluid">
 <div class="row justify-content-around p-3 flex-nowrap">
@@ -303,7 +263,6 @@ for (int i = 0; i < wait_line_queue.size(); i++){
 
 </div>
 
-<%-- visibility:<%= wait_line_queue.getValue(i).getIsCall() ? "visible" : "hidden"%> --%>
 <div class="divTimer" style='display: <%= wait_line_queue.getValue(i).getIsCall() ? "flex" : "none"%>'>
 	<input type="hidden" name="deadline" value="<%= wait_line_queue.getValue(i).getDeadline()%>">
 	<div class="spanTimer"><div class="spanM"></div>:<div class="spanS"></div>:<div class="spanMs"></div></div>
@@ -486,7 +445,72 @@ function checkMember(btnChkMem){
 <!-- ======================= Web Socket =========================== -->
 <script>
 
+	var vendorWaitMgmtWS;
 	
+	// connect
+	window.addEventListener("load", function() {
+		var MyPoint = "/VendorWS/<%= vendor_no %>"; // servlet ServerEndpoint
+		var path = window.location.pathname; // /WebSocketChatWeb/index.html
+		var webCtx = path.substring(0, path.indexOf('/', 1)); // /WebSocketChatWeb
+		var endPointURL = "ws://" + window.location.host + webCtx + MyPoint; 
+		
+		// create a websocket
+		vendorWaitMgmtWS = new WebSocket(endPointURL); // connect ot server ServerEndpoint servlet
+
+		
+		// onopen
+		vendorWaitMgmtWS.onopen = function(event) {
+			showAlert("alert-success", "Web Socket 已連線");
+		};
+		
+		// onmessage
+		vendorWaitMgmtWS.onmessage = function(event) {
+			
+			var jsonObj = JSON.parse(event.data);
+			switch (jsonObj.action) {
+				case "openWaitFun": // 變更候位功能狀態
+					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌候位功能已" + (jsonObj.open_wait ? "開啟" : "關閉"));										
+					openWaitFun(jsonObj.tbl_size, jsonObj.open_wait);
+					break;
+				case "setDeadline": // 叫號
+					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌 " + jsonObj.numberPlate + " 號叫號成功");
+					setDeadline(jsonObj.tbl_size, jsonObj.mem_no, jsonObj.deadline);
+					break;
+				case "returnZero": // 刷新隊伍
+					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌候位號碼已歸零");										
+					setNumberNow(jsonObj.tbl_size, 1);
+					break;
+				case "refreshLine": // 刷新隊伍
+					if (jsonObj.event == "insert") {
+						var jsonObj2 = JSON.parse(jsonObj.result);
+						showAlert("alert-info", jsonObj2.result);
+						setNumberNow(jsonObj.tbl_size, jsonObj2.number_now);
+					} else {
+						showAlert("alert-info", jsonObj.result);
+					}															
+					refreshLine(jsonObj.tbl_size, jsonObj.w_line);
+					break;
+				case "clearLine": // 清空隊伍
+					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌候位列表已清空");										
+					clearLine(jsonObj.tbl_size);
+					break;
+				//case "renewNumberNow": // 更新號碼牌
+				//	setNumberNow(jsonObj.tbl_size, jsonObj.number_now);
+				//	break;
+					
+			}
+		};
+		
+		// onclose
+		vendorWaitMgmtWS.onclose = function(event) {
+			showAlert("alert-danger", "Web Socket 已斷線");
+		};
+	} ,false);
+	
+	// disconnect
+	window.addEventListener("unload", function() {
+		vendorWaitMgmtWS.close();
+	},false);
 	
 // ========================================================================
 	// 變更候位功能狀態
@@ -700,18 +724,9 @@ function createAlert(alertType, msg) {
 	divAlert.appendChild(btnClose);
 
 	return divAlert;
-} 
+}
 
-$(document).ready(function(){
-	$('#btnSidenav').on('click', function () {
-        $('#sidenavOverlay').addClass('active');
-        $('#sidenav').addClass('active');             
-    });
-    $('#sidenavOverlay').on('click', function () {
-        $('#sidenavOverlay').removeClass('active'); 
-        $('#sidenav').removeClass('active');              
-    });
-});
 </script>
+<%@ include file="navbar/side_navbar_js.txt" %>
 </body>
 </html>

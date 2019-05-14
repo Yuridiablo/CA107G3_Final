@@ -28,6 +28,9 @@
     <link rel="stylesheet" type="text/css" href="../front-end/css/set1.css">
     <!-- 自訂 CSS主檔 -->
     <link rel="stylesheet" type="text/css" href="../front-end/css/style.css">
+    
+    
+    
     <title>SeekFoodTable - 首頁</title>
 
     <style type="text/css">
@@ -448,6 +451,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="../front-end/js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script src="../front-end/js/popper.min.js"></script>
     <!-- 貓頭鷹 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
@@ -513,22 +517,17 @@
     	}
     	
     	
-    	if(${errorMsgs!=null}){
-    		var jsonObj = JSON.parse('${errorMsgs}');
-    		for(var i=0;i<jsonObj.length;i++){
-    			Swal.fire({
-    				  type: 'error',
-    				  title: 'Oops...',
-    				  text: jsonObj[i],
-    			})
-    		};
-    	}
 
   
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
     	
  		var randomFlag = Math.floor(Math.random()*10000+1);
  		$("#flag").val(randomFlag);
+//  		$("button").on('click',function(){
+//  			$.cookie("error", null);
+//  		});
+ 			
+ 		
     });
 
     </script>
@@ -549,5 +548,21 @@
 		<c:if test="${account==null&&loginFlag!=null}">
 			<c:remove var="loginFlag"/>
 		</c:if>
- 
+ 		
+ 	<c:if test="${not empty errorMsgs}">
+		<c:forEach var="message" items="${errorMsgs}">
+			<script type="text/javascript">
+				if($.cookie("error")!="${sessionScope.flag}"){
+					Swal.fire({
+					 	 type: 'error',
+					 	 title: 'Oops...',
+					 	 text: '${message}',
+					})
+				}
+			</script>
+		</c:forEach>
+			<script type="text/javascript">
+				$.cookie("error", "${sessionScope.flag}");
+			</script>
+	</c:if>
 </html>

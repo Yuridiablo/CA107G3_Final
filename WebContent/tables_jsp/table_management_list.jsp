@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.tables.model.*" %>
 <%@ page import="java.util.*" %>
 
 <%
-// 	TablesService tablesService = new TablesService();
-// 	List<TablesVO> list = tablesService.getAllByVendor_no("V000001");
-// 	pageContext.setAttribute("list", list);
-	List<TablesVO> tmlist = (List<TablesVO>)request.getAttribute("tmlist");
+	TablesService tablesService = new TablesService();
+	List<TablesVO> list = tablesService.getAllByVendor_no("V000001");
+	pageContext.setAttribute("list", list);
 %>
  
 <!DOCTYPE html>
@@ -18,56 +16,22 @@
 <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<!-- Input type=number -->
-	<script src="../front-end/js/bootstrap-input-spinner.js"></script>
-	
+    
     <title>桌位管理_列表</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	 <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	
-	<!-- Side Nav -->
-	<style type="text/css">
-		#sidenavOverlay {
-		    display: none;
-
-		    position: fixed;
-		    bottom: 0;
-		    left: 0;
-		    right: 0;
-    		top: 0;
-
-    		z-index: 998;
-
-		    background: rgba(0, 0, 0, 0.5);
-		}
-		#sidenavOverlay.active {
-		    display: block;
-		}
-
-
-		#sidenav {
-			position: fixed;
-		    top: 0;
-		    bottom: 0;
-
-		    width: 280px;
-
-		    left: -280px;
-
-		    z-index: 999;
-		    background: #fff;
-		    color: #000;
-
-		    box-shadow: 8px 0 6px -6px #333;
-		}
-		#sidenav.active {
-		    left: 0;
-		}
-		
-		.navbar {
-			box-shadow: 0 8px 6px -6px #333;
-		}
-
-	</style>
+	<!-- Input type=number -->
+	<script src="bootstrap-input-spinner.js"></script>
+	
+	<%@ include file="navbar/nav_css.txt" %>
 	
 	<style>
 		#fgiTblNum {
@@ -76,8 +40,10 @@
 	</style>
 </head>
 <body>
+	<%@ include file="navbar/navbar.txt" %>
+	<%@ include file="navbar/side_navbar.txt" %>
 
-		<div class="container-fluid">
+	<div class="container-fluid">
 		<div class="row justify-content-around p-3">
 
 			<!-- Create Tables -->
@@ -140,14 +106,14 @@
 						<button type="submit" class="btn btn-secondary w-100" id="btnCreateTbl">新增</button>
 					</div>
 					<input type="hidden" name="action" value="insert">
-<!-- 					<input type="hidden" name="vendor_no"	value="V000001"> -->
+					<input type="hidden" name="vendor_no"	value="V000001">
 				</form>
 			</div>
 
 			<!-- Table List -->			
 			<div class="col-6">
 <%@ include file="page1.file" %>
-				<table class="table table-hover table-dark">
+				<table class="table table-hover table-light">
 				  <thead>
 				    <tr>
 				      <th scope="col">桌位編號</th>
@@ -157,7 +123,7 @@
 				  </thead>
 				  <tbody>
 <% pageContext.setAttribute("pageIndex", pageIndex); %>				  
-<c:forEach var="tablesVO" items="${tmlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">		
+<c:forEach var="tablesVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="s">		
 					<tr class="tblObj">
 						<th scope="row">${tablesVO.tbl_no}</th>
 						<td>${tablesVO.tbl_name}</td>
@@ -184,20 +150,20 @@
 				  	<!-- 上一頁 -->
 				 <%if(pageIndex >= rowsPerPage){%>
 				    <li class="page-item">
-				      <a class="page-link" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo&whichPage=<%=whichPage-1%>">Previous</a>
+				      <a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">Previous</a>
 				    </li>
 				 <%}%>
 				    
 				    <!-- 頁數 -->
 				 <% for (int i = 1; i <= pageNumber; i++) { %>
-				 	<li class='page-item <%= i == whichPage ? "active" : ""%>'><a class="page-link" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo&whichPage=<%=i%>"><%= i %></a></li>
+				 	<li class='page-item <%= i == whichPage ? "active" : ""%>'><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=i%>"><%= i %></a></li>
 				 <%}%>  
 				    
 				    
 				    <!-- 下一頁 -->
 				 <%if(pageIndex < pageIndexArray[pageNumber-1]){%>
 				    <li class="page-item">
-				      <a class="page-link" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=listTableinfo&whichPage=<%=whichPage+1%>">Next</a>
+				      <a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>">Next</a>
 				    </li>
 				 <%}%>   
 				  </ul>
@@ -266,20 +232,6 @@
 		</div>
 	</div>
 	
-	<script src="../front-end/js/jquery-3.3.1.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
-	<!-- Input type=number -->
-	<script src="../front-end/js/bootstrap-input-spinner.js"></script>
-	<!--     sweetalert -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-	
 
 	<script>		
 		$(document).ready(function(){
@@ -287,7 +239,6 @@
 		});	    
 	</script>
 	
-    <!-- Side Nav -->
     <script type="text/javascript">
     
         $(document).ready(function () {
@@ -301,16 +252,7 @@
 
 			</c:if>
         	
-        	
-            $('#btnSidenav').on('click', function () {
-                $('#sidenavOverlay').addClass('active');
-                $('#sidenav').addClass('active');             
-            });
-            $('#sidenavOverlay').on('click', function () {
-                $('#sidenavOverlay').removeClass('active'); 
-                $('#sidenav').removeClass('active');              
-            });
-            
+
             // 修改資料
             $(".tblObj").on('click', function() {
             	
@@ -346,6 +288,6 @@
             
         });
     </script>
-	
+	<%@ include file="navbar/side_navbar_js.txt" %>	
   </body>
 </html>

@@ -144,7 +144,7 @@ label {
 							<label for="validationTooltip01">員工姓名 :</label>
 						</div>
 						<div class="col-8">
-							<input type="text" id="emp_name" name="emp_name"
+							<input type="text" id="emp_nameForAddEmp" name="emp_name"
 								class="form-control" placeholder="請輸入真實中文姓名" required
 								pattern="^[\u4E00-\u9FA5]{2,3}$">
 							<div class="invalid-tooltip">請輸入真實中文姓名</div>
@@ -168,11 +168,22 @@ label {
 							<label>設定帳號 :</label>
 						</div>
 						<div class="col-10">
-							<input type="text" name="emp_acc" id="emp_acc"
+							<input type="text" name="emp_acc" id="emp_accForAddEmp"
 								class="form-control" placeholder="請填寫6-10位混和英數字,英文需區分大小寫"
 								maxlength="10" required
 								pattern="^(?=.*\d)(?=.*[A-za-z]).{6,10}$">
 							<div class="invalid-tooltip">請正確格式</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col-2 col-form-label">
+							<label>設定信箱 :</label>
+						</div>
+						<div class="col-10">
+							<input type="mail" name="emp_mail" id="emp_mailForAddEmp"
+								class="form-control" placeholder="請填寫有效信箱"
+								 required>
+							<div class="invalid-tooltip">請輸入正確格式</div>
 						</div>
 					</div>
 					<div class="form-row">
@@ -199,7 +210,7 @@ label {
 					</div>
 					<div class="form-row justify-content-start">
 						<div class="col-4">
-							<input type="button" id="fillmsg">
+							<input type="button" id="fillmsgForAddMem">
 						</div>
 					</div>
 
@@ -256,24 +267,14 @@ label {
 		})();
 
 		$(document).ready(function() {
-			$("#emp_pwd_check").change(function() {
-				var pwdconfirm = this.value;
-				var pwd = document.getElementById("emp_pwd").value;
-				if (pwd != null && pwd != pwdconfirm) {
-					$(".pwdtip").show();
-				} else {
-					$(".pwdtip").hide();
-				}
-			});
 
-			$("#fillmsg").on('click', function() {
-				$("#emp_name").val("陳鶴凌");
+
+			$("#fillmsgForAddMem").on('click', function() {
+				$("#emp_nameForAddEmp").val("陳鶴凌");
 				$("#customRadioInline1").attr("checked", "true");
-				$("#emp_nickname").val("鶴凌");
-				$("#emp_acc").val("c123456");
-				$("#emp_pwd").val("c123456");
-				$("#emp_pwd_check").val("c123456");
-
+				$("#emp_nicknameForAddEmp").val("鶴凌");
+				$("#emp_accForAddEmp").val("c123456");
+				$("#emp_mailForAddEmp").val("ciguana1995@gmail.com");
 			});
 			
 			$("#serchEmp").on('click', function() {
@@ -308,7 +309,8 @@ label {
 		timepicker : false, //timepicker:true,
 		step : 1, //step: 60 (這是timepicker的預設間隔60分鐘)
 		format : 'Y-m-d', //format:'Y-m-d H:i:s',
-		value : new Date()
+		value : new Date(),
+		maxDate:'+1970-01-01'
 	// value:   new Date(),
 	//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 	//startDate:	            '2017/07/10',  // 起始日

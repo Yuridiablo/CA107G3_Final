@@ -98,6 +98,7 @@ font-family:"微軟正黑體";
     <section>
         <div class="container-fluid">
             <div class="row">
+           
                 <div class="col-md-7 responsive-wrap">
                     <div class="row detail-filter-wrap">
                         <div class="col-md-7 featured-responsive">
@@ -165,7 +166,7 @@ font-family:"微軟正黑體";
                         </div>
                     </div>
 
-
+<c:if test="${fn:length(searchMap) == 0}"><h2>查無結果，請重新操作！</h2></c:if>
 <c:forEach var="sMap" items="${searchMap}">
 
                     
@@ -201,7 +202,7 @@ font-family:"微軟正黑體";
                                         <div class="media">
                                         	
                                            <a class="yourpick" href="<%=request.getContextPath()%>/search/search.do?action=meminfo&seletcted_mem=${sMap.value[4]}">
-                                           <img src="<%= request.getContextPath()%>/ShowImg.do?mem_no='${sMap.value[4]}'" class="mr-3 memshow" onerror="this.src='../front-end/images/SeeKFoodA.png'" alt="...">
+                                           <img src="<%= request.getContextPath()%>/ShowImg.do?mem_no='${sMap.value[4]}'" class="mr-3 memshow" onerror="this.src='../front-end/images/dog.png'" alt="...">
                                            </a>
                                           
                                             <div class="media-body">
