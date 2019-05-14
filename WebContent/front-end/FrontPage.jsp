@@ -532,21 +532,25 @@
 
     </script>
 </body>
-		<c:if test="${account!=null&&loginFlag==null}">
+		<c:if test="${account!=null}">
 			<script>
-	    		Swal.fire({
-				  position: 'center',
-				  type: 'success',
-				  title: '${memberVO.mem_name}您好',
-				  showConfirmButton: false,
-				  timer: 2500
-				});
+				if($.cookie("helloMsg")!="seen"){
+		    		Swal.fire({
+						  position: 'center',
+						  type: 'success',
+						  title: '${memberVO.mem_name}您好',
+						  showConfirmButton: false,
+						  timer: 2500
+						});
+			    		$.cookie("helloMsg", "seen");
+				}
 			</script>
-			<c:set var="loginFlag" scope="session" value="true"/>
 		</c:if>
 		
-		<c:if test="${account==null&&loginFlag!=null}">
-			<c:remove var="loginFlag"/>
+		<c:if test="${account==null}">
+			<script>
+	    		$.cookie("helloMsg", null);
+			</script>
 		</c:if>
  		
  	<c:if test="${not empty errorMsgs}">
