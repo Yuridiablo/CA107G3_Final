@@ -116,15 +116,7 @@
 </head>
 
 <body>
-<%-- 錯誤表列 --%>
-<%-- <c:if test="${not empty errorMsgs}"> --%>
-<!-- 	<font style="color:red">請修正以下錯誤:</font> -->
-<!-- 	<ul> -->
-<%-- 		<c:forEach var="message" items="${errorMsgs}"> --%>
-<%-- 			<li style="color:red">${message}</li> --%>
-<%-- 		</c:forEach> --%>
-<!-- 	</ul> -->
-<%-- </c:if> --%>
+
 	<div class="form-row justify-content-center">
 		<div class="col-1 btn1" id="btn1">
 			<label>會員資料修改</label>
@@ -245,7 +237,7 @@
 					</div>
 					<div>
 						<input type="hidden" name="action" value="update_mem_pwd">
-						<button type="submmit" class="btn btn-primary col-12">確認送出</button>
+						<button type="submit" class="btn btn-primary col-12" id="updatePwdBut">確認送出</button>
 					</div>
 				</div>
 			</div>
@@ -321,15 +313,33 @@
 				var pwdconfirm = this.value;
 				if (pwd != null && pwd != pwdconfirm) {
 					$(".pwdtip").show();
+					
 				} else {
 					$(".pwdtip").hide();
+					$("#updatePwdBut").on('click',function(){
+						return true;
+					})
 				}
 
 			});
-
+			
+			$("#updatePwdBut").on('click',function(){
+				if($(".pwdtip").css('display')!="none"){
+					return false;
+				}else{
+					return true;
+				}
+					
+			})
+			
+			if($('#output').width()<=20){
+				$('#output').css('display','none');
+			}
+			
 		});
 		var loadFile = function(e) {
 			var output = document.getElementById('output');
+			$('#output').css('display','');
 			output.src = URL.createObjectURL(event.target.files[0]);
 		};
 	</script>
