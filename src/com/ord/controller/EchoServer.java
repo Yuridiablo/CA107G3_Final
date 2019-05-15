@@ -17,8 +17,8 @@ import javax.websocket.OnError;
 import javax.websocket.OnClose;
 import javax.websocket.CloseReason;
 
-@ServerEndpoint("/MyEchoServer/{booking_date}/{party_size}")
-public class MyEchoServer {
+@ServerEndpoint("/EchoServer/{booking_date}/{party_size}")
+public class EchoServer {
 
 	private static final Set<Session> allSessions_2 = Collections.synchronizedSet(new HashSet<Session>());
 	private static final Set<Session> allSessions_4 = Collections.synchronizedSet(new HashSet<Session>());
@@ -29,7 +29,7 @@ public class MyEchoServer {
 	@OnOpen
 	public void onOpen(@PathParam("booking_date") String booking_date, @PathParam("party_size") int party_size,
 			Session userSession) throws IOException {
-
+System.out.println("開始連線");
 		if (party_size == 1 || party_size == 2) {
 			allSessions_2.add(userSession);
 		} else if (party_size == 3 || party_size == 4) {
