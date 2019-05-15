@@ -853,6 +853,7 @@ public class OrdServlet extends HttpServlet {
 				session.setAttribute("shoppingcart", buylist);
 				session.setAttribute("vendor", vendor);
 				req.setAttribute("share", share);
+				req.setAttribute("total", amount);
 				
 				
 
@@ -896,15 +897,29 @@ public class OrdServlet extends HttpServlet {
 				 	//跳出好友列表
 				 if(action.equals("show_share")) {
 					 List<String> errorMsgs = new LinkedList<String>();
-					 req.setAttribute("errorMsgs", errorMsgs);
-					 String mem_no=(String) session.getAttribute("mem_no");
-					 if(mem_no==null) {
+					 int share1234=0;
+					 String mem_no=null;
+					 try {
+						 share1234=3;
+						 
+						 mem_no=(String) session.getAttribute("mem_no");
+						
+						
+					 }catch(Exception e) {
 						 errorMsgs.add("尚未登入,無法查詢好友");
+						  share1234=0;
+						 
 					 }
-					int share1234=3;
-					 session.setAttribute("share1234", share1234);
-					
-					 
+					 if (!errorMsgs.isEmpty()) {
+						 req.setAttribute("share1234", share1234);
+						 req.setAttribute("errorMsgs", errorMsgs);
+							RequestDispatcher failureView = 
+							req.getRequestDispatcher("/front-end/ord/checkout.jsp");
+							failureView.forward(req, res);
+							return;//程式中斷
+						}
+					 req.setAttribute("share1234", share1234);
+					 req.setAttribute("errorMsgs", errorMsgs);
 						String url = "/front-end/ord/checkout.jsp";
 						RequestDispatcher rd = req.getRequestDispatcher(url);
 						rd.forward(req, res);

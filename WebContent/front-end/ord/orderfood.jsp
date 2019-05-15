@@ -115,10 +115,12 @@
 	</div>	  
 	
 <!-- ========================================================================== -->
-
-  			<c:if test="${(total)>0}">
-     <jsp:include page="/front-end/ord/menucart.jsp" flush="true" />
-  	</c:if>
+<%if (request.getAttribute("total")!=null){%>
+       <jsp:include page="/front-end/ord/menucart.jsp" />
+<%} %>
+<%--   			<c:if test="${(total)>0}"> --%>
+<%--      <jsp:include page="/front-end/ord/menucart.jsp" flush="true" /> --%>
+<%-- <%--   	</c:if> --%> 
 <%-- 			   <%@ include file="/front-end/ord/menucart.jsp"%> --%>
 			
 </div>
