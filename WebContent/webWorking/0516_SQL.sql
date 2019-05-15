@@ -735,8 +735,7 @@ INSERT INTO EMPLOYEE VALUES ('E'||LPAD(to_char(EMPLOYEE_SEQ.nextval), 9, '0'),'�
  '嘉義縣','番路鄉','觸口村車埕51號','4431','大中央牛排館',55,66,77,'1300','1700','0101010','55',NULL,NULL,'1','0','東南亞風味','便宜平價超大份量不怕你吃不飽');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake124','le123456','fake10@gmail.com','2165711','07','801',
  '高雄市','鳳山區','光復路二段132號','62231','彥傑義大利麵',40,35,1,'1300','1700','0101010','91',NULL,NULL,'1','0','義式料理','美味義大利麵讓你欲罷不能');  
-    INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake125','le123456','fake110@gmail.com','2165771','03','337',
- '桃園市','大園區','沙崙里漁港路451巷25號','50005','鼎鈞香香煙',80,75,0,'1000','2100','0101010','91',NULL,NULL,'1','0','東南亞風味','老闆吃什麼，你就吃什麼，老闆通常只需呼吸就會飽');
+
 --WAIT_POS 候位明細
 INSERT INTO WAIT_POS VALUES ('WP'||LPAD(to_char(WAIT_POS_SEQ.NEXTVAL), 8, '0'),'M000001','V000001',10,7,sysdate,3,2);
 INSERT INTO WAIT_POS VALUES ('WP'||LPAD(to_char(WAIT_POS_SEQ.NEXTVAL), 8, '0'),'M000002','V000001',15,6,sysdate,3,2);
