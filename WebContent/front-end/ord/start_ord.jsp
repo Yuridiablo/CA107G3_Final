@@ -35,7 +35,7 @@
 <!-- 評論區樣式 -->
 
 <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/> -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3teApdwmpN2yUfc6dftcDkHw1dLpV2B4&callback=initMap"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3teApdwmpN2yUfc6dftcDkHw1dLpV2B4&callback=initMap"></script> -->
 
 <!-- 提交FORM表單 -->
 <script type="text/javascript">
@@ -51,42 +51,42 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-  <script>
-    $(function(){
-    // 取得使用者輸入的地址
-      var addr = $('#addr').val();
-      // 建立 Geocoder() 物件
-      var gc = new google.maps.Geocoder();
-   // 用使用者輸入的地址查詢
-      gc.geocode({'address': addr}, function(result, status){
-        // 確認 OK
-        if(status == google.maps.GeocoderStatus.OK) {
-          var latlng = result[0].geometry.location;
-          // 將查詢結果設為地圖的中心
-          var LAT=latlng.lat(); //顯示經度
-          var LNG=latlng.lng(); //顯示緯度
+<!--   <script> -->
+//     $(function(){
+//     // 取得使用者輸入的地址
+//       var addr = $('#addr').val();
+//       // 建立 Geocoder() 物件
+//       var gc = new google.maps.Geocoder();
+//    // 用使用者輸入的地址查詢
+//       gc.geocode({'address': addr}, function(result, status){
+//         // 確認 OK
+//         if(status == google.maps.GeocoderStatus.OK) {
+//           var latlng = result[0].geometry.location;
+//           // 將查詢結果設為地圖的中心
+//           var LAT=latlng.lat(); //顯示經度
+//           var LNG=latlng.lng(); //顯示緯度
           
-          var position = {
-              lat: LAT,
-              lng: LNG
-            };
+//           var position = {
+//               lat: LAT,
+//               lng: LNG
+//             };
           
-          var mymap = new google.maps.Map($('#map').get(0), {
-              zoom: 15,
-              center: {lat:LAT , lng:LNG}
-    });
+//           var mymap = new google.maps.Map($('#map').get(0), {
+//               zoom: 15,
+//               center: {lat:LAT , lng:LNG}
+//     });
           
-          var marker = new google.maps.Marker({
-           position: position,
-           map: mymap,
-           animation: google.maps.Animation.BOUNCE
-         });
+//           var marker = new google.maps.Marker({
+//            position: position,
+//            map: mymap,
+//            animation: google.maps.Animation.BOUNCE
+//          });
           
-        }
-      }); 
+//         }
+//       }); 
    
-    });
-    </script>
+//     });
+<!--     </script> -->
 
 
 
@@ -310,7 +310,7 @@ img {
 							<input type="hidden" name="ord_time" value="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/>">
 							<input type="hidden" name="arrival_time" value="${ordVO.arrival_time}"> 
 							<input type="hidden" name="finish_time" value="${ordVO.finish_time}"> 
-							<input type="hidden" name="status" value="0"> 
+							<input type="hidden" name="status" value="1"> 
 							<input type="hidden" name="booking_date" value="${param.booking_date}">		
 							<input type="hidden" name="party_size" value="${param.party_size}">		
 						
@@ -525,7 +525,7 @@ img {
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 
-</style>
+
 	<script>
 		$.datetimepicker.setLocale('zh');
 		$('#f_date1').datetimepicker({
@@ -631,9 +631,9 @@ $("#${exc.rto_no}").click(async function(event){
 </script>
 
 </c:forEach>
-<c:forEach var="exc" items="${lhs}">
+<%-- <c:forEach var="exc" items="${lhs}"> --%>
 <script>
-var MyPoint = "/MyEchoServer/${booking_date}/${party_size}";
+var MyPoint = "/EchoServer/${booking_date}/${party_size}";
 var host = window.location.host;
 var path = window.location.pathname;
 var webCtx = path.substring(0, path.indexOf('/', 1));
@@ -645,6 +645,7 @@ function connect() {
 	webSocket = new WebSocket(endPointURL);
 	webSocket.onopen = function(event) {
 // 		updateStatus("WebSocket 成功連線");
+alert("123123");
 	}
 	
 	webSocket.onclose = function(event) {
@@ -680,13 +681,13 @@ function connect() {
 	}
 	
 </script>
-</c:forEach>
+<%-- </c:forEach> --%>
 <c:forEach var="cmapVO" items="${cMap}">
     <script type="text/javascript">
     $('#s${cmapVO.value.cmnt_no}').starrr({
     	
     	max: 5,
-    	rating:${cmapVO.value.score},
+    	rating:"${cmapVO.value.score}",
     	readOnly: true,
     	emptyClass: 'fa fa-star-o',
         fullClass: 'fa fa-star'
