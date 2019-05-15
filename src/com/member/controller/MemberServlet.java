@@ -374,6 +374,7 @@ public class MemberServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
+				req.setAttribute("updateInFront", "updateInFront");
 				String mem_pwd = req.getParameter("mem_pwd");
 				if (mem_pwd == null || (mem_pwd.trim()).length() == 0) {
 					errorMsgs.add("請填寫密碼");

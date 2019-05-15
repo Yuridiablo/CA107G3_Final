@@ -38,7 +38,7 @@
     		margin-bottom: 100px;
     		font-family:"微軟正黑體";
     	}
-    	#serviceForServ{
+    	#service{
 			width: 60px;
 			height: 60px;
 			border-radius: 30px;
@@ -71,7 +71,7 @@
 			z-index: 999;/*設定顯示層級*/
 			margin: 0;
 		}
-		#serviceForServ:hover{
+		#service:hover{
 			background-color: orange;
 		}
 		#chatTopic{
@@ -225,7 +225,7 @@
 		}
 	%>
 	
-	<div id="serviceForServ" onclick="connect();">線上客服</div>
+	<div id="service" onclick="connect();">線上客服</div>
 
 	
 	<div class="container" id="chatSpace" style="display:none">
@@ -313,8 +313,8 @@
     
     <script type="text/javascript">
     	$(document).ready(function(){
-    		$("#serviceForServ").on('click',function(){
-    			$("#serviceForServ").css('display','none');
+    		$("#service").on('click',function(){
+    			$("#service").css('display','none');
     			$("#chatSpace").css('display','');
     		})
     		$('#chatInput').keydown(function(){
@@ -325,7 +325,7 @@
     		})
     	    $("#closeBut").on('click',function(){
     	    	$("#chatSpace").css('display','none');
-    	    	$("#serviceForServ").css('display','');
+    	    	$("#service").css('display','');
     	    	disconnect();
     	    });
     		
