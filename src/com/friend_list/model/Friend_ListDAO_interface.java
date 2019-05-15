@@ -13,5 +13,5 @@ public interface Friend_ListDAO_interface {
     public List<Friend_ListVO> getAll();
     public List<Friend_ListVO> getAll(String mem_no);
     public Set<Friend_ListVO> getFriend_ListByFrie_code(Integer frie_code);
-
+    public List<Friend_ListVO>getfriendlist(String mem_no);
 }

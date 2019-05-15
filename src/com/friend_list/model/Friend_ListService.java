@@ -61,4 +61,9 @@ public class Friend_ListService {
 	public Set<Friend_ListVO> getFriend_ListByFrie_code(Integer frie_code) {
 		return dao.getFriend_ListByFrie_code(frie_code);
 	}
+	
+	public List<Friend_ListVO> getfriendlist(String mem_no)  {
+		return dao.getfriendlist(mem_no);
+		
+	}
 }

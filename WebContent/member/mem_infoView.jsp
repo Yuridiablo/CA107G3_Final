@@ -117,7 +117,7 @@
                                       
                                       
                                         <fmt:formatDate value="${vcVO.value.time}" pattern="yyyy-MM-dd hh:mm:ss"/>
-                                        <h5>${fn:substringBefore(txt, "，")}</h5>
+                                        <h5>${fn:substringBefore(txt, "，")}${fn:substringBefore(txt, ",")}</h5>
                                     </div>
                                     <div class="customer-rating">${vcVO.key.v_address3}</div>
                                 </div>
