@@ -1,0 +1,63 @@
+﻿  	<script src="<%= request.getContextPath() %>/front-end/js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/popper.min.js"></script>
+    <!-- 貓頭鷹 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- //標題橘色 所有頁面適用 載入樣式 -->
+    <!-- sweet alert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+ <script>
+        $(window).ready(function() {
+            // 100 = The point you would like to fade the nav in.
+                $('.fixed').addClass('is-sticky');
+        });
+    </script>
+    
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		$("#service").on('click',function(){
+    			$("#service").css('display','none');
+    			$("#chatSpace").css('display','');
+    		})
+    		$('#chatInput').keydown(function(){
+    			var input = $('#chatInput').val().trim();
+    			if(event.keyCode == 13&&input!=""){
+        			sendMessage();
+    			}
+    		})
+    	    $("#closeBut").on('click',function(){
+    	    	$("#chatSpace").css('display','none');
+    	    	$("#service").css('display','');
+    	    });
+    		
+        	if(${account!=null}){
+            	$("#loginBut").hide();
+        	}
+        	
+        	if(${account!=null}){
+            	$("#loginBut").hide();
+        	}else{
+        		$("#logoutBut").hide();
+        	}
+    	});
+    </script>
+
+    <!-- 以下Script只有首頁要用 捲動時標題橘色-->
+    <!-- <script>
+        $(window).scroll(function() {
+            // 100 = The point you would like to fade the nav in.
+
+            if ($(window).scrollTop() > 10) {
+
+                $('.fixed').addClass('is-sticky');
+
+            } else {
+
+                $('.fixed').removeClass('is-sticky');
+
+            };
+        });
+    </script> -->
+

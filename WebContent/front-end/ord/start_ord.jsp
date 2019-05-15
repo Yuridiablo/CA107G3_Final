@@ -709,7 +709,7 @@ function connect() {
     </script>
     
  <%@ include file="/front-end/header_footer/footer.txt" %>
-<%@ include file="/front-end/header_footer/footer_js.txt" %>   
+<%@ include file="/front-end/header_footer/footer_js_forOrd.txt" %>   
     
 </body>
 </html>
