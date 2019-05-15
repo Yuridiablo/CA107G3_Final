@@ -40,11 +40,6 @@ response.flushBuffer();
 <html>
 <head>
 <title>Manage Article</title>
-<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
 
@@ -74,8 +69,9 @@ top: 0px;
 </style>
 
 </head>
+<%@ include file="/front-end/header_footer/header_css.txt" %>
 <body>
-
+<%@ include file="/front-end/header_footer/header.txt" %>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -85,10 +81,10 @@ top: 0px;
 	</ul>
 </c:if>
 
-<div class="panel-group" id="accordion">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">
+<div class="card-group" id="accordion">
+	<div class="card">
+		<div class="card-header">
+			<h4 class="card-title">
 				<a data-toggle="collapse" data-parent="#accordion" 
 				   href="#collapseOne">
 					瀏覽自己的文章
@@ -96,7 +92,7 @@ top: 0px;
 			</h4>
 		</div>
 		<div id="collapseOne" class="panel-collapse collapse in">
-			<div class="panel-body">
+			<div class="card-body">
 				<div class="well">
 				<table class="table">
 			      <thead>
@@ -183,9 +179,9 @@ top: 0px;
 			</div>
 		</div>
 	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">
+	<div class="card">
+		<div class="card-header">
+			<h4 class="card-title">
 				<a data-toggle="collapse" data-parent="#accordion" 
 				   href="#collapseTwo">
 					新增文章
@@ -193,7 +189,7 @@ top: 0px;
 			</h4>
 		</div>
 		<div id="collapseTwo" class="panel-collapse collapse">
-			<div class="panel-body">
+			<div class="card-body">
 				
 				<div class="container">
 					<div class="row">
@@ -318,5 +314,7 @@ return false;
 
 }
 </script>
+<%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
 </body>
 </html>

@@ -84,10 +84,7 @@
                                             <a class="dropdown-item" href="#">東南亞風味</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="#">文章列表</a>
-                                    </li>
-                                    <li class="nav-item">
+                                                                       <li class="nav-item">
                                         <a class="nav-link" href="#">關於我們</a>
                                     </li>
                                     <li class="nav-item dropdown">
@@ -97,9 +94,8 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=updateInFront"><span class="icon-user"></span>編輯個人資訊</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-people"></span>好友列表</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-people"></span>我的追蹤會員</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-like"></span>我的收藏店家</a>
+                                            <a class="dropdown-item" href="#"><span class="icon-people"></span>社交清單管理</a>
+                                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Article_Published_JSP/manage_article_published.jsp"><span class="icon-like"></span>我的文章管理</a>
                                             <a class="dropdown-item" href="<%=request.getContextPath()%>/member/member.do?action=myOrder"><span class="icon-docs"></span>我的訂單</a>
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
                                         </div>
@@ -178,13 +174,16 @@
                                         </form>
                                          </div>
                                         <div class="tab-pane fade show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                          <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Article_Published/article_published.do">
                                             <div class="input-group">
-                                                <input type="text"  class="form-control" placeholder="輸入文章標題或內文.." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                                <input type="text"  class="form-control" placeholder="輸入文章標題或內文.." aria-label="Recipient's username" aria-describedby="button-addon2" name="art_content">
+                                                <input type="hidden" name="action" value="listArticle_PublishedByCompositeQuery">
                                                 <div class="input-group-append">
-                                                	
                                                     <button class="btn btn-primary" type="submit" id="button-addon3"><span class="icon-magnifier search-icon"></span>找文章GO</button>
                                                 </div>
                                             </div>
+                                            </FORM>
+                                            
                                         </div>
                                     </div>
                              

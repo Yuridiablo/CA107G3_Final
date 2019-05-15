@@ -40,6 +40,9 @@
           font-size: 3.5rem;
         }
       }
+      .text-center{
+      	flex:warp;
+      }
     </style>
     <!-- Custom styles for this template -->
    

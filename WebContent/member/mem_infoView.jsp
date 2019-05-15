@@ -62,7 +62,7 @@
                         <div class="follow-img">
                             <img src="<%= request.getContextPath()%>/ShowImg.do?mem_no='${select_mVO.mem_no}'" class="mr-3 memshow" onerror="this.src='../front-end/images/dog.png'" alt="...">
                             <h3>${select_mVO.mem_nickname}</h3>
-                            <span>New York</span>
+                            <span>${select_mVO.mem_account}</span>
                         </div>
                         <ul class="social-counts">
                             <li>

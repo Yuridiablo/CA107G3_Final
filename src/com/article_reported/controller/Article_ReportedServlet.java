@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.article_reported.model.*;
+import com.vendor.model.VendorService;
+import com.vendor.model.VendorVO;
 import com.article_published.model.*;
 
 //參考資料：https://blog.csdn.net/qx5211258/article/details/45220135
@@ -174,6 +176,29 @@ public class Article_ReportedServlet extends HttpServlet{
 //				failureView.forward(req, res);
 //			}
 //		}
+		
+			if ("listArtRep".equals(action)) {
+			
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+//				VendorVO vVO = (VendorVO) se.getAttribute("vVO");
+				String artRep = "artRep";
+				req.setAttribute("artRep", artRep);
+				/*************************** 2.開始查詢資料 ****************************************/
+		
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				// 要改成員工主頁面
+				String url = "/back-end/employeeScreen.jsp";
+//				res.sendRedirect(url);
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
+				successView.forward(req, res);
+	
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
 	}
 	
 }

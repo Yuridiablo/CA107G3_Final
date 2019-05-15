@@ -5,9 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/front-end/header_footer/header_css.txt" %>
 <meta charset="BIG5">
 <title>Insert title here</title>
-<%@ include file="/front-end/header_footer/header_css.txt" %>
+
 </head>
 <body>
 <%@ include file="/front-end/header_footer/header.txt" %>

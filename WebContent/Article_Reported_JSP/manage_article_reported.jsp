@@ -22,16 +22,13 @@ pageContext.setAttribute("list",list);
 <html>
 <head>
 <title>Manage Article_Reported</title>
-<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
 img{
 max-width:50px;
 max-height:50px;
 }
-.panel-heading{
+.card-header{
 width:200px;
 background-color:#00ffb2;
 }
@@ -39,7 +36,7 @@ background-color:#00ffb2;
 
 </head>
 <body>
-
+<div class="container">
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -49,18 +46,18 @@ background-color:#00ffb2;
 	</ul>
 </c:if>
 
-<div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
+<div class="card-group" id="accordion">
+    <div class="card card-default">
+        <div class="card-header">
+            <h4 class="card-title">
                 <a data-toggle="collapse" data-parent="#accordion" 
                 href="#collapseOne">
                 	查閱文章檢舉
                 </a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in">
-            <div class="panel-body">
+        <div id="collapseOne" class="card-collapse collapse in">
+            <div class="card-body">
             	<div class="well">
                 <table class="table">
 			      <thead>
@@ -135,7 +132,7 @@ background-color:#00ffb2;
         </div>
     </div>
 </div>
-
+</div>
 
 
 
