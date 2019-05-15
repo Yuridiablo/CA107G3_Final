@@ -78,6 +78,10 @@ public class VendorService {
 		return dao.getAll();
 	}
 	
+	public List<VendorVO> findByType(String v_type) {
+		return dao.findByType(v_type);
+	}
+	
 	public List<VendorVO> search(String v_name){
 		return dao.search(v_name);
 	}

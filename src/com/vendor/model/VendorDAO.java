@@ -37,6 +37,7 @@ public class VendorDAO implements VendorDAO_interface {
 	private static final String DELETE = "DELETE FROM Vendor WHERE vendor_no =?";
 	private static final String GET_ONE_STMT = "SELECT * FROM Vendor WHERE Vendor_NO = ?";
 	private static final String GET_ACC_STMT = "SELECT * FROM Vendor WHERE v_account = ?";
+	private static final String GET_TYPE_STMT = "SELECT * FROM Vendor WHERE v_type = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM Vendor ";
 	private static final String SEARCH_STMT = "SELECT * FROM Vendor WHERE V_NAME like ? ";
 
@@ -595,6 +596,76 @@ public class VendorDAO implements VendorDAO_interface {
 	}
 	
 	
+	
+	
+	@Override
+	public List<VendorVO> findByType(String v_type) {
+		List<VendorVO> vlist = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		VendorVO vendor = null;
+
+		try {
+			con = ds.getConnection();
+			pstm = con.prepareStatement(GET_TYPE_STMT);
+			pstm.setString(1, v_type);
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				vendor = new VendorVO();
+
+				vendor.setVendor_no(rs.getString("vendor_no"));
+				vendor.setV_account(rs.getString("v_account"));
+				vendor.setV_pwd(rs.getString("v_pwd"));
+				vendor.setV_mail(rs.getString("v_mail"));
+				vendor.setV_tel(rs.getString("v_tel"));
+				vendor.setV_n_code(rs.getString("v_n_code"));
+				vendor.setV_ad_code(rs.getString("v_ad_code"));
+				vendor.setV_address1(rs.getString("v_address1"));
+				vendor.setV_address2(rs.getString("v_address2"));
+				vendor.setV_address3(rs.getString("v_address3"));
+				vendor.setV_wallet(rs.getString("v_wallet"));
+				vendor.setV_name(rs.getString("v_name"));
+				vendor.setV_w_no(rs.getInt("v_w_no"));
+				vendor.setV_n_no(rs.getInt("v_n_no"));
+				vendor.setV_alt_no(rs.getInt("v_alt_no"));
+				vendor.setV_start_time(rs.getString("v_start_time"));
+				vendor.setV_end_time(rs.getString("v_end_time"));
+				vendor.setV_day(rs.getString("v_day"));
+				vendor.setV_tables(rs.getString("v_tables"));
+				// vendor.setV_pic();
+				// vendor.setV_ad();
+				vendor.setV_status(rs.getString("v_status"));
+				vendor.setV_wait_status(rs.getString("v_wait_status"));
+				vendor.setV_type(rs.getString("v_type"));
+				vendor.setV_text(rs.getString("v_text"));
+				
+				// 裝入集合
+				vlist.add(vendor);
+			}
+			System.out.println("查詢完畢");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstm != null) {
+				try {
+					pstm.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return vlist;
+	}
+
 	@Override
 	public void detail(VendorVO vendorVO) {
 		// TODO Auto-generated method stub

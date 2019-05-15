@@ -77,11 +77,11 @@
                                             <span class="icon-arrow-down"></span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#">中式料理</a>
-                                            <a class="dropdown-item" href="#">美式餐廳</a>
-                                            <a class="dropdown-item" href="#">日本料理</a>
-                                            <a class="dropdown-item" href="#">義式料理</a>
-                                            <a class="dropdown-item" href="#">東南亞風味</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=中式料理">中式料理</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=美式餐廳">美式餐廳</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=日本料理">日本料理</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=義式料理">義式料理</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=東南亞風味">東南亞風味</a>
                                         </div>
                                     </li>
                                                                        <li class="nav-item">
