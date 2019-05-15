@@ -341,7 +341,7 @@ $("#btnNewWI").click(function(){
 	$('#newWIModal').modal('hide');
 });
 
-
+ 
 // 桌況設定
 $("#btnTblStat_empty").click(function(){
 	setTblStatus(0, null);

@@ -69,7 +69,7 @@ public class Bill {
 		this.party_size = pil.getParty_size();
 		this.bill_items = new LinkedHashMap<String, Bill_item>(); 		
 	}
-	
+	 
 
 	// from 散客
 	public Bill(String tbl_no, Integer party_size) {

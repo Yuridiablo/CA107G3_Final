@@ -53,6 +53,6 @@ public class Bill_item {
 	public String toString() {
 		return "Bill_item [menu_no=" + menu_no + ", qty=" + qty + ", unitPrice=" + unitPrice + "]";
 	}
-	
+	 
 	
 }

@@ -37,5 +37,5 @@ public class Tbl {
 		return "Tbl [tblVO=" + tblVO + ", status=" + status + ", bill=" + bill + "]";
 	}
 	
-	
+	 
 }
