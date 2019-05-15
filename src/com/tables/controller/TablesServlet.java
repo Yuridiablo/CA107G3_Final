@@ -345,7 +345,7 @@ public class TablesServlet extends HttpServlet {
 			jbMsg.addProperty("status", status);
 			String jsonStr = jbMsg.toString();
 			out.print(jsonStr);
- 			
+			
 			System.out.println(vendor_tbls);
 			
 		} // end of setTblStatus

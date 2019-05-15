@@ -60,5 +60,5 @@ public class TablesVO implements java.io.Serializable {
 				+ tbl_size + ", tbl_type=" + tbl_type + ", tbl_x=" + tbl_x + ", tbl_y=" + tbl_y + "]";
 	}
 
-	 
+	
 }

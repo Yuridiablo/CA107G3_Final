@@ -25,7 +25,7 @@ public class Tbls {
 			this.tbls.put(tblVO.getTbl_no(), tbl);
 		}
 		// if there is no table ...
- 		
+		
 		
 		// initialize bill list
 		this.bills = new LinkedHashMap<String, Bill>();

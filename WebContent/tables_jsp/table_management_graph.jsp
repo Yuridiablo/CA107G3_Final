@@ -11,7 +11,7 @@
 	
 	int tblWidth = 100;
 %>
- 
+
 <!doctype html>
 <html lang="en">
   <head>
