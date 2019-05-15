@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/css/bootstrap-4.3.1.min.css">
     <!-- 以下是 自訂的東西 --> 
     <!-- 線條樣式 -->
        <!-- 線條樣式 -->
@@ -94,7 +94,7 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=updateInFront"><span class="icon-user"></span>編輯個人資訊</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-people"></span>社交清單管理</a>
+                                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Friend_List/friend_list.do?action=myFriend"><span class="icon-people"></span>社交清單管理</a>
                                             <a class="dropdown-item" href="<%=request.getContextPath()%>/Article_Published_JSP/manage_article_published.jsp"><span class="icon-like"></span>我的文章管理</a>
                                             <a class="dropdown-item" href="<%=request.getContextPath()%>/member/member.do?action=myOrder"><span class="icon-docs"></span>我的訂單</a>
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
@@ -164,7 +164,7 @@
                                                 <input type="text" class="form-control" placeholder="輸入會員暱稱或帳號.." aria-label="Recipient's username" aria-describedby="button-addon2" name="mem_account_nickname">
                                                 <div class="input-group-append">
                                                 <input type="hidden" name="action" value="selectOneMember" >
-                                                <input type="hidden" name="flag" id="flag" value="">
+                                                <input type="hidden" name="flag" class="flag" value="">
                                                     <button class="btn btn-success" type="submit" id="button-addon4"><span class="icon-magnifier search-icon"></span>找會員GO</button>
                                                 </div>
                                             </div>
@@ -449,12 +449,12 @@
     <!--//END FOOTER -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../front-end/js/jquery-3.3.1.min.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <script src="../front-end/js/popper.min.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/popper.min.js" type="text/javascript"></script>
     <!-- 貓頭鷹 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
     <!-- //標題橘色 所有頁面適用 載入樣式 -->
     <!-- sweet alert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
@@ -521,10 +521,8 @@
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
     	
  		var randomFlag = Math.floor(Math.random()*10000+1);
- 		$("#flag").val(randomFlag);
-//  		$("button").on('click',function(){
-//  			$.cookie("error", null);
-//  		});
+ 		$(".flag").val(randomFlag);
+
  			
  		
     });
@@ -555,7 +553,7 @@
  	<c:if test="${not empty errorMsgs}">
 		<c:forEach var="message" items="${errorMsgs}">
 			<script type="text/javascript">
-				if($.cookie("error")!="${sessionScope.flag}"){
+				if($.cookie("error")!="${flag}"){
 					Swal.fire({
 					 	 type: 'error',
 					 	 title: 'Oops...',
@@ -565,7 +563,7 @@
 			</script>
 		</c:forEach>
 			<script type="text/javascript">
-				$.cookie("error", "${sessionScope.flag}");
+				$.cookie("error", "${flag}");
 			</script>
 	</c:if>
 </html>

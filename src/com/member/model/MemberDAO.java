@@ -33,7 +33,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String DELETE = "DELETE FROM MEMBER WHERE MEM_NO =?";
 	private static final String GET_ONE_STMT = "SELECT * FROM MEMBER WHERE MEM_NO = ?";
 	private static final String GET_ONE_STMT_BY_ACCOUNT = "SELECT * FROM MEMBER WHERE MEM_ACCOUNT = ?";
-	private static final String GET_ALL_STMT_BY_NICKNAME = "SELECT * FROM MEMBER WHERE MEM_NICKNAME = ?";
+	private static final String GET_ALL_STMT_BY_NICKNAME = "SELECT * FROM MEMBER WHERE MEM_NICKNAME LIKE ?";
 	private static final String GET_ALL_STMT_BY_NAME = "SELECT * FROM MEMBER WHERE MEM_NAME = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM MEMBER ";
 
@@ -484,7 +484,7 @@ public class MemberDAO implements MemberDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ALL_STMT_BY_NICKNAME);
-			pstm.setString(1, mem_nickname);
+			pstm.setString(1, "%" + mem_nickname + "%");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				member = new MemberVO();

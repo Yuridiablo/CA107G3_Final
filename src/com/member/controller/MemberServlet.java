@@ -189,10 +189,23 @@ public class MemberServlet extends HttpServlet {
 			}
 		}
 		if ("login".equals(action)) {
-			Gson gson = new Gson();
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
+				
+				String flag = req.getParameter("flag");
+				System.out.println("flag="+flag);
+				String preFlag = (String) req.getAttribute("flag");
+				
+				if(flag.equals(preFlag)) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
+					failureView.forward(req, res);
+					return;// 程式中斷
+				}else {
+					req.setAttribute("flag", flag);
+				}
+				
 				String mem_account = req.getParameter("mem_account");
 				String mem_accountReg = "^[0-9a-zA-z]{6,10}$";
 				System.out.println(mem_account);
@@ -211,8 +224,6 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					String jerrorMsgs = gson.toJson(errorMsgs);
-					req.setAttribute("errorMsgs", jerrorMsgs);
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
@@ -226,8 +237,6 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					String jerrorMsgs = gson.toJson(errorMsgs);
-					req.setAttribute("errorMsgs", jerrorMsgs);
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
@@ -242,13 +251,11 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					String jerrorMsgs = gson.toJson(errorMsgs);
-					req.setAttribute("errorMsgs", jerrorMsgs);
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
-
+				
 				HttpSession session = req.getSession();
 				session.setAttribute("account", req.getParameter("mem_account"));
 				session.setAttribute("memberVO", memberVO);
@@ -258,8 +265,7 @@ public class MemberServlet extends HttpServlet {
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				String jerrorMsgs = gson.toJson(errorMsgs);
-				req.setAttribute("errorMsgs", jerrorMsgs);
+
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
 
@@ -429,16 +435,15 @@ public class MemberServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				HttpSession session = req.getSession();
 				String flag = req.getParameter("flag");
-				String preFlag = (String) session.getAttribute("flag");
+				String preFlag = (String) req.getAttribute("flag");
 				
 				if(flag.equals(preFlag)) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}else {
-					session.setAttribute("flag", flag);
+					req.setAttribute("flag", flag);
 				}
 				
 				

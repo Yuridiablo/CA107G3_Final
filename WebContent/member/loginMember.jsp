@@ -87,6 +87,7 @@
 						</div>
 					</div>
 					<input type="hidden" name="action" value="login">
+					<input type="hidden" name="flag" class="flag" value="">
 					<button type="submit" class="btn btn-primary col-12" id="submmit">登入
 						Login</button>
 				</div>
@@ -176,7 +177,7 @@
 						$("#mem_pwd").val("aa1234");
 						$("#inputconfirm").val(vstring);
 					})
-
+					
 				});
 	</script>
 </body>
