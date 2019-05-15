@@ -854,6 +854,7 @@ public class OrdServlet extends HttpServlet {
 				session.setAttribute("vendor", vendor);
 				req.setAttribute("share", share);
 				
+				
 
 				String url = "/front-end/ord/orderfood.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
@@ -874,6 +875,7 @@ public class OrdServlet extends HttpServlet {
 						amount += (price * quantity);
 					}
 					
+					
 					String booking_time=(String) session.getAttribute("booking_time");
 					System.out.println("check==booking"+booking_time);
 					
@@ -884,20 +886,26 @@ public class OrdServlet extends HttpServlet {
 					session.setAttribute("date", date);
 					session.setAttribute("total", total);
 					System.out.println("total000000000"+total);
-					String url = "/front-end/ord/check.jsp";
+					String url = "/front-end/ord/checkout.jsp";
 					RequestDispatcher rd = req.getRequestDispatcher(url);
 					rd.forward(req, res);
+					
 					
 				 }
 				 
 				 	//跳出好友列表
 				 if(action.equals("show_share")) {
-					 
-					 String share1234="MM";
-					
+					 List<String> errorMsgs = new LinkedList<String>();
+					 req.setAttribute("errorMsgs", errorMsgs);
+					 String mem_no=(String) session.getAttribute("mem_no");
+					 if(mem_no==null) {
+						 errorMsgs.add("尚未登入,無法查詢好友");
+					 }
+					int share1234=3;
 					 session.setAttribute("share1234", share1234);
 					
-						String url = "/front-end/ord/check.jsp";
+					 
+						String url = "/front-end/ord/checkout.jsp";
 						RequestDispatcher rd = req.getRequestDispatcher(url);
 						rd.forward(req, res);
 					}
@@ -926,7 +934,7 @@ public class OrdServlet extends HttpServlet {
 							}
 							if (!errorMsgs.isEmpty()) {
 								RequestDispatcher failureView = 
-								req.getRequestDispatcher("/front-end/ord/check.jsp");
+								req.getRequestDispatcher("/front-end/ord/checkout.jsp");
 								failureView.forward(req, res);
 								return;//程式中斷
 							}
@@ -952,7 +960,7 @@ public class OrdServlet extends HttpServlet {
 				 }
 					 if (!errorMsgs.isEmpty()) {
 							RequestDispatcher failureView = 
-							req.getRequestDispatcher("/front-end/ord/check.jsp");
+							req.getRequestDispatcher("/front-end/ord/checkout.jsp");
 							failureView.forward(req, res);
 							return;//程式中斷
 						}
@@ -1040,14 +1048,17 @@ public class OrdServlet extends HttpServlet {
 					      mailService.sendMail(email3, subject, messageText);
 					      mailService.sendMail(email4, subject1, messageText1);
 					      
+					      String url = "/front-end/FrontPage.jsp";
+							RequestDispatcher rd = req.getRequestDispatcher(url);
+							rd.forward(req, res);
 					      
 				 } catch (Exception e) {
 						errorMsgs.add("請輸入正確資訊:" + e.getMessage());
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/front-end/ord/check.jsp");
+								.getRequestDispatcher("/front-end/ord/checkout.jsp");
 						failureView.forward(req, res);
 					}
-			 }
+	}
 				 
 				 
 				 //個人信用卡付款
@@ -1134,7 +1145,7 @@ public class OrdServlet extends HttpServlet {
 					 Integer share_amount=share_amount1+share_amount2;
 					 System.out.println(" ====total"+total);
 					 if(share_amount<total) {   //付款金額相加小於總total
-						 String url = "/front-end/ord/start_ord.jsp";
+						 String url = "/front-end/FrontPage.jsp";
 							RequestDispatcher successView = req.getRequestDispatcher(url); 
 							successView.forward(req, res);		
 					 }else {
@@ -1250,7 +1261,7 @@ public class OrdServlet extends HttpServlet {
 							session.removeAttribute("share_mem_no2");
 				
 						/***************************3.新增完成,準備轉交(Send the Success view)***********/
-						String url = "/frond-end/ord/start_ord.jsp";
+						String url = "/front-end/FrontPage.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 						successView.forward(req, res);	
 //						 

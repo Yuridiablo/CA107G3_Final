@@ -64,12 +64,12 @@ body {
                 </span>
                 <table class="table table-hover">
                     <thead>
-                        <tr>
+                        
                             <th>餐點</th>
                             <th>數量</th>
                             <th class="text-center">單價</th>
                   
-                        </tr>
+                       
                     </thead>
                       <tbody>
          <%  @SuppressWarnings("unchecked")

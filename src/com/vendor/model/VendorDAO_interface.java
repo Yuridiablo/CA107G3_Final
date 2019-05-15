@@ -40,6 +40,7 @@ public interface VendorDAO_interface {
 	//以帳號查一間餐廳(登入用)(OK)
 	public VendorVO findByAcc(String v_account);
 	
+	public List<VendorVO> findByType(String v_type);
 
 	public List<VendorVO> getAll();
 	

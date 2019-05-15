@@ -72,7 +72,7 @@
 		<div class="row justify-content-center">
 			<div class="col-md-5">	
 		<input type="hidden" name="action" value="share_pick"> 
-		<button class="btn btn-success btn-lg btn2-block" type="submit" >送出</button>   
+		<button class="btn btn-success btn-lg " type="submit" >送出</button>   
 			</form>
 			</div>
 			</div>

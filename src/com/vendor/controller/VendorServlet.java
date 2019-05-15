@@ -748,12 +748,21 @@ public class VendorServlet extends HttpServlet {
 			OrdService oSvc = new OrdService();
 			MemberService mSvc = new MemberService();
 			String scoreWant = req.getParameter("scoreSelect");
-			
+			String v_type = req.getParameter("v_type");
 			
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
+				List<VendorVO> searchlist = new ArrayList<>();
+				if(v_type.length()!=0) {
+					System.out.println("ininininininin");
+					System.out.println(v_type);
+					searchlist = vSvc.findByType(v_type);
+				}else {
+					searchlist = vSvc.search(v_name);
+				}
 				
-				List<VendorVO> searchlist = vSvc.search(v_name);
+				System.out.println(searchlist.size());
+				
 				List<VendorVO> alllist = vSvc.getAll().stream().filter(v -> v.getV_status().equals("1")).collect(Collectors.toList());
 				List<CommentsVO> allComList = cSvc.getAll();
 				
@@ -841,6 +850,8 @@ public class VendorServlet extends HttpServlet {
 					} else {
 						infoString.add("尚無評論！");
 					}
+					
+//					searchMap.put(vVO, infoString);
 					
 					if(Double.parseDouble(infoString.get(0)) >= Double.parseDouble(scoreWant)) {
 						searchMap.put(vVO, infoString);

@@ -102,6 +102,19 @@ System.out.println("開始連線");
 	public void onClose(Session userSession, CloseReason reason) {
 //		allSessions.remove(userSession);
 
+		if (allSessions_2.contains(userSession)) {
+			allSessions_2.remove(userSession);
+		} else if (allSessions_4.contains(userSession)) {
+			allSessions_4.remove(userSession);
+		} else if (allSessions_6.contains(userSession)) {
+			allSessions_6.remove(userSession);
+		} else if (allSessions_8.contains(userSession)) {
+			allSessions_8.remove(userSession);
+		} else if (allSessions_10.contains(allSessions_10) ) {
+			allSessions_10.remove(userSession);
+		}
+		
+		
 		String text = String.format("session ID = %s, disconnected; close code = %d; reason phrase = %s",
 				userSession.getId(), reason.getCloseCode().getCode(), reason.getReasonPhrase());
 		System.out.println(text);

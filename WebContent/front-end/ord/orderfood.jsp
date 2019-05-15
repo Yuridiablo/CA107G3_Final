@@ -69,11 +69,11 @@
 <div class="col-md-12 ">
 	
 <!-- ============================================================================= -->
-	 <form name="shopping" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
+	 
 		<div class="yourmenu d-flex flex-wrap">
 		<c:forEach var="menu_n" items="${res_menuSvc.getVendor(vendor_no)}">
 		<div class="col-md-4">
-						 
+			<form name="shopping" action="<%=request.getContextPath()%>/ord/ord.do" method="get">			 
 						 
 						   
 						  <div class="card-deck mb-12 text-center">
@@ -109,11 +109,11 @@
 <input type="hidden" name="action" value="ADD_menu">
 <%-- <input type="hidden" name="quantity" value="${menu_n.quantity}"> --%>
 
-
+</form>
 		 </div>
 		  </c:forEach>  
 	</div>	  
-	</form>
+	
 <!-- ========================================================================== -->
 
   			<c:if test="${(total)>0}">
