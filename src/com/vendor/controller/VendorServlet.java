@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Collections;
@@ -768,13 +769,26 @@ public class VendorServlet extends HttpServlet {
 			MemberService mSvc = new MemberService();
 			String scoreWant = req.getParameter("scoreSelect");
 			String v_type = req.getParameter("v_type");
+			String v_position = req.getParameter("v_position");
+			String north[] = {"基隆","台北","桃園","新竹","苗栗","新北"};
+			String center[] = {"台中","彰化","南投","雲林","嘉義" };
+			String south[] = {"台南","高雄","屏東" };
+			String east[] = {"宜蘭","花蓮","台東" };
+			List<String> northPos =  Arrays.asList(north);
+			List<String> centerPos =  Arrays.asList(center);
+			List<String> southPos =  Arrays.asList(south);
+			List<String> eastPos =  Arrays.asList(east);
 			
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				List<VendorVO> searchlist = new ArrayList<>();
 				if(v_type!=null) {
 					searchlist = vSvc.findByType(v_type);
-				}else {
+				}else if(v_position!=null){
+					searchlist = vSvc.getAll();
+//					searchlist.stream()
+//					.filter(v -> northPos.contains(v.getV_address1()))
+				}else{
 					searchlist = vSvc.search(v_name);
 				}
 				

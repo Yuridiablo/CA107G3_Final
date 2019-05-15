@@ -66,9 +66,10 @@
                                             <span class="icon-arrow-down"></span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#">北部</a>
-                                            <a class="dropdown-item" href="#">中部</a>
-                                            <a class="dropdown-item" href="#">南部</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_position=north">北部</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_position=center">中部</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_position=south">南部</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_position=east">東部</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
