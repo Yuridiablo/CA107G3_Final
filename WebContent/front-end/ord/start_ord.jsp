@@ -35,7 +35,7 @@
 <!-- 評論區樣式 -->
 
 <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/> -->
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3teApdwmpN2yUfc6dftcDkHw1dLpV2B4&callback=initMap"></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3teApdwmpN2yUfc6dftcDkHw1dLpV2B4&callback=initMap"></script>
 
 <!-- 提交FORM表單 -->
 <script type="text/javascript">
@@ -51,42 +51,42 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-<!--   <script> -->
-//     $(function(){
-//     // 取得使用者輸入的地址
-//       var addr = $('#addr').val();
-//       // 建立 Geocoder() 物件
-//       var gc = new google.maps.Geocoder();
-//    // 用使用者輸入的地址查詢
-//       gc.geocode({'address': addr}, function(result, status){
-//         // 確認 OK
-//         if(status == google.maps.GeocoderStatus.OK) {
-//           var latlng = result[0].geometry.location;
-//           // 將查詢結果設為地圖的中心
-//           var LAT=latlng.lat(); //顯示經度
-//           var LNG=latlng.lng(); //顯示緯度
+  <script>
+     $(function(){
+     // 取得使用者輸入的地址
+       var addr = $('#addr').val();
+       // 建立 Geocoder() 物件
+       var gc = new google.maps.Geocoder();
+    // 用使用者輸入的地址查詢
+       gc.geocode({'address': addr}, function(result, status){
+         // 確認 OK
+         if(status == google.maps.GeocoderStatus.OK) {
+           var latlng = result[0].geometry.location;
+           // 將查詢結果設為地圖的中心
+           var LAT=latlng.lat(); //顯示經度
+           var LNG=latlng.lng(); //顯示緯度
           
-//           var position = {
-//               lat: LAT,
-//               lng: LNG
-//             };
+           var position = {
+               lat: LAT,
+               lng: LNG
+             };
           
-//           var mymap = new google.maps.Map($('#map').get(0), {
-//               zoom: 15,
-//               center: {lat:LAT , lng:LNG}
-//     });
+           var mymap = new google.maps.Map($('#map').get(0), {
+               zoom: 15,
+               center: {lat:LAT , lng:LNG}
+     });
           
-//           var marker = new google.maps.Marker({
-//            position: position,
-//            map: mymap,
-//            animation: google.maps.Animation.BOUNCE
-//          });
+           var marker = new google.maps.Marker({
+            position: position,
+            map: mymap,
+            animation: google.maps.Animation.BOUNCE
+          });
           
-//         }
-//       }); 
+         }
+       }); 
    
-//     });
-<!--     </script> -->
+     });
+    </script> 
 
 
 

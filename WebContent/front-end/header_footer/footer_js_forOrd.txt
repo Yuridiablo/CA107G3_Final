@@ -15,35 +15,7 @@
         });
     </script>
     
-    <script type="text/javascript">
-    	$(document).ready(function(){
-    		$("#service").on('click',function(){
-    			$("#service").css('display','none');
-    			$("#chatSpace").css('display','');
-    		})
-    		$('#chatInput').keydown(function(){
-    			var input = $('#chatInput').val().trim();
-    			if(event.keyCode == 13&&input!=""){
-        			sendMessage();
-    			}
-    		})
-    	    $("#closeBut").on('click',function(){
-    	    	$("#chatSpace").css('display','none');
-    	    	$("#service").css('display','');
-    	    });
-    		
-        	if(${account!=null}){
-            	$("#loginBut").hide();
-        	}
-        	
-        	if(${account!=null}){
-            	$("#loginBut").hide();
-        	}else{
-        		$("#logoutBut").hide();
-        	}
-    	});
-    </script>
-
+    
     <!-- 以下Script只有首頁要用 捲動時標題橘色-->
     <!-- <script>
         $(window).scroll(function() {
