@@ -395,14 +395,14 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/member/updateMember.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
 					failureView.forward(req, res);
 					return;// 程式中斷
 				}
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/member/updateMember.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -413,12 +413,12 @@ public class MemberServlet extends HttpServlet {
 						memberVO.getMem_mail(), memberVO.getMem_tel(), memberVO.getMem_status(), memberVO.getMem_pic(),
 						memberVO.getMem_balance(), memberVO.getMem_name(), memberVO.getMem_account());
 				System.out.println("----------------update---------------------");
-				String url = "/member/loginMember.jsp";
+				String url = "/front-end/FrontPage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/updateMember.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
 				failureView.forward(req, res);
 			}
 		}

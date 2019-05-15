@@ -14,9 +14,7 @@
 <html>
 <head>
 <title>搜尋文章結果</title>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <style>
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,700,400italic);
 
@@ -45,7 +43,9 @@ body {
 
 
 </head>
+<%@ include file="/front-end/header_footer/header_css.txt" %>
 <body>
+<%@ include file="/front-end/header_footer/header.txt" %>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -74,5 +74,7 @@ body {
         </c:forEach>
       </div>
  </div>
+ <%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
 </body>
 </html>

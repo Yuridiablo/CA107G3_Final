@@ -39,6 +39,10 @@ public class NewsService {
 		return dao.findByPrimaryKey(news_no);
 	}
 	
+	public NewsVO getLatestNews() {
+		return dao.findLatest();
+	}
+	
 	public List<NewsVO> getAllByEmp_no(String emp_no){
 		return dao.findByEmployeeNo(emp_no);
 	}

@@ -38,7 +38,7 @@
     		margin-bottom: 100px;
     		font-family:"微軟正黑體";
     	}
-    	#service{
+    	#serviceForServ{
 			width: 60px;
 			height: 60px;
 			border-radius: 30px;
@@ -71,7 +71,7 @@
 			z-index: 999;/*設定顯示層級*/
 			margin: 0;
 		}
-		#service:hover{
+		#serviceForServ:hover{
 			background-color: orange;
 		}
 		#chatTopic{
@@ -153,9 +153,7 @@
                                             <a class="dropdown-item" href="#">東南亞風味</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="#">文章列表</a>
-                                    </li>
+                                   
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">關於我們</a>
                                     </li>
@@ -166,10 +164,9 @@
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=updateInFront"><span class="icon-user"></span>編輯個人資訊</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-people"></span>好友列表</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-people"></span>我的追蹤會員</a>
-                                            <a class="dropdown-item" href="#"><span class="icon-like"></span>我的收藏店家</a>
-                                   			<a class="dropdown-item" href="<%=request.getContextPath()%>/member/member.do?action=myOrder"><span class="icon-docs"></span>我的訂單</a>
+                                            <a class="dropdown-item" href="#"><span class="icon-people"></span>社交清單管理</a>
+                                            <a class="dropdown-item" href="<%=request.getContextPath()%>/Article_Published_JSP/manage_article_published.jsp"><span class="icon-like"></span>我的文章管理</a>
+                                            <a class="dropdown-item" href="<%=request.getContextPath()%>/member/member.do?action=myOrder"><span class="icon-docs"></span>我的訂單</a>
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
                                         </div>
                                     </li>
@@ -228,7 +225,7 @@
 		}
 	%>
 	
-	<div id="service" onclick="connect();">線上客服</div>
+	<div id="serviceForServ" onclick="connect();">線上客服</div>
 
 	
 	<div class="container" id="chatSpace" style="display:none">
@@ -316,8 +313,8 @@
     
     <script type="text/javascript">
     	$(document).ready(function(){
-    		$("#service").on('click',function(){
-    			$("#service").css('display','none');
+    		$("#serviceForServ").on('click',function(){
+    			$("#serviceForServ").css('display','none');
     			$("#chatSpace").css('display','');
     		})
     		$('#chatInput').keydown(function(){
@@ -328,7 +325,8 @@
     		})
     	    $("#closeBut").on('click',function(){
     	    	$("#chatSpace").css('display','none');
-    	    	$("#service").css('display','');
+    	    	$("#serviceForServ").css('display','');
+    	    	disconnect();
     	    });
     		
         	if(${account!=null}){

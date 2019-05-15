@@ -60,6 +60,11 @@
 	height: 38px;
 }
 
+#output{
+	width: 300px;
+	height: 300px;
+}
+
 </style>
 </head>
 
@@ -204,7 +209,7 @@
           </div>
            <div class="container">
                <div class="row">
-               		<img src="" class="col" id="output">
+               		<img src="" style="display:none" class="col" id="output">
                </div>
 				<button type="submit" class="btn btn-warning col submitbut">確定送出</button>
            </div>
@@ -265,6 +270,7 @@
 		var loadFile = function(e) {
 			var output = document.getElementById('output');
 			output.src = URL.createObjectURL(event.target.files[0]);
+			$("#output").css('display','');
 			$(".submitbut").css('display','');
 		};
 	</script>

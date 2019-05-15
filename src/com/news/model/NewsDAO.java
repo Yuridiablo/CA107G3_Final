@@ -34,7 +34,9 @@ public class NewsDAO implements NewsDAO_interface {
 			"SELECT news_no,emp_no,news_cont,news_pic,news_rea FROM news order by news_no";
 		private static final String GET_ONE_STMT = 
 			"SELECT news_no,emp_no,news_cont,news_pic,news_rea FROM news where news_no = ?";
-		private static final String GET_ALL_STMT_BY_EMPNO = 
+		private static final String GET_LATEST_STMT = 
+				"SELECT news_no,emp_no,news_cont,news_pic,news_rea FROM news where news_no = ( select max(news_no) from news )";
+		private static final String GET_ALL_STMT_BY_EMPNO =
 				"SELECT news_no,emp_no,news_cont,news_pic,news_rea FROM news where emp_no = ? order by news_no";
 		private static final String DELETE = 
 			"DELETE FROM news where news_no = ?";
@@ -322,6 +324,62 @@ public class NewsDAO implements NewsDAO_interface {
 			}
 			return list;
 		}
+		
+		
+		
+		@Override
+		public NewsVO findLatest() {
+			NewsVO newsVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_LATEST_STMT);
+				
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					// empVo 也稱為 Domain objects
+					newsVO = new NewsVO();
+					newsVO.setNews_no(rs.getString("news_no"));
+					newsVO.setEmp_no(rs.getString("emp_no"));
+					newsVO.setNews_cont(rs.getString("news_cont"));
+					newsVO.setNews_pic(rs.getBytes("news_pic"));
+					newsVO.setNews_rea(rs.getDate("news_rea"));
+				}// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return newsVO;
+		}
+		
 		
 		public static void main(String[] args) {
 

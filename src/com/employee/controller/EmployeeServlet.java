@@ -632,7 +632,10 @@ public class EmployeeServlet extends HttpServlet {
 				EmployeeVO employeeVO = (EmployeeVO)session.getAttribute("employeeVO");
 				String emp_no = employeeVO.getEmp_no();
 				newsSvc.addNews(emp_no, news_cont, news_pic,new java.sql.Date(System.currentTimeMillis()));
-				System.out.println("7777777777777777777777777777777777777");
+				NewsVO newsVO = newsSvc.getLatestNews();
+				List<NewsVO> list = new ArrayList<NewsVO>();
+				list.add(newsVO);
+				req.setAttribute("list", list);
 				req.setAttribute("listAllNews", "listAllNews");
 				
 				String url = "/back-end/employeeScreen.jsp";

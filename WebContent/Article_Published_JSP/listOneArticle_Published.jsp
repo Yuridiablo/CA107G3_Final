@@ -15,9 +15,7 @@
 	session.setAttribute("flag", flag);
 %>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <!--
  參考資料：
  1.https://bootsnipp.com/snippets/56bAW
@@ -26,15 +24,13 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>文章個人頁面</title>
-<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="http://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="http://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <style>
 body {
   font-family: 'open sans';
   overflow-x: hidden; }
 
-img {
+.yourcar img {
   width: 100%; 
   height:100%;}
 
@@ -74,9 +70,10 @@ img {
  height:50px;
 }
 </style>
-
+<%@ include file="/front-end/header_footer/header_css.txt" %>
 </head>
 <body>
+<%@ include file="/front-end/header_footer/header.txt" %>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -98,20 +95,20 @@ img {
 						        <li data-target="#myCarousel" data-slide-to="3"></li>
 						        <li data-target="#myCarousel" data-slide-to="4"></li>
 						    </ol>   
-				    <div class="carousel-inner ">
-				        <div class="item active">
+				    <div class="carousel-inner yourcar">
+				        <div class="carousel-item active">
 				            <img src="<%=request.getContextPath()%>/Article_Published/DBGifReader1?art_no=${article_publishedVO.art_no}" alt="First slide">
 				        </div>
-				        <div class="item">
+				        <div class="carousel-item">
 				            <img src="<%=request.getContextPath()%>/Article_Published/DBGifReader2?art_no=${article_publishedVO.art_no}" alt="Second slide">
 				        </div>
-				        <div class="item">
+				        <div class="carousel-item">
 				            <img src="<%=request.getContextPath()%>/Article_Published/DBGifReader3?art_no=${article_publishedVO.art_no}" alt="Third slide">
 				        </div>
-				        <div class="item">
+				        <div class="carousel-item">
 				            <img src="<%=request.getContextPath()%>/Article_Published/DBGifReader4?art_no=${article_publishedVO.art_no}" alt="Third slide">
 				        </div>
-				        <div class="item">
+				        <div class="carousel-item">
 				            <img src="<%=request.getContextPath()%>/Article_Published/DBGifReader5?art_no=${article_publishedVO.art_no}" alt="Third slide">
 				        </div>
 				    </div>
@@ -212,5 +209,7 @@ img {
 			</div>
 		</div>
 	</div>
+	<%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
 </body>
 </html>
