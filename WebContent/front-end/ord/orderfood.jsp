@@ -96,7 +96,7 @@
 									        <button type="submit" class="btn btn-lg btn-block btn-warning" value="Buy"><span class="glyphicon glyphicon-shopping-cart">Buy</span></button>
 									        </div>
 								        </div>
-							      </div>
+							      </div> 
 							    </div>
 							 
 						  </div>	
