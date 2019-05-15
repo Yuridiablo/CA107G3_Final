@@ -2,23 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<jsp:useBean id="nSvc" scope="page" class="com.news.model.NewsService" />
+
 <!DOCTYPE html>
-
-
 <html lang="en">
 
 <head>
-    <!-- jQuery, Bootstrap JS. -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- 貓頭鷹 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>SeekFoodTable - 首頁</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/seekfood_AIy_icon.ico">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="herostyle.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/css/bootstrap-4.3.1.min.css">
-    <!-- 以下是 自訂的東西 --> 
+    <!-- 以下是 自訂的東西 -->
     <!-- 線條樣式 -->
        <!-- 線條樣式 -->
     <link rel="stylesheet" type="text/css" href="../front-end/css/simple-line-icons.css">
@@ -28,25 +34,56 @@
     <link rel="stylesheet" type="text/css" href="../front-end/css/set1.css">
     <!-- 自訂 CSS主檔 -->
     <link rel="stylesheet" type="text/css" href="../front-end/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../front-end/css/simple-line-icons.css">
     
+    <style>
+    .book-now-form form .form-group1{
+    height:90px;
+    background-color: rgba(255, 82, 82, 0.6);
+    border: 2px solid #cb8670;
+    border-right: 0px;
+    }
     
+     .book-now-form form .form-group2{
+    height:90px;
+    background-color: rgba(245, 124, 0, 0.6);
+    border: 2px solid #cb8670;
+    width:65%;
+    }
     
-    <title>SeekFoodTable - 首頁</title>
-
-    <style type="text/css">
-        .slider {
-          background: url(<%= request.getContextPath() %>/webWorking/images/ali-inay-9858-unsplash.jpg) no-repeat;
-          background-size: cover;
-            min-height: 1000px;
-            opacity: 0.8;
-        }
+    .book-now-form form button{
+    background-color: rgba(245, 124, 0, 0.6);
+    border: 2px solid #cb8670;
+    border-left: 0px;
+    height:90px;
+    }
+    
+    .book-now-form form button:hover{
+    background-color: rgba(245, 124, 0, 1);
+    border: 2px solid #cb8670;
+    border-left: 0px;
+    height:90px;
+    font-size:32px;
+    }
+    
+    .searchbar{
+    margin: 0 auto;
+    float: none;
+    display: block;
+    width: 80%;
+    }
     </style>
-
 </head>
 
 <body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="cssload-container">
+            <div class="cssload-loading"><i></i><i></i><i></i><i></i></div>
+        </div>
+    </div>
 
-    <!--============================= HEADER =============================-->
+<!--============================= HEADER =============================-->
     <div class="nav-menu">
         <div class="bg transition">
             <div class="container-fluid fixed">
@@ -77,7 +114,7 @@
                                             風格料理
                                             <span class="icon-arrow-down"></span>
                                         </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=中式料理">中式料理</a>
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=美式餐廳">美式餐廳</a>
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=日式料理">日式料理</a>
@@ -85,7 +122,7 @@
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=東南亞風味">東南亞風味</a>
                                         </div>
                                     </li>
-                                                                       <li class="nav-item">
+                                    <li class="nav-item">
                                         <a class="nav-link" href="#">關於我們</a>
                                     </li>
                                     <li class="nav-item dropdown">
@@ -93,7 +130,7 @@
                                             會員管理
                                             <span class="icon-arrow-down"></span>
                                         </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=updateInFront"><span class="icon-user"></span>編輯個人資訊</a>
                                             <a class="dropdown-item" href="<%=request.getContextPath()%>/Friend_List/friend_list.do?action=myFriend"><span class="icon-people"></span>社交清單管理</a>
                                             <a class="dropdown-item" href="<%=request.getContextPath()%>/Article_Published_JSP/manage_article_published.jsp"><span class="icon-like"></span>我的文章管理</a>
@@ -103,7 +140,7 @@
                                     </li>
                                     <li><a href="#" class="btn btn-outline-light top-btn" id="loginButton"
 											data-toggle="modal" data-target="#loginBar"><span id="icon-login" class="icon-login"></span>登入</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/member/member.do?action=logout" class="btn btn-outline-light top-btn" id="logoutButton"><span id="icon-logout" class="icon-logout"></span>登出</a></li>
+                                      <li><a href="${pageContext.request.contextPath}/member/member.do?action=logout" class="btn btn-outline-light top-btn" id="logoutButton"><span id="icon-logout" class="icon-logout"></span>登出</a></li>
                                 	<li><a href="${pageContext.request.contextPath}/member/member.do?action=addMember" class="btn btn-outline-light top-btn" id="addButton"><span id="icon-logout" class="icon-logout"></span>註冊</a></li>
                                 </ul>
                             </div>
@@ -113,111 +150,117 @@
             </div>
         </div>
     </div>
-    <!-- SLIDER -->
-    <section class="slider d-flex align-items-center">
-        <!-- <img src="<%= request.getContextPath() %>/webWorking/images/slider.jpg" class="img-fluid" alt="#"> -->
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-12">
-                    <div class="slider-title_box">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="slider-content_wrap">
-                                    <h1 id="bigtitle">SeekFoodTable</h1>
-                                    <h5>發現你的美味時光</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-5 mysearch">
-                              
-                                    <!-- 搜尋bar nav是上方換頁 按鈕有append的z-index是2 注意 -->
-                                    <nav>
-                                        <div class="nav nav-tabs nav-search" id="nav-tab" role="tablist">
-                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">搜餐廳</a>
-                                            <a class="nav-item nav-link" id="nav-date-tab" data-toggle="tab" href="#nav-date" role="tab" aria-controls="nav-date" aria-selected="true">搜會員</a>
-                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">搜文章</a>
-                                        </div>
-                                    </nav>
-                                    <div class="tab-content" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                        
-                                        
-                  	   <form  METHOD="post" ACTION="<%=request.getContextPath()%>/Vendor/Vendor.do" >                    
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="輸入餐廳名稱.." aria-label="Recipient's username" aria-describedby="button-addon2" name="v_name" id="text_vendor">
-                                                <div class="input-group-append">
-                                                <input type="hidden" name="scoreSelect" value="0">
-                                              		 <input type="hidden" name="action" value="search">
-                                                    <button class="btn btn-warning" type="submit" id="button-addon2"><span class="icon-magnifier search-icon"></span>搜餐廳GO</button>
-                                                </div>
-                                            </div>
-                                            
-                      </form>                 
-                                            
-                                        </div>
-                                        <div class="tab-pane fade show" id="nav-date" role="tabpanel" aria-labelledby="nav-date-tab">
-                                        
-                                        
-                         <form class="form-wrap mt-4" action="<%= request.getContextPath() %>/member/member.do">
-                                        
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="輸入會員暱稱或帳號.." aria-label="Recipient's username" aria-describedby="button-addon2" name="mem_account_nickname">
-                                                <div class="input-group-append">
-                                                <input type="hidden" name="action" value="selectOneMember" >
-                                                <input type="hidden" name="flag" class="flag" value="">
-                                                    <button class="btn btn-success" type="submit" id="button-addon4"><span class="icon-magnifier search-icon"></span>找會員GO</button>
-                                                </div>
-                                            </div>
-                                       
-                                        
-                                        
-                                        </form>
-                                         </div>
-                                        <div class="tab-pane fade show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                          <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/Article_Published/article_published.do">
-                                            <div class="input-group">
-                                                <input type="text"  class="form-control" placeholder="輸入文章標題或內文.." aria-label="Recipient's username" aria-describedby="button-addon2" name="art_content">
-                                                <input type="hidden" name="action" value="listArticle_PublishedByCompositeQuery">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-primary" type="submit" id="button-addon3"><span class="icon-magnifier search-icon"></span>找文章GO</button>
-                                                </div>
-                                            </div>
-                                            </FORM>
-                                            
-                                        </div>
-                                    </div>
-                             
-                            </div>
-                            <!-- 中間的廢物間隔 -->
-                            <div class="col-md-1"></div>
-                            <!-- 輪播廣告 -->
-                            <div class="col-md-6 myad">
-                                <div class="owl-carousel owl-theme">
-                                    <div class="item">
-                                        <h4>現在註冊新會員，就送優惠券!!</h4>
-                                        <img src="<%= request.getContextPath() %>/webWorking/images/photo2.jpg">
-                                    </div>
-                                    <div class="item">
-                                        <h4>謝師宴主題餐廳特惠中</h4>
-                                        <img src="<%= request.getContextPath() %>/webWorking/images/photo3.jpg">
-                                    </div>
-                                    <div class="item">
-                                        <h4>多久沒和姊妹淘一起聚餐？</h4>
-                                        <img src="<%= request.getContextPath() %>/webWorking/images/melissa-walker-horn-637092-unsplash.jpg">
-                                    </div>
-                                </div>
+
+    <!--//END HEADER -->
+
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url(images/big1.jpg);"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-9">
+                            <!-- Slide Content -->
+                            <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
+                                <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
+                                <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N001").news_cont}</h2>
+                                <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                                <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url(images/big2.jpg);"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-9">
+                            <!-- Slide Content -->
+                            <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
+                                <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
+                                <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N002").news_cont}</h2>
+                                <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                                <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url(images/big3.jpg);"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-9">
+                            <!-- Slide Content -->
+                            <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
+                                <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
+                                <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N003").news_cont}</h2>
+                                <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                                <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
-    <!--// SLIDER -->
-    <!--//END HEADER -->
-    <!--============================= 主題快搜 =============================-->
-    <section class="main-block">
+    <!-- ##### Hero Area End ##### -->
+    
+<!-- ##### Book Now Area Start ##### -->
+    <div class="book-now-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <div class="book-now-form">
+                        <form id="searchbar" action="<%=request.getContextPath()%>/Vendor/Vendor.do">
+                            <!-- Form Group -->
+                            <div class="form-group1">
+                                <label for="select1">類別選項</label>
+                                <select class="form-control" id="selectFrom">
+                                
+                                  <option value="<%=request.getContextPath()%>/Vendor/Vendor.do">找餐廳</option>
+                                  <option value="<%= request.getContextPath() %>/member/member.do">找會員</option>
+                                  <option value="<%=request.getContextPath()%>/Article_Published/article_published.do">找文章</option>
+                                  
+                                </select>
+                            </div>
+
+
+                            <!-- Form Group -->
+                            <div class="form-group2 input-group-lg">
+							<!-- ↓↓↓	佔位置 不可移除 -->
+                                <label for="select4"></label>
+                               <input type="text" class="form-control searchbar" placeholder="輸入條件.." aria-label="Username" aria-describedby="basic-addon1" name="v_name" id="vv2">
+                               <input type="text" class="form-control searchbar" placeholder="輸入條件.." aria-label="Username" aria-describedby="basic-addon1" name="mem_account_nickname" id="mm2">
+                               <input type="text" class="form-control searchbar" placeholder="輸入條件.." aria-label="Username" aria-describedby="basic-addon1" name="art_content" id="aa2">
+                            </div>
+                            <input type="hidden" name="action" value="search" id="vv1">
+                            <input type="hidden" name="flag" class="flag" value="">
+                            <input type="hidden" name="scoreSelect" value="0" id="vv3">
+						
+                            <!-- Button -->
+                            <button type="submit">立即查詢</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Book Now Area End ##### -->
+    
+	<section class="main-block">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-5">
@@ -447,24 +490,36 @@
 
 	<!--         =======================modal======================================== -->
     </footer>
-    <!--//END FOOTER -->
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="<%= request.getContextPath() %>/front-end/js/jquery-3.3.1.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <script src="<%= request.getContextPath() %>/front-end/js/popper.min.js" type="text/javascript"></script>
-    <!-- 貓頭鷹 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script src="<%= request.getContextPath() %>/front-end/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
-    <!-- //標題橘色 所有頁面適用 載入樣式 -->
-    <!-- sweet alert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <!--   <script>
-          $(window).ready(function() {
-              // 100 = The point you would like to fade the nav in.
-                  $('.fixed').addClass('is-sticky');
-          });
-      </script> -->
+
+   
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+    
+     <script>
+    $(window).scroll(function() {
+        // 100 = The point you would like to fade the nav in.
+
+        if ($(window).scrollTop() > 10) {
+
+            $('.fixed').addClass('is-sticky');
+
+        } else {
+
+            $('.fixed').removeClass('is-sticky');
+
+        };
+    });
+    </script>
     <!-- 以下Script只有首頁要用 捲動時標題橘色-->
     <script>
     $(window).scroll(function() {
@@ -481,23 +536,14 @@
         };
     });
     </script>
-    <!-- 貓頭鷹的自動捲動腳本 -->
-    <script>
-    var owl = $('.owl-carousel');
-    owl.owlCarousel({
-        items: 1,
-        loop: true,
-        margin: 10,
-        autoplay: true,
-        autoplayTimeout: 5000,
-        autoplayHoverPause: true
-    });
-    </script>
+    
     <script>
     $(window).ready(function() {
     	
         // 100 = The point you would like to fade the nav in.
         $(".navbar").css("box-shadow", "none");
+        $('#mm2').hide();
+		$('#aa2').hide();
         
     });
     
@@ -516,20 +562,43 @@
         	$("#navbarDropdownMenuLink2").show();
     	}
     	
-    	
-
+    	    	
   
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
     	
  		var randomFlag = Math.floor(Math.random()*10000+1);
- 		$(".flag").val(randomFlag);
-
- 			
- 		
+ 		$("#flag").val(randomFlag);
     });
 
     </script>
-</body>
+    <script>
+	    document.getElementById('searchbar').selectFrom.onchange = function() {
+	        var newaction = this.value;
+	        document.getElementById('searchbar').action = newaction;
+	    	if($('#selectFrom option:selected').text()=='找餐廳' ){
+	    		$('#vv1').val('search');
+	    		$('#mm2').hide();
+	    		$('#aa2').hide();
+	    		$('#vv2').show();
+	    	} 
+	    	if($('#selectFrom option:selected').text()=='找會員' ){
+	    		$('#vv1').val('selectOneMember');
+	    		$('#vv2').hide();
+	    		$('#aa2').hide();
+	    		$('#mm2').show();
+	    	}
+	    	if($('#selectFrom option:selected').text()=='找文章' ){
+	    		$('#vv1').val('listArticle_PublishedByCompositeQuery');
+	    		$('#vv2').hide();
+	    		$('#mm2').hide();
+	    		$('#aa2').show();
+	    		$('#vv3').val('');
+	    	}
+	    };
+    	
+	    
+    </script>
+
 		<c:if test="${account!=null}">
 			<script>
 				if($.cookie("helloMsg")!="seen"){
@@ -567,4 +636,5 @@
 				$.cookie("error", "${flag}");
 			</script>
 	</c:if>
+</body>
 </html>

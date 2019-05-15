@@ -260,6 +260,12 @@ public class MemberServlet extends HttpServlet {
 				session.setAttribute("account", req.getParameter("mem_account"));
 				session.setAttribute("memberVO", memberVO);
 
+				if("/front-end/FrontPage.jsp".equals(req.getParameter("requestURL"))) {
+					String url = req.getContextPath() + "/front-end/FrontPage.jsp";
+					res.sendRedirect(url);
+					return;
+				}
+				
 				String url = "/front-end/FrontPage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
