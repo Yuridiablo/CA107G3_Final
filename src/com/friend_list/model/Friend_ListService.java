@@ -1,6 +1,5 @@
 package com.friend_list.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -47,20 +46,19 @@ public class Friend_ListService {
 		return dao.findByPrimaryKey2(mem_no,frie_no);
 	}
 	
+	public Friend_ListVO getOneFriend_ListByName(String mem_nickname,String mem_no) {
+		return dao.findByName(mem_nickname, mem_no);
+	}
+	
 	public List<Friend_ListVO> getAll(){
 		return dao.getAll();
 	}
 	
-	public Set<Friend_ListVO> getFriend_ListByFrie_code(Integer frie_code) {
-		return dao.getFriend_ListByFrie_code(frie_code);
-	}
-	
-	public List<Friend_ListVO> getfriendlist(String mem_no)  {
-		return dao.getfriendlist(mem_no);
-		
-	}
-	
 	public List<Friend_ListVO> getAll(String mem_no){
 		return dao.getAll(mem_no);
+	}
+	
+	public Set<Friend_ListVO> getFriend_ListByFrie_code(Integer frie_code) {
+		return dao.getFriend_ListByFrie_code(frie_code);
 	}
 }

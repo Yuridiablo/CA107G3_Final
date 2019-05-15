@@ -16,6 +16,9 @@ import com.friend_list.model.Friend_ListService;
 import com.friend_list.model.Friend_ListVO;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
+import com.restaurant_menu.model.Restaurant_MenuService;
+import com.restaurant_menu.model.Restaurant_MenuVO;
+import com.vendor.model.VendorVO;
 
 //參考資料：https://blog.csdn.net/qx5211258/article/details/45220135
 
@@ -87,20 +90,20 @@ public class Friend_ListServlet extends HttpServlet{
 //				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/select_pageforFriend_List.jsp");
 //				failureView.forward(req, res);
 //			}
-//		}
-		
+//		}		
 		if("getOne_For_Search".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+			HttpSession session = req.getSession();
+			MemberVO memberVOtemp = (MemberVO) session.getAttribute("memberVO");
 			try {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String str = req.getParameter("frie_no");
+				String str = req.getParameter("mem_nickname");
+				
 				if(str==null || (str.trim()).length()==0) {
-					errorMsgs.add("請輸入朋友編號");
+					errorMsgs.add("請輸入會員暱稱");
 				}
-				String mem_no = new String(req.getParameter("mem_no"));
-				if(str.equals(mem_no)) {
+				if(str.equals(memberVOtemp.getMem_name())) {
 					errorMsgs.add("請不要搜尋自己");
 				}
 				if(!errorMsgs.isEmpty()) {
@@ -108,32 +111,41 @@ public class Friend_ListServlet extends HttpServlet{
 					failureView.forward(req, res);
 					return;
 				}
-				String frie_no = new String(str);
+				String mem_nickname = new String(str);
+				String mem_no = req.getParameter("mem_no");
+				String frie_no = req.getParameter("frie_no");
+				System.out.println(mem_no);
+				System.out.println(frie_no);
 				
 				
 				/***************************2.開始查詢資料*****************************************/
 				Friend_ListService friend_listSvc = new Friend_ListService();
-				Friend_ListVO friend_listVO = friend_listSvc.getOneFriend_List2(mem_no, frie_no);
-				
+				Friend_ListVO friend_listVO = friend_listSvc.getOneFriend_ListByName(mem_nickname, mem_no);
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				if(friend_listVO==null) {
+					System.out.println("紀錄不存在");
 					req.setAttribute("mem_no", mem_no);
-					req.setAttribute("frie_no", frie_no);
-					String url = "/Friend_List_JSP/listOneFriend_Listfor_nobody.jsp";
+					req.setAttribute("frie_no",frie_no);
+					req.setAttribute("mem_nickname",mem_nickname);
+					req.setAttribute("friend_listVO", friend_listVO);
+					String url = "/Friend_List_JSP/listOneFriend_List.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 				}else {
-				req.setAttribute("friend_listVO", friend_listVO);
-				String url = "/Friend_List_JSP/listOneFriend_List.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
+					System.out.println("紀錄存在");
+					req.setAttribute("friend_listVO", friend_listVO);
+					req.setAttribute("mem_no", mem_no);
+					req.setAttribute("frie_no",frie_no);
+					String url = "/Friend_List_JSP/listOneFriend_List.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
 				}
 				
 				/***************************其他可能的錯誤處理*************************************/
 			}catch(Exception e) {
 				errorMsgs.add("無法取得資料"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/manage_article_published.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/manage_friend_list.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -156,19 +168,21 @@ public class Friend_ListServlet extends HttpServlet{
 //				
 //				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 //				req.setAttribute("friend_listVO", friend_listVO);
-//				String url ="/Friend_List_JSP/update_friend_list_input.jsp";
+//				String url ="/Friend_List_JSP/listOneFriend_List.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url);
 //				successView.forward(req, res);
 //				
 //				/***************************其他可能的錯誤處理**********************************/
 //			}catch(Exception e){
 //				errorMsgs.add("無法取得要修改的資料"+e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/listAllFriend_List.jsp");
+//				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/manage_friend_list.jsp");
 //				failureView.forward(req, res);
 //			}
 //		}
 		
 		if("update".equals(action)) {
+			
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -218,7 +232,7 @@ public class Friend_ListServlet extends HttpServlet{
 				friend_listVO = friend_listSvc.updateFriend_List(mem_no, frie_no,frie_code);
 				Friend_ListService friend_listSvc2 = new Friend_ListService();
 				friend_listVO2 = friend_listSvc2.updateFriend_List(mem_no2,frie_no2, frie_code2);
-				req.setAttribute("friend_listVO", friend_listVO);
+//				req.setAttribute("friend_listVO", friend_listVO);
 				String url = "/Friend_List_JSP/manage_friend_list.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -367,5 +381,31 @@ public class Friend_ListServlet extends HttpServlet{
 //				throw new ServletException(e);
 //			}
 //		}
+		
+		if ("myFriend".equals(action)) {
+			
+			
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+//				HttpSession session = req.getSession();
+//				MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+				
+				String friendlist = "friendlist";
+				req.setAttribute("friendlist", friendlist);
+//				MemberService memberSvc = new MemberService();
+//				memberVO = memberSvc.getOneMember(mem_no);
+//				session.setAttribute("memberVO", memberVO);
+				
+				String url = "/front-end/motherboard.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+	
+	
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		}
 	}
 }

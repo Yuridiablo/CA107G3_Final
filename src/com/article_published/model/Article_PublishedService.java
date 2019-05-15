@@ -70,6 +70,8 @@ public class Article_PublishedService {
 		return dao.getAll();
 	}
 	
+	
+	
 	public List<Article_PublishedVO> getAll(String mem_no){
 		return dao.getAll(mem_no);
 	}
@@ -78,6 +80,9 @@ public class Article_PublishedService {
 		return dao.getAll(map);
 	}
 
+	public List<Article_PublishedVO> getAllforrep(){
+		return dao.getAllforrep();
+	}
 	
 	public Article_PublishedVO showPicArticle_Published_Information(String art_no) {
 		return dao.showpic(art_no);

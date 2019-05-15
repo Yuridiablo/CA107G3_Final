@@ -38,10 +38,14 @@ public class Article_PublishedDAO implements Article_PublishedDAO_interface{
 			"INSERT INTO ARTICLE_PUBLISHED(ART_NO,MEM_NO,ART_TITLE,ART_CONTENT,ART_TIME,ART_PIC1,ART_PIC2,ART_PIC3,ART_PIC4,ART_PIC5,ART_CODE) VALUES('AP'||LPAD(to_char(ARTPUB_SEQ.NEXTVAL),8,'0'),?,?,?,?,?,?,?,?,?,?)";
 			
 	private static final String GET_ALL_STMT = 
-			"SELECT ART_NO,MEM_NO,ART_TITLE,ART_CONTENT,TO_CHAR(ART_TIME,'yyyy-mm-dd') ART_TIME,ART_CODE FROM ARTICLE_PUBLISHED ORDER BY ART_NO";
+			"SELECT ART_NO,MEM_NO,ART_TITLE,ART_CONTENT,TO_CHAR(ART_TIME,'yyyy-mm-dd') ART_TIME,ART_CODE FROM ARTICLE_PUBLISHED WHERE ART_CODE=1 ORDER BY ART_NO";
 	
 	private static final String GET_ALL_PERSONAL_STMT =
 			"SELECT ART_NO,MEM_NO,ART_TITLE,ART_CONTENT,TO_CHAR(ART_TIME,'yyyy-mm-dd') ART_TIME,ART_CODE FROM ARTICLE_PUBLISHED WHERE MEM_NO=? ORDER BY ART_NO";
+	
+	private static final String GET_ALL_FORREP_STMT = 
+			"SELECT ART_NO,MEM_NO,ART_TITLE,ART_CONTENT,TO_CHAR(ART_TIME,'yyyy-mm-dd') ART_TIME,ART_CODE FROM ARTICLE_PUBLISHED  ORDER BY ART_NO";
+	
 	
 	private static final String GET_ONE_STMT =
 			"SELECT ART_NO,MEM_NO,ART_TITLE,ART_CONTENT,TO_CHAR(ART_TIME,'yyyy-mm-dd') ART_TIME,ART_CODE FROM ARTICLE_PUBLISHED WHERE ART_NO=?";
@@ -351,6 +355,60 @@ public class Article_PublishedDAO implements Article_PublishedDAO_interface{
 	}
 	
 	@Override
+	public List<Article_PublishedVO> getAllforrep() {
+		List<Article_PublishedVO> list = new ArrayList<Article_PublishedVO>();
+		Article_PublishedVO article_publishedVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_FORREP_STMT);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				article_publishedVO = new  Article_PublishedVO();
+				article_publishedVO.setArt_no(rs.getString("ART_NO"));
+				article_publishedVO.setMem_no(rs.getString("MEM_NO"));
+				article_publishedVO.setArt_title(rs.getString("ART_TITLE"));
+				article_publishedVO.setArt_content(rs.getString("ART_CONTENT"));
+				article_publishedVO.setArt_time(rs.getDate("ART_TIME"));
+				article_publishedVO.setArt_code(rs.getInt("ART_CODE"));
+				list.add(article_publishedVO);
+			}
+		}catch (SQLException e) {
+			throw new RuntimeException("A database error occured. "+ e.getMessage());
+		}finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			
+		}
+		return list;
+		
+	}
+	
+	@Override
 	public List<Article_PublishedVO> getAll(String mem_no) {
 		List<Article_PublishedVO> list = new ArrayList<Article_PublishedVO>();
 		Article_PublishedVO article_publishedVO = null;
@@ -415,9 +473,9 @@ public class Article_PublishedDAO implements Article_PublishedDAO_interface{
 		
 		try {
 			con = ds.getConnection();
-			String finalSQL = "select * from article_published "
+			String finalSQL = "select * from article_published where art_code=1"
 					+ jdbcUtil_CompositeQuery_Article_Published.get_WhereCondition(map)
-					+ "order by art_time";
+					+ " order by art_time";
 			
 			pstmt = con.prepareStatement(finalSQL);
 			System.out.println("finalSQL(By DAO) = "+finalSQL);

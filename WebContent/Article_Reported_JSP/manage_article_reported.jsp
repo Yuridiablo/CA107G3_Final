@@ -36,7 +36,7 @@ background-color:#00ffb2;
 
 </head>
 <body>
-<div class="container">
+<div class="container ">
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -81,11 +81,15 @@ background-color:#00ffb2;
 						</c:forEach>
 					</td>
 			          <td>
-			          <c:forEach var="article_publishedVO" items="${article_publishedSvc.all}">
-						<c:if test="${article_publishedVO.art_no==article_reportedVO.art_no}">
-							${article_publishedVO.art_content}
-						</c:if>
-					  </c:forEach>
+			          	<c:forEach var="article_publishedVO" items="${article_publishedSvc.allforrep}">
+							<c:if test="${article_publishedVO.art_no==article_reportedVO.art_no}">
+								${article_publishedVO.art_content}
+							</c:if>
+							<c:if test="${article_publishedVO==null}">
+								內容已被屏蔽
+							</c:if>
+					  	</c:forEach>
+			          
 					  </td>
 			          <td>${article_reportedVO.artre_time}</td>
 			          <td>${article_reportedVO.artre_content}</td>
@@ -132,10 +136,10 @@ background-color:#00ffb2;
         </div>
     </div>
 </div>
+
+
+
+
 </div>
-
-
-
-
 </body>
 </html>

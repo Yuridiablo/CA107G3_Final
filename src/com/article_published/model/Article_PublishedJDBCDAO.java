@@ -363,6 +363,12 @@ public class Article_PublishedJDBCDAO implements Article_PublishedDAO_interface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Article_PublishedVO> getAllforrep() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

@@ -225,6 +225,10 @@
 		}
 	%>
 	
+	<c:if test="${not empty friendlist}">
+	<jsp:include page="/Friend_List_JSP/manage_friend_list.jsp" />
+	</c:if>
+	
 	<div id="service" onclick="connect();">線上客服</div>
 
 	

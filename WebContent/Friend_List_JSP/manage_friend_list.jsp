@@ -9,6 +9,10 @@
 	Friend_ListService friend_listSvc = new Friend_ListService();
 	List<Friend_ListVO> list = friend_listSvc.getAll(memberVO.getMem_no());
 	pageContext.setAttribute("list", list);
+	
+	double d = Math.random();
+	String flag = Double.toString(d);
+	session.setAttribute("flag", flag);
 %>
 
 <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
@@ -22,13 +26,8 @@
 <html>
 <head>
 <title>Manage Article</title>
-<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
 
@@ -37,7 +36,7 @@ img{
 max-width:50px;
 max-height:50px;
 }
-.panel-heading{
+.card-header{
 width:200px;
 background-color:#00ffb2;
 }
@@ -57,23 +56,23 @@ background-color:#00ffb2;
 	</ul>
 </c:if>
 
-<div class="panel-group" id="accordion">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">
+<div class="card-group" id="accordion">
+	<div class="card card-default">
+		<div class="card-header">
+			<h4 class="card-title">
 				<a data-toggle="collapse" data-parent="#accordion" 
 				   href="#collapseOne">
 					瀏覽朋友清單
 				</a>
 			</h4>
 		</div>
-		<div id="collapseOne" class="panel-collapse collapse in">
-			<div class="panel-body">
+		<div id="collapseOne" class="card-collapse collapse in">
+			<div class="card-body">
 				<div class="well">
 				<table class="table">
 			      <thead>
 			        <tr>
-			          <th>朋友姓名</th>
+			          <th>暱稱</th>
 					  <th>狀態</th>
 			          <th style="width: 36px;"></th>
 			        </tr>
@@ -83,7 +82,7 @@ background-color:#00ffb2;
 			        <tr>
 			         <td><c:forEach var="memberVo2" items="${memberSvc.all}">
 						<c:if test="${friend_listVO.frie_no==memberVo2.mem_no}">
-							${memberVo2.mem_name}
+							${memberVo2.mem_nickname}
 						</c:if>
 						</c:forEach>
 					</td>
@@ -205,26 +204,6 @@ background-color:#00ffb2;
 			      </tbody>
 			    </table>
 			</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" 
-				   href="#collapseTwo">
-					以ID搜尋
-				</a>
-			</h4>
-		</div>
-		<div id="collapseTwo" class="panel-collapse collapse">
-			<div class="panel-body">
-				<FORM METHOD="post"  ACTION="<%=request.getContextPath()%>/Friend_List/friend_list.do">
-					<input type="text" name="frie_no">
-					<input type="hidden" name="mem_no" value="${memberVO.mem_no}">
-					<input type="hidden" name="action" value="getOne_For_Search">
-					<input class="btn btn-info" type="submit" value="搜尋">
-				</FORM>		
 			</div>
 		</div>
 	</div>

@@ -78,7 +78,20 @@
                                 <span>好友</span>
                             </li>
                         </ul>
-                        <a href="#">FOLLOW</a>
+ <!-- 查閱關係------------------------------------------------- -->
+				<c:if test="${memberVO!=null}">
+					<FORM METHOD="post"  ACTION="<%=request.getContextPath()%>/Friend_List/friend_list.do" >
+					<input type="hidden" name="mem_nickname" value="${select_mVO.mem_nickname}" >
+					<input type="hidden" name="mem_no" value="${memberVO.mem_no}">
+					<input type="hidden" name="frie_no" value="${select_mVO.mem_no}">
+					<input type="hidden" name="action" value="getOne_For_Search">
+					<input class="btn btn-info" type="submit" value="搜尋關係">
+				</FORM>
+				</c:if>
+				<c:if test="${memberVO==null}">
+				</c:if>
+
+<!-- END查閱關係---------------------------------------------- -->
                     </div>
                 </div>
                 <div class="col-md-8 responsive-wrap">

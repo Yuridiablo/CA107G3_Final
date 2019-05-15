@@ -37,8 +37,8 @@ public class Article_PublishedServlet extends HttpServlet{
 			HttpSession session = req.getSession();
 			session.setAttribute("memberVO", memberVO);
 			
-			String url = "/Article_Published_JSP/manage_article_published.jsp";
-//			String url = "/Article_Published_JSP/search_for_Article_Published.jsp";
+//			String url = "/Article_Published_JSP/manage_article_published.jsp";
+			String url = "/Article_Published_JSP/search_for_Article_Published.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			
@@ -565,7 +565,7 @@ public class Article_PublishedServlet extends HttpServlet{
 				
 				Article_PublishedService article_publishedSvc = new Article_PublishedService();
 				List<Article_PublishedVO> list = article_publishedSvc.getAll(map);
-				
+				System.out.println(list.isEmpty());
 				req.setAttribute("listArticle_PublishedByCompositeQuery", list);
 				RequestDispatcher successView = req.getRequestDispatcher("/Article_Published_JSP/listArticle_PublishedByCompositeQuery.jsp");
 				successView.forward(req, res);
