@@ -164,7 +164,7 @@
                                                 <input type="text" class="form-control" placeholder="輸入會員暱稱或帳號.." aria-label="Recipient's username" aria-describedby="button-addon2" name="mem_account_nickname">
                                                 <div class="input-group-append">
                                                 <input type="hidden" name="action" value="selectOneMember" >
-                                                <input type="hidden" name="flag" id="flag" value="">
+                                                <input type="hidden" name="flag" class="flag" value="">
                                                     <button class="btn btn-success" type="submit" id="button-addon4"><span class="icon-magnifier search-icon"></span>找會員GO</button>
                                                 </div>
                                             </div>
@@ -521,10 +521,8 @@
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
     	
  		var randomFlag = Math.floor(Math.random()*10000+1);
- 		$("#flag").val(randomFlag);
-//  		$("button").on('click',function(){
-//  			$.cookie("error", null);
-//  		});
+ 		$(".flag").val(randomFlag);
+
  			
  		
     });
@@ -555,7 +553,7 @@
  	<c:if test="${not empty errorMsgs}">
 		<c:forEach var="message" items="${errorMsgs}">
 			<script type="text/javascript">
-				if($.cookie("error")!="${sessionScope.flag}"){
+				if($.cookie("error")!="${flag}"){
 					Swal.fire({
 					 	 type: 'error',
 					 	 title: 'Oops...',
@@ -565,7 +563,7 @@
 			</script>
 		</c:forEach>
 			<script type="text/javascript">
-				$.cookie("error", "${sessionScope.flag}");
+				$.cookie("error", "${flag}");
 			</script>
 	</c:if>
 </html>
