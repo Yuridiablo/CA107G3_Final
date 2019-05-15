@@ -543,7 +543,7 @@
 						});
 			    		$.cookie("helloMsg", "seen");
 				}
-			</script>
+			</script> 
 		</c:if>
 		
 		<c:if test="${account==null}">
