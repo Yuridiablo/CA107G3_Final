@@ -753,9 +753,7 @@ public class VendorServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				List<VendorVO> searchlist = new ArrayList<>();
-				if(v_type.length()!=0) {
-					System.out.println("ininininininin");
-					System.out.println(v_type);
+				if(v_type!=null) {
 					searchlist = vSvc.findByType(v_type);
 				}else {
 					searchlist = vSvc.search(v_name);
@@ -851,15 +849,16 @@ public class VendorServlet extends HttpServlet {
 						infoString.add("尚無評論！");
 					}
 					
-//					searchMap.put(vVO, infoString);
-					
-					if(Double.parseDouble(infoString.get(0)) >= Double.parseDouble(scoreWant)) {
+
+					if(v_type!=null) {
 						searchMap.put(vVO, infoString);
+					}else {
+						if(Double.parseDouble(infoString.get(0)) >= Double.parseDouble(scoreWant)) {
+							searchMap.put(vVO, infoString);
+						}
 					}
 					
-					
-					
-					
+
 					System.out.println("平均分數：" + infoString.get(0));
 					System.out.println("總評論篇數：" + infoString.get(1));
 						
