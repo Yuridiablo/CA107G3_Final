@@ -7,9 +7,6 @@
 <%@ page import="com.restaurant_menu.model.*"%>
 <!DOCTYPE html>
 <html>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>購物車內容檢視</title>
@@ -43,9 +40,10 @@ body {
 							<div class="col-xs-6">
 							 <% @SuppressWarnings("unchecked")
 							   Vector<Restaurant_MenuVO> cart = (Vector<Restaurant_MenuVO>) session.getAttribute("shoppingcart");
-							   String total =  (String) session.getAttribute("total");%>
+							%>
 							<%if (cart != null && (cart.size() > 0)) {%>
 								<h5><span class="glyphicon glyphicon-shopping-cart"></span> ${param.vendor}</h5>
+								<c:set var="total" value="${total}"/>
 							</div>
 							
 						</div>

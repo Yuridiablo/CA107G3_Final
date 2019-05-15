@@ -13,6 +13,10 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.article_published.model.*;
+import com.member.model.*;
+
+//參考資料：https://blog.csdn.net/qx5211258/article/details/45220135
+
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class Article_PublishedServlet extends HttpServlet{
 
@@ -25,6 +29,21 @@ public class Article_PublishedServlet extends HttpServlet{
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
 		
+		if("login".equals(action)) {
+			String mem_no = req.getParameter("mem_no");
+			
+			MemberService memberSvc = new MemberService();
+			MemberVO memberVO = memberSvc.getOneMember(mem_no);
+			HttpSession session = req.getSession();
+			session.setAttribute("memberVO", memberVO);
+			
+			String url = "/Article_Published_JSP/manage_article_published.jsp";
+//			String url = "/Article_Published_JSP/search_for_Article_Published.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+			
+		}
+		
 		if("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs",errorMsgs);
@@ -34,7 +53,7 @@ public class Article_PublishedServlet extends HttpServlet{
 					errorMsgs.add("請輸入文章編號");
 				}
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/select_pageforArticle_Published.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/listAllArticle_Published.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -46,43 +65,45 @@ public class Article_PublishedServlet extends HttpServlet{
 					errorMsgs.add("查無資料");
 				}
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/select_pageforArticle_Published.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/listAllArticle_Published.jsp");
 					failureView.forward(req, res);
 					return;
 				}
-				
+				HttpSession session = req.getSession();
+				MemberVO memberVO =(MemberVO) session.getAttribute("memberVO");
 				req.setAttribute("article_publishedVO",article_publishedVO);
+				req.setAttribute("memberVO", memberVO);
 				String url = "/Article_Published_JSP/listOneArticle_Published.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}catch(Exception e) {
 				errorMsgs.add("無法取得資料"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/select_pageforArticle_Published.jsp");
-				failureView.forward(req, res);
-			}
-		}
-		
-		if("getOne_For_Update".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			
-			req.setAttribute("errorMsgs",errorMsgs);
-			
-			try {
-				String art_no = req.getParameter("art_no");
-				
-				Article_PublishedService article_publishedSvc = new Article_PublishedService();
-				Article_PublishedVO article_publishedVO = article_publishedSvc.getOneArticle_Published(art_no);
-				
-				req.setAttribute("article_publishedVO", article_publishedVO);
-				String url = "/Article_Published_JSP/update_article_published_input.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-			}catch(Exception e) {
-				errorMsgs.add("無法取得修改的資料"+e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/listAllArticle_Published.jsp");
 				failureView.forward(req, res);
 			}
 		}
+		
+//		if("getOne_For_Update".equals(action)) {
+//			List<String> errorMsgs = new LinkedList<String>();
+//			
+//			req.setAttribute("errorMsgs",errorMsgs);
+//			
+//			try {
+//				String art_no = req.getParameter("art_no");
+//				
+//				Article_PublishedService article_publishedSvc = new Article_PublishedService();
+//				Article_PublishedVO article_publishedVO = article_publishedSvc.getOneArticle_Published(art_no);
+//				
+//				req.setAttribute("article_publishedVO", article_publishedVO);
+//				String url = "/Article_Published_JSP/update_article_published_input.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				successView.forward(req, res);
+//			}catch(Exception e) {
+//				errorMsgs.add("無法取得修改的資料"+e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/listAllArticle_Published.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
 		
 		if("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
@@ -201,7 +222,7 @@ public class Article_PublishedServlet extends HttpServlet{
 				
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("article_publishedVO", article_publishedVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/update_article_published_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/listAllArticle_Published.jsp");
 					failureView.forward(req, res);
 					
 					return;
@@ -214,12 +235,161 @@ public class Article_PublishedServlet extends HttpServlet{
 				successView.forward(req, res);
 			}catch(Exception e) {
 				errorMsgs.add("修改資料失敗"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/update_article_published_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/listAllArticle_Published.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if("updateformyself".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String art_no = req.getParameter("art_no");
+				
+				String art_title =req.getParameter("art_title");
+				if(art_title==null||art_title.trim().length()==0) {
+					errorMsgs.add("文章標題請勿空白");
+				}
+				
+				String art_content = req.getParameter("art_content");
+				if(art_content==null|| art_content.trim().length()==0) {
+					errorMsgs.add("文章內容請勿空白");
+				}
+				
+				java.sql.Date art_time = java.sql.Date.valueOf(req.getParameter("art_time"));
+				
+				Article_PublishedService article_publishedSvcpic = new Article_PublishedService();
+				Article_PublishedVO  article_publishedVOpic = article_publishedSvcpic.showPicArticle_Published_Information(art_no);
+				
+				
+				byte[] art_pic1 = article_publishedVOpic.getArt_pic1();
+				byte[] art_pic2 = article_publishedVOpic.getArt_pic2();
+				byte[] art_pic3 = article_publishedVOpic.getArt_pic3();
+				byte[] art_pic4 = article_publishedVOpic.getArt_pic4();
+				byte[] art_pic5 = article_publishedVOpic.getArt_pic5();
+				
+				Part part1 = req.getPart("art_pic1");
+				if(part1.getSize()!=0) {
+					InputStream in =  part1.getInputStream();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					byte[] buffer = new byte[in.available()];
+					int i;
+					while((i = in.read(buffer))!=-1) {
+						baos.write(buffer,0,i);
+					}
+					art_pic1 = baos.toByteArray();
+					baos.close();
+					in.close();
+				}
+				
+				
+				Part part2 = req.getPart("art_pic2");
+				if(part2.getSize()!=0) {
+					InputStream in =  part2.getInputStream();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					byte[] buffer = new byte[in.available()];
+					int i;
+					while((i = in.read(buffer))!=-1) {
+						baos.write(buffer,0,i);
+					}
+					art_pic2 = baos.toByteArray();
+					baos.close();
+					in.close();
+				}
+				
+				
+				Part part3 = req.getPart("art_pic3");
+				if(part3.getSize()!=0) {
+					InputStream in =  part3.getInputStream();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					byte[] buffer = new byte[in.available()];
+					int i;
+					while((i = in.read(buffer))!=-1) {
+						baos.write(buffer,0,i);
+					}
+					art_pic3 = baos.toByteArray();
+					baos.close();
+					in.close();
+				}
+				
+				
+				Part part4 = req.getPart("art_pic4");
+				if(part4.getSize()!=0) {
+					InputStream in =  part4.getInputStream();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					byte[] buffer = new byte[in.available()];
+					int i;
+					while((i = in.read(buffer))!=-1) {
+						baos.write(buffer,0,i);
+					}
+					art_pic4 = baos.toByteArray();
+					baos.close();
+					in.close();
+				}
+				
+				
+				Part part5 = req.getPart("art_pic5");
+				if(part5.getSize()!=0) {
+					InputStream in =  part5.getInputStream();
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					byte[] buffer = new byte[in.available()];
+					int i;
+					while((i = in.read(buffer))!=-1) {
+						baos.write(buffer,0,i);
+					}
+					art_pic5 = baos.toByteArray();
+					baos.close();
+					in.close();
+				}
+				
+				Article_PublishedVO article_publishedVO = new Article_PublishedVO();
+				article_publishedVO.setArt_no(art_no);
+				article_publishedVO.setArt_title(art_title);
+				article_publishedVO.setArt_content(art_content);
+				article_publishedVO.setArt_time(art_time);
+				article_publishedVO.setArt_pic1(art_pic1);
+				article_publishedVO.setArt_pic2(art_pic2);
+				article_publishedVO.setArt_pic3(art_pic3);
+				article_publishedVO.setArt_pic4(art_pic4);
+				article_publishedVO.setArt_pic5(art_pic5);
+				
+				if(!errorMsgs.isEmpty()) {
+					req.setAttribute("article_publishedVO", article_publishedVO);
+					RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/manage_article_published.jsp");
+					failureView.forward(req, res);
+					
+					return;
+				}
+				Article_PublishedService article_publishedSvc = new Article_PublishedService();
+				article_publishedVO = article_publishedSvc.updateArticle_Published(art_title, art_content, art_time, art_pic1, art_pic2, art_pic3, art_pic4, art_pic5, art_no);
+				
+				String url = "/Article_Published_JSP/manage_article_published.jsp";
+				RequestDispatcher successView =req.getRequestDispatcher(url);
+				successView.forward(req, res);
+			}catch(Exception e) {
+				errorMsgs.add("修改資料失敗"+e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/manage_article_published.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
 		if("insert".equals(action)) {
+			HttpSession session = req.getSession();
+			String flag =(String) session.getAttribute("flag");
+			String f = req.getParameter("flag");
+			if(f.equals(flag)){
+				req.getSession().removeAttribute("flag");
+			} else {
+				System.out.println("重複了!");
+				String url = "/Article_Published_JSP/manage_article_published.jsp";
+				RequestDispatcher successView =req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+			}
+			
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -340,7 +510,7 @@ public class Article_PublishedServlet extends HttpServlet{
 				
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("article_publishedVO", article_publishedVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/addArticle_Published.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/manage_article_published.jsp");
 					failureView.forward(req, res);
 					
 					return;
@@ -348,36 +518,36 @@ public class Article_PublishedServlet extends HttpServlet{
 				Article_PublishedService article_publishedSvc = new Article_PublishedService();
 				article_publishedVO = article_publishedSvc.addArticle_Published(mem_no, art_title, art_content, art_time, art_pic1, art_pic2, art_pic3, art_pic4, art_pic5, art_code);
 				
-				String url = "/Article_Published_JSP/listAllArticle_Published.jsp";
+				String url = "/Article_Published_JSP/manage_article_published.jsp";
 				RequestDispatcher successView =req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}catch(Exception e) {
 				errorMsgs.add("新增資料失敗"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/addArticle_Published.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/manage_article_published.jsp");
 				failureView.forward(req, res);
 			}
 		}
-		if("delete".equals(action)) {
-			List<String> errorMsgs = new LinkedList<String>();
-			
-			req.setAttribute("errorMsgs",errorMsgs );
-			
-			try {
-				String art_no = req.getParameter("art_no");
-				
-				Article_PublishedService article_publishedSvc = new Article_PublishedService();
-				article_publishedSvc.deleteArticle_Published(art_no);
-				
-				String url = "/Article_Published_JSP/listAllArticle_Published.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-				
-			}catch(Exception e) {
-				errorMsgs.add("刪除資料失敗"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/listAllArticle_Published.jsp");
-				failureView.forward(req, res);
-			}
-		}
+//		if("delete".equals(action)) {
+//			List<String> errorMsgs = new LinkedList<String>();
+//			
+//			req.setAttribute("errorMsgs",errorMsgs );
+//			
+//			try {
+//				String art_no = req.getParameter("art_no");
+//				
+//				Article_PublishedService article_publishedSvc = new Article_PublishedService();
+//				article_publishedSvc.deleteArticle_Published(art_no);
+//				
+//				String url = "/Article_Published_JSP/listAllArticle_Published.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				successView.forward(req, res);
+//				
+//			}catch(Exception e) {
+//				errorMsgs.add("刪除資料失敗"+e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/listAllArticle_Published.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
 		if("listArticle_PublishedByCompositeQuery".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			
@@ -385,6 +555,7 @@ public class Article_PublishedServlet extends HttpServlet{
 			
 			try {
 				HttpSession session = req.getSession();
+				@SuppressWarnings("unchecked")
 				Map<String, String[]> map = (Map<String,String[]>)session.getAttribute("map");
 				if(req.getParameter("whichPage")==null) {
 					HashMap<String,String[]> map1 = new HashMap<String,String[]>(req.getParameterMap());
@@ -400,7 +571,7 @@ public class Article_PublishedServlet extends HttpServlet{
 				successView.forward(req, res);
 			}catch(Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/select_pageforArticle_Published.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Published_JSP/search_for_Article_Published.jsp");
 				failureView.forward(req, res);
 			}
 		}

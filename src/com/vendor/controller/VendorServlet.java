@@ -821,7 +821,15 @@ public class VendorServlet extends HttpServlet {
 						
 						String forSub = comm.map(v -> v.getCmnt()).get();
 						//切出標題用文字
+						
 						int cut = forSub.indexOf("，", 0);
+						
+						if (cut < 0) {
+							cut = forSub.indexOf(",", 0);
+						}
+						if (cut < 0) {
+							cut = 6;
+						}
 						String title = forSub.substring(0,cut);
 						// 6
 						infoString.add(title);

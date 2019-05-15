@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -10,9 +9,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
 
 <head>
-<meta charset="UTF-8">
-<title>信用卡付款</title>
-</head>
 <style>
 
 
@@ -67,7 +63,13 @@ body { margin-top:20px; }
     }
 
 </style>
+<meta charset="UTF-8">
+<title>信用卡付款</title>
+<%@ include file="/front-end/header_footer/header_css.txt" %>
+</head>
+
 <body>
+<%@ include file="/front-end/header_footer/header.txt" %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
@@ -321,4 +323,6 @@ $("#pay").click(async function(event){
 	})
 	})
 	</script>
+<%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
 </html>
