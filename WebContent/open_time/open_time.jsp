@@ -178,7 +178,7 @@ to {
 
 				<form class="needs-validation" novalidate METHOD="get" ACTION="<%=request.getContextPath()%>/rtime/rtime.do" name="form1" >
 					<div class="container">
-<input type="hidden" name="vendor_no" value="V000001">
+<input type="hidden" name="vendor_no" value="${vVO.vendor_no}">
 						<div class="col-12">
 							<label id="topicBar" class="col-12">餐廳營業訂位資訊設定</label>
 							

@@ -220,6 +220,7 @@ to {
 	
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/mainVendor.jsp">概況一覽</a> 
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upVendor">資訊修改</a>
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upOpenTime">開放時段設定</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_list.jsp">桌型資料設定</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_graph.jsp">桌位配置</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_status_management.jsp">桌況管理</a>
@@ -255,6 +256,10 @@ to {
 
 <c:if test="${not empty rmlist || not empty newStore}">
 <jsp:include page="/Restaurant_Menu/listMenu.jsp" />
+</c:if>
+
+<c:if test="${not empty upOpenTime}">
+<jsp:include page="/open_time/open_time.jsp" />
 </c:if>
 
 <%-- <c:if test="${not empty tmlist}"> --%>
