@@ -785,9 +785,33 @@ public class VendorServlet extends HttpServlet {
 				if(v_type!=null) {
 					searchlist = vSvc.findByType(v_type);
 				}else if(v_position!=null){
-					searchlist = vSvc.getAll();
-//					searchlist.stream()
-//					.filter(v -> northPos.contains(v.getV_address1()))
+					List<VendorVO> positionList = vSvc.getAll();
+				//北中南東餐廳分類		
+						if(v_position.equals("north")) {
+							for (VendorVO vendorVO : positionList) {
+								if(northPos.contains(vendorVO.getV_address1().substring(0, 2))) {
+									searchlist.add(vendorVO);
+								}
+							}
+						}else if(v_position.equals("center")) {
+							for (VendorVO vendorVO : positionList) {
+								if(centerPos.contains(vendorVO.getV_address1().substring(0, 2))) {
+									searchlist.add(vendorVO);
+								}
+							}
+						}else if(v_position.equals("south")) {
+							for (VendorVO vendorVO : positionList) {
+								if(southPos.contains(vendorVO.getV_address1().substring(0, 2))) {
+									searchlist.add(vendorVO);
+								}
+							}
+						}else {
+							for (VendorVO vendorVO : positionList) {
+								if(eastPos.contains(vendorVO.getV_address1().substring(0, 2))) {
+									searchlist.add(vendorVO);
+								}
+							}
+						}
 				}else{
 					searchlist = vSvc.search(v_name);
 				}
@@ -883,7 +907,7 @@ public class VendorServlet extends HttpServlet {
 					}
 					
 
-					if(v_type!=null) {
+					if(v_type!=null||v_position!=null) {
 						searchMap.put(vVO, infoString);
 					}else {
 						if(Double.parseDouble(infoString.get(0)) >= Double.parseDouble(scoreWant)) {
