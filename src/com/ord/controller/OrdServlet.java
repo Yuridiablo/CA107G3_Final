@@ -782,7 +782,7 @@ public class OrdServlet extends HttpServlet {
 			session.setAttribute("status", status);
 			System.out.println("status======"+status);
 			System.out.println("party_size===="+party_size);
-			String url = "/front-end/ord/ordfood.jsp";
+			String url = "/front-end/ord/orderfood.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 			
@@ -845,17 +845,17 @@ public class OrdServlet extends HttpServlet {
 			session.setAttribute("vendor_no", vendor_no);
 				session.setAttribute("menu_no",menu_no);
 				System.out.println("menu_no========"+menu_no);
-				
+				String share="1";
 //				String total = String.valueOf(amount);
 				session.setAttribute("total", amount);
 				session.setAttribute("quantity", quantity);
 				session.setAttribute("price", price);
 				session.setAttribute("shoppingcart", buylist);
 				session.setAttribute("vendor", vendor);
-				
+				req.setAttribute("share", share);
 				
 
-				String url = "/front-end/ord/ordfood.jsp";
+				String url = "/front-end/ord/orderfood.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, res);
 
