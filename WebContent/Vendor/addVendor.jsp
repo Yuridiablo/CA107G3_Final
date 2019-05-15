@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.vendor.model.*"%>
 
@@ -21,14 +20,13 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-
-<script src="../front-end/js/jquery-3.3.1.min.js" type="text/javascript"></script>
-<script src="../front-end/js/address.js" type="text/javascript"
+<link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/css/bootstrap-4.3.1.min.css">
+<script src="<%= request.getContextPath() %>/front-end/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
+<script src="<%= request.getContextPath() %>/front-end/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="<%= request.getContextPath() %>/front-end/js/popper.min.js" type="text/javascript"></script>
+<script src="<%= request.getContextPath() %>/front-end/js/address.js" type="text/javascript"
 	language="javascript" src="output.js" charset="UTF-8"></script>
+	
 <script type="text/javascript">
 	$(function() {
 		$('.address-zone').ajaddress({
@@ -47,13 +45,18 @@
 
 <title>店家會員註冊</title>
 <style type="text/css">
+body {
+	background-color: #eee;
+	font-family: "微軟正黑體";
+}
+
 .col-form-label {
 	text-align: right;
 	font: 18px 微軟正黑體;
 }
 
-.addv{
-	margin-top: 1%;
+.addv .col-7{
+	margin-top: 3%;
 }
 
 #refreshconfirm {
@@ -102,6 +105,27 @@ img {
 .form-control-plaintext {
 	margin-left: 3%;
 }
+
+.needs-validation {
+	margin-top: 15%;
+}
+
+.form-row {
+	margin-top: 2%;
+}
+
+.resTitle {
+	font-size: 30px;
+	margin-left: 5%;
+}
+
+.btn-lg{
+	font-size: 48px;
+}
+
+.needs-validation{
+margin-top:0%;
+}
 </style>
 </head>
 
@@ -114,7 +138,7 @@ img {
 		
 		
 		
-		<spqn class="navbar-brand resTitle">歡迎使用餐廳管理畫面</spqn>
+		<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/V_FrontPage.jsp"><span class="navbar-brand resTitle">歡迎使用餐廳管理畫面</span></a>
 		<span class="navbar-brand">Seek Food Table</span>
 	</nav>
 	<!-- Side Nav -->
@@ -125,10 +149,6 @@ img {
 		<div class="row">
 			<div class="col-12">
 				<!-- ===============================編輯區 開始====================================== -->
-
-
-
-
 
 	<form class="needs-validation addv" novalidate METHOD="post"
 		ACTION="Vendor.do" name="form1" enctype="multipart/form-data">
@@ -327,14 +347,6 @@ img {
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
 	<script>
 		// Example starter JavaScript for disabling form submissions if there are invalid fields
 		(function() {
@@ -371,16 +383,16 @@ img {
 		});
 
 		$("#magic").on('click', function() {
-			$("#v_name").val("咖哩老師");
-			$("#v_account").val("aabbccdd");
-			$("#v_pwd").val("111111a");
-			$("#v_pwd_confirm").val("111111a");
-			$("#v_mail").val("adfasf@afsfsaf");
+			$("#v_name").val("大衛海鮮");
+			$("#v_account").val("eeeeee");
+			$("#v_pwd").val("555555");
+			$("#v_pwd_confirm").val("555555");
+			$("#v_mail").val("adttyyuunnfasf@afsfsaf");
 			$("#v_n_code").val("02");
 			$("#v_tel").val("33344455");
-			$("#v_address1").val("台北市");
-			$("#v_address2").val("信義區");
-			$("#v_address3").val("中正路10號");
+			$("#v_address1").val("新北市");
+			$("#v_address2").val("板橋區");
+			$("#v_address3").val("漢生東路193巷9號");
 
 		})
 	</script>

@@ -43,6 +43,14 @@
       .text-center{
       	flex:warp;
       }
+      .yourmenu{
+      	display:flex;
+      	flex-warp:wrap;
+      }
+      
+      .yourmenu .card-body li{
+      	height:100px;
+      }
     </style>
     <!-- Custom styles for this template -->
    
@@ -56,46 +64,58 @@
   <h1 class="display-4" >${ Vvo.v_name}</h1>
 </div>
 
-<div class="container">
-<div class="row ">
-<div class="col-md-12">
-<c:forEach var="menu_n" items="${res_menuSvc.getVendor(vendor_no)}">
- <form name="shopping" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
- <div class="col-md-6">
-  <div class="card-deck mb-12 text-center">
-    <div class="card mb-4 shadow-sm">
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal"> ${menu_n.menu_name}</h4>
-      </div>
-      <div class="card-body">
-      <img id="p${menu_n.menu_no}" src="<%= request.getContextPath()%>/ShowImg.do?menu_no='${menu_n.menu_no}'"/>
-        <h2 class="card-title pricing-card-title">$${menu_n.menu_price} <small class="text-muted"></small></h2>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>${menu_n.menu_text}</li>
-        </ul>
-        <div class="row">
-        <div class="col-md-6">
-        <input type="number" name="quantity" size="3"  class="btn btn-lg btn-outline-warning" placeholder="輸入數量"value="1">
-        </div>
-        <div class="col-md-6">
-        <button type="submit" class="btn btn-lg btn-block btn-warning" value="Buy"><span class="glyphicon glyphicon-shopping-cart">Buy</span></button>
-        </div>
-        </div>
-      </div>
-    </div>
-   
-  
-  </div>					
-  			<input type="hidden" name="vendor_no" value="${vendor_no}">
-			<input type="hidden" name="vendor" value="${Vvo.v_name}">
-			<input type="hidden" name="menu_name" value="${menu_n.menu_name}">
-			<input type="hidden" name="menu_price" value="${menu_n.menu_price}">
-			<input type="hidden" name="menu_no" value="${menu_n.menu_no}">				
-<%-- 		<input type="hidden" name="quantity" value="${menu_n.quantity}"> --%>
-			 <input type="hidden" name="action" value="ADD_menu">
-			  </div>
-  </form>
- </c:forEach>
+<div class="container ">
+<div class="row">
+<div class="col-md-12 ">
+	
+<!-- ============================================================================= -->
+	 <form name="shopping" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
+		<div class="yourmenu d-flex flex-wrap">
+		<c:forEach var="menu_n" items="${res_menuSvc.getVendor(vendor_no)}">
+		<div class="col-md-4">
+						 
+						 
+						   
+						  <div class="card-deck mb-12 text-center">
+						
+							    <div class="card mb-4 shadow-sm">
+							      <div class="card-header">
+							        <h4 class="my-0 font-weight-normal"> ${menu_n.menu_name}</h4>
+							      </div>
+							      <div class="card-body">
+							      <img id="p${menu_n.menu_no}" src="<%= request.getContextPath()%>/ShowImg.do?menu_no='${menu_n.menu_no}'"/>
+							        <h2 class="card-title pricing-card-title">$${menu_n.menu_price} <small class="text-muted"></small></h2>
+							        <ul class="list-unstyled mt-3 mb-4">
+							          <li>${menu_n.menu_text}</li>
+							        </ul>
+								        <div class="row">
+									        <div class="col-md-6">
+									        <input type="number" name="quantity" size="3"  class="btn btn-lg btn-outline-warning" placeholder="輸入數量"value="1">
+									        </div>
+									        <div class="col-md-6">
+									        <button type="submit" class="btn btn-lg btn-block btn-warning" value="Buy"><span class="glyphicon glyphicon-shopping-cart">Buy</span></button>
+									        </div>
+								        </div>
+							      </div>
+							    </div>
+							 
+						  </div>	
+						  				
+<input type="hidden" name="vendor_no" value="${vendor_no}">
+<input type="hidden" name="vendor" value="${Vvo.v_name}">
+<input type="hidden" name="menu_name" value="${menu_n.menu_name}">
+<input type="hidden" name="menu_price" value="${menu_n.menu_price}">
+<input type="hidden" name="menu_no" value="${menu_n.menu_no}">				
+<input type="hidden" name="action" value="ADD_menu">
+<%-- <input type="hidden" name="quantity" value="${menu_n.quantity}"> --%>
+
+
+		 </div>
+		  </c:forEach>  
+	</div>	  
+	</form>
+<!-- ========================================================================== -->
+
   			<c:if test="${(total)>0}">
      <jsp:include page="/front-end/ord/menucart.jsp" flush="true" />
   	</c:if>
