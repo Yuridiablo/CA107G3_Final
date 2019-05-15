@@ -54,5 +54,11 @@ public class TablesVO implements java.io.Serializable {
 	public void setTbl_y(Integer tbl_y) {
 		this.tbl_y = tbl_y;
 	}
+	@Override
+	public String toString() {
+		return "TablesVO [tbl_no=" + tbl_no + ", vendor_no=" + vendor_no + ", tbl_name=" + tbl_name + ", tbl_size="
+				+ tbl_size + ", tbl_type=" + tbl_type + ", tbl_x=" + tbl_x + ", tbl_y=" + tbl_y + "]";
+	}
 
+	
 }

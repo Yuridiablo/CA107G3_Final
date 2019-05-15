@@ -69,7 +69,7 @@
     <!-- Icon資源池 -->
 	<link rel="stylesheet" href="css/themify-icons.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	
+
 	<%@ include file="navbar/nav_css.txt" %>
 
 	<!-- Timeline -->

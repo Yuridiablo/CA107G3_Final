@@ -49,4 +49,10 @@ public class Bill_item {
 		this.unitPrice = unitPrice;
 	}
 
+	@Override
+	public String toString() {
+		return "Bill_item [menu_no=" + menu_no + ", qty=" + qty + ", unitPrice=" + unitPrice + "]";
+	}
+	
+	
 }

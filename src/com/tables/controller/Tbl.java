@@ -31,5 +31,11 @@ public class Tbl {
 	public void setBill(Bill bill) {
 		this.bill = bill;
 	}
+
+	@Override
+	public String toString() {
+		return "Tbl [tblVO=" + tblVO + ", status=" + status + ", bill=" + bill + "]";
+	}
+	
 	
 }

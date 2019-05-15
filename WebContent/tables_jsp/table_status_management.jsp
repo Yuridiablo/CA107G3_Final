@@ -25,7 +25,7 @@ Map<String, Tbl> tbls = vendor_tbls.getTbls();
 LinkedHashMap<String, Bill> bills = vendor_tbls.getBills();
 
 int tblWidth = 100;
-
+int hrWidth = 220;
 %>
 
 <!doctype html>
@@ -42,7 +42,9 @@ int tblWidth = 100;
 
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
 	<%@ include file="navbar/nav_css.txt" %>
 	
 	<style>
@@ -90,7 +92,56 @@ int tblWidth = 100;
 		}
 	
 	</style>
+	<!-- Card -->
+<style>
+.cardOutline {
+	box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16); 
+	border-radius: 3px;
+	padding: 5px 10px 0px 10px;
+	display: flex;
+}	
 
+.cardRight {
+	margin-left: 20px;
+}
+.name {
+	margin: 0 0 0 0;
+	font-size: 24px;
+}
+.partySize {
+	margin: 0 0 5px 0;	
+	display: inline-flex;
+	vertical-align: middle;
+	align-items: center;	
+}
+
+.cardRBottom {
+	display: flex;
+}
+
+.bookingTime {
+	margin-left: 30px;
+	display: inline-flex;
+	vertical-align: middle;
+	align-items: center;
+}
+
+.cardLeft .material-icons {
+	font-size: 48px;
+	color: #FB8C00;
+}
+
+.cardRBottom .material-icons {
+	font-size: 18px;	
+}
+
+</style>
+
+<style type="text/css">
+[draggable="true"] {
+    user-select: none;
+}	
+</style>
   </head>
 
   <!-- ===================================== body ======================================== -->
@@ -181,7 +232,7 @@ for (Tbl tbl : tblColl) {
 						  <div class="dropdown-divider"></div>
 						  <h6 class="dropdown-header">桌況變更</h6>
 						  <button id="btnTblStat_empty" class="dropdown-item" type="button">空桌</button>
-						  <button id="btnTblStat_seated" class="dropdown-item" type="button">已入座</button>
+						  <!-- <button id="btnTblStat_seated" class="dropdown-item" type="button">已入座</button> -->
 						  <button id="btnTblStat_dining" class="dropdown-item" type="button">用餐中</button>
 						  <button id="btnTblStat_clean" class="dropdown-item" type="button">清潔中</button>
 						  <button id="btnTblStat_keep" class="dropdown-item" type="button">保留中</button>
@@ -251,6 +302,29 @@ for (Tbl tbl : tblColl) {
 <script>
 var bills = [];
 </script>
+
+<!-- Card list -->
+<script type="text/javascript">
+function mkCard(ord_no, mem_no, party_size, booking_time) {
+	
+	str =	      
+	'<div class="cardOutline" id="' + ord_no + '" style="left:' + calcCardLeft(booking_time) + '">' +		
+		'<div class="cardLeft"><i class="material-icons">account_circle</i>	</div>' +
+		'<div class="cardRight">' +
+			'<div class="name">' + mem_no + '</div>' +
+			'<div class="cardRBottom">'	 +
+				'<div class="partySize"><i class="material-icons">group</i>&nbsp;<span>' + party_size + '</span></div>' +
+				'<div class="bookingTime"><i class="material-icons">access_time</i>&nbsp;<span>' + booking_time + '</span></div>' +
+			'</div>' +		
+		'</div>' +	
+	'</div>';
+	return str;
+	} // End of mkCard
+
+	function timeFmt(time) {
+		return time.substr(0, 2) + ":" + time.substr(2, 2);
+	}
+</script>
 	
 <!-- floorplan -->    
 <script type="text/javascript">
@@ -267,14 +341,14 @@ $("#btnNewWI").click(function(){
 	$('#newWIModal').modal('hide');
 });
 
-
+ 
 // 桌況設定
 $("#btnTblStat_empty").click(function(){
 	setTblStatus(0, null);
 });
-$("#btnTblStat_seated").click(function(){
-	setTblStatus(1, 1);
-});
+//$("#btnTblStat_seated").click(function(){
+//	setTblStatus(1, 1);
+//});
 $("#btnTblStat_dining").click(function(){
 	setTblStatus(1, 2);
 });
@@ -310,7 +384,12 @@ function setTblStatus(tbl_status, bill_status) {
 	    		var tbl = $("#" + this.tbl_no);
 	    		$(tbl).attr("data-tbl_status", this.tbl_status);
 	    		$(tbl).attr("data-bill_status", this.bill_status);
-	    		$(tbl).css("background-color", colorFmt(this.tbl_status, this.bill_status));	
+	    		$(tbl).css("background-color", colorFmt(this.tbl_status, this.bill_status));
+	    		
+	    		if(this.bill_status == null) {
+	    			$(tbl).find(".bill_img").remove();
+	    		}
+	    		
 	    	} else if (response.status == 0) {
 	    		showAlert("alert-danger", response.result);
 	    	}
