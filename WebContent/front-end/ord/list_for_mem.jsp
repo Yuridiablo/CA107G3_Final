@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.ord.model.*"%>
+<%@ page import="com.member.model.*"%>
 
 
 
@@ -89,8 +90,17 @@ height:1px
               
                  <c:set var="mem_no1" value="${ ordVO.share_mem_no1}"/>
                 <c:set var="mem_no2" value="${ ordVO.share_mem_no2}"/>
-                <c:set var="memVO1" value="${MemSvc.getOneMember(mem_no1}"></c:set>
-                <c:set var="memVO2" value="${MemSvc.getOneMember(mem_no2}"></c:set>
+  
+                <% MemberService memsvc =new MemberService();
+                String mem_no1 = (String)request.getAttribute("mem_no1");
+                MemberVO memVO1=memsvc.getOneMember(mem_no1);
+            	pageContext.setAttribute("memVO1",memVO1);
+            	
+                String mem_no2 = (String)request.getAttribute("mem_no2");
+                MemberVO memVO2=memsvc.getOneMember(mem_no2);
+            	pageContext.setAttribute("memVO2",memVO2);
+                %>
+                
 			<%@ include file="pageForOrder.file" %>
 			<c:forEach var="ordVO" items="${olist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                 <c:set var="memVO" value="${MemSvc.getOneMember(memberVO.mem_no)}"></c:set>
