@@ -485,6 +485,7 @@ CREATE TABLE NEWS (
 , NEWS_CONT VARCHAR2(150) NOT NULL 
 , NEWS_PIC BLOB 
 , NEWS_REA DATE NOT NULL 
+, NEWS_TEXT VARCHAR2(300) 
 , CONSTRAINT NEWS_PRIMARY_KEY PRIMARY KEY (NEWS_NO)
 , CONSTRAINT NEWS_EMP_NO_FK FOREIGN KEY (EMP_NO) REFERENCES EMPLOYEE (EMP_NO)
 );
@@ -4321,11 +4322,11 @@ INSERT INTO FEATURE_DETAIL VALUES ('F008','E000000001');
 INSERT INTO FEATURE_DETAIL VALUES ('F009','E000000001');
 
 --NEWS 最新消息
-INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000001','101跳樓大拍賣',NULL,TO_DATE('2019-03-28','YYYY-MM-DD'));
-INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000001','蜂蜜不甜砍頭',NULL,TO_DATE('2018-03-28','YYYY-MM-DD'));
-INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000003','帝王蟹季',NULL,TO_DATE('2019-02-28','YYYY-MM-DD'));
-INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000003','下麵給你吃',NULL,TO_DATE('2017-10-28','YYYY-MM-DD'));
-INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000005','過年大特價',NULL,TO_DATE('2019-03-08','YYYY-MM-DD'));
+INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000001','101跳樓大拍賣',NULL,TO_DATE('2019-03-28','YYYY-MM-DD'),'101跳樓大拍賣不買太可惜,門票100塊獲得一次投胎機會,外贈一本名為《第一次投胎就上手》的行前說明書,保證你下輩子變成三歲自耕農住帝寶,修滿八堂財金課還可以變成理財專家喔~');
+INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000001','蜂蜜不甜砍頭',NULL,TO_DATE('2018-03-28','YYYY-MM-DD'),'蜂蜜不甜保證砍頭,只是砍的不是老闆,砍蜜蜂的頭啊,嚴選知名添加物外加特級化學香料,保證跟天然蜂蜜風味相同,天天喝我們的蜂蜜,就可以讓你的身體負擔加重,面臨洗腎的危險絕對不唬爛優');
+INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000003','帝王蟹季',NULL,TO_DATE('2019-02-28','YYYY-MM-DD'),'你知道北極現在面臨帝王蟹浩劫嗎?當季新鮮的帝王蟹空運來台,我們的地球需要我們拯救,只要張開嘴巴吃掉他,就可以避免地球的生態浩劫阿');
+INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000003','下麵給你吃',NULL,TO_DATE('2017-10-28','YYYY-MM-DD'),'肚子餓了嗎?下麵給你吃,只要儲值五萬塊,附贈兩粒......貢丸,寶贈一定可以填飽你那飢餓的肚子,以及....飢渴的靈魂');
+INSERT INTO NEWS VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),'E000000005','過年大特價',NULL,TO_DATE('2019-03-08','YYYY-MM-DD'),'過年大特價,天天都過年天天都特價,這價格保證只有過年才有,要是非過年期間買到的絕對比現在便宜,要買要快錯過會後悔喔');
 
 --MEMBER_WALLET_LIST 會員錢包收支明細
 INSERT INTO MEMBER_WALLET_LIST VALUES ('MWL'||LPAD(to_char(MEMBER_WALLET_LIST_SEQ.NEXTVAL), 7, '0')
