@@ -645,7 +645,7 @@ function connect() {
 	webSocket = new WebSocket(endPointURL);
 	webSocket.onopen = function(event) {
 // 		updateStatus("WebSocket 成功連線");
-alert("123123");
+
 	}
 	
 	webSocket.onclose = function(event) {
@@ -660,7 +660,14 @@ alert("123123");
 		$.each(btns,function(i,value){
 			if($(this).attr('id')==data){
 // 				btns[i].disabled=true;
-				alert($(this).val());
+
+ Swal.fire({
+			  type: 'warning',
+			  title: '非常抱歉.',
+			  text: $(this).val()+'此時段已銷售完畢,', 
+			
+			})
+// 				alert($(this).val());
 				$(this).hide(2000);
 			}
 		})			

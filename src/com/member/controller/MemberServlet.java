@@ -284,14 +284,14 @@ public class MemberServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				session.removeAttribute("account");
 				session.removeAttribute("memberVO");
+				String context = req.getContextPath();
 				String url = "/front-end/FrontPage.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);
+				res.sendRedirect(context+url);
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
-				failureView.forward(req, res);
-
+				String context = req.getContextPath();
+				String url = "/front-end/FrontPage.jsp";
+				res.sendRedirect(context+url);
 			}
 		}
 
@@ -486,8 +486,7 @@ public class MemberServlet extends HttpServlet {
 				req.setAttribute("memberVOList", memberList);
 				req.setAttribute("serchMember", "serchMember");
 				String url = "/front-end/motherboard.jsp";
-//				String url = "/member/serchMember.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
  
 			} catch (Exception e) {

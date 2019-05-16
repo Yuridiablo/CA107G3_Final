@@ -838,13 +838,11 @@ public class OrdServlet extends HttpServlet {
 					 quantity = menu.getQuantity();
 					 menu_no =menu.getMenu_no();
 					amount += (price * quantity);
-					System.out.println("menu=========="+menu);
 					session.setAttribute("menu", menu);
 				}
 				
 			session.setAttribute("vendor_no", vendor_no);
 				session.setAttribute("menu_no",menu_no);
-				System.out.println("menu_no========"+menu_no);
 				String share="1";
 //				String total = String.valueOf(amount);
 				session.setAttribute("total", amount);
@@ -1088,9 +1086,7 @@ public class OrdServlet extends HttpServlet {
 						}
 						
 						String booking_time=(String) session.getAttribute("booking_time");
-						System.out.println("creditbooking===="+booking_time);
 						Integer total =(int)amount;
-						System.out.println("total55555"+total);
 						session.setAttribute("total", total);
 						String url = "/front-end/ord/credit.jsp";
 						RequestDispatcher rd = req.getRequestDispatcher(url);
@@ -1111,7 +1107,6 @@ public class OrdServlet extends HttpServlet {
 						
 						String booking_time=(String) session.getAttribute("booking_time");
 						Integer total =(int)amount;
-						System.out.println("total55555"+total);
 						session.setAttribute("total", total);
 						String url = "/front-end/wallet_pay/confirm_wallet_left.jsp";
 						RequestDispatcher rd = req.getRequestDispatcher(url);
@@ -1137,7 +1132,6 @@ public class OrdServlet extends HttpServlet {
 					//總共要付的金額
 					 String total1=(redisService.gettotal("total"));
 					 Integer total=(int)(Double.parseDouble(total1));
-					 System.out.println("===="+total);
 					 //取出share_amount1已經付的錢
 					 //取出share_amount2已經付的錢
 					 Integer share_amount1=0;
@@ -1147,18 +1141,15 @@ public class OrdServlet extends HttpServlet {
 					 }else {
 						 share_amount1=Integer.parseInt((redisService.gettotal(share_mem_no11)));
 					 }
-					 System.out.println("====share_amount1"+share_amount1);
 					 
 					 if(redisService.gettotal(share_mem_no22).equals("")) {
 						share_amount2=0;
 					 }else {
 						  share_amount2=Integer.parseInt((redisService.gettotal(share_mem_no22)));
 					 }
-					 System.out.println("  share_amount2====="+  share_amount2);
 
 					 //判斷兩個付款相加有沒有等於總共要付的款項
 					 Integer share_amount=share_amount1+share_amount2;
-					 System.out.println(" ====total"+total);
 					 if(share_amount<total) {   //付款金額相加小於總total
 						 String url = "/front-end/FrontPage.jsp";
 							RequestDispatcher successView = req.getRequestDispatcher(url); 
@@ -1171,7 +1162,6 @@ public class OrdServlet extends HttpServlet {
 						share_mem_no1 =(String) session.getAttribute("share_mem_no1");
 						String share_mem_no2 =(String) session.getAttribute("share_mem_no2");
 						java.sql.Timestamp ord_time =new java.sql.Timestamp(System.currentTimeMillis());
-						System.out.println("ordtime======"+ord_time);
 						java.sql.Date booking_date=null;
 						try {
 							booking_date = (Date) session.getAttribute("booking_date");
@@ -1180,9 +1170,7 @@ public class OrdServlet extends HttpServlet {
 //							errorMsgs.add("please choose date!");
 						}
 						String booking_time=(String) session.getAttribute("booking_time");
-						System.out.println("booking_time======="+booking_time);
 						String notes=(String) session.getAttribute("notes");
-							System.out.println("total======"+total);
 						
 						String arrival_time=req.getParameter("arrival_time");
 						String finish_time=req.getParameter("finish_time");
@@ -1475,7 +1463,6 @@ public class OrdServlet extends HttpServlet {
 							String share_mem_no2 =req.getParameter("share_mem_no2");
 							Integer share_amount =(Integer) (session.getAttribute("share_amount"));
 							java.sql.Timestamp ord_time =new java.sql.Timestamp(System.currentTimeMillis());
-							System.out.println("ordtime======"+ord_time);
 							java.sql.Date booking_date=null;
 							try {
 								booking_date = (Date) session.getAttribute("booking_date");
@@ -1491,7 +1478,6 @@ public class OrdServlet extends HttpServlet {
 								} catch (NumberFormatException e) {
 									errorMsgs.add("please. insert right total");
 								}catch (NullPointerException b ) {
-								System.out.println("66666666");
 								
 									errorMsgs.add("please insert total number");}
 							

@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -770,6 +773,7 @@ public class VendorServlet extends HttpServlet {
 			String scoreWant = req.getParameter("scoreSelect");
 			String v_type = req.getParameter("v_type");
 			String v_position = req.getParameter("v_position");
+			String randSearch = req.getParameter("randSearch");
 			String north[] = {"基隆","台北","桃園","新竹","苗栗","新北"};
 			String center[] = {"台中","彰化","南投","雲林","嘉義" };
 			String south[] = {"台南","高雄","屏東" };
@@ -812,7 +816,28 @@ public class VendorServlet extends HttpServlet {
 								}
 							}
 						}
-				}else{
+				}else if(randSearch != null){
+					Random random = new  Random();
+					int quantity = random.nextInt(20)+1;
+					Set<Integer> randNumSet = new HashSet<>();
+					while(randNumSet.size()<quantity) {
+						randNumSet.add(random.nextInt(20)+1);
+					}
+					Integer[] randNumArray = randNumSet.toArray(new Integer[randNumSet.size()]);
+					System.out.println("randNumSet="+randNumSet.size());
+					System.out.println("quantity="+quantity);
+					for(int i=0;i<quantity;i++) {
+						int vendorLastNo = randNumArray[i];
+						if(vendorLastNo/10<1) {
+							String vendor_no = "V00000"+vendorLastNo;
+							searchlist.add(vSvc.findByPK(vendor_no));
+						}else {
+							String vendor_no = "V0000"+vendorLastNo;
+							searchlist.add(vSvc.findByPK(vendor_no));
+						}
+					}
+					
+				}else {
 					searchlist = vSvc.search(v_name);
 				}
 				
@@ -907,7 +932,7 @@ public class VendorServlet extends HttpServlet {
 					}
 					
 
-					if(v_type!=null||v_position!=null) {
+					if(v_type!=null||v_position!=null||randSearch!=null) {
 						searchMap.put(vVO, infoString);
 					}else {
 						if(Double.parseDouble(infoString.get(0)) >= Double.parseDouble(scoreWant)) {
