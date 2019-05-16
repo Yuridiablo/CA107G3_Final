@@ -19,22 +19,22 @@
     <title>SeekFoodTable - 首頁</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="images/seekfood_AIy_icon.ico">
+    <link rel="icon" href="<%= request.getContextPath() %>/front-end/images/seekfood_AIy_icon.ico">
 
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="herostyle.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/herostyle.css">
     <!-- Bootstrap CSS -->
     <!-- 以下是 自訂的東西 -->
     <!-- 線條樣式 -->
        <!-- 線條樣式 -->
-    <link rel="stylesheet" type="text/css" href="../front-end/css/simple-line-icons.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/front-end/css/simple-line-icons.css">
     <!-- Icon資源池 -->
-    <link rel="stylesheet" type="text/css" href="../front-end/css/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/front-end/css/themify-icons.css">
     <!-- 動態效果 -->
-    <link rel="stylesheet" type="text/css" href="../front-end/css/set1.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/front-end/css/set1.css">
     <!-- 自訂 CSS主檔 -->
-    <link rel="stylesheet" type="text/css" href="../front-end/css/style.css">
-    <link rel="stylesheet" type="text/css" href="../front-end/css/simple-line-icons.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/front-end/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/front-end/css/simple-line-icons.css">
     <!-- 自訂 CSS主檔 -->
     
  
@@ -163,7 +163,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(images/big1.jpg);"></div>
+                <div class="slide-img bg-img" style="background-image: url(<%= request.getContextPath() %>/front-end/images/big1.jpg);"></div>
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-12 col-lg-9">
@@ -182,7 +182,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(images/big2.jpg);"></div>
+                <div class="slide-img bg-img" style="background-image: url(<%= request.getContextPath() %>/front-end/images/big2.jpg);"></div>
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-12 col-lg-9">
@@ -201,7 +201,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(images/big3.jpg);"></div>
+                <div class="slide-img bg-img" style="background-image: url(<%= request.getContextPath() %>/front-end/images/big3.jpg);"></div>
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-12 col-lg-9">
@@ -498,19 +498,19 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/jquery/jquery-3.3.1.min.js"></script>
     <!-- Popper js -->
-    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/bootstrap/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/bootstrap/bootstrap.min.js"></script>
     <!-- All Plugins js -->
-    <script src="js/plugins/plugins.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/plugins/plugins.js"></script>
     <!-- Active js -->
-    <script src="js/active.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/active.js"></script>
 	<!--sweet alert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 	<!--jquery cookie -->
-    <script src="js/jquery/jquery.cookie.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/jquery/jquery.cookie.js"></script>
     
      <script>
     $(window).scroll(function() {
@@ -573,8 +573,8 @@
   
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
     	
- 		var randomFlag = Math.floor(Math.random()*10000+1);
- 		$("#flag").val(randomFlag);
+  			var randomFlag = Math.floor(Math.random()*10000+1);
+	  		$("#flag").val(randomFlag);
     });
 
     </script>
