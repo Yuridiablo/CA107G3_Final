@@ -554,14 +554,18 @@ public class Article_PublishedServlet extends HttpServlet{
 			req.setAttribute("errorMsgs",errorMsgs);
 			
 			try {
-				HttpSession session = req.getSession();
-				@SuppressWarnings("unchecked")
-				Map<String, String[]> map = (Map<String,String[]>)session.getAttribute("map");
-				if(req.getParameter("whichPage")==null) {
-					HashMap<String,String[]> map1 = new HashMap<String,String[]>(req.getParameterMap());
-					session.setAttribute("map", map1);
-					map = map1;
-				}
+//				HttpSession session = req.getSession();
+//				@SuppressWarnings("unchecked")
+//				Map<String, String[]> map = (Map<String,String[]>)session.getAttribute("map");
+//				if(req.getParameter("whichPage")==null) {
+//					HashMap<String,String[]> map1 = new HashMap<String,String[]>(req.getParameterMap());
+//					session.setAttribute("map", map1);
+//					map = map1;
+//				}
+				
+				
+				Map<String, String[]> map = new HashMap<String,String[]>();
+				map.put("art_content", req.getParameterValues("art_content"));
 				
 				Article_PublishedService article_publishedSvc = new Article_PublishedService();
 				List<Article_PublishedVO> list = article_publishedSvc.getAll(map);
