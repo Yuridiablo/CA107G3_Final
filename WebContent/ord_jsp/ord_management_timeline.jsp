@@ -437,7 +437,7 @@ $(document).ready(function(){
 	});
 
 });
-
+ 
 function cardEventListener() {
 	let cards = document.querySelectorAll('.cardOutline');
 	cards.forEach(card => {

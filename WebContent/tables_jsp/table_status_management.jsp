@@ -403,6 +403,141 @@ for (Tbl tbl : tblColl) {
 var bills = [];
 </script>
 
+
+<!-- Drag and Drop -->
+<script type="text/javascript">
+$(document).ready(function(){
+	let cards = document.querySelectorAll('#billList0 .cardOutline');
+	cards.forEach(card => {
+	  $(card).prop('draggable', true);
+	  card.addEventListener('dragstart', dragStart);
+	  card.addEventListener('drop', cancelDefault);
+	  card.addEventListener('dragenter', cancelDefault);
+	  card.addEventListener('dragover', cancelDefault);
+	});	
+
+	let tbls = document.querySelectorAll('.tbl');
+	tbls.forEach(tbl => {
+		if ($(tbl).attr("data-tbl_status") == 0) {
+			tbl.addEventListener('drop', dropped);
+			tbl.addEventListener('dragenter', dragEnter);
+			tbl.addEventListener('dragover', cancelDefault);
+			tbl.addEventListener('dragleave', dragLeave);  
+		}
+		
+		$(tbl).find("*").on("drop", cancelDefault);
+		$(tbl).find("*").on("dragenter", cancelDefault);
+		$(tbl).find("*").on("dragover", cancelDefault);
+		$(tbl).find("*").on("dragleave", cancelDefault);
+	});
+
+});
+
+ 
+function tblAddListener(tbl) {
+	tbl.addEventListener('drop', dropped);
+	tbl.addEventListener('dragenter', dragEnter);
+	tbl.addEventListener('dragover', cancelDefault);
+	tbl.addEventListener('dragleave', dragLeave);
+}
+
+function tblRemoveListener(tbl) {
+	tbl.removeEventListener('drop', dropped);
+	tbl.removeEventListener('dragenter', dragEnter);
+	tbl.removeEventListener('dragover', cancelDefault);
+	tbl.removeEventListener('dragleave', dragLeave);
+}
+
+function cancelDefault (e) {
+  e.preventDefault();
+  e.stopPropagation();
+  return false;
+}
+
+function dragStart (e) {
+	// set drag image
+	var img = document.createElement("img"); 
+	img.src = 'images/bill-small.png';
+	e.dataTransfer.setDragImage(img, 0, 0);
+	
+	var jsonobj = {id : e.target.id, parent : e.target.parentNode.id};
+	e.dataTransfer.setData('text/plain', JSON.stringify(jsonobj));
+
+}
+
+function dragEnter (e) {  
+  cancelDefault(e);
+  e.target.style.backgroundColor = "#9696c0";
+}
+function dragLeave (e) {  
+  cancelDefault(e);
+  e.target.style.backgroundColor = "#5c5c8a";
+}
+
+function dropped (e) {
+	cancelDefault(e);
+	if (e.target.classList.contains("tbl")) {
+		var tbl = e.target;
+		tbl.style.backgroundColor = "#5c5c8a";
+		
+		var jsonObj = JSON.parse(e.dataTransfer.getData('text/plain'));
+		var id = jsonObj.id;
+		var parentId = jsonObj.parent;
+		
+		var bill_no = id;
+		var tbl_no = tbl.id;
+		$.ajax({
+			url: "<%=request.getContextPath()%>/tables/tables.do",
+		    type: 'post',
+		    data: {
+		      action : "putVerifiedBill",
+		      vendor_no : "<%= vendor_no %>",
+		      bill_no : bill_no,
+		      tbl_no : tbl_no
+		    },
+		    dataType: "json",
+		    bill_no: bill_no,
+		    tbl_no : tbl_no,
+		    parentId: parentId,
+		    success: function(response) {
+		    	
+		    	if (response.status == 1) {
+		    		showAlert("alert-success", response.result);
+		    		var bill_status = 1;
+		    		var tbl_status = 1;
+		    		
+		    		var bill = document.getElementById(this.bill_no);
+		    		var tbl = document.getElementById(this.tbl_no);
+		    		$(bill).detach();
+		    		$("#billList1").append(bill);
+		    		$(bill).find(".billStatus").css("background-color", billColorFmt(bill_status));
+		    		$(bill).find(".billStatus").html(billStatusFmt(bill_status));
+		    		$(bill).find(".startTime").html(longToTime(response.startTime));
+		    		$(bill).find(".diningTime").css("visibility", "visible");		    		
+		    		$(bill).find(".tblName").html($(tbl).find(".tblName").html());
+		    		$(bill).prop('draggable', false);
+		    		
+		    		putBill(this.tbl_no, tbl_status, this.bill_no, bill_status);
+		    		tblRemoveListener(tbl);
+		    	} else {
+		    		showAlert("alert-danger", response.result);
+		    	}
+			    
+		    },	    
+		    error: function(xhr) {	    		    	
+		    	//alert("updateTbl_no Error");
+		    	showAlert("alert-danger", "putVerifiedBill Error");
+		    	
+		    }			    
+		});	
+		
+	}
+  
+}
+
+</script>	
+
+
 <!-- Bill list -->
 <script type="text/javascript">
 
@@ -629,6 +764,7 @@ function setTblStatus(tbl_status, bill_status) {
 	    			$(tbl).find(".bill_img").remove();
 	    		} else if (this.tbl_status == 0 && this.bill_status == null) {
 	    			$(tbl).find(".bill_img").remove();
+	    			tblAddListener(tbl[0]);
 	    		}
 
 	    		
