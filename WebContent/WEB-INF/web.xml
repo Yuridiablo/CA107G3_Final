@@ -166,6 +166,16 @@
 
 
 	<servlet>
+		<servlet-name>Wait_PosServlet2</servlet-name>
+		<servlet-class>android.wait_pos.controller.Wait_PosServlet2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Wait_PosServlet2</servlet-name>
+		<url-pattern>/wait_pos/wait_pos2.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
 		<servlet-name>TablesServlet</servlet-name>
 		<servlet-class>com.tables.controller.TablesServlet</servlet-class>
 		<load-on-startup>10</load-on-startup>

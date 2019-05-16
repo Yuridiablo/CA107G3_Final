@@ -1,0 +1,230 @@
+package com.wait_pos.controller;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+
+
+
+public class Wait_PosServlet2 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private final static String CONTENT_TYPE = "text/html; charset=UTF-8";
+
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doPost(req, res);
+	}
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
+
+		Gson gson = new Gson();
+		BufferedReader br = req.getReader();
+		StringBuilder jsonIn = new StringBuilder();
+		String line = null;
+		while ((line = br.readLine()) != null) {
+			jsonIn.append(line);
+		}
+		System.out.println("input: " + jsonIn);
+
+		JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
+		String action = jsonObject.get("action").getAsString();
+
+		System.out.println("action:" + action);
+
+		Integer tbl_size = null; // action=insert : null
+		String vendor_no = jsonObject.get("vendor_no").getAsString();
+		if ("insertPhone".equals(action)) {
+
+			String mem_no = jsonObject.get("mem_no").getAsString();
+			Integer party_size = jsonObject.get("party_size").getAsInt();
+
+			String result = null;
+
+			Map<String, Map<Integer, Wait_Line>> wait_line_all = (Map) getServletContext()
+					.getAttribute("wait_line_all");
+
+			Map<Integer, Wait_Line> wait_line_vendor = (Map) wait_line_all.get(vendor_no);
+			if (wait_line_vendor == null) {
+//				out.println("目前不開放候位"); // message for member
+
+				String jsonStr = gson.toJson("目前不開放候位");
+				System.out.println(jsonStr);
+				writeText(res, jsonStr);
+
+				return;
+			}
+
+			switch (party_size) {
+			case 1:
+			case 2:
+				tbl_size = 1;
+				break;
+			case 3:
+			case 4:
+				tbl_size = 2;
+				break;
+			case 5:
+			case 6:
+				tbl_size = 3;
+				break;
+			case 7:
+			case 8:
+				tbl_size = 4;
+				break;
+			case 9:
+			case 10:
+				tbl_size = 5;
+				break;
+			}
+
+			Wait_Line wait_line = wait_line_vendor.get(tbl_size);
+			if (wait_line == null) {
+//				out.println("目前不開放候位"); // message for member
+
+				String jsonStr = gson.toJson("目前不開放候位");
+				System.out.println(jsonStr);
+				writeText(res, jsonStr);
+
+				return;
+			}
+
+			JsonObject jbMsg = new JsonObject();
+			synchronized (wait_line) {
+				if (!wait_line.getOpen_wait()) {
+//					out.println("目前不開放候位"); // message for member
+
+					String jsonStr = gson.toJson("目前不開放候位");
+					System.out.println(jsonStr);
+					writeText(res, jsonStr);
+
+					return;
+				} else {
+					// check if the member has been in line
+					Set<Integer> set = wait_line_vendor.keySet();
+					Iterator<Integer> it = set.iterator();
+					while (it.hasNext()) {
+						if (wait_line_vendor.get(it.next()).getWait_line().keySet().contains(mem_no)) {
+//							out.println("Don't take a number again!"); // message for member
+							String jsonStr = gson.toJson("不得重複抽號");
+							System.out.println(jsonStr);
+							writeText(res, jsonStr);
+
+							return;
+						}
+					}
+
+					// put the member in line
+					PersonInLine personInLine = new PersonInLine(mem_no, party_size, wait_line.getNumberPlate(),
+							(Set) ((Map) getServletContext().getAttribute("member_sessions")).get(mem_no));
+					wait_line.getWait_line().put(mem_no, personInLine);
+
+					// message for member
+
+					result = tbl_size + " 號桌新增候位 " + personInLine.getNumberPlate() + " 號"; // message for vendor
+
+					JsonObject jsonObject2 = new JsonObject();
+					jsonObject2.addProperty("號碼牌", wait_line.getWait_line().get(mem_no).getNumberPlate());
+					jsonObject2.addProperty("前面還有幾組人", wait_line.getWait_line().indexOf(mem_no));
+
+					String jsonOut = jsonObject2.toString();
+					System.out.println(jsonOut);
+					writeText(res, jsonOut);
+
+				}
+
+				// message for vendor
+				jbMsg.addProperty("result", result);
+				jbMsg.addProperty("number_now", wait_line.getNumber_now());
+				String jsonStr = jbMsg.toString();
+				// send to vendor
+				SendToVendor.refreshLine("insert", wait_line, tbl_size, vendor_no, jsonStr, getServletContext());
+
+			}
+
+		}
+
+		if ("cancelPhone".equals(action)) {
+
+			System.out.println("##");
+
+			String mem_no = jsonObject.get("mem_no").getAsString();
+
+			String result = null;
+
+			Map<String, Map<Integer, Wait_Line>> wait_line_all = (Map) getServletContext()
+					.getAttribute("wait_line_all");
+
+			Map<Integer, Wait_Line> wait_line_vendor = (Map) wait_line_all.get(vendor_no);
+			Integer party_size = jsonObject.get("party_size").getAsInt();
+
+			switch (party_size) {
+			case 1:
+			case 2:
+				tbl_size = 1;
+				break;
+			case 3:
+			case 4:
+				tbl_size = 2;
+				break;
+			case 5:
+			case 6:
+				tbl_size = 3;
+				break;
+			case 7:
+			case 8:
+				tbl_size = 4;
+				break;
+			case 9:
+			case 10:
+				tbl_size = 5;
+				break;
+
+			}
+			System.out.println("tbl_size=" + tbl_size);
+			Wait_Line wait_line = wait_line_vendor.get(tbl_size);
+
+			PersonInLine personInLine;
+			Integer pilIdx = null; // 位置
+			synchronized (wait_line) {
+				pilIdx = wait_line.getWait_line().indexOf(mem_no);
+				personInLine = wait_line.getWait_line().remove(mem_no);
+				if (personInLine != null) {
+					if (personInLine.getCallMemTimer() != null)
+						personInLine.getCallMemTimer().cancel(); // 叫號中取消
+					result = tbl_size + " 號桌 " + personInLine.getNumberPlate() + " 號已取消"; // message for vendor
+					// send to vendor
+					SendToVendor.refreshLine("cancel", wait_line, tbl_size, vendor_no, result, getServletContext());
+					// send to member after this removed member
+
+				}
+//				out.println("取消候位成功");  // message for member
+
+			}
+
+		} // end of cancel
+
+	}
+
+	private void writeText(HttpServletResponse res, String outText) throws IOException {
+		res.setContentType(CONTENT_TYPE);
+		PrintWriter out = res.getWriter();
+		out.print(outText);
+		out.close();
+		System.out.println("outText: " + outText);
+	}
+
+} // end of class

@@ -7,15 +7,18 @@
 <%@ page import="java.util.stream.*" %>
 <%@ page import="com.tables.model.*" %>
 <%@ page import="java.text.*" %>
+<%@ page import="com.vendor.model.*" %>
 
-
-<%	
-	String vendor_no = null;
-	if (request.getParameter("vendor_no") != null) {
-		vendor_no = request.getParameter("vendor_no");
-	} else {
-		vendor_no = "V000001";
-	}
+<%
+VendorVO vVO = (VendorVO) session.getAttribute("vVO");
+String vendor_no = null;
+if (vVO != null) {
+	vendor_no = vVO.getVendor_no();
+} else if (request.getParameter("vendor_no") == null) {
+	vendor_no = "V000001";
+} else {
+	vendor_no = request.getParameter("vendor_no");
+}
 	
 	VendorService vendorService = new VendorService();
 	VendorVO vendorVO = vendorService.findByPK(vendor_no);

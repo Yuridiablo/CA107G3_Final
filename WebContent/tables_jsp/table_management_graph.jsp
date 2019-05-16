@@ -3,19 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ page import="com.tables.model.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="com.vendor.model.*" %>
 
 <%
+VendorVO vVO = (VendorVO) session.getAttribute("vVO");
 String vendor_no = null;
-if (request.getParameter("vendor_no") == null) {
+if (vVO != null) {
+	vendor_no = vVO.getVendor_no();
+} else if (request.getParameter("vendor_no") == null) {
 	vendor_no = "V000001";
 } else {
 	vendor_no = request.getParameter("vendor_no");
 }
-	TablesService tablesService = new TablesService();
-	List<TablesVO> list = tablesService.getAllByVendor_no(vendor_no);
-	pageContext.setAttribute("list", list);
-	
-	int tblWidth = 100;
+
+TablesService tablesService = new TablesService();
+List<TablesVO> list = tablesService.getAllByVendor_no(vendor_no);
+pageContext.setAttribute("list", list);
+
+int tblWidth = 100;
 %>
 
 <!doctype html>

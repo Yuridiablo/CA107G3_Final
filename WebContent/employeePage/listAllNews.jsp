@@ -65,6 +65,13 @@
 	height: 300px;
 }
 
+.newsInnerText{
+	overflow:auto;
+	resize:none;
+	line-height: 1;
+}			
+
+
 </style>
 </head>
 
@@ -202,6 +209,10 @@
             <label for="recipient-name" class="col-form-label">消息標題 :</label>
             <input type="text" class="form-control" placeholder="輸入消息標題" id="recipient-name"
             name="news_cont">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">消息內文 :</label>
+            <textarea class="form-control newsInnerText" placeholder="輸入消息內文" id="recipient-name" name="news_text"></textarea>
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">消息圖片:</label>

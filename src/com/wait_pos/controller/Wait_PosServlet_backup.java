@@ -28,12 +28,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.tables.controller.Bill;
 import com.tables.controller.Tbls;
+import com.tables.model.TablesService;
+import com.tables.model.TablesVO;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Wait_PosServlet extends HttpServlet {
+public class Wait_PosServlet_backup extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -50,17 +52,13 @@ public class Wait_PosServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		
 		
-		
 		String action = req.getParameter("action");
-		System.out.println(action);
 		
 		String vendor_no = req.getParameter("vendor_no");
 		
 		Integer tbl_size = null; // action=insert : null
 		if (req.getParameter("tbl_size") != null)
 			tbl_size = Integer.parseInt(req.getParameter("tbl_size"));
-		System.out.println("##"+tbl_size);
-		
 		
 /* ============================= Vendor ================================= */		
 // open_wait_fun
@@ -111,9 +109,9 @@ public class Wait_PosServlet extends HttpServlet {
 				PersonInLine personInLine = wait_line.getWait_line().get(mem_no);
 				
 				Timer callMemTimer = new Timer();
-				long delay = 10 * 1000; // ms
+				long delay = 30 * 1000; // ms
 				long deadline = System.currentTimeMillis() + delay;
-				callMemTimer.schedule(new CallMemTask(vendor_no, tbl_size, wait_line, mem_no, getServletContext()), new Date(deadline));				
+				callMemTimer.schedule(new CallMemTask_backup(vendor_no, tbl_size, wait_line, mem_no, getServletContext()), new Date(deadline));				
 				personInLine.setDeadline(deadline);
 				personInLine.setCallMemTimer(callMemTimer);				
 				personInLine.setIsCall(true);
@@ -122,17 +120,7 @@ public class Wait_PosServlet extends HttpServlet {
 				SendToVendor.setDeadline(vendor_no, tbl_size, mem_no, personInLine.getNumberPlate(), deadline, getServletContext());
 				
 				// send Deadline to member
-				Map map = new HashMap<>();
-				for (int i = 0; i < wait_line.getWait_line().size(); i++) {
-					map.put(wait_line.getWait_line().get(i),
-							wait_line.getWait_line().indexOf(wait_line.getWait_line().get(i)));
-				}
-				Gson gson = new Gson();
-				StringBuilder jsonIn = new StringBuilder();
-				JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
-				String jsonStr = gson.toJson(map);
-								
-				SendToMember.beCalled(vendor_no, mem_no, jsonStr, getServletContext());
+				SendToMember_backup.beCalled(vendor_no, tbl_size, mem_no, deadline, getServletContext());
 			} // End of synchronized(wait_line)
 
 		
@@ -165,19 +153,7 @@ public class Wait_PosServlet extends HttpServlet {
 				
 				wait_line.getWait_line().clear();;
 				SendToVendor.clearLine(vendor_no, tbl_size, getServletContext());
-				
-				Map map = new HashMap<>();
-				for (int i = 0; i < wait_line.getWait_line().size(); i++) {
-					map.put(wait_line.getWait_line().get(i),
-							wait_line.getWait_line().indexOf(wait_line.getWait_line().get(i)));
-				}
-				Gson gson = new Gson();
-				StringBuilder jsonIn = new StringBuilder();
-				JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
-				String jsonStr = gson.toJson(map);
-				
-				
-				SendToMember.beCanceled(vendor_no, jsonStr, memList, getServletContext());
+				SendToMember_backup.beCanceled(vendor_no, tbl_size, memList, getServletContext());
 			}
 			
 			
@@ -199,22 +175,8 @@ public class Wait_PosServlet extends HttpServlet {
 				personInLine.getCallMemTimer().cancel();
 				result = (tbl_size * 2) + " 人桌 " + personInLine.getNumberPlate() + " 號驗證成功";
 				SendToVendor.refreshLine("check", wait_line,  tbl_size,  vendor_no, result, getServletContext());
-				
-				
-				Map map = new HashMap<>();
-				for (int i = 0; i < wait_line.getWait_line().size(); i++) {
-					map.put(wait_line.getWait_line().get(i),
-							wait_line.getWait_line().indexOf(wait_line.getWait_line().get(i)));
-				}
-				Gson gson = new Gson();
-				StringBuilder jsonIn = new StringBuilder();
-				JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
-				String jsonStr = gson.toJson(map);
-				
-				
-				
-				SendToMember.renewGpBeforeCheck("check", wait_line, jsonStr, vendor_no, getServletContext());
-				SendToMember.beChecked(vendor_no, jsonStr, mem_no, getServletContext());
+				SendToMember_backup.renewGpBeforeCheck("check", wait_line, tbl_size, vendor_no, getServletContext());
+				SendToMember_backup.beChecked(vendor_no, tbl_size, mem_no, getServletContext());
 			}
 			
 
@@ -236,6 +198,7 @@ public class Wait_PosServlet extends HttpServlet {
 			} else {
 				System.out.println(vendor_no + " server 桌位管理功能未初始化");
 			}
+			
 
 			
 		} // end of check_member
@@ -338,20 +301,7 @@ public class Wait_PosServlet extends HttpServlet {
 					// send to vendor
 					SendToVendor.refreshLine("cancel", wait_line,  tbl_size,  vendor_no, result, getServletContext());
 					// send to member after this removed member
-					
-					
-					Map map = new HashMap<>();
-					for (int i = 0; i < wait_line.getWait_line().size(); i++) {
-						map.put(wait_line.getWait_line().get(i),
-								wait_line.getWait_line().indexOf(wait_line.getWait_line().get(i)));
-					}
-					Gson gson = new Gson();
-					StringBuilder jsonIn = new StringBuilder();
-					JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
-					String jsonStr = gson.toJson(map);
-					
-					
-					SendToMember.renewGpBeforeCancel("cancel", wait_line, jsonStr, vendor_no, pilIdx, getServletContext());
+					SendToMember_backup.renewGpBeforeCancel("cancel", wait_line, tbl_size, vendor_no, pilIdx, getServletContext());
 				} else {
 					// multithread 已經被別人取消了 同帳號多個登入 or 已驗證
 				}

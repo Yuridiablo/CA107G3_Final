@@ -5,10 +5,14 @@
 <%@ page import="com.tables.controller.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.*" %>
+<%@ page import="com.vendor.model.*" %>
 
 <%
+VendorVO vVO = (VendorVO) session.getAttribute("vVO");
 String vendor_no = null;
-if (request.getParameter("vendor_no") == null) {
+if (vVO != null) {
+	vendor_no = vVO.getVendor_no();
+} else if (request.getParameter("vendor_no") == null) {
 	vendor_no = "V000001";
 } else {
 	vendor_no = request.getParameter("vendor_no");
@@ -404,7 +408,14 @@ for (Tbl tbl : tblColl) {
 
 <!-- Drag and Drop -->
 <script type="text/javascript">
+//set drag image
+var dragBillImg;
+
 $(document).ready(function(){
+	// set drag image
+	dragBillImg = document.createElement("img"); 
+	dragBillImg.src = 'images/bill-small.png';
+	
 	let cards = document.querySelectorAll('#billList0 .cardOutline');
 	cards.forEach(card => {
 	  $(card).prop('draggable', true);
@@ -454,9 +465,9 @@ function cancelDefault (e) {
 
 function dragStart (e) {
 	// set drag image
-	var img = document.createElement("img"); 
-	img.src = 'images/bill-small.png';
-	e.dataTransfer.setDragImage(img, 0, 0);
+// 	var dragBillImg = document.createElement("img"); 
+// 	dragBillImg.src = 'images/bill-small.png';
+	e.dataTransfer.setDragImage(dragBillImg, 0, 0);
 	
 	var jsonobj = {id : e.target.id, parent : e.target.parentNode.id};
 	e.dataTransfer.setData('text/plain', JSON.stringify(jsonobj));

@@ -15,28 +15,28 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class SendToMember {
+public class SendToMember_backup {
 	
 	// open wait function
-	public static void openWaitFun(String vendor_no,  String jsonStr, Boolean open_wait, ServletContext context) {
-//		JsonObject jbMsg = new JsonObject();
-//		jbMsg.addProperty("action", "openWaitFun");
-//		jbMsg.addProperty("tbl_size", tbl_size);
-//		jbMsg.addProperty("open_wait", open_wait);
-//		String jsonStr = jbMsg.toString();
+	public static void openWaitFun(String vendor_no, Integer tbl_size, Boolean open_wait, ServletContext context) {
+		JsonObject jbMsg = new JsonObject();
+		jbMsg.addProperty("action", "openWaitFun");
+		jbMsg.addProperty("tbl_size", tbl_size);
+		jbMsg.addProperty("open_wait", open_wait);
+		String jsonStr = jbMsg.toString();
 		
 		sendToMember(vendor_no, jsonStr, context);
 	} // End of openWaitFun()
 
 	// call member
-	public static void beCalled(String vendor_no,  String mem_no, String jsonStr, ServletContext context) {
-//		JsonObject jbMsg = new JsonObject();
-//		jbMsg.addProperty("event", "beCalled");
-//		jbMsg.addProperty("action", "setDeadline");
-//		jbMsg.addProperty("vendor_no", vendor_no);
-//		jbMsg.addProperty("tbl_size", tbl_size);
-//		jbMsg.addProperty("deadline", deadline);
-//		String jsonStr = jbMsg.toString();
+	public static void beCalled(String vendor_no, Integer tbl_size, String mem_no, long deadline, ServletContext context) {
+		JsonObject jbMsg = new JsonObject();
+		jbMsg.addProperty("event", "beCalled");
+		jbMsg.addProperty("action", "setDeadline");
+		jbMsg.addProperty("vendor_no", vendor_no);
+		jbMsg.addProperty("tbl_size", tbl_size);
+		jbMsg.addProperty("deadline", deadline);
+		String jsonStr = jbMsg.toString();
 		
 		sendToMember(mem_no, jsonStr, context);
 		
@@ -44,16 +44,16 @@ public class SendToMember {
 
 	
 	// clearLine
-	public static void beCanceled(String vendor_no, String jsonStr, List<String> memList, ServletContext context) {		
+	public static void beCanceled(String vendor_no, Integer tbl_size, List<String> memList, ServletContext context) {		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
-//		JsonObject joMsg = new JsonObject();
-//		joMsg.addProperty("event", "cancelByVendor");
-//		joMsg.addProperty("action", "changeSatusToCancel");
-//		joMsg.addProperty("vendor_no", vendor_no);
-//		joMsg.addProperty("tbl_size", tbl_size);
-//		String jsonStr =joMsg.toString();
-//		System.out.println(memList);
+		JsonObject joMsg = new JsonObject();
+		joMsg.addProperty("event", "cancelByVendor");
+		joMsg.addProperty("action", "changeSatusToCancel");
+		joMsg.addProperty("vendor_no", vendor_no);
+		joMsg.addProperty("tbl_size", tbl_size);
+		String jsonStr =joMsg.toString();
+		System.out.println(memList);
 		for(int i = 0; i < memList.size(); i++) {	
 			sendToMember(memList.get(i), jsonStr, context);
 			
@@ -75,7 +75,7 @@ public class SendToMember {
 		}  // End of beCanceledCall()
 		
 	// cancel
-	public static void renewGpBeforeCancel(String event, Wait_Line wait_line, String jsonStr, String vendor_no, Integer pilIdx, ServletContext context) {
+	public static void renewGpBeforeCancel(String event, Wait_Line wait_line, Integer tbl_size, String vendor_no, Integer pilIdx, ServletContext context) {
 		ListOrderedMap<String, PersonInLine> waitLine = wait_line.getWait_line();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		for(int i = pilIdx; i < waitLine.size(); i++) {
@@ -83,10 +83,10 @@ public class SendToMember {
 			joMsg.addProperty("event", event);
 			joMsg.addProperty("action", "renewGpBefore");
 			joMsg.addProperty("vendor_no", vendor_no);
-//			joMsg.addProperty("tbl_size", tbl_size);
+			joMsg.addProperty("tbl_size", tbl_size);
 			joMsg.addProperty("gp_before", i);
-//			String jsonStr =joMsg.toString();
-			System.out.println("####");
+			String jsonStr =joMsg.toString();
+			
 			sendToMember(waitLine.get(i), jsonStr, context);
 			
 		}
@@ -94,7 +94,7 @@ public class SendToMember {
 	} // End of renewGpBeforeCancel()
 	
 	// check member
-	public static void renewGpBeforeCheck(String event, Wait_Line wait_line, String jsonStr, String vendor_no, ServletContext context) {
+	public static void renewGpBeforeCheck(String event, Wait_Line wait_line, Integer tbl_size, String vendor_no, ServletContext context) {
 		ListOrderedMap<String, PersonInLine> waitLine = wait_line.getWait_line();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		for(int i = 0; i < waitLine.size(); i++) {
@@ -102,9 +102,9 @@ public class SendToMember {
 			joMsg.addProperty("event", event);
 			joMsg.addProperty("action", "renewGpBefore");
 			joMsg.addProperty("vendor_no", vendor_no);
-//			joMsg.addProperty("tbl_size", tbl_size);
+			joMsg.addProperty("tbl_size", tbl_size);
 			joMsg.addProperty("gp_before", i);
-//			String jsonStr = joMsg.toString();
+			String jsonStr = joMsg.toString();
 			
 			sendToMember(waitLine.get(i), jsonStr, context);
 			System.out.println(waitLine.get(i));
@@ -112,20 +112,20 @@ public class SendToMember {
 
 	} // End of renewGpBeforeCheck()
 	
-	public static void beChecked(String vendor_no, String jsonStr, String mem_no, ServletContext context) {
-//		JsonObject jbMsg = new JsonObject();
-//		jbMsg.addProperty("event", "beChecked");
-//		jbMsg.addProperty("action", "beChecked");
-//		jbMsg.addProperty("vendor_no", vendor_no);
-//		jbMsg.addProperty("tbl_size", tbl_size);
-//		String jsonStr = jbMsg.toString();
+	public static void beChecked(String vendor_no, Integer tbl_size, String mem_no, ServletContext context) {
+		JsonObject jbMsg = new JsonObject();
+		jbMsg.addProperty("event", "beChecked");
+		jbMsg.addProperty("action", "beChecked");
+		jbMsg.addProperty("vendor_no", vendor_no);
+		jbMsg.addProperty("tbl_size", tbl_size);
+		String jsonStr = jbMsg.toString();
 		
 		sendToMember(mem_no, jsonStr, context);
 		
 	} // End of setDeadline()
 	
 	// call member
-	public static void renewGpBeforeCall(String event, Wait_Line wait_line, String jsonStr, String vendor_no, Integer pilIdx, ServletContext context) {
+	public static void renewGpBeforeCall(String event, Wait_Line wait_line, Integer tbl_size, String vendor_no, Integer pilIdx, ServletContext context) {
 		ListOrderedMap<String, PersonInLine> waitLine = wait_line.getWait_line();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		for(int i = 0; i <= pilIdx; i++) {
@@ -137,9 +137,9 @@ public class SendToMember {
 			}			
 			joMsg.addProperty("action", "renewGpBefore");
 			joMsg.addProperty("vendor_no", vendor_no);
-//			joMsg.addProperty("tbl_size", tbl_size);
+			joMsg.addProperty("tbl_size", tbl_size);
 			joMsg.addProperty("gp_before", i);
-//			String jsonStr =joMsg.toString();
+			String jsonStr =joMsg.toString();
 			
 			sendToMember(waitLine.get(i), jsonStr, context);			
 		}

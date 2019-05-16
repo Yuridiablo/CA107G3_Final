@@ -29,7 +29,7 @@ public class NewsDAO implements NewsDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO news (news_no,emp_no,news_cont,news_pic,news_rea) VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),?, ?, ?,?,?)";
+			"INSERT INTO news (news_no,emp_no,news_cont,news_pic,news_rea,news_text) VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),?, ?, ?,?,?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT news_no,emp_no,news_cont,news_pic,news_rea,news_text FROM news order by news_no";
 		private static final String GET_ONE_STMT = 
@@ -107,7 +107,6 @@ public class NewsDAO implements NewsDAO_interface {
 					newsVO.setNews_pic(rs.getBytes("news_pic"));
 					newsVO.setNews_rea(rs.getDate("news_rea"));
 					newsVO.setNews_text(rs.getString("news_text"));
-					pstmt.executeQuery();
 					list.add(newsVO); // Store the row in the vector
 				}
 
