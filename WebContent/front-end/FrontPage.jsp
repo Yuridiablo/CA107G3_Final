@@ -19,7 +19,7 @@
 
     <!-- Title -->
     <title>SeekFoodTable - 首頁</title>
-
+ 
     <!-- Favicon -->
     <link rel="icon" href="<%= request.getContextPath() %>/front-end/images/seekfood_AIy_icon.ico">
 

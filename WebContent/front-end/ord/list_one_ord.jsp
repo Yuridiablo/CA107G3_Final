@@ -12,9 +12,9 @@
 
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 
 
@@ -43,9 +43,10 @@ height:1px
 <jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
 <meta charset="UTF-8">
 <title>會員檢視即時訂單</title>
+ <%@ include file="/front-end/header_footer/header_css.txt" %> 
 </head>
 <body>
-
+  <%@ include file="/front-end/header_footer/header.txt" %>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -150,4 +151,6 @@ height:1px
 
 
 </body>
+ <%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
 </html>
