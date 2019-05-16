@@ -486,8 +486,7 @@ public class MemberServlet extends HttpServlet {
 				req.setAttribute("memberVOList", memberList);
 				req.setAttribute("serchMember", "serchMember");
 				String url = "/front-end/motherboard.jsp";
-//				String url = "/member/serchMember.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交update_emp_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
  
 			} catch (Exception e) {
