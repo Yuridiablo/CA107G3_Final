@@ -5,7 +5,8 @@
 
 <jsp:useBean id="vVO" scope="session" class="com.vendor.model.VendorVO" />
 <% 
-	String vday = vVO.getV_day();
+	
+	String vday = vVO.getV_day().equals("0") ? "0000000" : vVO.getV_day();
 	boolean d1 = String.valueOf(vday.charAt(0)).equals("1") ? true : false;
 	boolean d2 = String.valueOf(vday.charAt(1)).equals("1") ? true : false;
 	boolean d3 = String.valueOf(vday.charAt(2)).equals("1") ? true : false;

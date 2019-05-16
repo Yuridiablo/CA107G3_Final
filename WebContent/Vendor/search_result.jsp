@@ -99,7 +99,7 @@ font-family:"微軟正黑體";
   left: -160px; /* Position them outside of the screen */
   transition: 0.3s; /* Add transition on hover */
   padding: 15px; /* 15px padding */
-  width: 200px; /* Set a specific width */
+  width: 230px; /* Set a specific width */
   text-decoration: none; /* Remove underline */
   font-size: 26px; /* Increase font size */
   color: white; /* White text color */
@@ -196,7 +196,7 @@ font-family:"微軟正黑體";
 
 <div id="mySidenav" class="sidenav">
 
-  <a href="<%=request.getContextPath()%>/front-end/FrontPage.jsp" id="backHome">回首頁</a>
+  <a href="<%=request.getContextPath()%>/front-end/FrontPage.jsp" id="backHome">回首頁<span class="icon-home" style="float: right; text-align: right;"></span></a>
  
 </div>
                     
