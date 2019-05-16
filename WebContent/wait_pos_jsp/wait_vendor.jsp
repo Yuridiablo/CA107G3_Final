@@ -19,7 +19,7 @@ if (vVO != null) {
 } else {
 	vendor_no = request.getParameter("vendor_no");
 }
-
+ 
 Map<String, Map<Integer, Wait_Line>> wait_line_all = (Map) application.getAttribute("wait_line_all");
 
 Map<Integer, Wait_Line> wait_line_vendor = (Map) wait_line_all.get(vendor_no);				
