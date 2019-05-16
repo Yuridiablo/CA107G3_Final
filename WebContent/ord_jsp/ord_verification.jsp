@@ -170,6 +170,7 @@ $( function() {
 		    type: 'post',
 		    data: {
 		      action : "ordVerify",
+		      vendor_no : "<%= vendor_no %>",
 		      ord_no : ord_no
 		    },
 		    dataType: "json",			    

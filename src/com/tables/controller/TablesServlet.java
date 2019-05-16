@@ -206,7 +206,8 @@ public class TablesServlet extends HttpServlet {
 //			try {
 				
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-							
+				String vendor_no = req.getParameter("vendor_no");
+			
 				String[] tbl_no_arr = req.getParameterValues("tbl_no");
 				
 				String[] tbl_type_arr = req.getParameterValues("tbl_type");
@@ -220,6 +221,25 @@ public class TablesServlet extends HttpServlet {
 					tablesService.updateTablesAxis(tbl_no_arr[i], tbl_type_arr[i] == "" ? null: Integer.valueOf(tbl_type_arr[i]), tbl_x_arr[i] == "" ? null: Integer.valueOf(tbl_x_arr[i]), tbl_y_arr[i] == "" ? null: Integer.valueOf(tbl_y_arr[i]));				
 				}
 				
+				// 修改 記憶體裡的桌位資料
+				Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+				if (tbls_all != null) {
+					Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);				
+					if (vendor_tbls != null) {
+						synchronized(vendor_tbls) {
+							for(int i = 0;  i < tbl_no_arr.length; i++) {
+								TablesVO tblVO = vendor_tbls.getTbls().get(tbl_no_arr[i]).getTblVO();
+								tblVO.setTbl_type(tbl_type_arr[i] == "" ? null: Integer.valueOf(tbl_type_arr[i]));
+								tblVO.setTbl_x(tbl_x_arr[i] == "" ? null: Integer.valueOf(tbl_x_arr[i]));
+								tblVO.setTbl_y(tbl_y_arr[i] == "" ? null: Integer.valueOf(tbl_y_arr[i]));
+							}
+						}				
+					} else {
+						System.out.println(vendor_no + " 桌位管理功能未初始化");
+					}
+				} else {
+					System.out.println(vendor_no + " server 桌位管理功能未初始化");
+				}
 //				TablesVO tablesVO = new TablesVO();
 //				tablesVO.setVendor_no(vendor_no);
 //				tablesVO.setTbl_no(tbl_no);
@@ -324,8 +344,22 @@ public class TablesServlet extends HttpServlet {
 					tbl = vendor_tbls.getTbls().get(tbl_no);
 					bill = tbl.getBill();
 					synchronized(tbl) {
-						tbl.setStatus(tbl_status);
-						bill.setSource(bill_status);
+						if (tbl_status == 1 && bill_status == 1) {
+							tbl.setStatus(tbl_status);
+//							tbl.setBill(bill);
+						} else if (tbl_status == 1 && bill_status == 2) {
+							tbl.setStatus(tbl_status);
+							bill.setStatus(bill_status);
+						} else if (tbl_status == 2 && bill_status == 3) {
+							tbl.setStatus(tbl_status);
+							bill.setStatus(bill_status);
+							bill.setEndTime(new Date().getTime());
+							tbl.setBill(null);
+							jbMsg.addProperty("endTime", bill.getEndTime());
+						} else if (tbl_status == 0 && bill_status == null) {
+							tbl.setStatus(tbl_status);
+							tbl.setBill(null);
+						}
 					}
 					status = 1;
 					result = "變更桌況成功";					
@@ -340,7 +374,9 @@ public class TablesServlet extends HttpServlet {
 				result = "系統桌位管理功能未初始化";
 			}
 			// push to vendor
-						
+			
+			
+			
 			jbMsg.addProperty("result", result);
 			jbMsg.addProperty("status", status);
 			String jsonStr = jbMsg.toString();

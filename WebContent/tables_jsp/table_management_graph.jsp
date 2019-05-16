@@ -5,8 +5,14 @@
 <%@ page import="java.util.*" %>
 
 <%
+String vendor_no = null;
+if (request.getParameter("vendor_no") == null) {
+	vendor_no = "V000001";
+} else {
+	vendor_no = request.getParameter("vendor_no");
+}
 	TablesService tablesService = new TablesService();
-	List<TablesVO> list = tablesService.getAllByVendor_no("V000001");
+	List<TablesVO> list = tablesService.getAllByVendor_no(vendor_no);
 	pageContext.setAttribute("list", list);
 	
 	int tblWidth = 100;
@@ -99,7 +105,7 @@
 				<form method="get" action="<%=request.getContextPath()%>/tables/tables.do" id="formTblAxis">
 					<button type="submit" class="btn btn-secondary btn-block" id="btnSaveAxis">儲存</button>
 					<input type="hidden" name="action" value="updateAxis">
-	
+					<input type="hidden" name="vendor_no"	value="<%= vendor_no %>">
 					
 				<div id="accordion" class="tblList">
 
