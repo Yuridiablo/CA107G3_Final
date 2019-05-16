@@ -29,7 +29,7 @@ public class TablesDAO implements TablesDAO_interface {
 	private static final String GET_ONE_STMT = 
 			"SELECT tbl_no, vendor_no, tbl_name, tbl_size, tbl_type, tbl_x, tbl_y FROM tables where tbl_no = ?";
 	private static final String GET_ALL_BY_VENDOR_NO_STMT = 
-	"SELECT tbl_no, vendor_no, tbl_name, tbl_size, tbl_type, tbl_x, tbl_y FROM tables WHERE vendor_no = ? ORDER by tbl_no";
+	"SELECT tbl_no, vendor_no, tbl_name, tbl_size, tbl_type, tbl_x, tbl_y FROM tables WHERE vendor_no = ? ORDER by tbl_size, tbl_name";
 	private static final String DELETE = 
 			"DELETE FROM tables where tbl_no = ?";
 	private static final String UPDATE = 
