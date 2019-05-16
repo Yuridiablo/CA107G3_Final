@@ -4,6 +4,25 @@
 <%@ page import="com.vendor.model.*"%>
 
 <jsp:useBean id="vVO" scope="session" class="com.vendor.model.VendorVO" />
+<% 
+	String vday = vVO.getV_day();
+	boolean d1 = String.valueOf(vday.charAt(0)).equals("1") ? true : false;
+	boolean d2 = String.valueOf(vday.charAt(1)).equals("1") ? true : false;
+	boolean d3 = String.valueOf(vday.charAt(2)).equals("1") ? true : false;
+	boolean d4 = String.valueOf(vday.charAt(3)).equals("1") ? true : false;
+	boolean d5 = String.valueOf(vday.charAt(4)).equals("1") ? true : false;
+	boolean d6 = String.valueOf(vday.charAt(5)).equals("1") ? true : false;
+	boolean d7 = String.valueOf(vday.charAt(6)).equals("1") ? true : false;
+	
+	pageContext.setAttribute("d1", d1);
+	pageContext.setAttribute("d2", d2);
+	pageContext.setAttribute("d3", d3);
+	pageContext.setAttribute("d4", d4);
+	pageContext.setAttribute("d5", d5);
+	pageContext.setAttribute("d6", d6);
+	pageContext.setAttribute("d7", d7);
+%>
+
 
 <!doctype html>
 <html lang="en">
@@ -182,30 +201,101 @@ to {
 								<div class="col-4 col-form-label">
 									<label for="validationTooltip01">餐廳類型 :</label>
 								</div>
-								<div class="col-8">
-									<input type="text" name="v_type" value="${vVO.v_type}" class="form-control"
-										placeholder="請輸入餐廳類型" required>
-
+								
+								<div class="col-8" id="selectType">
+								<select class="form-control"  name="v_type">
+                                
+                                  <option value="中式餐廳">中式餐廳</option>
+                                  <option value="日式料理">日式料理</option>
+                                  <option value="泰國餐廳">泰國餐廳</option>
+                                  <option value="燒烤餐廳">燒烤餐廳</option>
+                                  <option value="東南亞風味">東南亞風味</option>
+                                  <option value="義式料理">義式料理</option>
+                                  <option value="吃到飽">吃到飽</option>
+                                  <option value="美式餐廳">美式餐廳</option>
+                                  <option value="火鍋店">火鍋店</option>
+                                  <option value="甜點店">甜點店</option>
+                                  
+                                </select>
+							
+<%-- 									<input type="text" name="v_type" value="${vVO.v_type}" class="form-control" --%>
+<!-- 										placeholder="請輸入餐廳類型" required> -->
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="col-4 col-form-label">
 									<label>開始營業時間 :</label>
 								</div>
-								<div class="col-8">
-									<input type="text" name="v_start_time" value="${vVO.v_start_time}" class="form-control"
-										placeholder="開店時間" required>
-									<div class="invalid-tooltip">請輸入正確格式</div>
+								<div class="col-8" id="selectOpen">
+									<select class="form-control"  name="v_start_time">
+	                                
+	                                  <option value="0000">00:00</option>
+	                              	  <option value="0100">01:00</option>
+	                              	  <option value="0200">02:00</option>
+	                              	  <option value="0300">03:00</option>
+	                              	  <option value="0400">04:00</option>
+	                              	  <option value="0500">05:00</option>
+	                                  <option value="0600">06:00</option>
+	                                  <option value="0700">07:00</option>
+	                                  <option value="0800">08:00</option>
+	                                  <option value="0900">09:00</option>
+	                                  <option value="1000">10:00</option>
+	                                  <option value="1100">11:00</option>
+	                                  <option value="1200">12:00</option>
+	                                  <option value="1300">13:00</option>
+	                                  <option value="1400">14:00</option>
+	                                  <option value="1500">15:00</option>
+	                                  <option value="1600">16:00</option>
+	                                  <option value="1700">17:00</option>
+	                                  <option value="1800">18:00</option>
+	                                  <option value="1900">19:00</option>
+	                                  <option value="2000">20:00</option>
+	                                  <option value="2100">21:00</option>
+	                                  <option value="2200">22:00</option>
+	                                  <option value="2300">23:00</option>
+	                                  
+	                                </select>
+<%-- 									<input type="text" name="v_start_time" value="${vVO.v_start_time}" class="form-control" --%>
+<!-- 										placeholder="開店時間" required> -->
+<!-- 									<div class="invalid-tooltip">請輸入正確格式</div> -->
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="col-4 col-form-label">
 									<label>結束營業時間 :</label>
 								</div>
-								<div class="col-8">
-									<input type="text" name="v_end_time" value="${vVO.v_end_time}" class="form-control" id="pwd"
-										placeholder="打烊時間" maxlength="10" required
-										pattern="^(?=.*\d)(?=.*[A-za-z]).{6,10}$">
+								<div class="col-8" id="selectColse">
+									<select class="form-control"  name="v_end_time">
+	                              	  <option value="0000">00:00</option>
+	                              	  <option value="0100">01:00</option>
+	                              	  <option value="0200">02:00</option>
+	                              	  <option value="0300">03:00</option>
+	                              	  <option value="0400">04:00</option>
+	                              	  <option value="0500">05:00</option>
+	                                  <option value="0600">06:00</option>
+	                                  <option value="0700">07:00</option>
+	                                  <option value="0800">08:00</option>
+	                                  <option value="0900">09:00</option>
+	                                  <option value="1000">10:00</option>
+	                                  <option value="1100">11:00</option>
+	                                  <option value="1200">12:00</option>
+	                                  <option value="1300">13:00</option>
+	                                  <option value="1400">14:00</option>
+	                                  <option value="1500">15:00</option>
+	                                  <option value="1600">16:00</option>
+	                                  <option value="1700">17:00</option>
+	                                  <option value="1800">18:00</option>
+	                                  <option value="1900">19:00</option>
+	                                  <option value="2000">20:00</option>
+	                                  <option value="2100">21:00</option>
+	                                  <option value="2200">22:00</option>
+	                                  <option value="2300">23:00</option>
+	                                  
+	                                </select>
+									
+<%-- 									<input type="text" name="v_end_time" value="${vVO.v_end_time}" class="form-control" id="pwd" --%>
+<!-- 										placeholder="打烊時間" maxlength="10" required -->
+<!-- 										pattern="^(?=.*\d)(?=.*[A-za-z]).{6,10}$"> -->
 
 								</div>
 							</div>
@@ -213,10 +303,40 @@ to {
 								<div class="col-4 col-form-label">
 									<label>定期休假 :</label>
 								</div>
-								<div class="col-8">
-									<input type="text" name="v_day" value="${vVO.v_day}" class="form-control"
-										placeholder="選擇星期" maxlength="10" id="pwdconfirm" required
-										pattern="^(?=.*\d)(?=.*[A-za-z]).{6,10}$">
+								<div class="col-7">
+								
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="d1" value="1">
+								  <label class="form-check-label" for="inlineCheckbox1">一</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="d2" value="1">
+								  <label class="form-check-label" for="inlineCheckbox2">二</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="d3" value="1">
+								  <label class="form-check-label" for="inlineCheckbox3">三</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="inlineCheckbox4" name="d4" value="1">
+								  <label class="form-check-label" for="inlineCheckbox4">四</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="inlineCheckbox5" name="d5" value="1">
+								  <label class="form-check-label" for="inlineCheckbox5">五</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="inlineCheckbox6" name="d6" value="1">
+								  <label class="form-check-label" for="inlineCheckbox6">六</label>
+								</div>
+								<div class="form-check form-check-inline">
+								  <input class="form-check-input" type="checkbox" id="inlineCheckbox7" name="d7" value="1">
+								  <label class="form-check-label" for="inlineCheckbox7">日</label>
+								</div>
+						
+<%-- 									<input type="text" name="v_day" value="${vVO.v_day}" class="form-control" --%>
+<!-- 										placeholder="選擇星期" maxlength="10" id="pwdconfirm" required -->
+<!-- 										pattern="^(?=.*\d)(?=.*[A-za-z]).{6,10}$"> -->
 
 								</div>
 							</div>
@@ -411,6 +531,36 @@ if (file) {
   reader.readAsDataURL(file)
 }
 })
+    </script>
+    
+    <script>
+   
+    $('#selectType select').val('${vVO.v_type}');
+    $('#selectOpen select').val('${vVO.v_start_time}');
+    $('#selectColse select').val('${vVO.v_end_time}');
+   	
+    
+    $('#selectOpen select, #selectColse select').change(function() {
+    	if($('#selectOpen select').val() == $('#selectColse select').val()){
+    		Swal.fire({
+    			
+    			  type: 'info',
+    			  title: '你不能一開門就關門！',
+    			  
+    			})
+    		 $('#selectColse select').val('0000');
+        }
+   	});
+    
+    $('#inlineCheckbox1').prop("checked",${d1});
+    $('#inlineCheckbox2').prop("checked",${d2});
+    $('#inlineCheckbox3').prop("checked",${d3});
+    $('#inlineCheckbox4').prop("checked",${d4});
+    $('#inlineCheckbox5').prop("checked",${d5});
+    $('#inlineCheckbox6').prop("checked",${d6});
+    $('#inlineCheckbox7').prop("checked",${d7});
+
+    
     </script>
 </body>
 
