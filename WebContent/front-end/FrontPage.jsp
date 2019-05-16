@@ -569,7 +569,9 @@
         	$("#navbarDropdownMenuLink2").show();
     	}
     	
-    	    	
+    	$(".img-fluid").on('click',function(){
+    		$(location).attr('href','${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&randSearch=randSearch');
+    	});    	
   
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
     	
