@@ -10,12 +10,13 @@ public class NewsService {
 		dao = new NewsDAO();
 	}
 
-	public NewsVO addNews(String emp_no, String news_cont, byte[] news_pic, Date news_rea) {
+	public NewsVO addNews(String emp_no, String news_cont, byte[] news_pic, Date news_rea,String news_text) {
 		NewsVO newsVO = new NewsVO();
 		newsVO.setEmp_no(emp_no);
 		newsVO.setNews_cont(news_cont);
 		newsVO.setNews_pic(news_pic);
 		newsVO.setNews_rea(news_rea);
+		newsVO.setNews_text(news_text);
 		dao.insert(newsVO);
 		return newsVO;
 	}
