@@ -43,6 +43,7 @@
 #submmit {
 	margin-top: 10px;
 }
+
 </style>
 </head>
 
@@ -162,16 +163,15 @@
 						}
 					});
 
-					if ($("input").val() != "") {
+					
 						$("#submmit").on('click', function() {
-							if (inputconfirm != vstring) {
-								return false;
-							} else {
-								return true;
-							}
-
+								if (inputconfirm != vstring) {
+									return false;
+								} else {
+									return false;
+								}
 						})
-					}
+					
 
 					$("#fillmsg").on('click', function() {
 						$("#mem_account").val("qq1234");

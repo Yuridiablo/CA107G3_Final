@@ -576,7 +576,7 @@
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
     	
   			var randomFlag = Math.floor(Math.random()*10000+1);
-	  		$("#flag").val(randomFlag);
+	  		$(".flag").val(randomFlag);
     });
 
     </script>
@@ -610,7 +610,9 @@
 
 		<c:if test="${account!=null}">
 			<script>
+				alert("55555555555");
 				if($.cookie("helloMsg")!="seen"){
+					
 		    		Swal.fire({
 						  position: 'center',
 						  type: 'success',
