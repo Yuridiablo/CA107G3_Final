@@ -19,3 +19,4 @@ public class RequestListener implements ServletRequestListener {
         ((HttpServletRequest)servletRequestEvent.getServletRequest()).getSession();
     }
 }
+ 
