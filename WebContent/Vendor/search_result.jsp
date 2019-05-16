@@ -94,13 +94,14 @@ font-family:"微軟正黑體";
 
 /* Style the links inside the sidenav */
 #mySidenav a {
+  text-align: center;
   position: absolute; /* Position them relative to the browser window */
-  left: -170px; /* Position them outside of the screen */
+  left: -160px; /* Position them outside of the screen */
   transition: 0.3s; /* Add transition on hover */
   padding: 15px; /* 15px padding */
   width: 200px; /* Set a specific width */
   text-decoration: none; /* Remove underline */
-  font-size: 20px; /* Increase font size */
+  font-size: 26px; /* Increase font size */
   color: white; /* White text color */
   border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
 }
