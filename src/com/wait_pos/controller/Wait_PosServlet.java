@@ -183,17 +183,18 @@ public class Wait_PosServlet extends HttpServlet {
 			// mem_no 移到桌位管理 已驗證
 			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
 			if (tbls_all != null) {
-				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);				
-				if (vendor_tbls != null) {	
-					Bill bill = new Bill(personInLine);					
-					synchronized(vendor_tbls) {
-						vendor_tbls.putBill(bill);
-						// push to vendor
-					}
-					
-				} else {
-					System.out.println(vendor_no + " 桌位管理功能未初始化");
+				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);
+				if (vendor_tbls == null) {	
+					vendor_tbls = new Tbls(vendor_no);
+					tbls_all.put(vendor_no, vendor_tbls);
 				}
+				
+				Bill bill = new Bill(personInLine);					
+				synchronized(vendor_tbls) {
+					vendor_tbls.putBill(bill);
+					// push to vendor
+				}
+					
 			} else {
 				System.out.println(vendor_no + " server 桌位管理功能未初始化");
 			}

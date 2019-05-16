@@ -68,7 +68,7 @@ public class Article_ReportedServlet extends HttpServlet{
 				
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("article_reportedVO",article_reportedVO);
-					RequestDispatcher failureView  = req.getRequestDispatcher("/Article_Reported_JSP/manage_article_reported.jsp");
+					RequestDispatcher failureView  = req.getRequestDispatcher("/Article_Reported/article_reported.do?action=listArtRep");
 					failureView.forward(req, res);
 					return;
 				}
@@ -84,12 +84,12 @@ public class Article_ReportedServlet extends HttpServlet{
 				Article_ReportedService article_reportedSvc = new Article_ReportedService();
 				article_reportedVO = article_reportedSvc.updateArticle_Reported(artre_content, artre_time, artre_code, artre_no);
 				System.out.println("123");
-				String url = "/Article_Reported_JSP/manage_article_reported.jsp";
+				String url = "/Article_Reported/article_reported.do?action=listArtRep";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 			}catch(Exception e) {
 				errorMsgs.add("修改資料失敗"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Reported_JSP/manage_article_reported.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/Article_Reported/article_reported.do?action=listArtRep");
 				failureView.forward(req, res);
 			}
 		}

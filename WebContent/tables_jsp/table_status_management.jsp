@@ -4,7 +4,7 @@
 <%@ page import="com.tables.model.*" %>
 <%@ page import="com.tables.controller.*" %>
 <%@ page import="java.util.*" %>
-<%@ page import="java.util.*" %>
+<%@ page import="java.text.*" %>
 
 <%
 String vendor_no = null;
@@ -43,7 +43,7 @@ int hrWidth = 220;
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="fonts/Material+Icons.css">
 	
 	<%@ include file="navbar/nav_css.txt" %>
 	
@@ -54,6 +54,12 @@ int hrWidth = 220;
 	   		left: 0;
 	   		display: flex;
    		}
+	</style>
+	<style>
+		#accordion {
+			overflow-y:auto;			
+			height:600px;
+		}
 	</style>
 	<style>
 		#floorplan1{
@@ -92,35 +98,49 @@ int hrWidth = 220;
 		}
 	
 	</style>
-	<!-- Card -->
+	
+<!-- Card -->
 <style>
 .cardOutline {
 	box-shadow: 0 1px 1px 0 rgba(60,64,67,.08), 0 1px 3px 1px rgba(60,64,67,.16); 
 	border-radius: 3px;
-	padding: 5px 10px 0px 10px;
-	display: flex;
+	padding: 5px 10px 5px 10px;	
+	width: 100%;
 }	
+
+.cardTop {
+	display: flex;
+	justify-content: space-between;	
+}
+.cardBottom {
+	display: flex;
+}
 
 .cardRight {
 	margin-left: 20px;
+	width: 100%;
+
 }
 .name {
 	margin: 0 0 0 0;
 	font-size: 24px;
 }
-.partySize {
-	margin: 0 0 5px 0;	
-	display: inline-flex;
-	vertical-align: middle;
-	align-items: center;	
+.source {
+	font-size: 14px;
 }
+
 
 .cardRBottom {
 	display: flex;
+	justify-content: space-between;	
+	padding: 4px 0 0px 0;
 }
-
-.bookingTime {
-	margin-left: 30px;
+.cardRTop {
+	display: flex;
+	justify-content: space-between;	
+	line-height: 48px;
+}
+.bookingTime,.totalAmount,.partySize {	
 	display: inline-flex;
 	vertical-align: middle;
 	align-items: center;
@@ -133,6 +153,17 @@ int hrWidth = 220;
 
 .cardRBottom .material-icons {
 	font-size: 18px;	
+}
+.billStatus {
+	background-color: green;
+	color: white;
+	padding: 2px 0 2px 0;
+	border-radius: 5px;
+	font-size: 12px;
+	text-align: center;
+}
+.diningTime {
+	display: flex;
 }
 
 </style>
@@ -181,11 +212,80 @@ int hrWidth = 220;
 				    </div> <!-- End of card header -->
 
 					<!-- card body -->
-				    <div id="collapseBillList<%= i %>" class="collapse show p-0" aria-labelledby="headingBillList1">
-				      <div class="card-body p-0">
-				      
-				        
-		        
+				    <div id="collapseBillList<%= i %>" class="collapse show p-0" aria-labelledby="headingBillList<%= i %>">
+				      <div id="billList<%= i %>" class="card-body p-0">
+<% for( Bill bill : bills.values()) { %>
+	<% 
+		boolean inList = false;
+		switch(bill.getStatus()) {
+		case 0:
+			if (i == 0) inList = true;
+			break;
+		case 1:case 2:
+			if (i == 1) inList = true;
+			break;
+		case 3:
+			if (i == 2) inList = true;
+			break;
+		case 4:
+			if (i == 3) inList = true;
+			break;
+		case 5:
+			if (i == 4) inList = true;
+			break;
+		}
+	%>
+	<% if (inList) { %>
+	<% 
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+		Long startTime = bill.getStartTime();
+		String startTimeStr = "";
+		if (startTime != null) {				
+			startTimeStr = format.format(startTime);
+		}
+		
+		Long endTime = bill.getEndTime();
+		String endTimeStr = "";
+		if (endTime != null) {				
+			endTimeStr = format.format(endTime);
+		}
+		
+		java.util.Date bookingTime = bill.getBookingTime();
+		String bookingTimeStr = "";
+		if (bookingTime != null) {				
+			bookingTimeStr = format.format(bookingTime.getTime());
+		}	
+	%>
+	<div class="cardOutline" id="<%= bill.getBill_no() %>">	
+		<div class="cardTop">
+			<div class="diningTime" style="visibility: <%= bill.getStartTime()==null ? "hidden" : "visible" %> ">
+				<div class="startTime"> <%= startTimeStr %></div>
+				<div class="timeSep">-</div>
+				<div class="endTime"><%= endTimeStr %> </div>
+			</div>			
+			<div class="source"><%= BillFmt.sourceFmt(bill.getSource(), 1) %></div>
+		</div>
+
+		<div class="cardBottom">
+			<div class="cardLeft">
+				<i class="material-icons">account_circle</i>
+				<div class="billStatus" style="background-color:<%= BillFmt.colorFmt(bill.getStatus()) %>"><%= BillFmt.statusFmt(bill.getStatus()) %></div>
+			</div>
+			<div class="cardRight">
+				<div class="cardRTop">
+					<div class="name"> <%= bill.getMem_no()==null ? "Anonymous" : bill.getMem_no() %></div>
+					<div class="tblName"> <%= bill.getTbl_no()==null ? "" : tbls.get(bill.getTbl_no()).getTblVO().getTbl_name() %> </div>
+				</div>	
+				<div class="cardRBottom">
+					<div class="partySize"><i class="material-icons">group</i>&nbsp;<span><%= bill.getParty_size() %> </span></div>
+					<div class="bookingTime" style="visibility: <%= bill.getBookingTime()==null ? "hidden" : "visible" %>"><i class="material-icons">access_time</i>&nbsp;<span><%= bookingTimeStr %></span></div>
+					<div class="totalAmount" style="visibility: <%= bill.getTotal()==null ? "hidden" : "visible" %>"><i class="material-icons">attach_money</i><span>  <%= bill.getTotal() %>  </span></div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- End of cardOutline -->
+	<% } %>				        
+<% } %>		        
 				      </div>
 				    </div> <!-- End of card body -->
 
@@ -217,8 +317,8 @@ for (Tbl tbl : tblColl) {
 	if (tblVO.getTbl_x() != null && tblVO.getTbl_y() != null) {
 		String tblType = tblVO.getTbl_type() == 1 ? "square" : "round";
 %>
-						<div class="<%= tblType %>Table tbl" id="<%= tblVO.getTbl_no() %>" data-tbl_status="<%= tbl.getStatus() %>" data-bill_no="<%= tbl.getBill() != null ? tbl.getBill().getSource() : "" %>" data-bill_status="<%= tbl.getBill() != null ? tbl.getBill().getStatus() : "" %>" style="left: <%= tblVO.getTbl_x() %>px; top: <%= tblVO.getTbl_y() %>px; background-color:<%= color %> ;"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<%= tblVO.getTbl_name() %>
+						<div class="<%= tblType %>Table tbl" id="<%= tblVO.getTbl_no() %>" data-tbl_status="<%= tbl.getStatus() %>" data-bill_no="<%= tbl.getBill() != null ? tbl.getBill().getBill_no() : "" %>" data-bill_status="<%= tbl.getBill() != null ? tbl.getBill().getStatus() : "" %>" style="left: <%= tblVO.getTbl_x() %>px; top: <%= tblVO.getTbl_y() %>px; background-color:<%= color %> ;"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="tblName"><%= tblVO.getTbl_name() %></span>
 							<%if(tbl.getBill() != null) { %>	
 							<img class="bill_img" src="images/bill.png">
 							<% } %>						
@@ -228,14 +328,14 @@ for (Tbl tbl : tblColl) {
 }
 %>						<!-- dropdown menu tblDM -->
 						<div id="tblDM" class="dropdown-menu">
-						  <button class="dropdown-item" type="button" data-toggle="modal" data-target="#newWIModal">新增客人</button>
+						  <button id="btnNewWIMenu" class="dropdown-item disabled" type="button" data-toggle="modal" data-target="#newWIModal">新增客人</button>
 						  <div class="dropdown-divider"></div>
 						  <h6 class="dropdown-header">桌況變更</h6>
-						  <button id="btnTblStat_empty" class="dropdown-item" type="button">空桌</button>
+						  <button id="btnTblStat_empty" class="dropdown-item disabled" type="button">空桌</button>
 						  <!-- <button id="btnTblStat_seated" class="dropdown-item" type="button">已入座</button> -->
-						  <button id="btnTblStat_dining" class="dropdown-item" type="button">用餐中</button>
-						  <button id="btnTblStat_clean" class="dropdown-item" type="button">清潔中</button>
-						  <button id="btnTblStat_keep" class="dropdown-item" type="button">保留中</button>
+						  <button id="btnTblStat_dining" class="dropdown-item disabled" type="button">用餐中</button>
+						  <button id="btnTblStat_clean" class="dropdown-item disabled" type="button">清潔中</button>
+						  <button id="btnTblStat_keep" class="dropdown-item disabled" type="button">保留中</button>
 						  <!-- <a class="dropdown-item disabled" href="#">Another action</a> -->		  
 						</div> <!-- End of tblDM -->
 						
@@ -303,23 +403,129 @@ for (Tbl tbl : tblColl) {
 var bills = [];
 </script>
 
-<!-- Card list -->
+<!-- Bill list -->
 <script type="text/javascript">
-function mkCard(ord_no, mem_no, party_size, booking_time) {
+
+	function mkCard(bill_no, name, party_size, booking_time, startTime, endTime, source, tblName, totalAmount, status) {
 	
 	str =	      
-	'<div class="cardOutline" id="' + ord_no + '" style="left:' + calcCardLeft(booking_time) + '">' +		
-		'<div class="cardLeft"><i class="material-icons">account_circle</i>	</div>' +
-		'<div class="cardRight">' +
-			'<div class="name">' + mem_no + '</div>' +
-			'<div class="cardRBottom">'	 +
-				'<div class="partySize"><i class="material-icons">group</i>&nbsp;<span>' + party_size + '</span></div>' +
-				'<div class="bookingTime"><i class="material-icons">access_time</i>&nbsp;<span>' + booking_time + '</span></div>' +
-			'</div>' +		
-		'</div>' +	
+	'<div class="cardOutline" id="' + bill_no + '">' +	
+		'<div class="cardTop">' +
+			'<div class="diningTime" style="visibility:' + (startTime==null?'hidden':'visible') + '">' +
+				'<div class="startTime">' + longToTime(startTime) + '</div>' +
+				'<div class="timeSep">-</div>' +
+				'<div class="endTime">' + (endTime==null?'':longToTime(endTime)) + '</div>' +
+			'</div>' +			
+			'<div class="source">' + sourceFmt(source, 1) + '</div>' +
+		'</div>' +
+
+		'<div class="cardBottom">' +
+			'<div class="cardLeft">' + 
+				'<i class="material-icons">account_circle</i>' + 
+				'<div class="billStatus" style="background-color:' + billColorFmt(status) + '">' + billStatusFmt(status) + '</div>' + 
+			'</div>' +
+			'<div class="cardRight">' +
+				'<div class="cardRTop">' +
+					'<div class="name">' + (name==null ? 'Anonymous' : name) + '</div>' +
+					'<div class="tblName">' + tblName + '</div>' +
+				'</div>' +	
+				'<div class="cardRBottom">'	 +
+					'<div class="partySize"><i class="material-icons">group</i>&nbsp;<span>' + party_size + '</span></div>' +
+					'<div class="bookingTime" style="visibility:' + (booking_time==null?'hidden':'visible') + '"><i class="material-icons">access_time</i>&nbsp;<span>' + booking_time + '</span></div>' +
+					'<div class="totalAmount" style="visibility:' + (totalAmount==null?'hidden':'visible') + '"><i class="material-icons">attach_money</i><span>' + totalAmount + '</span></div>' +
+				'</div>' +		
+			'</div>' +	
+		'</div>' +
 	'</div>';
 	return str;
 	} // End of mkCard
+
+	function longToTime(time) {
+		var date = new Date(time);
+		var str = date.toLocaleString('default', { timeZone: 'Asia/Taipei', hour12:false, hour:'2-digit', minute: '2-digit' });
+// 		var str = date.getHours() + ":" + date.getMinutes();
+		return str;
+	}
+	function billColorFmt(status) {
+		var fmt = null;
+		switch(status) {
+		case 0:
+			fmt = "#669999";
+			break;
+		case 1:
+			fmt = "#668cff";
+			break;
+		case 2:
+			fmt = "#d966ff";
+			break;
+		case 3:
+			fmt = "#77773c";
+			break;
+		case 4:
+			fmt = "#ff9933";
+			break;
+		case 5:
+			fmt = "#ff3333";
+			break;
+		}
+		return fmt;
+	}
+
+	function billStatusFmt(status) {
+		var fmt = null;
+		switch(status) {
+		case 0:
+			fmt = "已驗證";
+			break;
+		case 1:
+			fmt = "已入座";
+			break;
+		case 2:
+			fmt = "用餐中";
+			break;
+		case 3:
+			fmt = "已結帳";
+			break;
+		case 4:
+			fmt = "訂位";
+			break;
+		case 5:
+			fmt = "No Show";
+			break;
+		}
+		return fmt;
+	}
+	 
+	function sourceFmt(source, type) {
+		var fmt = null;
+		if (type == 1) {
+			switch(source) {
+			case 1:
+				fmt = "訂位";
+				break;
+			case 2:
+				fmt = "候位";
+				break;
+			case 3:
+				fmt = "散客";
+				break;		
+			}
+		} else if (type == 2) {
+			switch(source) {
+			case 1:
+				fmt = "B";
+				break;
+			case 2:
+				fmt = "W";
+				break;
+			case 3:
+				fmt = "WI";
+				break;		
+			}
+		}
+		
+		return fmt;
+	}
 
 	function timeFmt(time) {
 		return time.substr(0, 2) + ":" + time.substr(2, 2);
@@ -334,6 +540,25 @@ $('.tbl').dropdown();
 
 $(".floorplan").on('show.bs.dropdown', function (e) {
 	$("#tblDM").attr("data-tbl_no",e.relatedTarget.id);
+	$("#tblDM").find("button").addClass("disabled");
+	var tbl = $("#" + e.relatedTarget.id);	
+	var tbl_status = $(tbl).attr("data-tbl_status");
+	var bill_status = $(tbl).attr("data-bill_status");
+	switch(parseInt(tbl_status)) {
+	case 0: $("#btnNewWIMenu").removeClass("disabled"); break;
+	case 1: 
+		switch(parseInt(bill_status)) {
+		case 1:
+			$("#btnTblStat_dining").removeClass("disabled");
+			break;
+		case 2:
+			$("#btnTblStat_clean").removeClass("disabled");
+			break;
+		}		
+		break;
+	case 2: $("#btnTblStat_empty").removeClass("disabled"); break;
+		
+	}	  
 });
 
 $("#btnNewWI").click(function(){
@@ -353,7 +578,7 @@ $("#btnTblStat_dining").click(function(){
 	setTblStatus(1, 2);
 });
 $("#btnTblStat_clean").click(function(){
-	setTblStatus(2, null);
+	setTblStatus(2, 3);
 });
 $("#btnTblStat_keep").click(function(){
 	setTblStatus(3, null);
@@ -379,16 +604,33 @@ function setTblStatus(tbl_status, bill_status) {
 	    tbl_status : tbl_status,
 	    bill_status : bill_status,
 	    success: function(response) {
+	    	console.log(response);
 	    	if (response.status == 1) {
+	    		
 	    		showAlert("alert-success", response.result);
 	    		var tbl = $("#" + this.tbl_no);
-	    		$(tbl).attr("data-tbl_status", this.tbl_status);
-	    		$(tbl).attr("data-bill_status", this.bill_status);
 	    		$(tbl).css("background-color", colorFmt(this.tbl_status, this.bill_status));
+	    		$(tbl).attr("data-tbl_status", this.tbl_status);
+	    		$(tbl).attr("data-bill_status", this.bill_status); // 沒用到
 	    		
-	    		if(this.bill_status == null) {
+	    		if (this.tbl_status == 1 && this.bill_status == 1) {
+	    			
+	    		} else if (this.tbl_status == 1 && this.bill_status == 2) {
+	    			var bill = $("#" + $(tbl).attr("data-bill_no"));
+		    		$(bill).find(".billStatus").css("background-color", billColorFmt(this.bill_status));
+		    		$(bill).find(".billStatus").html(billStatusFmt(this.bill_status));
+	    		} else if (this.tbl_status == 2 && this.bill_status == 3) {
+	    			var bill = $("#" + $(tbl).attr("data-bill_no"));
+		    		$(bill).find(".billStatus").css("background-color", billColorFmt(this.bill_status));
+		    		$(bill).find(".billStatus").html(billStatusFmt(this.bill_status));
+		    		$(bill).find(".endTime").html(longToTime(response.endTime));
+		    		$(bill).detach();
+	    			$("#billList2").append(bill);
+	    			$(tbl).find(".bill_img").remove();
+	    		} else if (this.tbl_status == 0 && this.bill_status == null) {
 	    			$(tbl).find(".bill_img").remove();
 	    		}
+
 	    		
 	    	} else if (response.status == 0) {
 	    		showAlert("alert-danger", response.result);
@@ -415,10 +657,16 @@ function newWI() {
 	    },
 	    dataType: "json",
 	    tbl_no : $("#tblDM").attr("data-tbl_no"),
+	    party_size : $("#newWI_party_size").val(),
 	    success: function(response) {
 	    	if (response.status == 1) {
+	    		var bill = response.bill;
+	    		console.log(response);
 	    		showAlert("alert-success", response.result);
-	    		putBill(this.tbl_no, 1, response.bill_no, 1);
+	    		putBill(bill.tbl_no, 1, bill.bill_no, 1);
+	    		
+	    		$("#billList1").append(mkCard(bill.bill_no, null, bill.party_size, null, bill.startTime, null, 3, $("#" + bill.tbl_no).find(".tblName").html(), null, 1));
+// 	    		mkCard(bill_no, name, party_size, booking_time, startTime, endTime, source, tblName, totalAmount, status);
 	    		bills.push(response.bill);
 	    	} else if (response.status == 0) {
 	    		showAlert("alert-danger", response.result);

@@ -43,6 +43,7 @@
 #submmit {
 	margin-top: 10px;
 }
+
 </style>
 </head>
 
@@ -86,6 +87,7 @@
 								class="form-text text-muted">重新產生</small></a>
 						</div>
 					</div>
+					<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
 					<input type="hidden" name="action" value="login">
 					<input type="hidden" name="flag" class="flag" value="">
 					<button type="submit" class="btn btn-primary col-12" id="submmit">登入
@@ -161,16 +163,15 @@
 						}
 					});
 
-					if ($("input").val() != "") {
+					
 						$("#submmit").on('click', function() {
-							if (inputconfirm != vstring) {
-								return false;
-							} else {
-								return true;
-							}
-
+								if (inputconfirm != vstring) {
+									return false;
+								} else {
+									return false;
+								}
 						})
-					}
+					
 
 					$("#fillmsg").on('click', function() {
 						$("#mem_account").val("qq1234");

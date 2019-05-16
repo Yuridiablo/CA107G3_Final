@@ -25,6 +25,30 @@ public class BillFmt {
 		}
 		return fmt;
 	}
+	public static String colorFmt(Integer status) {
+		String fmt = null;
+		switch(status) {
+		case 0:
+			fmt = "#669999";
+			break;
+		case 1:
+			fmt = "#668cff";
+			break;
+		case 2:
+			fmt = "#d966ff";
+			break;
+		case 3:
+			fmt = "#77773c";
+			break;
+		case 4:
+			fmt = "#ff9933";
+			break;
+		case 5:
+			fmt = "#ff3333";
+			break;
+		}
+		return fmt;
+	}
 	public static String sourceFmt(Integer source, int type) {
 		String fmt = null;
 		if (type == 1) {
