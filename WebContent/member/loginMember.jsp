@@ -151,9 +151,9 @@
 												+ vstring);
 							});
 
-					var inputconfirm
+					var inputconfirm;
 					$("#inputconfirm").change(function() {
-						inputconfirm = this.value;
+						inputconfirm = $("#inputconfirm").val();
 
 						if (inputconfirm != "" && inputconfirm != vstring) {
 							$(".confirmtip").show();
@@ -168,7 +168,7 @@
 								if (inputconfirm != vstring) {
 									return false;
 								} else {
-									return false;
+									return true;
 								}
 						})
 					
@@ -176,7 +176,7 @@
 					$("#fillmsg").on('click', function() {
 						$("#mem_account").val("qq1234");
 						$("#mem_pwd").val("aa1234");
-						$("#inputconfirm").val(vstring);
+// 						$("#inputconfirm").val(vstring);
 					})
 					
 				});

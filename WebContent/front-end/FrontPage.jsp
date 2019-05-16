@@ -4,7 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <jsp:useBean id="nSvc" scope="page" class="com.news.model.NewsService" />
-
+<jsp:useBean id="commentSvc" scope="page" class="com.comments.model.CommentsService" />
+<jsp:useBean id="vSvc" scope="page" class="com.vendor.model.VendorService" />
+<jsp:useBean id="ordSvc" scope="page" class="com.ord.model.OrdService" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,6 +76,11 @@
     float: none;
     display: block;
     width: 80%;
+    }
+    
+    .memPicInner{
+    	width: 35px;
+    	height: 50px;
     }
     </style>
 </head>
@@ -277,7 +284,7 @@
                     <div class="find-place-img_wrap">
                         <div class="grid">
                             <figure class="effect-ruby">
-                                <img src="<%= request.getContextPath() %>/webWorking/images/zachariah-hagy-484664-unsplash.jpg" class="img-fluid" alt="img13" id="hotp1" />
+                                <img src="<%= request.getContextPath() %>/webWorking/images/zachariah-hagy-484664-unsplash.jpg" class="img-fluid img-center" alt="img13" id="hotp1" />
                                 <figcaption>
                                     <h5>謝師宴。精選</h5>
                                     <p>6451席</p>
@@ -292,7 +299,7 @@
                             <div class="find-place-img_wrap">
                                 <div class="grid">
                                     <figure class="effect-ruby">
-                                        <img src="<%= request.getContextPath() %>/webWorking/images/melissa-walker-horn-637092-unsplash.jpg" class="img-fluid" id="hotp2" alt="img13" />
+                                        <img src="<%= request.getContextPath() %>/webWorking/images/melissa-walker-horn-637092-unsplash.jpg" class="img-fluid img-center" id="hotp2" alt="img13" />
                                         <figcaption>
                                             <h5>本月話題</h5>
                                             <p>612席</p>
@@ -307,7 +314,7 @@
                             <div class="find-place-img_wrap">
                                 <div class="grid">
                                     <figure class="effect-ruby">
-                                        <img src="<%= request.getContextPath() %>/webWorking/images/jason-leung-537357-unsplash.jpg" class="img-fluid" id="hotp3" alt="img13" />
+                                        <img src="<%= request.getContextPath() %>/webWorking/images/jason-leung-537357-unsplash.jpg" class="img-fluid img-center" id="hotp3" alt="img13" />
                                         <figcaption>
                                             <h5>日本料理</h5>
                                             <p>1249席</p>
@@ -324,7 +331,7 @@
                             <div class="find-place-img_wrap">
                                 <div class="grid">
                                     <figure class="effect-ruby">
-                                        <img src="<%= request.getContextPath() %>/webWorking/images/sabri-tuzcu-182962-unsplash.jpg" class="img-fluid" id="hotp4" alt="img13" />
+                                        <img src="<%= request.getContextPath() %>/webWorking/images/sabri-tuzcu-182962-unsplash.jpg" class="img-fluid img-center" id="hotp4" alt="img13" />
                                         <figcaption>
                                             <h5>女孩最愛</h5>
                                             <p>917席</p>
@@ -339,7 +346,7 @@
                             <div class="find-place-img_wrap">
                                 <div class="grid">
                                     <figure class="effect-ruby">
-                                        <img src="<%= request.getContextPath() %>/webWorking/images/photo2.jpg" class="img-fluid" id="hotp5" alt="img13" />
+                                        <img src="<%= request.getContextPath() %>/webWorking/images/photo2.jpg" class="img-fluid img-center" id="hotp5" alt="img13" />
                                         <figcaption>
                                             <h5>健康樂活</h5>
                                             <p>242席</p>
@@ -365,21 +372,60 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 featured-responsive">
+<!--                 <div class="col-md-4 featured-responsive"> -->
+<!--                     <div class="featured-place-wrap"> -->
+<!--                         <a href="detail.html"> -->
+<%--                             <img src="<%= request.getContextPath() %>/webWorking/images/000J7RD0AACDCC23D13991j.jpg" class="img-fluid" alt="#"> --%>
+<!--                             <span class="featured-rating-green">4.7</span> -->
+<!--                             <div class="featured-title-box"> -->
+<!--                                 <h6>大衛早午餐</h6> -->
+<!--                                 <p>美式餐廳</p> <span>• </span> -->
+<!--                                 <p>26 Reviews</p> <span> • </span> -->
+<!--                                 <p><span>$$$</span>$$</p> -->
+<!--                                 <div class="media"> -->
+<%--                                     <img src="<%= request.getContextPath() %>/webWorking/images/4809.jpg" class="align-self-start mr-3" alt="..."> --%>
+<!--                                     <div class="media-body"> -->
+<!--                                         <h5 class="mt-0">我沒鼻子都覺得香</h5> -->
+<!--                                         <p>555555555</p> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                                 <div class="bottom-icons"> -->
+<!--                                     <div class="open-now">營業中</div> -->
+<!--                                     <span class="ti-heart"></span> -->
+<!--                                     <span class="ti-bookmark"></span> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+                
+<!--    ------------------------------------------------test-------------------------------------------------------- -->
+				<c:set var="commList" value="${commentSvc.getAll()}" />
+				<c:set var="commLength" value="${fn:length(commList)}" />
+                <c:forEach var="comm" items="${commentSvc.getAll()}" begin="${commLength-3}" end="${commLength}">
+                
+                		<div class="col-md-4 featured-responsive">
                     <div class="featured-place-wrap">
                         <a href="detail.html">
-                            <img src="<%= request.getContextPath() %>/webWorking/images/000J7RD0AACDCC23D13991j.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating-green">4.7</span>
+                        	<c:set var="ord_no" value="${comm.ord_no}" />
+                        	<c:set var="mem_no" value="${ordSvc.getOneOrd(ord_no).mem_no}" />
+                            <img src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${comm.vendor_no}'&pic=1" class="img-fluid" alt="#">
+                            <span class="featured-rating-green">${comm.score}</span>
                             <div class="featured-title-box">
-                                <h6>大衛早午餐</h6>
-                                <p>美式餐廳</p> <span>• </span>
+                            	<c:set var="vendor_no" value="${comm.vendor_no}" />
+                            	<c:set var="vendor" value="${vSvc.findByPK(vendor_no)}" />
+                                <h6>${vendor.v_name}</h6>
+                                <p>${vendor.v_type}</p> <span>• </span>
                                 <p>26 Reviews</p> <span> • </span>
                                 <p><span>$$$</span>$$</p>
                                 <div class="media">
-                                    <img src="<%= request.getContextPath() %>/webWorking/images/4809.jpg" class="align-self-start mr-3" alt="...">
+                                    <img src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${mem_no}'" class="align-self-start mr-3 memPicInner" alt="...">
                                     <div class="media-body">
-                                        <h5 class="mt-0">我沒鼻子都覺得香</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni veritatis, repellendus earum assumenda error hic ratione beatae dolorem alias expedita.</p>
+                                    	<c:set var="commInner" value="${comm.cmnt}"></c:set>
+                                    	<c:set var="commTopicIndex" value="${fn:indexOf(commInner,',')}"></c:set>
+                                    	<c:set var="commTopic" value="${fn:substring(commInner, 0,commTopicIndex)}" />
+                                        <h5 class="mt-0">${commTopic}</h5>
+                                        <p>${commInner}</p>
                                     </div>
                                 </div>
                                 <div class="bottom-icons">
@@ -391,58 +437,62 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-4 featured-responsive">
-                    <div class="featured-place-wrap">
-                        <a href="detail.html">
-                            <img src="<%= request.getContextPath() %>/webWorking/images/1200_20180831131707.png" class="img-fluid" alt="#">
-                            <span class="featured-rating">2.3</span>
-                            <div class="featured-title-box">
-                                <h6>小木屋鬆餅</h6>
-                                <p>甜點店</p> <span>• </span>
-                                <p>17 Reviews</p> <span> • </span>
-                                <p><span>$</span>$$$$</p>
-                                <div class="media">
-                                    <img src="<%= request.getContextPath() %>/webWorking/images/4809.jpg" class="align-self-start mr-3" alt="...">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">甜的東西很難吃</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt impedit reiciendis saepe tempora sequi similique blanditiis quia ipsum accusamus perspiciatis!</p>
-                                    </div>
-                                </div>
-                                <div class="bottom-icons">
-                                    <div class="closed-now">休息中</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-4 featured-responsive">
-                    <div class="featured-place-wrap">
-                        <a href="detail.html">
-                            <img src="<%= request.getContextPath() %>/webWorking/images/20180102-051047_U10834_M365289_a0da.jpg" class="img-fluid" alt="#">
-                            <span class="featured-rating-green">5.0</span>
-                            <div class="featured-title-box">
-                                <h6>吳師傅石頭火鍋</h6>
-                                <p>中式餐廳</p> <span>• </span>
-                                <p>1107 Reviews</p> <span> • </span>
-                                <p><span>$$$$$</span></p>
-                                <div class="media">
-                                    <img src="<%= request.getContextPath() %>/webWorking/images/4809.jpg" class="align-self-start mr-3" alt="...">
-                                    <div class="media-body">
-                                        <h5 class="mt-0">吃完學會了Java</h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi sunt porro, laboriosam dignissimos fugiat magnam obcaecati, quis quibusdam fuga odio.</p>
-                                    </div>
-                                </div>
-                                <div class="bottom-icons">
-                                    <div class="open-now">營業中</div>
-                                    <span class="ti-heart"></span>
-                                    <span class="ti-bookmark"></span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                
+                </c:forEach>
+<!--    -------------------------------------------------test-------------------------------------------------------- -->                
+                
+<!--                 <div class="col-md-4 featured-responsive"> -->
+<!--                     <div class="featured-place-wrap"> -->
+<!--                         <a href="detail.html"> -->
+<%--                             <img src="<%= request.getContextPath() %>/webWorking/images/1200_20180831131707.png" class="img-fluid" alt="#"> --%>
+<!--                             <span class="featured-rating">2.3</span> -->
+<!--                             <div class="featured-title-box"> -->
+<!--                                 <h6>小木屋鬆餅</h6> -->
+<!--                                 <p>甜點店</p> <span>• </span> -->
+<!--                                 <p>17 Reviews</p> <span> • </span> -->
+<!--                                 <p><span>$</span>$$$$</p> -->
+<!--                                 <div class="media"> -->
+<%--                                     <img src="<%= request.getContextPath() %>/webWorking/images/4809.jpg" class="align-self-start mr-3" alt="..."> --%>
+<!--                                     <div class="media-body"> -->
+<!--                                         <h5 class="mt-0">甜的東西很難吃</h5> -->
+<!--                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt impedit reiciendis saepe tempora sequi similique blanditiis quia ipsum accusamus perspiciatis!</p> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                                 <div class="bottom-icons"> -->
+<!--                                     <div class="closed-now">休息中</div> -->
+<!--                                     <span class="ti-heart"></span> -->
+<!--                                     <span class="ti-bookmark"></span> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--                 <div class="col-md-4 featured-responsive"> -->
+<!--                     <div class="featured-place-wrap"> -->
+<!--                         <a href="detail.html"> -->
+<%--                             <img src="<%= request.getContextPath() %>/webWorking/images/20180102-051047_U10834_M365289_a0da.jpg" class="img-fluid" alt="#"> --%>
+<!--                             <span class="featured-rating-green">5.0</span> -->
+<!--                             <div class="featured-title-box"> -->
+<!--                                 <h6>吳師傅石頭火鍋</h6> -->
+<!--                                 <p>中式餐廳</p> <span>• </span> -->
+<!--                                 <p>1107 Reviews</p> <span> • </span> -->
+<!--                                 <p><span>$$$$$</span></p> -->
+<!--                                 <div class="media"> -->
+<%--                                     <img src="<%= request.getContextPath() %>/webWorking/images/4809.jpg" class="align-self-start mr-3" alt="..."> --%>
+<!--                                     <div class="media-body"> -->
+<!--                                         <h5 class="mt-0">吃完學會了Java</h5> -->
+<!--                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi sunt porro, laboriosam dignissimos fugiat magnam obcaecati, quis quibusdam fuga odio.</p> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                                 <div class="bottom-icons"> -->
+<!--                                     <div class="open-now">營業中</div> -->
+<!--                                     <span class="ti-heart"></span> -->
+<!--                                     <span class="ti-bookmark"></span> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </a> -->
+<!--                     </div> -->
+<!--                 </div> -->
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-4">
@@ -569,9 +619,11 @@
         	$("#navbarDropdownMenuLink2").show();
     	}
     	
-    	$(".img-fluid").on('click',function(){
+    	$(".img-center").on('click',function(){
     		$(location).attr('href','${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&randSearch=randSearch');
-    	});    	
+    	});
+    	
+    	
   
  //以下隨機產生flag亂數,塞進hidden的值,供controller辨識是否為重複提交   	
     	
@@ -610,7 +662,6 @@
 
 		<c:if test="${account!=null}">
 			<script>
-				alert("55555555555");
 				if($.cookie("helloMsg")!="seen"){
 					
 		    		Swal.fire({
