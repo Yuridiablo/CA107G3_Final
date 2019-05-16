@@ -107,7 +107,6 @@ public class NewsDAO implements NewsDAO_interface {
 					newsVO.setNews_pic(rs.getBytes("news_pic"));
 					newsVO.setNews_rea(rs.getDate("news_rea"));
 					newsVO.setNews_text(rs.getString("news_text"));
-					pstmt.executeQuery();
 					list.add(newsVO); // Store the row in the vector
 				}
 

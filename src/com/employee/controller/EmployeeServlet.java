@@ -687,6 +687,7 @@ public class EmployeeServlet extends HttpServlet {
 				if(newsVO!=null) {
 					list.add(newsVO);
 				}else {
+					System.out.println("empnameList="+empnameList.size());
 					if(empnameList.size()>1) {
 						List<String> empnoList = new ArrayList<>();
 						for(EmployeeVO empno:empnameList) {
