@@ -74,7 +74,10 @@ public class SearchServlet extends HttpServlet {
 				for (OrdVO oVO : selectmemOrd) {
 
 					CommentsVO cVO = cSvc.getAll().stream().filter(c -> c.getOrd_no().equals(oVO.getOrd_no()))
-							.findFirst().get();
+							.findFirst().orElse(null);
+					
+					if (cVO != null) {
+					System.out.println(cVO);
 					VendorVO vVO = vSvc.findByPK(cVO.getVendor_no());
 					double vavg = cSvc.getAll().stream().filter(v -> v.getVendor_no().equals(vVO.getVendor_no())).mapToDouble(c -> c.getScore()).average().getAsDouble();
 					long vsum = cSvc.getAll().stream().filter(v -> v.getVendor_no().equals(vVO.getVendor_no())).count();
@@ -83,7 +86,7 @@ public class SearchServlet extends HttpServlet {
 					vVO.setV_address3(avgresult);
 					vVO.setV_address2(sumresult);
 					vcMap.put(vVO, cVO);
-
+					}
 				}
 
 				if (memberVO != null) {
