@@ -1,24 +1,19 @@
 package com.wait_pos.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.TimerTask;
 
 import javax.servlet.ServletContext;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-public class CallMemTask extends TimerTask {
+public class CallMemTask_backup extends TimerTask {
 	private String vendor_no;
 	private Integer tbl_size;
 	private Wait_Line wait_line;
 	private String member_no;
 	private ServletContext context;
 
-	public CallMemTask(String vendor_no, Integer tbl_size, Wait_Line wait_line, String member_no, ServletContext context) {
+	public CallMemTask_backup(String vendor_no, Integer tbl_size, Wait_Line wait_line, String member_no, ServletContext context) {
 		super();
 		this.vendor_no = vendor_no;
 		this.tbl_size = tbl_size;
@@ -43,7 +38,7 @@ public class CallMemTask extends TimerTask {
     		if (pil.getHasPassed()) { // 過號過, 直接移除
     			wait_line_queue.remove(member_no);
             	result = (tbl_size * 2) + " 人桌 "+ pil.getNumberPlate() + " 號已從候位列表中移除";
-            	SendToMember.beCanceledCall(vendor_no, tbl_size, member_no, context);
+            	SendToMember_backup.beCanceledCall(vendor_no, tbl_size, member_no, context);
     		} else { // 沒有過號過, 往後移3號
     			pil.setHasPassed(true);
     			pil.setIsCall(false);
@@ -54,37 +49,12 @@ public class CallMemTask extends TimerTask {
     				wait_line_queue.put(3, member_no, pil);
         			System.out.println(member_no + " has been put back 3 numbers!");
         			result = (tbl_size * 2) + " 人桌 "+ pil.getNumberPlate() + " 號已往後移 3 位";
-        			
-        			Map map = new HashMap<>();
-    				for (int i = 0; i < wait_line.getWait_line().size(); i++) {
-    					map.put(wait_line.getWait_line().get(i),
-    							wait_line.getWait_line().indexOf(wait_line.getWait_line().get(i)));
-    				}
-    				Gson gson = new Gson();
-    				StringBuilder jsonIn = new StringBuilder();
-    				JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
-    				String jsonStr = gson.toJson(map);
-        			
-        			
-        			
-        			SendToMember.renewGpBeforeCall("putBack", wait_line, jsonStr, vendor_no, 3, context);
+        			SendToMember_backup.renewGpBeforeCall("putBack", wait_line, tbl_size, vendor_no, 3, context);
     			} else { // 隊伍不足 4 人以上, 移到最後一位
     				wait_line_queue.put(member_no, pil);
     				System.out.println(member_no + " has been put back to last numbers! There is less than 3 numbers in line.");
     				result = (tbl_size * 2) + " 人桌 "+ pil.getNumberPlate() + " 號已移到最後一 位";
-    				
-    				Map map = new HashMap<>();
-    				for (int i = 0; i < wait_line.getWait_line().size(); i++) {
-    					map.put(wait_line.getWait_line().get(i),
-    							wait_line.getWait_line().indexOf(wait_line.getWait_line().get(i)));
-    				}
-    				Gson gson = new Gson();
-    				StringBuilder jsonIn = new StringBuilder();
-    				JsonObject jsonObject = gson.fromJson(jsonIn.toString(), JsonObject.class);
-    				String jsonStr = gson.toJson(map);
-    				
-    				
-    				SendToMember.renewGpBeforeCall("putBack", wait_line, jsonStr, vendor_no, wait_line_queue.size() - 1, context);
+    				SendToMember_backup.renewGpBeforeCall("putBack", wait_line, tbl_size, vendor_no, wait_line_queue.size() - 1, context);
     			}
     			
     		}
