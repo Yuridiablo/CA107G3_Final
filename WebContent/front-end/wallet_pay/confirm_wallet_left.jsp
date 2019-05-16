@@ -118,8 +118,13 @@
 		
 		</div>
       </form>
-       <a href="/front-end/FrontPage.jsp">
-		    <button class="btn btn-warning btn-lg btn-block">去儲值</button></a>
+      		<form>
+		    <button class="btn btn-warning btn-lg btn-block" type="submit" id="store_value">去儲值</button>
+		    <div>
+		    <input type="hidden" name="mem_no" value="${mem_no}">
+			<input type="hidden" name="action" value="store_value">
+			</div> 
+			</form>
     </div>
   </div>
 
