@@ -883,7 +883,7 @@ public class OrdServlet extends HttpServlet {
 					DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 					String date=now.format(formatter);
 					session.setAttribute("date", date);
-					session.setAttribute("total", total);
+					session.setAttribute("total", total); 
 					System.out.println("total000000000"+total);
 					String url = "/front-end/ord/checkout.jsp";
 					RequestDispatcher rd = req.getRequestDispatcher(url);
