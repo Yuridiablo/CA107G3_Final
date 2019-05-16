@@ -84,12 +84,12 @@
                         <td>
                             ${(o_detailVO.price)*(o_detailVO.qty)}
                         </td>
-                        <td>
+<!--                         <td> -->
                      
-	                	<A href="<%=request.getContextPath()%>/o_detail/o_detail.do?ord_no=${ordVO.ord_no}&action=get_all_ord_mem">
-							<button class="btn btn-success " >查看其他訂單<span class="glyphicon glyphicon-shopping-cart"></span></button>
-						</a>
-						</td>
+<%-- 	                	<A href="<%=request.getContextPath()%>/o_detail/o_detail.do?ord_no=${ordVO.ord_no}&action=get_all_ord_mem"> --%>
+<!-- 							<button class="btn btn-success " >查看其他訂單<span class="glyphicon glyphicon-shopping-cart"></span></button> -->
+<!-- 						</a> -->
+<!-- 						</td> -->
 <!-- 			  <td> -->
 <%-- 			  <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;"> --%>
 <!-- 			     <input type="submit" value="修改">  -->

@@ -110,19 +110,19 @@ margin-right:60px;
 <!-- 						</a> -->
 					
 					
-					<form name="share" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
+					<form name="share" action="<%=request.getContextPath()%>/ord/ord.do" method="post">
 					<input type="hidden" name="action" value="show_share">
 					<button type="submit" class="btn btn-success btn-lg btn-block"> 分攤<span class="fas fa-users"></span> </button>
 					</form>
 					
-					<form name="check" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
+					<form name="check" action="<%=request.getContextPath()%>/ord/ord.do" method="post">
 					<button type="submit" class="btn btn-success btn-lg btn-block" id="pay"> 信用卡付款<span class="far fa-credit-card"></span></button>
 						<input type="hidden" name="mem_no" value="${mem_no}">
 <%-- 						<input type="hidden" name="mem_no" value="${mem_no}"> --%>
 					<input type="hidden" name="action" value="tocredit">
 					</form>
 					
-					<form name="check2" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
+					<form name="check2" action="<%=request.getContextPath()%>/ord/ord.do" method="post">
 					<button type="submit" class="btn btn-success btn-lg btn-block" id="pay"> 會員錢包付款<span class="far fa-money-bill-alt"></span></button>
 						<input type="hidden" name="mem_no" value="${mem_no }">
 <%-- 						<input type="hidden" name="mem_no" value="${mem_no}"> --%>

@@ -80,7 +80,7 @@ height:1px
 						
                     
 			  <td> 
-			  <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/comment/comment.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/comment/comment.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="評論管理">
 			     <input type="hidden" name="cmnt_no"  value="${c_VO.cmnt_no}">
 			     <input type="hidden" name="action"	value="get_comments_Update"></FORM>

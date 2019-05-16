@@ -93,7 +93,7 @@
         </li>
       </ul>
       <div class="row justify-content-center">
-      <form name="checkoutForm" action="<%=request.getContextPath()%>/ord/ord.do" method="get">
+      <form name="checkoutForm" action="<%=request.getContextPath()%>/ord/ord.do" method="post">
               <input type="hidden" name="action"  value="checkout"> 			
 		<button type="submit" class="btn btn-warning " style='font-size:24px'>付款結帳 <i class='fab fa-amazon-pay'></i></button>	
 		</form>

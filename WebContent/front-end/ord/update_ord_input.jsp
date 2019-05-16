@@ -74,7 +74,7 @@
 <div class="container">
 		<div class="row justify-content-center">
 			<div class="col-md-12">
-<FORM METHOD="get" ACTION="<%= request.getContextPath() %>/ord/ord.do" name="form1">
+<FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ord/ord.do" name="form1">
 <table>
 	<tr>
 		<td><font color=red><b>訂單編號:*</b></font>${ordVO.ord_no}</td>

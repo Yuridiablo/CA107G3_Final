@@ -91,7 +91,7 @@ body { margin-top:20px; }
                     </div>                    
                 </div>
                 <div class="panel-body">
-                    <form role="form" id="payment-form" name="pay"method="get" action="<%=request.getContextPath()%>/ord/ord.do">
+                    <form role="form" id="payment-form" name="pay"method="post" action="<%=request.getContextPath()%>/ord/ord.do">
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="form-group">

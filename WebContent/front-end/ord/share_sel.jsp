@@ -46,7 +46,7 @@
 					  </thead>
 					
 					  
-					  <tbody><form action="<%=request.getContextPath()%>/ord/ord.do" method="get">
+					  <tbody><form action="<%=request.getContextPath()%>/ord/ord.do" method="post">
 					  <c:forEach var="fVO" items="${fSvc.getfriendlist(mem_no)}">	
 					  
 					    <tr>

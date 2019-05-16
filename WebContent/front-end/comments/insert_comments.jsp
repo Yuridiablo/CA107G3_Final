@@ -46,7 +46,7 @@ width:220%;
         <br style="clear:both">
         
         
-   					<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/comment/comment.do" style="margin-bottom: 0px;">
+   					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/comment/comment.do" style="margin-bottom: 0px;">
             <div class="form-group col-md-4 ">  
             		  <label id="scoreLabel" for="score">SCORE </label>
   						<div class="rating">

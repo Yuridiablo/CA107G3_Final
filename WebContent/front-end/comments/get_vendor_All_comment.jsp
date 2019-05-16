@@ -81,7 +81,7 @@ height:1px
 						
                     
 			  <td> 
-			  <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/comment/comment.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/comment/comment.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="評論管理">
 			     <input type="hidden" name="ord_no"  value="20190506-000006">
 			     <input type="hidden" name="mem_no"  value="M000004">

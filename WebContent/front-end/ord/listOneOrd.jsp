@@ -92,7 +92,7 @@ OrdVO ordVO = ordSvc.getOneOrd(request.getParameter("ord_no"));
 			<td>${ordVO.verif_code}</td> 
 			<td>${ordVO.status}</td> 
 			<td>
-			<FORM METHOD="get" ACTION="<%=request.getContextPath()%>/ord/ord.do" style="margin-bottom: 0px;">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ord/ord.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="н╫зя">
 			     <input type="hidden" name="ord_no"  value="${ordVO.ord_no}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>

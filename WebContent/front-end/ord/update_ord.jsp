@@ -40,7 +40,7 @@ height:1px
 <div class="container">
 <div class="col-md-12">
     <div class="form-area">  
-       <FORM METHOD="get" ACTION="<%= request.getContextPath() %>/ord/ord.do" name="form1">
+       <FORM METHOD="post" ACTION="<%= request.getContextPath() %>/ord/ord.do" name="form1">
         <br style="clear:both">
                     <h3 style="margin-bottom: 20px; text-align: center;">訂單資訊修改</h3>
                     <div class="form-group">

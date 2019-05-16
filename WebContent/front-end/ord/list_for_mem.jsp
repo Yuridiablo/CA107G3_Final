@@ -91,14 +91,18 @@ height:1px
 			<%@ include file="pageForOrder.file" %>
 			<c:forEach var="ordVO" items="${olist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                 <c:set var="memVO" value="${MemSvc.getOneMember(memberVO.mem_no)}"></c:set>
+                <c:set var="memVO1" value="${MemSvc.getOneMember(ordVO.share_mem_no1}"></c:set>
+                <c:set var="memVO2" value="${MemSvc.getOneMember(ordVO.share_mem_no2}"></c:set>
+                
+                
                  <c:set var="vendorVO" value="${VendorSvc.findByPK(ordVO.vendor_no)}"></c:set>
 				
 						
                      <tr class="warning">
                         
 						<td>${memberVO.mem_name}<br>
-						<hr><font color="blue">${ordVO.share_mem_no1}<br></font>
-						<hr><font color="blue">${ordVO.share_mem_no2}</font></td>
+						<hr><font color="blue">${memVO1.mem_name}<br></font>
+						<hr><font color="blue">${memVO2.mem_name}</font></td>
 						<td>${vendorVO.v_name}</td>
 <%-- 						<td>${ordVO.tbl_no}</td> --%>
 						<td>${ordVO.party_size}</td>
@@ -131,7 +135,7 @@ height:1px
                     
 			 
 			<td>
-				 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;">
+				 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="查看訂單明細">
 			     <input type="hidden" name="ord_no"  value="${ordVO.ord_no}">
 			     <c:set var="o_detailVOlist" value="${ord_detailSvc.findbyOrd_no(ordVO.ord_no)}" ></c:set>

@@ -122,7 +122,7 @@ height:1px
                     
 			 
 			<td>
-			 <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;">
+			 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="查看訂單明細">
 			     <input type="hidden" name="ord_no"  value="${OrdVO.ord_no}">
 			      <input type="hidden" name="menu_no" value="${O_detailVO.menu_no}">

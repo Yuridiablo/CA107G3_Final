@@ -73,7 +73,7 @@
 		<div class="yourmenu d-flex flex-wrap">
 		<c:forEach var="menu_n" items="${res_menuSvc.getVendor(vendor_no)}">
 		<div class="col-md-4">
-			<form name="shopping" action="<%=request.getContextPath()%>/ord/ord.do" method="get">			 
+			<form name="shopping" action="<%=request.getContextPath()%>/ord/ord.do" method="post">			 
 						 
 						   
 						  <div class="card-deck mb-12 text-center">
