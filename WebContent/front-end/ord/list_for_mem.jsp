@@ -50,7 +50,7 @@ height:1px
 <jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
 <jsp:useBean id="VendorSvc" scope="page" class="com.vendor.model.VendorService" />
 <jsp:useBean id="ord_detailSvc" scope="page" class="com.ord_detail.model.Order_DetailService" />
-
+<jsp:useBean id="commentSvc" scope="page" class="com.comments.model.CommentsService" />
 <meta charset="UTF-8">
 <title>會員全部訂單＋訂單明細</title>
 </head>
@@ -145,7 +145,7 @@ height:1px
 						</c:if>
 						
                     
-			 
+			
 			<td>
 				 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="查看訂單明細">
@@ -154,12 +154,16 @@ height:1px
 							
 			     <input type="hidden" name="action"	value="getOne_ord_detail_display"></FORM>
 			     
+			     <c:set var="cVO" value="${commentSvc.findByord_no(ordVO.ord_no)}"></c:set>
+			     
+			      <c:if test ="${cVO==null}" var="xxx">
 			     <A href="<%=request.getContextPath()%>/comment/comment.do?ord_no=${ordVO.ord_no}&action=insert_comments">發表評論</a>
 <%-- 			      <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/o_detail/o_detail.do" style="margin-bottom: 0px;"> --%>
 <!-- 			     <input type="submit" value="評論"> -->
 <%-- 			     <input type="hidden" name="ord_no"  value="${ordVO.ord_no}"> --%>
 <%-- 			      <input type="hidden" name="vendor_no" value="${ordVO.vendor_no}"> --%>
 <!-- 			     <input type="hidden" name="action"	value="insert_comments"></FORM> -->
+				</c:if>
 			</td>
 			</tr>
                     </c:forEach>

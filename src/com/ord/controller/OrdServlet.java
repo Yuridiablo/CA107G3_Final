@@ -1024,7 +1024,7 @@ public class OrdServlet extends HttpServlet {
 					
 						
 						
-						  String  URL= "localhost:8082/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
+						  String  URL= "http://localhost:8082/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
 						  String subject = "請點擊付款";
 					      String messageText = "Hello! " + name + 
 					    		  " 您的好友已完成訂位及選購餐點 ，您需要支付的金額為"
@@ -1456,7 +1456,7 @@ public class OrdServlet extends HttpServlet {
 						// send the ErrorPage view.
 						req.setAttribute("errorMsgs", errorMsgs);
 							System.out.println("insert");
-//						try {
+						try {
 							/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 							String mem_no = (String) session.getAttribute("mem_no");
 							 vendor_no  = (String) session.getAttribute("vendor_no");
@@ -1617,13 +1617,27 @@ public class OrdServlet extends HttpServlet {
 							successView.forward(req, res);				
 							
 				/***************************其他可能的錯誤處理**********************************/
-//						} catch (Exception e) {
-//							errorMsgs.add(e.getMessage());
-//							RequestDispatcher failureView = req
-//									.getRequestDispatcher("/frond-end/ord/start_ord.jsp");
-//							failureView.forward(req, res);
-//						}
+						} catch (Exception e) {
+							errorMsgs.add(e.getMessage());
+							RequestDispatcher failureView = req
+									.getRequestDispatcher("/frond-end/ord/start_ord.jsp");
+							failureView.forward(req, res);
+						}
 					}
+				 
+				 
+				//個人錢包付款
+				 if (action.equals("store_value")) {
+					 
+					System.out.println("進來了嗎");
+						
+						String url = "/member/member.do?action=myWallet";
+						RequestDispatcher rd = req.getRequestDispatcher(url);
+						rd.forward(req, res);
+					 }
+				 
+				 
+				 
 				 }
 	
 	
