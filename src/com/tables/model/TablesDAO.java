@@ -19,7 +19,7 @@ public class TablesDAO implements TablesDAO_interface {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-	}
+	} 
 
 	private static final String INSERT_STMT = 
 			"INSERT INTO tables (tbl_no, vendor_no, tbl_name, tbl_size, tbl_type, tbl_x, tbl_y)" + 

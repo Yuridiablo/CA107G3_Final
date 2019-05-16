@@ -433,7 +433,7 @@ $(document).ready(function(){
 
 });
 
-
+ 
 function tblAddListener(tbl) {
 	tbl.addEventListener('drop', dropped);
 	tbl.addEventListener('dragenter', dragEnter);

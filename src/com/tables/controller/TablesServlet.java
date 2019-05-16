@@ -320,7 +320,7 @@ public class TablesServlet extends HttpServlet {
 			out.print(jsonStr);
 			
 		} // end of newWI
-		
+		 
 		if ("putVerifiedBill".equals(action)) {
 			String vendor_no = req.getParameter("vendor_no");
 			String tbl_no = req.getParameter("tbl_no");
