@@ -171,64 +171,84 @@
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
         
-        	
+        <c:set var="newsList" value="${nSvc.getAll()}" />
+		   <c:set var="newsLength" value="${fn:length(newsList)}" />
+		   <c:forEach var="news" items="${newsList}" begin="${newsLength-5}" end="${newsLength}">
+			   <div class="single-hero-slide d-flex align-items-center justify-content-center">
+	                <!-- Slide Img -->
+	                <div class="slide-img bg-img" style="background-image: url(<%= request.getScheme() + "://" + request.getServerName() + ":" +request.getServerPort() +  request.getContextPath()%>/tools/OutImg.do?news_no=%27${news.news_no}%27);"></div>
+	                <div class="container">
+	                    <div class="row justify-content-center">
+	                        <div class="col-12 col-lg-9">
+	                            <!-- Slide Content -->
+	                            <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
+	                                <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
+	                                <h2 data-animation="fadeInUp" data-delay="500ms">${news.news_cont}</h2>
+	                                <p data-animation="fadeInUp" data-delay="700ms">${news.news_text}</p>
+	                                <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+		   </c:forEach>
 
             <!-- Single Hero Slide -->
-            <div class="single-hero-slide d-flex align-items-center justify-content-center">
-                <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(<%= request.getContextPath() %>/front-end/images/big1.jpg);"></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-lg-9">
-                            <!-- Slide Content -->
-                            <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
-                                <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
-                                <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N001").news_cont}</h2>
-                                <p data-animation="fadeInUp" data-delay="700ms">${nSvc.getOneNews("N001").news_text}</p>
-                                <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--             <div class="single-hero-slide d-flex align-items-center justify-content-center"> -->
+<!--                 Slide Img -->
+<%--                 <div class="slide-img bg-img" style="background-image: url(<%= request.getContextPath() %>/front-end/images/big1.jpg);"></div> --%>
+<!--                 <div class="container"> -->
+<!--                     <div class="row justify-content-center"> -->
+<!--                         <div class="col-12 col-lg-9"> -->
+<!--                             Slide Content -->
+<!--                             <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms"> -->
+<!--                                 <div class="line" data-animation="fadeInUp" data-delay="300ms"></div> -->
+<%--                                 <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N001").news_cont}</h2> --%>
+<%--                                 <p data-animation="fadeInUp" data-delay="700ms">${nSvc.getOneNews("N001").news_text}</p> --%>
+<!--                                 <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
 
-            <!-- Single Hero Slide -->
-            <div class="single-hero-slide d-flex align-items-center justify-content-center">
-                <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(<%= request.getContextPath() %>/front-end/images/big2.jpg);"></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-lg-9">
-                            <!-- Slide Content -->
-                            <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
-                                <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
-                                <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N002").news_cont}</h2>
-                                <p data-animation="fadeInUp" data-delay="700ms">${nSvc.getOneNews("N002").news_text}</p>
-                                <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--             Single Hero Slide -->
+<!--             <div class="single-hero-slide d-flex align-items-center justify-content-center"> -->
+<!--                 Slide Img -->
+<%--                 <div class="slide-img bg-img" style="background-image: url(<%= request.getContextPath() %>/front-end/images/big2.jpg);"></div> --%>
+<!--                 <div class="container"> -->
+<!--                     <div class="row justify-content-center"> -->
+<!--                         <div class="col-12 col-lg-9"> -->
+<!--                             Slide Content -->
+<!--                             <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms"> -->
+<!--                                 <div class="line" data-animation="fadeInUp" data-delay="300ms"></div> -->
+<%--                                 <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N002").news_cont}</h2> --%>
+<%--                                 <p data-animation="fadeInUp" data-delay="700ms">${nSvc.getOneNews("N002").news_text}</p> --%>
+<!--                                 <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
 
-            <!-- Single Hero Slide -->
-            <div class="single-hero-slide d-flex align-items-center justify-content-center">
-                <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(<%= request.getContextPath() %>/front-end/images/big3.jpg);"></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-lg-9">
-                            <!-- Slide Content -->
-                            <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
-                                <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
-                                <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N003").news_cont}</h2>
-                                <p data-animation="fadeInUp" data-delay="700ms">${nSvc.getOneNews("N003").news_text}</p>
-                                <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--             Single Hero Slide -->
+<!--             <div class="single-hero-slide d-flex align-items-center justify-content-center"> -->
+<!--                 Slide Img -->
+<%--                 <div class="slide-img bg-img" style="background-image: url(<%= request.getContextPath() %>/front-end/images/big3.jpg);"></div> --%>
+<!--                 <div class="container"> -->
+<!--                     <div class="row justify-content-center"> -->
+<!--                         <div class="col-12 col-lg-9"> -->
+<!--                             Slide Content -->
+<!--                             <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms"> -->
+<!--                                 <div class="line" data-animation="fadeInUp" data-delay="300ms"></div> -->
+<%--                                 <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N003").news_cont}</h2> --%>
+<%--                                 <p data-animation="fadeInUp" data-delay="700ms">${nSvc.getOneNews("N003").news_text}</p> --%>
+<!--                                 <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
 
         </div>
     </section>
