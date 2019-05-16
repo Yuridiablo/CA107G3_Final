@@ -4,14 +4,18 @@
 <%@ page import="com.ord.model.*" %>
 <%@ page import="com.ord.controller.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="com.vendor.model.*" %>
 
-<%	
-	String vendor_no = null;
-	if (request.getParameter("vendor_no") != null) {
-		vendor_no = request.getParameter("vendor_no");
-	} else {
-		vendor_no = "V000001";
-	}
+<%
+VendorVO vVO = (VendorVO) session.getAttribute("vVO");
+String vendor_no = null;
+if (vVO != null) {
+	vendor_no = vVO.getVendor_no();
+} else if (request.getParameter("vendor_no") == null) {
+	vendor_no = "V000001";
+} else {
+	vendor_no = request.getParameter("vendor_no");
+}
 	
 	OrdService ordService = new OrdService();
 	List<OrdVO> list = ordService.getAllVendorDate(vendor_no, new java.sql.Date(System.currentTimeMillis()));

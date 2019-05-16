@@ -5,14 +5,19 @@
 <%@ page import="java.util.*" %>
 <%@ page import="org.apache.commons.collections4.map.ListOrderedMap" %>
 <%@ page import="javax.websocket.Session" %>
+<%@ page import="com.vendor.model.*" %>
 
-<% 
+<%
+VendorVO vVO = (VendorVO) session.getAttribute("vVO");
 String vendor_no = null;
-if (request.getParameter("vendor_no") == null) {
+if (vVO != null) {
+	vendor_no = vVO.getVendor_no();
+} else if (request.getParameter("vendor_no") == null) {
 	vendor_no = "V000001";
 } else {
 	vendor_no = request.getParameter("vendor_no");
 }
+
 Map<String, Map<Integer, Wait_Line>> wait_line_all = (Map) application.getAttribute("wait_line_all");
 
 Map<Integer, Wait_Line> wait_line_vendor = (Map) wait_line_all.get(vendor_no);				
