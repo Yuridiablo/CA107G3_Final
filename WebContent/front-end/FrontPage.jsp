@@ -82,6 +82,10 @@
     	width: 35px;
     	height: 50px;
     }
+    
+    .quickPic h5, .quickPic p{
+    	color:#FFF;
+    }
     </style>
 </head>
 
@@ -270,7 +274,7 @@
     </div>
     <!-- ##### Book Now Area End ##### -->
     
-	<section class="main-block">
+	<section class="main-block quickPic">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-5">
@@ -548,7 +552,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <!-- ##### All Javascript Script ##### -->
     <!-- jQuery-2.2.4 js -->
-    <script src="<%= request.getContextPath() %>/front-end/js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="<%= request.getContextPath() %>/front-end/js/jquery/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
     <script src="<%= request.getContextPath() %>/front-end/js/bootstrap/popper.min.js"></script>
     <!-- Bootstrap js -->
@@ -654,6 +658,7 @@
 	    		$('#mm2').hide();
 	    		$('#aa2').show();
 	    		$('#vv3').val('');
+	    		$('.flag').val('');
 	    	}
 	    };
     	
