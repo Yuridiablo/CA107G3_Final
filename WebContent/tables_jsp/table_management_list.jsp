@@ -2,11 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ page import="com.tables.model.*" %>
+<%@ page import="com.vendor.model.*" %>
 <%@ page import="java.util.*" %>
 
 <%
+VendorVO vVO = (VendorVO) session.getAttribute("vVO");
 String vendor_no = null;
-if (request.getParameter("vendor_no") == null) {
+if (vVO != null) {
+	vendor_no = vVO.getVendor_no();
+} else if (request.getParameter("vendor_no") == null) {
 	vendor_no = "V000001";
 } else {
 	vendor_no = request.getParameter("vendor_no");
