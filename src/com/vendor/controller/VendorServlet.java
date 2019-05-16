@@ -338,13 +338,32 @@ public class VendorServlet extends HttpServlet {
 //				}
 
 				String v_end_time = req.getParameter("v_end_time").trim();
-				String v_day = req.getParameter("v_day").trim();
+//				String v_day = req.getParameter("v_day").trim();
+				
+				String v_day = req.getParameter("d1") == null ? "0" : "1";
+				v_day += req.getParameter("d2") == null ? "0" : "1";
+				v_day += req.getParameter("d3") == null ? "0" : "1";
+				v_day += req.getParameter("d4") == null ? "0" : "1";
+				v_day += req.getParameter("d5") == null ? "0" : "1";
+				v_day += req.getParameter("d6") == null ? "0" : "1";
+				v_day += req.getParameter("d7") == null ? "0" : "1";
+				System.out.println(v_day);
+				
+//				String vday = vVO.getV_day();
+//				boolean d1 = String.valueOf(vday.charAt(0)).equals("1") ? true : false;
+//				boolean d2 = String.valueOf(vday.charAt(1)).equals("1") ? true : false;
+//				boolean d3 = String.valueOf(vday.charAt(2)).equals("1") ? true : false;
+//				boolean d4 = String.valueOf(vday.charAt(3)).equals("1") ? true : false;
+//				boolean d5 = String.valueOf(vday.charAt(4)).equals("1") ? true : false;
+//				boolean d6 = String.valueOf(vday.charAt(5)).equals("1") ? true : false;
+//				boolean d7 = String.valueOf(vday.charAt(6)).equals("1") ? true : false;
+
+		
+				
 				String v_tables = req.getParameter("v_tables").trim();
 
 				String v_text = req.getParameter("v_text").trim();
 				
-
-			
 
 //				Double comm = null;
 //				try {
