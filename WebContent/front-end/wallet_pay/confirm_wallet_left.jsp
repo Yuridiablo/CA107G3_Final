@@ -123,7 +123,7 @@
 		    <div>
 		    <input type="hidden" name="mem_no" value="${mem_no}">
 			<input type="hidden" name="action" value="store_value">
-			</div>
+			</div> 
 			</form>
     </div>
   </div>
