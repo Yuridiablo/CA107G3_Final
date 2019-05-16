@@ -627,11 +627,13 @@ public class EmployeeServlet extends HttpServlet {
 					}
 				}
 				
+				String news_text = req.getParameter("news_text").trim();
+				
 				NewsService newsSvc = new NewsService();
 				HttpSession session = req.getSession();
 				EmployeeVO employeeVO = (EmployeeVO)session.getAttribute("employeeVO");
 				String emp_no = employeeVO.getEmp_no();
-				newsSvc.addNews(emp_no, news_cont, news_pic,new java.sql.Date(System.currentTimeMillis()));
+				newsSvc.addNews(emp_no, news_cont, news_pic,new java.sql.Date(System.currentTimeMillis()),news_text);
 				NewsVO newsVO = newsSvc.getLatestNews();
 				List<NewsVO> list = new ArrayList<NewsVO>();
 				list.add(newsVO);

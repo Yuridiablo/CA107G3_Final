@@ -29,15 +29,15 @@ public class NewsDAO implements NewsDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO news (news_no,emp_no,news_cont,news_pic,news_rea) VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),?, ?, ?,?)";
+			"INSERT INTO news (news_no,emp_no,news_cont,news_pic,news_rea,news_text) VALUES ('N'||LPAD(to_char(NEWS_SEQ.nextval), 3, '0'),?, ?, ?,?,?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT news_no,emp_no,news_cont,news_pic,news_rea FROM news order by news_no";
+			"SELECT news_no,emp_no,news_cont,news_pic,news_rea,news_text FROM news order by news_no";
 		private static final String GET_ONE_STMT = 
-			"SELECT news_no,emp_no,news_cont,news_pic,news_rea FROM news where news_no = ?";
+			"SELECT news_no,emp_no,news_cont,news_pic,news_rea,news_text FROM news where news_no = ?";
 		private static final String GET_LATEST_STMT = 
-				"SELECT news_no,emp_no,news_cont,news_pic,news_rea FROM news where news_no = ( select max(news_no) from news )";
+				"SELECT news_no,emp_no,news_cont,news_pic,news_rea,news_text FROM news where news_no = ( select max(news_no) from news )";
 		private static final String GET_ALL_STMT_BY_EMPNO =
-				"SELECT news_no,emp_no,news_cont,news_pic,news_rea FROM news where emp_no = ? order by news_no";
+				"SELECT news_no,emp_no,news_cont,news_pic,news_rea,news_text FROM news where emp_no = ? order by news_no";
 		private static final String DELETE = 
 			"DELETE FROM news where news_no = ?";
 		private static final String UPDATE = 
@@ -57,6 +57,7 @@ public class NewsDAO implements NewsDAO_interface {
 				pstmt.setString(2, newsVO.getNews_cont());
 				pstmt.setBytes(3, newsVO.getNews_pic());
 				pstmt.setDate(4, newsVO.getNews_rea());
+				pstmt.setString(5, newsVO.getNews_text());
 				
 				updateCount = pstmt.executeUpdate();
 				// Handle any driver errors
@@ -105,6 +106,8 @@ public class NewsDAO implements NewsDAO_interface {
 					newsVO.setNews_cont(rs.getString("news_cont"));
 					newsVO.setNews_pic(rs.getBytes("news_pic"));
 					newsVO.setNews_rea(rs.getDate("news_rea"));
+					newsVO.setNews_text(rs.getString("news_text"));
+					pstmt.executeQuery();
 					list.add(newsVO); // Store the row in the vector
 				}
 
@@ -238,6 +241,7 @@ public class NewsDAO implements NewsDAO_interface {
 					newsVO.setNews_cont(rs.getString("news_cont"));
 					newsVO.setNews_pic(rs.getBytes("news_pic"));
 					newsVO.setNews_rea(rs.getDate("news_rea"));
+					newsVO.setNews_text(rs.getString("news_text"));
 				}// Handle any driver errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
@@ -291,6 +295,7 @@ public class NewsDAO implements NewsDAO_interface {
 					newsVO.setNews_cont(rs.getString("news_cont"));
 					newsVO.setNews_pic(rs.getBytes("news_pic"));
 					newsVO.setNews_rea(rs.getDate("news_rea"));
+					newsVO.setNews_text(rs.getString("news_text"));
 					list.add(newsVO); // Store the row in the vector
 				}
 
@@ -349,6 +354,7 @@ public class NewsDAO implements NewsDAO_interface {
 					newsVO.setNews_cont(rs.getString("news_cont"));
 					newsVO.setNews_pic(rs.getBytes("news_pic"));
 					newsVO.setNews_rea(rs.getDate("news_rea"));
+					newsVO.setNews_text(rs.getString("news_text"));
 				}// Handle any driver errors
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "

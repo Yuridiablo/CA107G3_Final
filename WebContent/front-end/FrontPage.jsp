@@ -19,7 +19,7 @@
 
     <!-- Title -->
     <title>SeekFoodTable - 首頁</title>
-
+ 
     <!-- Favicon -->
     <link rel="icon" href="<%= request.getContextPath() %>/front-end/images/seekfood_AIy_icon.ico">
 
@@ -178,7 +178,7 @@
                             <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
                                 <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
                                 <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N001").news_cont}</h2>
-                                <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                                <p data-animation="fadeInUp" data-delay="700ms">${nSvc.getOneNews("N001").news_text}</p>
                                 <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
                             </div>
                         </div>
@@ -197,7 +197,7 @@
                             <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
                                 <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
                                 <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N002").news_cont}</h2>
-                                <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                                <p data-animation="fadeInUp" data-delay="700ms">${nSvc.getOneNews("N002").news_text}</p>
                                 <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
                             </div>
                         </div>
@@ -216,7 +216,7 @@
                             <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
                                 <div class="line" data-animation="fadeInUp" data-delay="300ms"></div>
                                 <h2 data-animation="fadeInUp" data-delay="500ms">${nSvc.getOneNews("N003").news_cont}</h2>
-                                <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus.</p>
+                                <p data-animation="fadeInUp" data-delay="700ms">${nSvc.getOneNews("N003").news_text}</p>
                                 <a href="#" class="btn palatin-btn mt-50" data-animation="fadeInUp" data-delay="900ms">前往主題</a>
                             </div>
                         </div>

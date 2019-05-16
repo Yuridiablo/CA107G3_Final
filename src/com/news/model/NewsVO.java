@@ -8,6 +8,7 @@ public class NewsVO implements java.io.Serializable {
 	private String news_cont;
 	private byte[] news_pic;
 	private Date news_rea;
+	private String news_text;
 	
 	public NewsVO() {
 		
@@ -42,6 +43,14 @@ public class NewsVO implements java.io.Serializable {
 	}
 	public void setNews_rea(Date news_rea) {
 		this.news_rea = news_rea;
+	}
+
+	public String getNews_text() {
+		return news_text;
+	}
+
+	public void setNews_text(String news_text) {
+		this.news_text = news_text;
 	}
 	
 	

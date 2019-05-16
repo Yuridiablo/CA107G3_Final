@@ -72,7 +72,7 @@ public class Comments_Servlet extends HttpServlet {
 		
 		if ("get_one_insert".equals(action)) {
 			
-			try {
+//			try {
 				
 				String vendor_no=req.getParameter("vendor_no");
 				String ord_no = req.getParameter("ord_no");
@@ -104,9 +104,9 @@ public class Comments_Servlet extends HttpServlet {
 				return;
 
 				// Handle any unusual exceptions
-			} catch (Exception e) {
-				throw new ServletException(e);
-			}
+//			} catch (Exception e) {
+//				throw new ServletException(e);
+//			}
 		}
 		
 		
