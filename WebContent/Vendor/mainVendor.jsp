@@ -234,7 +234,7 @@ to {
 		
 			
 	</nav>
-<h1>include主頁</h1>
+
 	<div class="container">
 		<div class="row">
 		
