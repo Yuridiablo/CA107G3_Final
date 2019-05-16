@@ -883,7 +883,7 @@ public class OrdServlet extends HttpServlet {
 					DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 					String date=now.format(formatter);
 					session.setAttribute("date", date);
-					session.setAttribute("total", total); 
+					session.setAttribute("total", total);
 					System.out.println("total000000000"+total);
 					String url = "/front-end/ord/checkout.jsp";
 					RequestDispatcher rd = req.getRequestDispatcher(url);
@@ -1021,7 +1021,10 @@ public class OrdServlet extends HttpServlet {
 						String email3="ji394z06z06@yahoo.com.tw";
 						String email4="j0933473201@icloud.com";
 						String servletcontext =req.getContextPath();
-						  String  URL= servletcontext+"/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
+					
+						
+						
+						  String  URL= "localhost:8082/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
 						  String subject = "請點擊付款";
 					      String messageText = "Hello! " + name + 
 					    		  " 您的好友已完成訂位及選購餐點 ，您需要支付的金額為"
@@ -1032,7 +1035,7 @@ public class OrdServlet extends HttpServlet {
 					    		  "\r\n"+ 
 					    		  "請在2小時內完成付款，否則訂單不成立"; 
 					      
-					      String  URL1= servletcontext+"/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no2+"&amount="+share_amount2+"&name1="+name1;
+					      String  URL1= "http://localhost:8082/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no2+"&amount="+share_amount2+"&name1="+name1;
 						  String subject1 = "請點擊付款";
 					      String messageText1= "Hello! " + name1 + 
 					    		  " 您的好友已完成訂位及選購餐點 ，您需要支付的金額為"
