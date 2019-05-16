@@ -927,6 +927,7 @@ public class VendorServlet extends HttpServlet {
 						// 4 5
 						infoString.add(comm.map(v -> v.getCmnt_no()).get());
 						
+						
 						String forSub = comm.map(v -> v.getCmnt()).get();
 						//切出標題用文字
 						
@@ -938,9 +939,13 @@ public class VendorServlet extends HttpServlet {
 						if (cut < 0) {
 							cut = 6;
 						}
-						String title = forSub.substring(0,cut);
+						if (forSub != null) {
+							String title = forSub.substring(0,cut);
+							infoString.add(title);
+						}
+						
 						// 6
-						infoString.add(title);
+						
 						// 7
 						infoString.add(mVO.getMem_nickname());
 						
