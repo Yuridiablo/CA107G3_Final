@@ -35,6 +35,9 @@
     <!-- 自訂 CSS主檔 -->
     <link rel="stylesheet" type="text/css" href="../front-end/css/style.css">
     <link rel="stylesheet" type="text/css" href="../front-end/css/simple-line-icons.css">
+    <!-- 自訂 CSS主檔 -->
+    
+ 
     
     <style>
     .book-now-form form .form-group1{
@@ -504,6 +507,10 @@
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+	<!--sweet alert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<!--jquery cookie -->
+    <script src="js/jquery/jquery.cookie.js"></script>
     
      <script>
     $(window).scroll(function() {
