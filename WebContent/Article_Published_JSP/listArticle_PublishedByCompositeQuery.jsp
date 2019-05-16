@@ -40,10 +40,15 @@ body {
 </head>
 <body>
 <%@ include file="/front-end/header_footer/header.txt" %>
+ <c:if test="${listArticle_PublishedByCompositeQuery.isEmpty()}">
+      <h1>找不到你要的搜尋結果，</h1>
+      <h1>請重新搜尋</h1>
+</c:if>
+ <c:if test="${!listArticle_PublishedByCompositeQuery.isEmpty()}"> 
  <div class="container" id="tourpackages-carousel">
-      
+     
       <div class="row">
-        <c:forEach var="article_publishedVO" items="${listArticle_PublishedByCompositeQuery}">
+        	<c:forEach var="article_publishedVO" items="${listArticle_PublishedByCompositeQuery}">
         <div class="col-xs-18 col-sm-6 col-md-3">
           <div class="thumbnail">
             <img src="<%=request.getContextPath()%>/Article_Published/DBGifReader1?art_no=${article_publishedVO.art_no}" alt="">
@@ -61,6 +66,7 @@ body {
         </c:forEach>
       </div>
   </div>
+  </c:if>
   <%@ include file="/front-end/header_footer/footer.txt" %>
 <%@ include file="/front-end/header_footer/footer_js.txt" %>
 </body>

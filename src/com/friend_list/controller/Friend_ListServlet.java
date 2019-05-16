@@ -196,7 +196,7 @@ public class Friend_ListServlet extends HttpServlet{
 				
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("friend_listVO", friend_listVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/manage_friend_list.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List/friend_list.do?action=myFriend");
 					failureView.forward(req, res);
 					return;
 				}
@@ -233,14 +233,14 @@ public class Friend_ListServlet extends HttpServlet{
 				Friend_ListService friend_listSvc2 = new Friend_ListService();
 				friend_listVO2 = friend_listSvc2.updateFriend_List(mem_no2,frie_no2, frie_code2);
 //				req.setAttribute("friend_listVO", friend_listVO);
-				String url = "/Friend_List_JSP/manage_friend_list.jsp";
+				String url = "/Friend_List/friend_list.do?action=myFriend";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理*************************************/
 			}catch(Exception e) {
 				errorMsgs.add("修改資料失敗"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/manage_friend_list.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List/friend_list.do?action=myFriend");
 				failureView.forward(req, res);
 			}
 		}
@@ -253,7 +253,7 @@ public class Friend_ListServlet extends HttpServlet{
 				req.getSession().removeAttribute("flag");
 			} else {
 				System.out.println("重複了!");
-				String url = "/Friend_List_JSP/manage_friend_list.jsp";
+				String url = "/Friend_List/friend_list.do?action=myFriend";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
@@ -288,7 +288,7 @@ public class Friend_ListServlet extends HttpServlet{
 				
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("friend_listVO", friend_listVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/manage_friend_list.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List/friend_list.do?action=myFriend");
 					failureView.forward(req, res);
 					return;
 				}
@@ -320,20 +320,20 @@ public class Friend_ListServlet extends HttpServlet{
 				
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("friend_listVO", friend_listVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/manage_friend_list.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List/friend_list.do?action=myFriend");
 					failureView.forward(req, res);
 					return;
 				}
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/Friend_List_JSP/manage_friend_list.jsp";
+				String url = "/Friend_List/friend_list.do?action=myFriend";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
 			}catch(Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/manage_friend_list.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List/friend_list.do?action=myFriend");
 				failureView.forward(req, res);
 			}
 		}
@@ -354,14 +354,14 @@ public class Friend_ListServlet extends HttpServlet{
 				friend_listSvc.deleteFriend_List(frie_no, mem_no);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/Friend_List_JSP/manage_friend_list.jsp";
+				String url = "/Friend_List/friend_list.do?action=myFriend";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
 				/***************************其他可能的錯誤處理**********************************/
 			}catch(Exception e) {
 				errorMsgs.add("刪除資料失敗"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List_JSP/manage_friend_list.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/Friend_List/friend_list.do?action=myFriend");
 				failureView.forward(req, res);
 			}
 		}

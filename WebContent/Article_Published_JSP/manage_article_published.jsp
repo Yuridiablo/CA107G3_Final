@@ -95,22 +95,15 @@ top: 0px;
 			<div class="card-body">
 				<div class="well">
 				<table class="table">
-			      <thead>
-			        <tr>
+			      <tbody>
+			      	<c:forEach var="article_publishedVO" items="${list}">
+			      	<tr>
 			          <th>文章標題</th>
 			          <th>文章內容</th>
 			          <th>發表時間</th>
-			          <th>圖片1</th>
-			          <th>圖片2</th>
-			          <th>圖片3</th>
-			          <th>圖片4</th>
-			          <th>圖片5</th>
 			          <th>狀態</th>
 			          <th style="width: 36px;"></th>
 			        </tr>
-			      </thead>
-			      <tbody>
-			      	<c:forEach var="article_publishedVO" items="${list}">
 			        <tr>
 			          <td>${article_publishedVO.art_title}</td>
 			          <td><div class="form-group">
@@ -118,11 +111,6 @@ top: 0px;
 						  </div>
 			          </td>
 			          <td>${article_publishedVO.art_time}</td>
-			          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader1?art_no=${article_publishedVO.art_no}" alt=""></td>
-			          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader2?art_no=${article_publishedVO.art_no}" alt=""></td>
-			          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader3?art_no=${article_publishedVO.art_no}" alt=""></td>
-			          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader4?art_no=${article_publishedVO.art_no}" alt=""></td>
-			          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader5?art_no=${article_publishedVO.art_no}" alt=""></td>
 			          <td>
 			          	<c:if test="${article_publishedVO.art_code==1}">
 			          		<p class="text-success">上架</p>
@@ -131,7 +119,23 @@ top: 0px;
 			          		<p class="text-danger">下架</p>
 			          	</c:if>
 			          </td>
-			          <td>
+			          </tr>
+			          <tr>
+			          </tr>
+				          <th>圖片1</th>
+				          <th>圖片2</th>
+				          <th>圖片3</th>
+				          <th>圖片4</th>
+				          <th>圖片5</th>
+			          <tr>
+				          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader1?art_no=${article_publishedVO.art_no}" alt=""></td>
+				          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader2?art_no=${article_publishedVO.art_no}" alt=""></td>
+				          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader3?art_no=${article_publishedVO.art_no}" alt=""></td>
+				          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader4?art_no=${article_publishedVO.art_no}" alt=""></td>
+				          <td><img src="<%=request.getContextPath()%>/Article_Published/DBGifReader5?art_no=${article_publishedVO.art_no}" alt=""></td>
+			          </tr>
+			          <tr>
+			          	<td>
 			              <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">編輯</button>
 									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 											<div class="modal-dialog">
