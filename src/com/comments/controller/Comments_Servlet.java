@@ -99,7 +99,7 @@ public class Comments_Servlet extends HttpServlet {
 				
 				//＝＝＝＝＝＝＝＝＝＝＝轉回會員頁面＝＝＝＝＝＝＝＝＝＝＝＝
 				RequestDispatcher successView = req
-						.getRequestDispatcher("/front-end/ord/list_for_mem.jsp");
+						.getRequestDispatcher("/front-end/FrontPage.jsp");
 				successView.forward(req, res);
 				return;
 
