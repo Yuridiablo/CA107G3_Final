@@ -92,7 +92,8 @@ public class EmployeeServlet extends HttpServlet {
 				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("employeeVO", employeeVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/employeePage/addEmployee.jsp");
+					req.setAttribute("addEmp","addEmp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/employeeScreen.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -151,8 +152,9 @@ public class EmployeeServlet extends HttpServlet {
 				successView.forward(req, res);				
 				
 			}catch (Exception e) {
+				req.setAttribute("addEmp","addEmp");
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/employeePage/addEmployee.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/employeeScreen.jsp");
 				failureView.forward(req, res);
 			}
 		}
