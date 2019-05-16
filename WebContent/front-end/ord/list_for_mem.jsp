@@ -112,14 +112,20 @@ height:1px
 <%-- 						<td>${ordVO.arrival_time}</td>  --%>
 <%-- 						<td>${ordVO.finish_time}</td>  --%>
 						
-						<c:if test ="${ordVO.status==0}" var="xxx">
-						<td>已付款</td> 
-						</c:if>
 						<c:if test ="${ordVO.status==1}" var="xxx">
-						<td>已用餐</td> 
+						<td>已付款</td> 
 						</c:if>
 						<c:if test ="${ordVO.status==2}" var="xxx">
 						<td>已取消</td> 
+						</c:if>
+						<c:if test ="${ordVO.status==3}" var="xxx">
+						<td>待付款</td> 
+						</c:if>
+						<c:if test ="${ordVO.status==4}" var="xxx">
+						<td>已核銷</td> 
+						</c:if>
+						<c:if test ="${ordVO.status==5}" var="xxx">
+						<td>已失效</td> 
 						</c:if>
 						
                     
