@@ -12,8 +12,10 @@ VendorVO vVO = (VendorVO) session.getAttribute("vVO");
 String vendor_no = null;
 if (vVO != null) {
 	vendor_no = vVO.getVendor_no();
+	System.out.println("form vVO:" + vendor_no);
 } else if (request.getParameter("vendor_no") == null) {
 	vendor_no = "V000001";
+	System.out.println("form default:" + vendor_no);
 } else {
 	vendor_no = request.getParameter("vendor_no");
 }
