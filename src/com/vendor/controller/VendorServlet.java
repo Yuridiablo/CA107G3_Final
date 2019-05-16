@@ -705,8 +705,11 @@ public class VendorServlet extends HttpServlet {
 		
 		
 		if ("upVendor".equals(action)) {
-			
+			HttpSession se = req.getSession();
+			VendorVO vVO = (VendorVO) se.getAttribute("vVO");
 			String xxx = "good3";
+			String vday = vVO.getV_day().equals("0") ? "0000000" : vVO.getV_day();
+			System.out.println(vday);
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				
