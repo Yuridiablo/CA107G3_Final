@@ -87,12 +87,14 @@ height:1px
            
              
               
-                 
+                 <c:set var="mem_no1" value="${ ordVO.share_mem_no1}"/>
+                <c:set var="mem_no2" value="${ ordVO.share_mem_no2}"/>
+                <c:set var="memVO1" value="${MemSvc.getOneMember(mem_no1}"></c:set>
+                <c:set var="memVO2" value="${MemSvc.getOneMember(mem_no2}"></c:set>
 			<%@ include file="pageForOrder.file" %>
 			<c:forEach var="ordVO" items="${olist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                 <c:set var="memVO" value="${MemSvc.getOneMember(memberVO.mem_no)}"></c:set>
-                <c:set var="memVO1" value="${MemSvc.getOneMember(ordVO.share_mem_no1}"></c:set>
-                <c:set var="memVO2" value="${MemSvc.getOneMember(ordVO.share_mem_no2}"></c:set>
+                
                 
                 
                  <c:set var="vendorVO" value="${VendorSvc.findByPK(ordVO.vendor_no)}"></c:set>

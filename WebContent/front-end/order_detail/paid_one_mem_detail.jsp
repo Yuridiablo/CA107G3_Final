@@ -18,6 +18,7 @@
 <jsp:useBean id="OrdSvc" scope="page" class="com.ord.model.OrdService" />
 <jsp:useBean id="MemSvc" scope="page" class="com.member.model.MemberService" />
 <jsp:useBean id="MenuSvc" scope="page" class="com.restaurant_menu.model.Restaurant_MenuService" />
+<%@ include file="/front-end/header_footer/header_css.txt" %> 
 </head>
 
 <style>
@@ -26,7 +27,9 @@
     vertical-align: ;
     }
 </style>
+
 <body>
+  <%@ include file="/front-end/header_footer/header.txt" %>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -155,6 +158,8 @@ $(document).ready(function () {
     $.getScript("http://code.jquery.com/ui/1.9.2/jquery-ui.js").done(function (script, textStatus) { $('tbody').sortable();$(".alert-info").alert('close');$(".alert-success").show(); });
 });
 </script>
-</html>
+
 </body>
+ <%@ include file="/front-end/header_footer/footer.txt" %>
+<%@ include file="/front-end/header_footer/footer_js.txt" %>
 </html>
