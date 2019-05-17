@@ -7,8 +7,6 @@
 	// 	out.print(vVO);
 %>
 
-
-<jsp:useBean id="vVO" scope="session" class="com.vendor.model.VendorVO" />
 <!doctype html>
 <html lang="en">
 

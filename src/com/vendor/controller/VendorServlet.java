@@ -616,7 +616,7 @@ public class VendorServlet extends HttpServlet {
 					
 					
 							
-							System.out.println("餐廳回應評論" + rrMap);
+					System.out.println("餐廳回應評論" + rrMap);
 					req.setAttribute("rrlist", rrlist);
 					req.setAttribute("clist", clist);
 					req.setAttribute("rrMap", rrMap);
@@ -787,7 +787,6 @@ public class VendorServlet extends HttpServlet {
 			System.out.println("開始查詢");
 			String v_name = req.getParameter("v_name");
 
-			System.out.println(v_name + "我在這");
 			VendorService vSvc = new VendorService();
 			CommentsService cSvc = new CommentsService();
 			OrdService oSvc = new OrdService();
@@ -911,8 +910,8 @@ public class VendorServlet extends HttpServlet {
 						 3	評論分數    
 						 4	會員編號(照片用)   
 						 5	評論編號          
-						 6	切出來的標題 ]
-						 7	會員暱稱
+						 6	切出來的標題 
+						 7	會員暱稱  	]
 					*/
 					Optional<CommentsVO> comm = allComList.stream()
 							.filter(v -> v.getVendor_no().equals(vVO.getVendor_no()))
@@ -940,14 +939,14 @@ public class VendorServlet extends HttpServlet {
 							cut = forSub.indexOf(",", 0);
 						}
 						if (cut < 0) {
-							cut = 6;
+							cut = 1;
 						}
 						if (forSub != null) {
 							String title = forSub.substring(0,cut);
+						// 6
 							infoString.add(title);
 						}
 						
-						// 6
 						
 						// 7
 						infoString.add(mVO.getMem_nickname());

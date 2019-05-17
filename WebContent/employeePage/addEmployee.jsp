@@ -134,7 +134,7 @@ label {
 		</div>		
 	<form class="needs-validation" novalidate
 		action="<%=request.getContextPath()%>/employee/Employee.do"
-		method="post">
+		method="post" id="addEmpForm">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-7">
@@ -205,7 +205,7 @@ label {
 						<div class="col-10">
 							<input type="text" name="emp_hire" id="emp_hire"
 								class="form-control" required>
-							<div class="invalid-tooltip  ">請選擇到職日期</div>
+							<div class="invalid-tooltip">請選擇到職日期</div>
 						</div>
 					</div>
 					<div class="form-row justify-content-start">
@@ -216,7 +216,7 @@ label {
 
 					<div>
 						<input type="hidden" name="action" value="insert">
-						<button type="submmit" id="submmit" class="btn btn-primary col-12">確認送出</button>
+						<button type="submit" id="submmit" class="btn btn-primary btnForAddEmp col-12">確認送出</button>
 					</div>
 				</div>
 			</div>
@@ -283,6 +283,19 @@ label {
 			$("#allEmp").on('click', function() {
 				$("#serchBar").addClass('serchBar');
 			});
+			
+// 			$("#addEmpForm").submit(function(){
+// 					$(".btnForAddEmp").attr('disabled',true);
+// 	 			 	 Swal.showLoading({
+// 						 type: 'error',
+// 	 			 		 title:'處理中.....'
+// 	 			 	 });
+// 			});
+			
+// 			$("input").change(function(){
+// 				$(".btnForAddEmp").attr('disabled','');
+// 			});
+			
 		});
 	</script>
 </body>
