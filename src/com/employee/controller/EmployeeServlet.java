@@ -308,9 +308,7 @@ public class EmployeeServlet extends HttpServlet {
 							,employeeVO.getEmp_hire(), new java.sql.Date(System.currentTimeMillis()), emp_stat);
 				}
 				
-				HttpSession session = req.getSession();
-				employeeVO = (EmployeeVO) session.getAttribute("employeeVO");
-				String emp_no = employeeVO.getEmp_no();
+				String emp_no = req.getParameter("emp_no");
 				Feature_detailService feaSvc = new Feature_detailService();
 				feaSvc.deleteFeature_detail(emp_no);
 				if(emp_permission.equals("3")||emp_permission.equals("2")||emp_permission.equals("1")) {
