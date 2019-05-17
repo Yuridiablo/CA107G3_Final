@@ -13,26 +13,29 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" -->
+<!-- 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" -->
+<!-- 	crossorigin="anonymous"> -->
 	
+<link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/css/bootstrap-4.3.1.min.css">	
 	
-	
-	<script src="../front-end/js/jquery-3.3.1.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-		crossorigin="anonymous"></script>
+	<script src="<%= request.getContextPath() %>/front-end/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+	<script src="<%= request.getContextPath() %>/front-end/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
+	<script src="<%= request.getContextPath() %>/front-end/js/popper.min.js" type="text/javascript"></script>
+<!-- 	<script -->
+<!-- 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" -->
+<!-- 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" -->
+<!-- 		crossorigin="anonymous"></script> -->
+<!-- 	<script -->
+<!-- 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" -->
+<!-- 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" -->
+<!-- 		crossorigin="anonymous"></script> -->
 	<!-- Input type=number -->
-	<script src="../front-end/js/bootstrap-input-spinner.js"></script>
+	<script src="<%= request.getContextPath() %>/front-end/js/bootstrap-input-spinner.js"></script>
 	<!--     sweetalert -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> -->
+	<script src="<%= request.getContextPath() %>/front-end/js/sweetalert2.min.js" type="text/javascript"></script>
 	
 <title>餐廳管理後台</title>
 <!-- Side Nav -->
@@ -301,12 +304,9 @@ to {
 
 	</div>
 
-
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	
 	<script>
-    $("input[type='number']").inputSpinner()
+    //$("input[type='number']").inputSpinner()
     </script>
 	<!-- Side Nav -->
 	<script type="text/javascript">
@@ -326,114 +326,6 @@ to {
 
 
     </script>
-    
-    
-<%@ page import="com.wait_pos.controller.*" %>
-<%@ page import="java.util.*" %>
-<%@ page import="org.apache.commons.collections4.map.ListOrderedMap" %>
-<%@ page import="javax.websocket.Session" %>
-
-<% 
-String vendor_no = null;
-if (request.getParameter("vendor_no") == null) {
-	vendor_no = "V000001";
-} else {
-	vendor_no = request.getParameter("vendor_no");
-}
-Map<String, Map<Integer, Wait_Line>> wait_line_all = (Map) application.getAttribute("wait_line_all");
-
-Map<Integer, Wait_Line> wait_line_vendor = (Map) wait_line_all.get(vendor_no);				
-if (wait_line_vendor == null) {
-	
-	wait_line_vendor = new HashMap<Integer, Wait_Line>();
-	wait_line_all.put(vendor_no, wait_line_vendor);
-	
-	wait_line_vendor.put(1, new Wait_Line());
-	wait_line_vendor.put(2, new Wait_Line());
-	wait_line_vendor.put(3, new Wait_Line());
-	wait_line_vendor.put(4, new Wait_Line());
-	wait_line_vendor.put(5, new Wait_Line());
-}
-Wait_Line wait_line;
-ListOrderedMap<String, PersonInLine> wait_line_queue;
-
-Map<String, Set<Session>> vendor_wait_sessions = (Map) application.getAttribute("vendor_wait_sessions");
-Set<Session> vendor_wait_session = (Set) vendor_wait_sessions.get(vendor_no);
-if (vendor_wait_session == null) {	
-	vendor_wait_session = Collections.synchronizedSet(new HashSet<Session>());
-	vendor_wait_sessions.put(vendor_no, vendor_wait_session);
-}
-
-%>   
-    <script>
-var vendorWaitMgmtWS;
-	
-	// connect
-	window.addEventListener("load", function() {
-		var MyPoint = "/VendorWS/<%= vendor_no %>"; // servlet ServerEndpoint
-		var path = window.location.pathname; // /WebSocketChatWeb/index.html
-		var webCtx = path.substring(0, path.indexOf('/', 1)); // /WebSocketChatWeb
-		var endPointURL = "ws://" + window.location.host + webCtx + MyPoint; 
-		
-		// create a websocket
-		vendorWaitMgmtWS = new WebSocket(endPointURL); // connect ot server ServerEndpoint servlet
-
-		
-		// onopen
-		vendorWaitMgmtWS.onopen = function(event) {
-			showAlert("alert-success", "Web Socket 已連線");
-		};
-		
-		// onmessage
-		vendorWaitMgmtWS.onmessage = function(event) {
-			
-			var jsonObj = JSON.parse(event.data);
-			switch (jsonObj.action) {
-				case "openWaitFun": // 變更候位功能狀態
-					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌候位功能已" + (jsonObj.open_wait ? "開啟" : "關閉"));										
-					openWaitFun(jsonObj.tbl_size, jsonObj.open_wait);
-					break;
-				case "setDeadline": // 叫號
-					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌 " + jsonObj.numberPlate + " 號叫號成功");
-					setDeadline(jsonObj.tbl_size, jsonObj.mem_no, jsonObj.deadline);
-					break;
-				case "returnZero": // 刷新隊伍
-					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌候位號碼已歸零");										
-					setNumberNow(jsonObj.tbl_size, 1);
-					break;
-				case "refreshLine": // 刷新隊伍
-					if (jsonObj.event == "insert") {
-						var jsonObj2 = JSON.parse(jsonObj.result);
-						showAlert("alert-info", jsonObj2.result);
-						setNumberNow(jsonObj.tbl_size, jsonObj2.number_now);
-					} else {
-						showAlert("alert-info", jsonObj.result);
-					}															
-					refreshLine(jsonObj.tbl_size, jsonObj.w_line);
-					break;
-				case "clearLine": // 清空隊伍
-					showAlert("alert-info", (jsonObj.tbl_size * 2) + " 人桌候位列表已清空");										
-					clearLine(jsonObj.tbl_size);
-					break;
-				//case "renewNumberNow": // 更新號碼牌
-				//	setNumberNow(jsonObj.tbl_size, jsonObj.number_now);
-				//	break;
-					
-			}
-		};
-		
-		// onclose
-		vendorWaitMgmtWS.onclose = function(event) {
-			showAlert("alert-danger", "Web Socket 已斷線");
-		};
-	} ,false);
-	
-	// disconnect
-	window.addEventListener("unload", function() {
-		vendorWaitMgmtWS.close();
-	},false);
-    
-    </script>	
 
 </body>
 

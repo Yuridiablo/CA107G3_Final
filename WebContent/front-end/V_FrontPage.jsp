@@ -18,6 +18,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/css/bootstrap-4.3.1.min.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/css/sweetalert2.min.css">
 <title>餐廳後台首頁</title>
 <!-- Side Nav -->
 <style type="text/css">
@@ -144,14 +145,6 @@ margin-top:3%;
 font-size:30px;
 }
 
-/*.side-nav__section-title {
-            color: #202124;
-            display: block;
-            font-size: 18px;
-            padding-bottom: 12px;
-            padding-left: 24px;
-            padding-top: 40px;
-        }       */
 </style>
 </head>
 <!-- ============================================================================= -->
@@ -272,12 +265,13 @@ font-size:30px;
 	<script src="<%= request.getContextPath() %>/front-end/js/popper.min.js" type="text/javascript"></script>
 	<script src="<%= request.getContextPath() %>/front-end/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
 	<!-- Input type=number -->
-	<script src="bootstrap-input-spinner.js"></script>
+<!-- 	<script src="bootstrap-input-spinner.js"></script> -->
 	<!--     sweetalert -->
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-	<script>
-    $("input[type='number']").inputSpinner()
-    </script>
+	<script src="<%= request.getContextPath() %>/front-end/js/sweetalert2.min.js" type="text/javascript"></script>
+<!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> -->
+<!-- 	<script> -->
+<!--      $("input[type='number']").inputSpinner() -->
+<!--     </script> -->
 	<!-- Side Nav -->
 	<script type="text/javascript">
     $(document).ready(function() {
