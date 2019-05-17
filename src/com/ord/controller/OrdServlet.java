@@ -1120,7 +1120,7 @@ public class OrdServlet extends HttpServlet {
 				 
 				 
 				 	//繳費後檢查是否分攤好友皆有完成
-				 if("share_pay".equals(action)) {
+				 if("share_pay".equals(action)) { 
 //					 String share_mem_no1=(String) session.getAttribute("share_mem_no1");
 					 
 					//取得付款的人以及金額並且存進redis
