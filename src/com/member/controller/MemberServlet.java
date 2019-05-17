@@ -365,11 +365,17 @@ public class MemberServlet extends HttpServlet {
 				}
 
 				MemberService memberSvc = new MemberService();
+				if(mem_pic.length==0) {
+							memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
+							mem_tel, memberVO.getMem_status(), memberVO.getMem_pic(), memberVO.getMem_balance(), mem_nickname,
+							memberVO.getMem_account());
+				}else {
+							memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
+							mem_tel, memberVO.getMem_status(), mem_pic, memberVO.getMem_balance(), mem_nickname,
+							memberVO.getMem_account());
+				}
 
-				memberVO = memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
-						mem_tel, memberVO.getMem_status(), mem_pic, memberVO.getMem_balance(), mem_nickname,
-						memberVO.getMem_account());
-				
+				memberVO = memberSvc.getOneMemberByAccount(memberVO.getMem_account());
 				session.setAttribute("memberVO", memberVO);
 				
 				System.out.println("----------------update---------------------");

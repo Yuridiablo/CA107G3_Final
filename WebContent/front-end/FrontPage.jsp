@@ -145,6 +145,7 @@
                                             <span class="icon-arrow-down"></span>
                                         </a>
                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                       		<a class="dropdown-item" href="${pageContext.request.contextPath}/search/search.do?action=meminfo&seletcted_mem=${memberVO.mem_no}"><span class="icon-heart"></span>個人頁面</a>
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=updateInFront"><span class="icon-user"></span>編輯個人資訊</a>
                                             <a class="dropdown-item" href="<%=request.getContextPath()%>/Friend_List/friend_list.do?action=myFriend"><span class="icon-people"></span>社交清單管理</a>
                                             <a class="dropdown-item" href="<%=request.getContextPath()%>/Article_Published_JSP/manage_article_published.jsp"><span class="icon-like"></span>我的文章管理</a>
@@ -178,6 +179,8 @@
 	                <!-- Slide Img -->
 	                <div class="slide-img bg-img" style="background-image: url(<%= request.getScheme() + "://" + request.getServerName() + ":" +request.getServerPort() +  request.getContextPath()%>/tools/OutImg.do?news_no=%27${news.news_no}%27);"></div>
 	                <div class="container">
+	                
+	          
 	                    <div class="row justify-content-center">
 	                        <div class="col-12 col-lg-9">
 	                            <!-- Slide Content -->

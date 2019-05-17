@@ -194,7 +194,7 @@
 					<div>
 						<input type="hidden" name="update_detail" value="update_detail">
 						<input type="hidden" name="action" value="update">
-						<button type="submmit" class="btn btn-primary col-12" id="submmit">確認送出</button>
+						<button type="submit" class="btn btn-primary col-12" id="submmit">確認送出</button>
 					</div>
 				</div>
 			</div>

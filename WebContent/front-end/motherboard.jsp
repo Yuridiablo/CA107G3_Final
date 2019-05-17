@@ -135,9 +135,10 @@
                                             <span class="icon-arrow-down"></span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#">北部</a>
-                                            <a class="dropdown-item" href="#">中部</a>
-                                            <a class="dropdown-item" href="#">南部</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_position=north">北部</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_position=center">中部</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_position=south">南部</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_position=east">東部</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
@@ -146,11 +147,11 @@
                                             <span class="icon-arrow-down"></span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#">中式料理</a>
-                                            <a class="dropdown-item" href="#">美式餐廳</a>
-                                            <a class="dropdown-item" href="#">日本料理</a>
-                                            <a class="dropdown-item" href="#">義式料理</a>
-                                            <a class="dropdown-item" href="#">東南亞風味</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=中式料理">中式料理</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=美式餐廳">美式餐廳</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=日式料理">日式料理</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=義式料理">義式料理</a>
+                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_type=東南亞風味">東南亞風味</a>
                                         </div>
                                     </li>
                                    
@@ -163,6 +164,7 @@
                                             <span class="icon-arrow-down"></span>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        	<a class="dropdown-item" href="${pageContext.request.contextPath}/search/search.do?action=meminfo&seletcted_mem=${memberVO.mem_no}"><span class="icon-heart"></span>個人頁面</a>
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=updateInFront"><span class="icon-user"></span>編輯個人資訊</a>
                                             <a class="dropdown-item" href="#"><span class="icon-people"></span>社交清單管理</a>
                                             <a class="dropdown-item" href="<%=request.getContextPath()%>/Article_Published_JSP/manage_article_published.jsp"><span class="icon-like"></span>我的文章管理</a>
