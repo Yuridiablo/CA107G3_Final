@@ -851,7 +851,7 @@ public class OrdServlet extends HttpServlet {
 				session.setAttribute("shoppingcart", buylist);
 				session.setAttribute("vendor", vendor);
 				req.setAttribute("share", share);
-				req.setAttribute("total", amount);
+				
 				
 				
 
@@ -1048,6 +1048,7 @@ public class OrdServlet extends HttpServlet {
 					      
 					      //拿到總數,以及兩個朋友應該分攤的金額redis
 					    String  total= (String) session.getAttribute("total");
+//					   String total=String.valueOf(total1);
 					    String amount= Integer.toString(0);
 					    
 					      RedislService redisService =new RedislService();

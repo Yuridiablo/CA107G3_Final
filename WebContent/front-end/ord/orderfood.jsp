@@ -115,7 +115,7 @@
 	</div>	  
 	
 <!-- ========================================================================== -->
-<%if (request.getAttribute("total")!=null){%>
+<%if (session.getAttribute("total")!=null){%>
        <jsp:include page="/front-end/ord/menucart.jsp" />
 <%} %>
 <%--   			<c:if test="${(total)>0}"> --%>
