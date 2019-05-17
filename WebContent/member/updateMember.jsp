@@ -192,6 +192,7 @@
 						</div>
 					</div>
 					<div>
+						<input type="hidden" name="update_detail" value="update_detail">
 						<input type="hidden" name="action" value="update">
 						<button type="submmit" class="btn btn-primary col-12" id="submmit">確認送出</button>
 					</div>
@@ -236,6 +237,7 @@
 						</div>
 					</div>
 					<div>
+						<input type="hidden" name="update_pwd" value="update_pwd">
 						<input type="hidden" name="action" value="update_mem_pwd">
 						<button type="submit" class="btn btn-primary col-12" id="updatePwdBut">確認送出</button>
 					</div>

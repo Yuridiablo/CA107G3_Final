@@ -369,6 +369,9 @@ public class MemberServlet extends HttpServlet {
 				memberVO = memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
 						mem_tel, memberVO.getMem_status(), mem_pic, memberVO.getMem_balance(), mem_nickname,
 						memberVO.getMem_account());
+				
+				session.setAttribute("memberVO", memberVO);
+				
 				System.out.println("----------------update---------------------");
 				String url = "/front-end/motherboard.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
@@ -385,6 +388,7 @@ public class MemberServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
+			
 			try {
 				req.setAttribute("updateInFront", "updateInFront");
 				String mem_pwd = req.getParameter("mem_pwd");
@@ -425,6 +429,12 @@ public class MemberServlet extends HttpServlet {
 				memberVO = memberSvc.updateMember(memberVO.getMem_name(), mem_pwd_new, memberVO.getMem_gender(),
 						memberVO.getMem_mail(), memberVO.getMem_tel(), memberVO.getMem_status(), memberVO.getMem_pic(),
 						memberVO.getMem_balance(), memberVO.getMem_name(), memberVO.getMem_account());
+				
+					session.removeAttribute("account");
+					session.removeAttribute("memberVO");
+
+				
+				
 				System.out.println("----------------update---------------------");
 				String url = "/front-end/FrontPage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
