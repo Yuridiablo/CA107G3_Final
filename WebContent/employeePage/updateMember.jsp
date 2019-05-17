@@ -87,7 +87,7 @@ label {
 			<div class="col-7">
 				<div class="col-12 row" id="buttonBar">
 					<form method="post"
-						action="${pageContext.request.contextPath}/employeePage/Employee.do">
+						action="${pageContext.request.contextPath}/employee/Employee.do">
 						<input type="hidden" name="action" value="listAllMem">
 						<button type="submit" class="btn btn-outline-success buttonInTop"
 							id="allEmp">所有會員</button>
