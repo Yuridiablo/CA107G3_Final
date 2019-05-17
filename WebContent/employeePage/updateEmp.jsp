@@ -6,6 +6,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+<jsp:useBean id="feaSvc" scope="page" class="com.feature_detail.model.Feature_detailService"></jsp:useBean>
+
 <!doctype html>
 <html lang="en">
 
@@ -156,10 +158,28 @@ label {
 						</div>
 						<div class="col-10 col-form-label unchange" >
 							<select name="emp_permission" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-        						<option value="3" selected>低 </option>
-       						 	<option value="2">中 </option>
-       						 	<option value="1">高 </option>
-       						 	
+       						 		<c:set var="top" value="false"/>
+									<c:set var="mid" value="false"/>
+											<c:if test="${feaSvc.getOneFeature_detail(employeeVO.emp_no,'F002')!=null}">
+												<c:set var="top" value="true"/>
+													<option value="1" selected>高 </option>
+													<option value="2">中 </option>
+													<option value="3">低 </option>
+											</c:if>
+									<c:if test="${top==false}">
+												<c:if test="${feaSvc.getOneFeature_detail(employeeVO.emp_no,'F001')!=null}">
+													<c:set var="mid" value="true"/>
+														
+													<option value="1">高 </option>
+													<option value="2" selected>中 </option>
+													<option value="3">低 </option>
+												</c:if>
+									</c:if>
+									<c:if test="${top==false&&mid==false}">
+										<option value="1">高 </option>
+										<option value="2">中 </option>
+										<option value="3" selected>低 </option>
+									</c:if>
       						</select>
 						</div>
 					</div>
