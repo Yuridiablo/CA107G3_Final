@@ -172,7 +172,7 @@
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
                                         </div>
                                     </li>
-                                    <li><a href="#" class="btn btn-outline-light top-btn" id="loginBut"><span class="icon-login"></span>登入</a></li>
+                                    <li><a href="#" class="btn btn-outline-light top-btn" id="loginBut" data-toggle="modal" data-target="#loginBar"><span class="icon-login"></span>登入</a></li>
                                     <li><a href="${pageContext.request.contextPath}/member/member.do?action=logout" class="btn btn-outline-light top-btn" id="logoutBut"><span class="icon-logout"></span>登出</a></li>
                                 </ul>
                             </div>
@@ -270,8 +270,23 @@
 </div>
 
 
+<!-- =========================login modal=========================================== -->
+	    <div class="modal fade" id="loginBar" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<input type="hidden" name="action" value="login">
 
+				<div class="modal-body">
+					<jsp:include page="/member/loginMember.jsp"></jsp:include>
+				</div>
 
+	</div>
+			
+			
+			
+		</div>
+		</div>
 
 
 
