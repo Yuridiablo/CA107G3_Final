@@ -37,7 +37,7 @@ public class Feature_detailDAO implements Feature_detailDAO_interface {
 	private static final String GET_ONE_STMT = 
 			"SELECT fea_no,emp_no FROM feature_detail where emp_no = ? and fea_no= ?";
 	private static final String DELETE = 
-			"DELETE FROM feature_detail where emp_no = ? and fea_no= ?";
+			"DELETE FROM feature_detail where emp_no = ?";
 	
 	@Override
 	public List<Feature_detailVO> findByEmp_no(String emp_no) {
@@ -134,7 +134,7 @@ public class Feature_detailDAO implements Feature_detailDAO_interface {
 					return updateCount;
 				}
 	@Override
-	public int delete(String emp_no,String fea_no) {
+	public int delete(String emp_no) {
 		int updateCount = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -145,7 +145,6 @@ public class Feature_detailDAO implements Feature_detailDAO_interface {
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, emp_no);
-			pstmt.setString(2, fea_no);
 			
 			updateCount = pstmt.executeUpdate();
 

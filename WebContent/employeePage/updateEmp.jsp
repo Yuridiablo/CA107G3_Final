@@ -159,6 +159,7 @@ label {
         						<option value="3" selected>低 </option>
        						 	<option value="2">中 </option>
        						 	<option value="1">高 </option>
+       						 	
       						</select>
 						</div>
 					</div>

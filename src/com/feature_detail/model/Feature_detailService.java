@@ -19,8 +19,8 @@ public class Feature_detailService {
 		dao.insert(feature_detailVO);
 		return feature_detailVO;
 	}
-    public int deleteFeature_detail(String emp_no,String fea_no) {
-    	return dao.delete(emp_no, fea_no);
+    public int deleteFeature_detail(String emp_no) {
+    	return dao.delete(emp_no);
     }
     public Feature_detailVO getOneFeature_detail(String emp_no,String fea_no) {
     	return dao.findByPrimaryKey(emp_no, fea_no);

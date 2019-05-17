@@ -254,10 +254,12 @@ public class EmployeeServlet extends HttpServlet {
 		if ("updateEmp".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			try {
+			try {				
 				String emp_no = req.getParameter("emp_no");
+				
 				EmployeeService employeeSvc = new EmployeeService();
 				EmployeeVO employeeVO = employeeSvc.getOneEmployee(emp_no);
+
 				req.setAttribute("updateEmp", "updateEmp");
 				req.setAttribute("employeeVO", employeeVO);
 				String url = "/back-end/employeeScreen.jsp";
@@ -295,7 +297,7 @@ public class EmployeeServlet extends HttpServlet {
 					return;
 				}
 				
-
+				String emp_permission = req.getParameter("emp_permission");
 				EmployeeService employeeSvc = new EmployeeService();
 				employeeVO = employeeSvc.getOneEmployee(req.getParameter("emp_no"));
 				if(emp_stat==1) {
@@ -304,6 +306,27 @@ public class EmployeeServlet extends HttpServlet {
 				}else {
 					employeeVO = employeeSvc.updateEmployee(employeeVO.getEmp_no(), employeeVO.getEmp_name(), employeeVO.getEmp_sex(), employeeVO.getEmp_acc(), employeeVO.getEmp_pwd()
 							,employeeVO.getEmp_hire(), new java.sql.Date(System.currentTimeMillis()), emp_stat);
+				}
+				
+				HttpSession session = req.getSession();
+				employeeVO = (EmployeeVO) session.getAttribute("employeeVO");
+				String emp_no = employeeVO.getEmp_no();
+				Feature_detailService feaSvc = new Feature_detailService();
+				feaSvc.deleteFeature_detail(emp_no);
+				if(emp_permission.equals("3")||emp_permission.equals("2")||emp_permission.equals("1")) {
+					feaSvc.addFeature_detail("F009", emp_no);
+					feaSvc.addFeature_detail("F003", emp_no);
+					feaSvc.addFeature_detail("F004", emp_no);
+					feaSvc.addFeature_detail("F005", emp_no);
+					if(emp_permission.equals("2")||emp_permission.equals("1")) {
+						feaSvc.addFeature_detail("F001", emp_no);
+						feaSvc.addFeature_detail("F006", emp_no);
+						feaSvc.addFeature_detail("F007", emp_no);
+						feaSvc.addFeature_detail("F008", emp_no);
+						if(emp_permission.equals("1")) {
+							feaSvc.addFeature_detail("F002", emp_no);
+						}
+					}
 				}
 				
 				List<EmployeeVO> list = new ArrayList<>();
