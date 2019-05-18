@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.vendor.model.*"%>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,6 +122,32 @@ font-family:"微軟正黑體";
 
 <body>
     <!--============================= DETAIL =============================-->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modaltitle">菜單預覽</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+<c:forEach var="rmVO" items="${rmlist}">
+    <div style="display:none" class="item showfood ${rmVO.vendor_no}"><h4>${rmVO.menu_name}</h4></div>
+</c:forEach>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closemodal">關閉</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End-->  
+    
     <section>
         <div class="container-fluid">
             <div class="row">
@@ -201,9 +229,9 @@ font-family:"微軟正黑體";
 </div>
                     
                     <div class="container-fluid onerest">
-                        <div class="col-12 featured-responsive" id="big${sMap.key.vendor_no}">
+                        <div class="col-12 featured-responsive" >
                             <div class="featured-place-wrap">
-                                <div class="d-flex">
+                                <div class="d-flex" id="big${sMap.key.vendor_no}">
                                 <img  class="img-fluid resultpic" onerror="this.src='../front-end/images/SeeKFoodA.png'" alt="#" src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${sMap.key.vendor_no}'&pic=1">
                                                                         <span class="featured-rating-green">${sMap.value[0]}</span>
                                     <div class="featured-title-box">
@@ -369,11 +397,20 @@ font-family:"微軟正黑體";
  		      	map.setZoom(10);
 		        map.setCenter(marker${sMap.key.vendor_no}.getPosition());
 		        marker${sMap.key.vendor_no}.setAnimation(google.maps.Animation.BOUNCE);
+		    	
+		        $('#big${sMap.key.vendor_no}').mousedown(function(e){ 
+		     	    if( e.button == 2 ) { 
+		    			$('.${sMap.key.vendor_no}').show();
+		    			$('#modaltitle').text('菜單預覽-' + '${sMap.key.v_name}')
+		     	    }
+		         })
+		        
+
 		      });
 		      
 		      $('#big${sMap.key.vendor_no}').mouseleave(function(){
 			      	console.log(marker${sMap.key.vendor_no});
-			      	
+			   
 			      	 marker${sMap.key.vendor_no}.setAnimation(null);
 			      });
 </c:forEach> 
@@ -527,6 +564,27 @@ font-family:"微軟正黑體";
     
     </script>
 </c:forEach>
+
+
+
+    <script>
+    $(document).ready(function(){ 
+    	  document.oncontextmenu = function() {return false;};
+
+    	  $(document).mousedown(function(e){ 
+    	    if( e.button == 2 ) { 
+    	    	$('#exampleModalCenter').modal('toggle');
+    	      return false; 
+    	    } 
+    	    return true; 
+    	  }); 
+    	});
+   	
+    $('#exampleModalCenter').on('hidden.bs.modal', function () {
+    	 $('.showfood').hide();
+    	})
+    
+    </script>
     <!-- Map JS (Please change the API key below. Read documentation for more info) -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYZhprf58VI160spKuA98fVS9AcSeVuVg&libraries=places&callback=initMap" async defer></script>
 </body>

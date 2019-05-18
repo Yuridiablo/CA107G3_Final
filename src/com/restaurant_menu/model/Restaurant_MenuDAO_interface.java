@@ -3,6 +3,7 @@ package com.restaurant_menu.model;
 import java.util.List;
 
 import com.member_wallet_list.model.Member_Wallet_ListVO;
+import com.vendor.model.VendorVO;
 
 public interface Restaurant_MenuDAO_interface {
 	
@@ -19,5 +20,7 @@ public interface Restaurant_MenuDAO_interface {
 	public List<Restaurant_MenuVO> getAll();
 	
 	public List<Restaurant_MenuVO>getm_name(String vendor_no);
+	
+	public List<Restaurant_MenuVO> search(String menu_name);
 
 }

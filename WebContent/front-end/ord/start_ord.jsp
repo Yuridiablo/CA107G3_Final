@@ -25,7 +25,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 <!-- 日曆樣式 -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 
@@ -264,6 +265,21 @@ img {
 			  
 			  <div class="bookingselect tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 <!-- 			  <h1>第二大塊</h1>	 -->
+
+<div class="owl-carousel owl-theme">
+    <div class="item"><h4>1</h4></div>
+    <div class="item"><h4>2</h4></div>
+    <div class="item"><h4>3</h4></div>
+    <div class="item"><h4>4</h4></div>
+    <div class="item"><h4>5</h4></div>
+    <div class="item"><h4>6</h4></div>
+    <div class="item"><h4>7</h4></div>
+    <div class="item"><h4>8</h4></div>
+    <div class="item"><h4>9</h4></div>
+    <div class="item"><h4>10</h4></div>
+    <div class="item"><h4>11</h4></div>
+    <div class="item"><h4>12</h4></div>
+</div>
 		<!--  自動提交FORM開頭 -->
 			<div class="container">
 							<div class="row justify-content-center">
@@ -575,7 +591,7 @@ img {
 //   $('#myTab li:last-child a').tab('show')
 // })
 </script>
-	
+	<script src="<%=request.getContextPath()%>/front-end/js/jquery-3.3.1.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<!-- 星星 -->
     <script src="<%= request.getContextPath()%>/front-end/js/starrr.js"></script>
@@ -717,7 +733,28 @@ function connect() {
     </script>
     
  <%@ include file="/front-end/header_footer/footer.txt" %>
-<%@ include file="/front-end/header_footer/footer_js_forOrd.txt" %>   
+<%@ include file="/front-end/header_footer/footer_js_forOrd.txt" %>  
+<script>
+
+$('.owl-carousel').owlCarousel({
+    rtl:true,
+    loop:true,
+    margin:10,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+        }
+    }
+})
+
+</script> 
     
 </body>
 </html>
