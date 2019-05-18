@@ -177,7 +177,7 @@
 		   <c:forEach var="news" items="${newsList}" begin="${newsLength-5}" end="${newsLength}">
 			   <div class="single-hero-slide d-flex align-items-center justify-content-center">
 	                <!-- Slide Img -->
-	                <div class="slide-img bg-img" style="background-image: url(<%= request.getScheme() + "://" + request.getServerName() + ":" +request.getServerPort() +  request.getContextPath()%>/tools/OutImg.do?news_no=%27${news.news_no}%27);"></div>
+	                <div class="slide-img bg-img" style="background-image: url(<%= request.getScheme() + "://" + request.getServerName() + ":" +request.getServerPort() +  request.getContextPath()%>/tools/OutImg.do?news_no=%27${news.news_no}%27),url('../front-end/images/otoro.jpg');"></div>
 	                <div class="container">
 	                
 	          
@@ -438,7 +438,7 @@
                         <a href="detail.html">
                         	<c:set var="ord_no" value="${comm.ord_no}" />
                         	<c:set var="mem_no" value="${ordSvc.getOneOrd(ord_no).mem_no}" />
-                            <img src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${comm.vendor_no}'&pic=1" class="img-fluid" alt="#">
+                            <img src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${comm.vendor_no}'&pic=1" onerror="this.src='../front-end/images/SeeKFoodA.png'" class="img-fluid" alt="#">
                             <span class="featured-rating-green">${comm.score}</span>
                             <div class="featured-title-box">
                             	<c:set var="vendor_no" value="${comm.vendor_no}" />
@@ -448,7 +448,7 @@
                                 <p>26 Reviews</p> <span> • </span>
                                 <p><span>$$$</span>$$</p>
                                 <div class="media">
-                                    <img src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${mem_no}'" class="align-self-start mr-3 memPicInner" alt="...">
+                                    <img src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${mem_no}'" onerror="this.src='../front-end/images/dog.png'" class="align-self-start mr-3 memPicInner" alt="...">
                                     <div class="media-body">
                                     	<c:set var="commInner" value="${comm.cmnt}"></c:set>
                                     	<c:set var="commTopicIndex" value="${fn:indexOf(commInner,',')}"></c:set>
