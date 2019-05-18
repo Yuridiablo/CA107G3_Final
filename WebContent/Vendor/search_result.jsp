@@ -125,7 +125,7 @@ font-family:"微軟正黑體";
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modaltitle">菜單預覽</h5>
@@ -136,12 +136,12 @@ font-family:"微軟正黑體";
       <div class="modal-body">
 
 <c:forEach var="rmVO" items="${rmlist}">
-    <div style="display:none" class="item ${rmVO.vendor_no}"><h4>${rmVO.menu_name}</h4></div>
+    <div style="display:none" class="item showfood ${rmVO.vendor_no}"><h4>${rmVO.menu_name}</h4></div>
 </c:forEach>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closemodal">關閉</button>
       </div>
     </div>
   </div>
@@ -397,7 +397,14 @@ font-family:"微軟正黑體";
  		      	map.setZoom(10);
 		        map.setCenter(marker${sMap.key.vendor_no}.getPosition());
 		        marker${sMap.key.vendor_no}.setAnimation(google.maps.Animation.BOUNCE);
-		    
+		    	
+		        $('#big${sMap.key.vendor_no}').mousedown(function(e){ 
+		     	    if( e.button == 2 ) { 
+		    			$('.${sMap.key.vendor_no}').show();
+		    			$('#modaltitle').text('菜單預覽-' + '${sMap.key.v_name}')
+		     	    }
+		         })
+		        
 
 		      });
 		      
@@ -557,6 +564,9 @@ font-family:"微軟正黑體";
     
     </script>
 </c:forEach>
+
+
+
     <script>
     $(document).ready(function(){ 
     	  document.oncontextmenu = function() {return false;};
@@ -569,8 +579,11 @@ font-family:"微軟正黑體";
     	    return true; 
     	  }); 
     	});
+   	
+    $('#exampleModalCenter').on('hidden.bs.modal', function () {
+    	 $('.showfood').hide();
+    	})
     
-   
     </script>
     <!-- Map JS (Please change the API key below. Read documentation for more info) -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYZhprf58VI160spKuA98fVS9AcSeVuVg&libraries=places&callback=initMap" async defer></script>
