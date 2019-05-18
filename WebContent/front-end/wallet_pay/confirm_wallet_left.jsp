@@ -138,8 +138,10 @@
        </body>
  <script>
 
-var total= $("#total").val();
-var mem_balance=$("#mem_balance").val();
+var tt= $("#total").val();
+var mb=$("#mem_balance").val();
+var mem_balance=parseInt(mb);
+var total=parseInt(tt);
  $(document).ready(function(){
 	if(total>mem_balance){
 		$("#topay").css('display','none'); 

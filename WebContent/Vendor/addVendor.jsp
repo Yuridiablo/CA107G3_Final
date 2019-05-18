@@ -19,8 +19,9 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/css/bootstrap-4.3.1.min.css">
-<script src="<%= request.getContextPath() %>/front-end/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
+
 <script src="<%= request.getContextPath() %>/front-end/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="<%= request.getContextPath() %>/front-end/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
 <script src="<%= request.getContextPath() %>/front-end/js/popper.min.js" type="text/javascript"></script>
 <script src="<%= request.getContextPath() %>/front-end/js/address.js" type="text/javascript"
 	language="javascript" src="output.js" charset="UTF-8"></script>

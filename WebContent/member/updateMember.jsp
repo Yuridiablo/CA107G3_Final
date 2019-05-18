@@ -106,7 +106,7 @@
 	display: none;
 }
 
-#submmit{
+.submmitForUpdateInfo{
 	margin-top:25px;
 }
 .updateContainer{
@@ -188,13 +188,13 @@
 								onchange="loadFile(event)">
 						</div>
 						<div class="col">
-							<img src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'" id="output" class="col-12">
+							<img src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'" onerror="this.src='../front-end/images/dog.png'" id="output" class="col-12">
 						</div>
 					</div>
 					<div>
 						<input type="hidden" name="update_detail" value="update_detail">
 						<input type="hidden" name="action" value="update">
-						<button type="submit" class="btn btn-primary col-12" id="submmit">確認送出</button>
+						<button type="submit" class="btn btn-primary col-12 submmitForUpdateInfo">確認送出</button>
 					</div>
 				</div>
 			</div>

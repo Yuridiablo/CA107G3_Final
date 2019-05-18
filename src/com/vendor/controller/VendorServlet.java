@@ -797,6 +797,7 @@ public class VendorServlet extends HttpServlet {
 			String v_type = req.getParameter("v_type");
 			String v_position = req.getParameter("v_position");
 			String randSearch = req.getParameter("randSearch");
+			String commSearch = req.getParameter("commSearch");
 			String north[] = {"基隆","台北","桃園","新竹","苗栗","新北"};
 			String center[] = {"台中","彰化","南投","雲林","嘉義" };
 			String south[] = {"台南","高雄","屏東" };
@@ -1025,7 +1026,7 @@ public class VendorServlet extends HttpServlet {
 					}
 					
 
-					if(v_type!=null||v_position!=null||randSearch!=null) {
+					if(v_type!=null||v_position!=null||randSearch!=null||commSearch!=null) {
 						searchMap.put(vVO, infoString);
 					}else {
 						if(Double.parseDouble(infoString.get(0)) >= Double.parseDouble(scoreWant)) {

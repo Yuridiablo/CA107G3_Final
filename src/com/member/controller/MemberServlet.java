@@ -299,6 +299,7 @@ public class MemberServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
+				System.out.println("im hereim hereim hereim hereim hereim hereim hereim hereim hereim hereim here");
 				req.setAttribute("updateInFront", "updateInFront");
 				String mem_nickname = req.getParameter("mem_nickname");
 				String mem_nicknameReg = "^[\u4e00-\u9fa5_a-zA-Z0-9_]{2,10}$";
@@ -363,13 +364,21 @@ public class MemberServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
+				
+				System.out.println("2222222222222222222222222222222222");
 
 				MemberService memberSvc = new MemberService();
-				if(mem_pic.length==0) {
+				byte prePic[] = memberVO.getMem_pic();
+				if(mem_pic.length==0&&prePic.length==0) {
 							memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
-							mem_tel, memberVO.getMem_status(), memberVO.getMem_pic(), memberVO.getMem_balance(), mem_nickname,
+							mem_tel, memberVO.getMem_status(), null, memberVO.getMem_balance(), mem_nickname,
 							memberVO.getMem_account());
-				}else {
+				}else if(mem_pic.length==0&&prePic.length!=0){
+					memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
+							mem_tel, memberVO.getMem_status(), prePic, memberVO.getMem_balance(), mem_nickname,
+							memberVO.getMem_account());
+					
+				}else{
 							memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
 							mem_tel, memberVO.getMem_status(), mem_pic, memberVO.getMem_balance(), mem_nickname,
 							memberVO.getMem_account());
