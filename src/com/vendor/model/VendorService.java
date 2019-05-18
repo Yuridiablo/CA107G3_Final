@@ -82,8 +82,8 @@ public class VendorService {
 		return dao.findByType(v_type);
 	}
 	
-	public List<VendorVO> search(String v_name){
-		return dao.search(v_name);
+	public List<VendorVO> search(String v_name, String address1, String address2,String address3){
+		return dao.search(v_name, address1, address2, address3);
 	}
 	
 	public void upStatus(String v_status,String vendor_no) {
