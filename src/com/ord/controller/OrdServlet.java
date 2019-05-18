@@ -866,7 +866,7 @@ public class OrdServlet extends HttpServlet {
 		// 結帳，計算購物車書籍價錢總數
 
 				 if (action.equals("checkout")) {
-					double amount = 0;
+					Integer amount = 0;
 					for (int i = 0; i < buylist.size(); i++) {
 						Restaurant_MenuVO menu = buylist.get(i);
 						Integer price = Integer.parseInt(menu.getMenu_price());
@@ -878,7 +878,7 @@ public class OrdServlet extends HttpServlet {
 					String booking_time=(String) session.getAttribute("booking_time");
 					System.out.println("check==booking"+booking_time);
 					
-					String total = String.valueOf(amount);
+					Integer total = (amount);
 					ZonedDateTime now = ZonedDateTime.now();
 					DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 					String date=now.format(formatter);
@@ -936,7 +936,7 @@ public class OrdServlet extends HttpServlet {
 					 String share_mem_no=null;
 					 String share_mem_no1=null; 
 					 String share_mem_no2=null;
-				try {
+//				try {
 					 if( (req.getParameterValues("share_mem_no")==null)&&(req.getParameterValues("share_amount")==null)) {
 						 java.sql.Date booking_date=null;
 							try {
@@ -1024,7 +1024,7 @@ public class OrdServlet extends HttpServlet {
 					
 						
 						
-						  String  URL= "http://localhost:8081/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
+						  String  URL= "http://localhost:8082/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
 						  String subject = "請點擊付款";
 					      String messageText = "Hello! " + name + 
 					    		  " 您的好友已完成訂位及選購餐點 ，您需要支付的金額為"
@@ -1035,7 +1035,7 @@ public class OrdServlet extends HttpServlet {
 					    		  "\r\n"+ 
 					    		  "請在2小時內完成付款，否則訂單不成立"; 
 					      
-					      String  URL1= "http://localhost:8081/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no2+"&amount="+share_amount2+"&name1="+name1;
+					      String  URL1= "http://localhost:8082/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no2+"&amount="+share_amount2+"&name1="+name1;
 						  String subject1 = "請點擊付款";
 					      String messageText1= "Hello! " + name1 + 
 					    		  " 您的好友已完成訂位及選購餐點 ，您需要支付的金額為"
@@ -1047,10 +1047,10 @@ public class OrdServlet extends HttpServlet {
 					    		  "請在2小時內完成付款，否則訂單不成立"; 
 					      
 					      //拿到總數,以及兩個朋友應該分攤的金額redis
-					    String  total= (String) session.getAttribute("total");
+					    Integer  total1= (Integer) session.getAttribute("total");
 //					   String total=String.valueOf(total1);
 					    String amount= Integer.toString(0);
-					    
+					    String total=String.valueOf(total1);
 					      RedislService redisService =new RedislService();
 					      //存入redis
 					      redisService.insettotal("total", total);
@@ -1068,20 +1068,20 @@ public class OrdServlet extends HttpServlet {
 					      String url = "/front-end/FrontPage.jsp";
 							RequestDispatcher rd = req.getRequestDispatcher(url);
 							rd.forward(req, res);
-					      
-				 } catch (Exception e) {
-						errorMsgs.add("請輸入正確資訊:" + e.getMessage());
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/front-end/ord/checkout.jsp");
-						failureView.forward(req, res);
-					}
+//					      
+//				 } catch (Exception e) {
+//						errorMsgs.add("請輸入正確資訊:" + e.getMessage());
+//						RequestDispatcher failureView = req
+//								.getRequestDispatcher("/front-end/ord/checkout.jsp");
+//						failureView.forward(req, res);
+//					}
 	}
 				 
 				 
 				 //個人信用卡付款
 				 if (action.equals("tocredit")) {
 					 
-					 double amount = 0;
+					 Integer amount = 0;
 						for (int i = 0; i < buylist.size(); i++) {
 							Restaurant_MenuVO menu = buylist.get(i);
 							Integer price = Integer.parseInt(menu.getMenu_price());
@@ -1134,8 +1134,8 @@ public class OrdServlet extends HttpServlet {
 					String share_mem_no11= (String) session.getAttribute("share_mem_no1");
 					String share_mem_no22=(String) session.getAttribute("share_mem_no2");
 					//總共要付的金額
-					 String total1=(redisService.gettotal("total"));
-					 Integer total=(int)(Double.parseDouble(total1));
+					 String total=(redisService.gettotal("total"));//此時是字串
+					 Integer total1=(int)(Double.parseDouble(total));//此時是Integer
 					 //取出share_amount1已經付的錢
 					 //取出share_amount2已經付的錢
 					 Integer share_amount1=0;
@@ -1154,7 +1154,7 @@ public class OrdServlet extends HttpServlet {
 
 					 //判斷兩個付款相加有沒有等於總共要付的款項
 					 Integer share_amount=share_amount1+share_amount2;
-					 if(share_amount<total) {   //付款金額相加小於總total
+					 if(share_amount<total1) {   //付款金額相加小於總total,total1是Integer
 						 String url = "/front-end/FrontPage.jsp";
 							RequestDispatcher successView = req.getRequestDispatcher(url); 
 							successView.forward(req, res);		
@@ -1199,7 +1199,7 @@ public class OrdServlet extends HttpServlet {
 						ordVO.setBooking_date(booking_date);
 						ordVO.setBooking_time(booking_time);
 						ordVO.setNotes(notes);
-						ordVO.setTotal(total);
+						ordVO.setTotal(Integer.valueOf(total));
 						ordVO.setArrival_time(arrival_time);
 						ordVO.setFinish_time(finish_time);
 						ordVO.setVerif_code(verif_code);
@@ -1222,7 +1222,9 @@ public class OrdServlet extends HttpServlet {
 						
 						dao.insertWithOrd_detail(ordVO,testList);
 						
-						
+						redisService.removeshare(share_mem_no11);
+						redisService.removeshare(share_mem_no22);
+						redisService.removetotal(total);
 //						＝＝＝＝拿取會員姓名＝＝＝＝
 						MemberService memSvc=new MemberService();
 						MemberVO memVO=memSvc.getOneMember(mem_no);
