@@ -432,17 +432,17 @@
 				<c:set var="commList" value="${commentSvc.getAll()}" />
 				<c:set var="commLength" value="${fn:length(commList)}" />
                 <c:forEach var="comm" items="${commentSvc.getAll()}" begin="${commLength-3}" end="${commLength}">
-                
+                		<c:set var="vendor_no" value="${comm.vendor_no}" />
+                         <c:set var="vendor" value="${vSvc.findByPK(vendor_no)}" />
                 		<div class="col-md-4 featured-responsive">
                     <div class="featured-place-wrap">
-                        <a href="detail.html">
+                        <a href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_name=${vendor.v_name}&commSearch=commSearch">
                         	<c:set var="ord_no" value="${comm.ord_no}" />
                         	<c:set var="mem_no" value="${ordSvc.getOneOrd(ord_no).mem_no}" />
                             <img src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${comm.vendor_no}'&pic=1" onerror="this.src='../front-end/images/SeeKFoodA.png'" class="img-fluid" alt="#">
                             <span class="featured-rating-green">${comm.score}</span>
                             <div class="featured-title-box">
-                            	<c:set var="vendor_no" value="${comm.vendor_no}" />
-                            	<c:set var="vendor" value="${vSvc.findByPK(vendor_no)}" />
+                            	
                                 <h6>${vendor.v_name}</h6>
                                 <p>${vendor.v_type}</p> <span>• </span>
                                 <p>26 Reviews</p> <span> • </span>
