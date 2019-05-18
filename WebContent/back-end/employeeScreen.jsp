@@ -243,10 +243,8 @@ to {
 		<a class="nav-link text-white p-3 disp" id="F003" href="#">店家檢舉審核</a>
 		<a class="nav-link text-white p-3 disp" id="F004"
 			 href="${pageContext.request.contextPath}/Article_Reported/article_reported.do?action=listArtRep">文章檢舉審核</a>
-		<a class="nav-link text-white p-3 disp" id="F005" href="#">評論檢舉審核</a>
 		<a class="nav-link text-white p-3 disp" id="F006" href="${pageContext.request.contextPath}/RES_Transaction_List/RES_Transaction_List.do?action=listStatus">撥款作業</a>
  		<a class="nav-link text-white p-3 disp" id="F008" href="${pageContext.request.contextPath}/employee/Employee.do?action=listAllNews">最新消息管理</a>
-		<a class="nav-link text-white p-3 disp" id="F007" href="#">退訂作業</a>
 	</nav>
 	
 
