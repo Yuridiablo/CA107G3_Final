@@ -898,14 +898,15 @@ public class VendorServlet extends HttpServlet {
 							targetSet.remove(v.getV_address2().substring(0, 2));
 							targetSet.remove(v.getV_address3().substring(0, 2));
 						}
-						if (target.length == 1 ) {
+						System.out.println(targetSet.size() + "-------------------------------------");
+						if (targetSet.size() == 0 || target.length == 1) {
 							for (Restaurant_MenuVO rmrm : themenu) {
 								vSet.add(rmrm.getVendor_no());
 							}
 						}
 					}
 					
-					if (target.length >= 2) {
+					if (target.length >= 2 && targetSet.size() != 0) {
 						for (String menuS : targetSet) {
 							for (String vvv : vSet) {
 								for(Restaurant_MenuVO rmmVO : rmSvc.search(menuS)) {
