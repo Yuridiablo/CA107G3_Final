@@ -923,6 +923,7 @@ public class VendorServlet extends HttpServlet {
 						for(String s : vSet) {
 							
 							vvSet.add(s);
+							
 						}
 					}			
 					
@@ -1041,8 +1042,8 @@ public class VendorServlet extends HttpServlet {
 					}
 				}
 //				List<CommentsVO> oneComment = cSvc.getOneVendor(vendor_no);
-				List<Restaurant_MenuVO> rmlist = rmSvc.getAll();
-				se.setAttribute("rmlist", rmlist);
+				List<Restaurant_MenuVO> rrmlist = rmSvc.getAll();
+				se.setAttribute("rrmlist", rrmlist);
 				req.setAttribute("searchlist", searchlist);
 				se.setAttribute("alllist", alllist);
 				se.setAttribute("searchMap", searchMap);

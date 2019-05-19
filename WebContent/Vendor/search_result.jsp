@@ -145,7 +145,7 @@ font-family:"微軟正黑體";
       </div>
       <div class="modal-body">
 
-<c:forEach var="rmVO" items="${rmlist}">
+<c:forEach var="rmVO" items="${rrmlist}">
     <div style="display:none" class="item showfood ${rmVO.vendor_no}"><h4>${rmVO.menu_name}</h4></div>
 </c:forEach>
 
