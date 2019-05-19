@@ -882,7 +882,7 @@ public class VendorServlet extends HttpServlet {
 						String menu1 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 						v_name = target[i];
 						address1 = target[i];
-						address2 = target[i];
+//						address2 = target[i];
 //						address3 = target[i];
 						menu1 = target[i];
 						List<Restaurant_MenuVO> themenu = rmSvc.search(menu1);
@@ -921,6 +921,7 @@ public class VendorServlet extends HttpServlet {
 						}
 					}	else {
 						for(String s : vSet) {
+							
 							vvSet.add(s);
 						}
 					}			
