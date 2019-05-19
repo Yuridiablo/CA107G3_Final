@@ -93,6 +93,22 @@ public class ShowImg extends HttpServlet {
 			stmt.close();
 		} catch (Exception e) {
 			System.err.println(e);
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
 		}
 	}
 

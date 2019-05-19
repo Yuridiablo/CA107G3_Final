@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 
 import com.comment_reported.model.Comment_ReportedVO;
 import com.member_wallet_list.model.Member_Wallet_ListVO;
+import com.vendor.model.VendorVO;
 
 public class Restaurant_MenuDAO implements Restaurant_MenuDAO_interface {
 	
@@ -53,6 +54,7 @@ public class Restaurant_MenuDAO implements Restaurant_MenuDAO_interface {
 			"SELECT * FROM RESTAURANT_MENU order by menu_no";
 	private static final String GETM_NAME = 
 			"SELECT	 MENU_NAME FROM RESTAURANT_MENU where (case when VENDOR_NO=? then 1 else 0 end+ case when MENU_NO=? then 1 else 0 end)>=1";
+	private static final String SEARCH_STMT = "SELECT * FROM RESTAURANT_MENU WHERE menu_name like ? ";
 	
 	
 	
@@ -388,7 +390,63 @@ public class Restaurant_MenuDAO implements Restaurant_MenuDAO_interface {
 				
 				return list;
 	}
+	
+	@Override
+	public List<Restaurant_MenuVO> search(String menu_name) {
+		List<Restaurant_MenuVO> rmlist = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		Restaurant_MenuVO rm = null;
 
+		try {
+			con = ds.getConnection();
+			pstm = con.prepareStatement(SEARCH_STMT);
+			pstm.setString(1, "%" + menu_name + "%");
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				rm = new Restaurant_MenuVO();
+				
+				rm.setVendor_no(rs.getString("vendor_no"));
+				rm.setMenu_name(rs.getString("menu_name"));
+				rm.setMenu_price(rs.getString("menu_price"));
+								
+				rm.setMenu_stat(rs.getInt("menu_stat"));
+				rm.setMenu_text(rs.getString("menu_text"));
+				rm.setMenu_no(rs.getString("menu_no"));
+				rmlist.add(rm);
+			}
+			System.out.println("查詢完畢");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstm != null) {
+				try {
+					pstm.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return rmlist;
+	}
+	
 	@Override
 	public List<Restaurant_MenuVO> getAll() {
 		// TODO Auto-generated method stub
@@ -424,19 +482,26 @@ public class Restaurant_MenuDAO implements Restaurant_MenuDAO_interface {
 		} catch (SQLException se) {
 			
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException se) {
-					se.printStackTrace();
+					se.printStackTrace(System.err);
 				}
 			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
 			}
 		}
 		

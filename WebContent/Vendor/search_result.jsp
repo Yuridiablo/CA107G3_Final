@@ -3,6 +3,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.vendor.model.*"%>
+<%
+
+response.setHeader("Pragma", "no-cache");
+
+response.setHeader("Cache-Control", "no-cache");
+
+response.setDateHeader("Expires", 0);
+
+response.flushBuffer();
+
+%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -120,6 +132,32 @@ font-family:"微軟正黑體";
 
 <body>
     <!--============================= DETAIL =============================-->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modaltitle">菜單預覽</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+<c:forEach var="rmVO" items="${rmlist}">
+    <div style="display:none" class="item showfood ${rmVO.vendor_no}"><h4>${rmVO.menu_name}</h4></div>
+</c:forEach>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closemodal">關閉</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End-->  
+    
     <section>
         <div class="container-fluid">
             <div class="row">
@@ -178,11 +216,11 @@ font-family:"微軟正黑體";
                                     <li class="page-item disabled">
                                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">上頁</a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=0&pageE=9">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=40&pageE=49">5</a></li>
                                     <li class="page-item">
                                         <a class="page-link" href="#">下頁</a>
                                     </li>
@@ -192,18 +230,19 @@ font-family:"微軟正黑體";
                     </div>
 
 <c:if test="${fn:length(searchMap) == 0}"><h2>查無結果，請重新操作！</h2></c:if>
-<c:forEach var="sMap" items="${searchMap}">
 
 <div id="mySidenav" class="sidenav">
 
   <a href="<%=request.getContextPath()%>/front-end/FrontPage.jsp" id="backHome">回首頁<span class="icon-home" style="float: right; text-align: right;"></span></a>
  
 </div>
-                    
+
+<c:forEach var="sMap" items="${searchMap}" begin="${param.pageS}" end="${param.pageE}" varStatus="loop">
+
                     <div class="container-fluid onerest">
-                        <div class="col-12 featured-responsive" id="big${sMap.key.vendor_no}">
+                        <div class="col-12 featured-responsive" >
                             <div class="featured-place-wrap">
-                                <div class="d-flex">
+                                <div class="d-flex" id="big${sMap.key.vendor_no}">
                                 <img  class="img-fluid resultpic" onerror="this.src='../front-end/images/SeeKFoodA.png'" alt="#" src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${sMap.key.vendor_no}'&pic=1">
                                                                         <span class="featured-rating-green">${sMap.value[0]}</span>
                                     <div class="featured-title-box">
@@ -312,7 +351,7 @@ font-family:"微軟正黑體";
 		    
 
 		    function searched(){
-<c:forEach var="sMap" items="${searchMap}">  
+<c:forEach var="sMap" items="${searchMap}" begin="${param.pageS}" end="${param.pageE}" varStatus="loop">  
 		  	  var request${sMap.key.vendor_no} = {
 		  	          query: '${sMap.key.v_address1}${sMap.key.v_address2}${sMap.key.v_address3}',
 		  	          fields: ['name', 'geometry'],
@@ -369,11 +408,20 @@ font-family:"微軟正黑體";
  		      	map.setZoom(10);
 		        map.setCenter(marker${sMap.key.vendor_no}.getPosition());
 		        marker${sMap.key.vendor_no}.setAnimation(google.maps.Animation.BOUNCE);
+		    	
+		        $('#big${sMap.key.vendor_no}').mousedown(function(e){ 
+		     	    if( e.button == 2 ) { 
+		    			$('.${sMap.key.vendor_no}').show();
+		    			$('#modaltitle').text('菜單預覽-' + '${sMap.key.v_name}')
+		     	    }
+		         })
+		        
+
 		      });
 		      
 		      $('#big${sMap.key.vendor_no}').mouseleave(function(){
 			      	console.log(marker${sMap.key.vendor_no});
-			      	
+			   
 			      	 marker${sMap.key.vendor_no}.setAnimation(null);
 			      });
 </c:forEach> 
@@ -516,7 +564,7 @@ font-family:"微軟正黑體";
     $('#s${sMap.value[5]}').starrr({
     	
     	max: 5,
-    	rating:${sMap.value[3]},
+    	rating:<c:out  value="${sMap.value[3]}" default="0"/>,
     	readOnly: true,
     	emptyClass: 'fa fa-star-o',
         fullClass: 'fa fa-star'
@@ -527,8 +575,30 @@ font-family:"微軟正黑體";
     
     </script>
 </c:forEach>
+
+
+
+    <script>
+    $(document).ready(function(){ 
+    	  document.oncontextmenu = function() {return false;};
+
+    	  $(document).mousedown(function(e){ 
+    	    if( e.button == 2 ) { 
+    	    	$('#exampleModalCenter').modal('toggle');
+    	      return false; 
+    	    } 
+    	    return true; 
+    	  }); 
+    	});
+   	
+    $('#exampleModalCenter').on('hidden.bs.modal', function () {
+    	 $('.showfood').hide();
+    	})
+    
+    </script>
     <!-- Map JS (Please change the API key below. Read documentation for more info) -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYZhprf58VI160spKuA98fVS9AcSeVuVg&libraries=places&callback=initMap" async defer></script>
+<!--     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYZhprf58VI160spKuA98fVS9AcSeVuVg&libraries=places&callback=initMap"  defer></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmWtV4d_p--xPdfSbOpQ9CvG3JHoXqI4s&libraries=places&callback=initMap"  defer></script>
 </body>
 
 </html>

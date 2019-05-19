@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/front-end/css/bootstrap-4.3.1.min.css">
     <!-- 以下是 自訂的東西 -->
     <!-- 線條樣式 -->
     <link rel="stylesheet" type="text/css" href="../front-end/css/simple-line-icons.css">
@@ -20,10 +20,9 @@
     <link rel="stylesheet" type="text/css" href="../front-end/css/style.css">
     
     <!-- Script 注意載入順序 -->
-    <script src="<%= request.getContextPath() %>/front-end/js/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="<%= request.getContextPath() %>/front-end/js/popper.min.js"></script>
+   <script src="<%= request.getContextPath() %>/front-end/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+	<script src="<%= request.getContextPath() %>/front-end/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
+	<script src="<%= request.getContextPath() %>/front-end/js/popper.min.js" type="text/javascript"></script>
     <!-- 貓頭鷹 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -237,7 +236,7 @@
 	<div class="container" id="chatSpace" style="display:none">
 		<div class="row">
 			<div id="chatTopic" class="col-2">
-				<img class="img-group" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'">
+				<img class="img-group" onerror="this.src='../front-end/images/dog.png'" src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${memberVO.mem_no}'">
 			</div>
 			<div id="chatTopic" class="col-8 text-left">
 				<p style="color:black;font-weight:bold">${memberVO.mem_name}</p>
@@ -271,6 +270,7 @@
 
 
 <!-- =========================login modal=========================================== -->
+<c:if test="${empty memberVO}">
 	    <div class="modal fade" id="loginBar" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -278,7 +278,7 @@
 			<input type="hidden" name="action" value="login">
 
 				<div class="modal-body">
-					<jsp:include page="/member/loginMember.jsp"></jsp:include>
+<%-- 					<jsp:include page="/member/loginMember.jsp"></jsp:include> --%>
 				</div>
 
 	</div>
@@ -287,8 +287,7 @@
 			
 		</div>
 		</div>
-
-
+</c:if>
 
 
 

@@ -74,7 +74,7 @@ body {
                       <tbody>
          <%  @SuppressWarnings("unchecked")
 		Vector<Restaurant_MenuVO> buylist = (Vector<Restaurant_MenuVO>) session.getAttribute("shoppingcart");
-		String total =  (String)session.getAttribute("total");
+		Integer total =  (Integer)session.getAttribute("total");
 	%>	
 		<%	for (int i = 0; i < buylist.size(); i++) {
 		Restaurant_MenuVO menu = buylist.get(i);

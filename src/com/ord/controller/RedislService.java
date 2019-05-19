@@ -53,6 +53,22 @@ public class RedislService {
 	}
 	
 	
+
+	
+	public  void  removetotal(String total) {
+		Jedis jedis = new Jedis("localhost", 6379);
+		jedis.auth("123456");
+		jedis.del(total);
+		
+	}
+	public  void  removeshare (String share_mem){
+		Jedis jedis = new Jedis("localhost", 6379);
+		jedis.auth("123456");
+		jedis.del(share_mem);
+		
+	}
+	
+	
 	
 	
 	// 建立連線

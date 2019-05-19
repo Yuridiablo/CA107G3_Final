@@ -54,57 +54,53 @@ public class Reservation_Table_OrderedDAO implements Reservation_Table_OrderedDA
 	//	TO_DATE(?,'yyyy-MM-dd') )
 	@Override
 	public void insert(Reservation_Table_OrderedVO reservation_Table_OrderedVO) {
-//		Connection con = null;
-//		PreparedStatement pstmt = null;
-//		
-//		try {
-//
-//			Class.forName(driver);
-//			con = ds.getConnection();
-//			pstmt = con.prepareStatement(INSERT_STMT);
-//
-//			pstmt.setString(1, reservation_Table_OrderedVO.getVendor_no());
-//			pstmt.setDate(2, reservation_Table_OrderedVO.getBooking_date());
-//			pstmt.setString(3, reservation_Table_OrderedVO.getBooking_time());
-//			pstmt.setInt(4, reservation_Table_OrderedVO.getTbl_o_num1());
-//			pstmt.setInt(5, reservation_Table_OrderedVO.getTbl_o_num2());
-//			pstmt.setInt(6, reservation_Table_OrderedVO.getTbl_o_num3());
-//			pstmt.setInt(7, reservation_Table_OrderedVO.getTbl_o_num4());
-//			pstmt.setInt(8, reservation_Table_OrderedVO.getTbl_o_num5());
-//			pstmt.setInt(9, reservation_Table_OrderedVO.getTbl_ordered1());
-//			pstmt.setInt(10, reservation_Table_OrderedVO.getTbl_ordered2());
-//			pstmt.setInt(11, reservation_Table_OrderedVO.getTbl_ordered3());
-//			pstmt.setInt(12, reservation_Table_OrderedVO.getTbl_ordered4());
-//			pstmt.setInt(13, reservation_Table_OrderedVO.getTbl_ordered5());
-//			
-//
-//			pstmt.executeUpdate();
-//				System.out.println("OK1");
-//			// Handle any driver errors
-//		} catch (ClassNotFoundException e) {
-//			throw new RuntimeException("Couldn't load database driver. "
-//					+ e.getMessage());
-//			// Handle any SQL errors
-//		} catch (SQLException se) {
-//			throw new RuntimeException("A database error occured. "
-//					+ se.getMessage());
-//			// Clean up JDBC resources
-//		} finally {
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException se) {
-//					se.printStackTrace(System.err);
-//				}
-//			}
-//			if (con != null) {
-//				try {
-//					con.close();
-//				} catch (Exception e) {
-//					e.printStackTrace(System.err);
-//				}
-//			}
-//		}
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			
+			pstmt = con.prepareStatement(INSERT_STMT);
+
+			pstmt.setString(1, reservation_Table_OrderedVO.getVendor_no());
+			pstmt.setDate(2, reservation_Table_OrderedVO.getBooking_date());
+			pstmt.setString(3, reservation_Table_OrderedVO.getBooking_time());
+			pstmt.setInt(4, reservation_Table_OrderedVO.getTbl_o_num1());
+			pstmt.setInt(5, reservation_Table_OrderedVO.getTbl_o_num2());
+			pstmt.setInt(6, reservation_Table_OrderedVO.getTbl_o_num3());
+			pstmt.setInt(7, reservation_Table_OrderedVO.getTbl_o_num4());
+			pstmt.setInt(8, reservation_Table_OrderedVO.getTbl_o_num5());
+			pstmt.setInt(9, reservation_Table_OrderedVO.getTbl_ordered1());
+			pstmt.setInt(10, reservation_Table_OrderedVO.getTbl_ordered2());
+			pstmt.setInt(11, reservation_Table_OrderedVO.getTbl_ordered3());
+			pstmt.setInt(12, reservation_Table_OrderedVO.getTbl_ordered4());
+			pstmt.setInt(13, reservation_Table_OrderedVO.getTbl_ordered5());
+			
+
+			pstmt.executeUpdate();
+				System.out.println("OK1");
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 
 	}
 

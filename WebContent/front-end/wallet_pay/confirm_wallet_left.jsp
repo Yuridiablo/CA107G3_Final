@@ -119,7 +119,7 @@
 		</div>
       </form>
       		<form>
-		    <button class="btn btn-warning btn-lg btn-block" type="submit" id="store_value">去儲值</button>
+		    <button class="btn btn-warning btn-lg btn-block" type="submit" id="to_store">去儲值</button>
 		    <div>
 		    <input type="hidden" name="mem_no" value="${mem_no}">
 			<input type="hidden" name="action" value="store_value">
@@ -138,11 +138,14 @@
        </body>
  <script>
 
-var total= $("#total").val();
-var mem_balance=$("#mem_balance").val();
+var tt= $("#total").val();
+var mb=$("#mem_balance").val();
+var mem_balance=parseInt(mb);
+var total=parseInt(tt);
  $(document).ready(function(){
 	if(total>mem_balance){
 		$("#topay").css('display','none'); 
+		$("#store_value").css('display','none'); 
 		 Swal.fire({
 			  type: 'warning',
 			  title: '非常抱歉.',
@@ -150,6 +153,17 @@ var mem_balance=$("#mem_balance").val();
 			
 			})
 		
+	}
+	
+	if(${mem_no==null}){
+		$("#topay").css('display','none'); 
+		$("#to_store").css('display','none'); 
+		 Swal.fire({
+			  type: 'warning',
+			  title: '非常抱歉.',
+			  text: '您尚未登入,請回去登入!', 
+			
+			})
 	}
  })
  </script>

@@ -27,6 +27,7 @@
 <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
 <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> -->
 
+
 <head>
 
 
@@ -53,6 +54,7 @@ height:1px
 <jsp:useBean id="commentSvc" scope="page" class="com.comments.model.CommentsService" />
 <meta charset="UTF-8">
 <title>會員全部訂單＋訂單明細</title>
+
 </head>
 <body>
 

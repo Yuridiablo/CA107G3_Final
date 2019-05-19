@@ -39,7 +39,8 @@ public class VendorDAO implements VendorDAO_interface {
 	private static final String GET_ACC_STMT = "SELECT * FROM Vendor WHERE v_account = ?";
 	private static final String GET_TYPE_STMT = "SELECT * FROM Vendor WHERE v_type = ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM Vendor ";
-	private static final String SEARCH_STMT = "SELECT * FROM Vendor WHERE V_NAME like ? ";
+//	private static final String SEARCH_STMT = "SELECT * FROM Vendor WHERE V_NAME like ? ";
+	private static final String SEARCH_STMT = "SELECT * FROM Vendor WHERE V_NAME like ? OR V_ADDRESS1 like ? OR V_ADDRESS2 like ? OR V_ADDRESS3 like ?";
 
 
 
@@ -236,19 +237,26 @@ public class VendorDAO implements VendorDAO_interface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstm != null) {
 				try {
 					pstm.close();
 				} catch (SQLException se) {
-					se.printStackTrace();
+					se.printStackTrace(System.err);
 				}
 			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
 			}
 		}
 		return vendor;
@@ -303,19 +311,26 @@ public class VendorDAO implements VendorDAO_interface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstm != null) {
 				try {
 					pstm.close();
 				} catch (SQLException se) {
-					se.printStackTrace();
+					se.printStackTrace(System.err);
 				}
 			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
 			}
 		}
 		return vendor;
@@ -434,26 +449,33 @@ public class VendorDAO implements VendorDAO_interface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstm != null) {
 				try {
 					pstm.close();
 				} catch (SQLException se) {
-					se.printStackTrace();
+					se.printStackTrace(System.err);
 				}
 			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
 			}
 		}
 		return vlist;
 	}
 
 	@Override
-	public List<VendorVO> search(String v_name) {
+	public List<VendorVO> search(String v_name, String address1, String address2,String address3) {
 		List<VendorVO> vlist = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstm = null;
@@ -464,6 +486,9 @@ public class VendorDAO implements VendorDAO_interface {
 			con = ds.getConnection();
 			pstm = con.prepareStatement(SEARCH_STMT);
 			pstm.setString(1, "%" + v_name + "%");
+			pstm.setString(2, address1 + "%");
+			pstm.setString(3, address2 + "%");
+			pstm.setString(4, "%" + address3 + "%");
 			rs = pstm.executeQuery();
 			
 			while (rs.next()) {
@@ -502,19 +527,26 @@ public class VendorDAO implements VendorDAO_interface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstm != null) {
 				try {
 					pstm.close();
 				} catch (SQLException se) {
-					se.printStackTrace();
+					se.printStackTrace(System.err);
 				}
 			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
 			}
 		}
 		return vlist;
@@ -648,19 +680,26 @@ public class VendorDAO implements VendorDAO_interface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstm != null) {
 				try {
 					pstm.close();
 				} catch (SQLException se) {
-					se.printStackTrace();
+					se.printStackTrace(System.err);
 				}
 			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
 			}
 		}
 		return vlist;

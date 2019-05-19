@@ -12,7 +12,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="">
+    <meta name="description" content=""> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -20,7 +20,7 @@
     <!-- Title -->
     <title>SeekFoodTable - 首頁</title>
  
-    <!-- Favicon -->
+    <!-- Favicon --> 
     <link rel="icon" href="<%= request.getContextPath() %>/front-end/images/seekfood_AIy_icon.ico">
 
     <!-- Core Stylesheet -->
@@ -177,7 +177,7 @@
 		   <c:forEach var="news" items="${newsList}" begin="${newsLength-5}" end="${newsLength}">
 			   <div class="single-hero-slide d-flex align-items-center justify-content-center">
 	                <!-- Slide Img -->
-	                <div class="slide-img bg-img" style="background-image: url(<%= request.getScheme() + "://" + request.getServerName() + ":" +request.getServerPort() +  request.getContextPath()%>/tools/OutImg.do?news_no=%27${news.news_no}%27);"></div>
+	                <div class="slide-img bg-img" style="background-image: url(<%= request.getScheme() + "://" + request.getServerName() + ":" +request.getServerPort() +  request.getContextPath()%>/tools/OutImg.do?news_no=%27${news.news_no}%27),url('../front-end/images/otoro.jpg');"></div>
 	                <div class="container">
 	                
 	          
@@ -432,23 +432,23 @@
 				<c:set var="commList" value="${commentSvc.getAll()}" />
 				<c:set var="commLength" value="${fn:length(commList)}" />
                 <c:forEach var="comm" items="${commentSvc.getAll()}" begin="${commLength-3}" end="${commLength}">
-                
+                		<c:set var="vendor_no" value="${comm.vendor_no}" />
+                         <c:set var="vendor" value="${vSvc.findByPK(vendor_no)}" />
                 		<div class="col-md-4 featured-responsive">
                     <div class="featured-place-wrap">
-                        <a href="detail.html">
+                        <a href="${pageContext.request.contextPath}/Vendor/Vendor.do?action=search&v_name=${vendor.v_name}&commSearch=commSearch">
                         	<c:set var="ord_no" value="${comm.ord_no}" />
                         	<c:set var="mem_no" value="${ordSvc.getOneOrd(ord_no).mem_no}" />
-                            <img src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${comm.vendor_no}'&pic=1" class="img-fluid" alt="#">
+                            <img src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='${comm.vendor_no}'&pic=1" onerror="this.src='../front-end/images/SeeKFoodA.png'" class="img-fluid" alt="#">
                             <span class="featured-rating-green">${comm.score}</span>
                             <div class="featured-title-box">
-                            	<c:set var="vendor_no" value="${comm.vendor_no}" />
-                            	<c:set var="vendor" value="${vSvc.findByPK(vendor_no)}" />
+                            	
                                 <h6>${vendor.v_name}</h6>
                                 <p>${vendor.v_type}</p> <span>• </span>
                                 <p>26 Reviews</p> <span> • </span>
                                 <p><span>$$$</span>$$</p>
                                 <div class="media">
-                                    <img src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${mem_no}'" class="align-self-start mr-3 memPicInner" alt="...">
+                                    <img src="<%= request.getContextPath() %>/tools/OutImg.do?mem_no='${mem_no}'" onerror="this.src='../front-end/images/dog.png'" class="align-self-start mr-3 memPicInner" alt="...">
                                     <div class="media-body">
                                     	<c:set var="commInner" value="${comm.cmnt}"></c:set>
                                     	<c:set var="commTopicIndex" value="${fn:indexOf(commInner,',')}"></c:set>
