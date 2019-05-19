@@ -143,7 +143,7 @@ var mb=$("#mem_balance").val();
 var mem_balance=parseInt(mb);
 var total=parseInt(tt);
  $(document).ready(function(){
-	if(total>mem_balance||mem_balance==null){
+	if(total>mem_balance||typeof mem_balance=="null"){
 		$("#topay").css('display','none'); 
 		$("#store_value").css('display','none'); 
 		 Swal.fire({
@@ -155,16 +155,16 @@ var total=parseInt(tt);
 		
 	}
 	
-// 	if(${mem_no==null}){
-// 		$("#topay").css('display','none'); 
-// 		$("#to_store").css('display','none'); 
-// 		 Swal.fire({
-// 			  type: 'warning',
-// 			  title: '非常抱歉.',
-// 			  text: '您尚未登入,請回去登入!', 
+	if(${mem_no==null}){
+		$("#topay").css('display','none'); 
+		$("#to_store").css('display','none'); 
+		 Swal.fire({
+			  type: 'warning',
+			  title: '非常抱歉.',
+			  text: '您尚未登入,請回去登入!', 
 			
-// 			})
-// 	}
+			})
+	}
  })
  </script>
  <%@ include file="/front-end/header_footer/footer.txt" %>
