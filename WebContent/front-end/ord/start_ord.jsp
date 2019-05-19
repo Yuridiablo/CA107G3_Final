@@ -299,7 +299,7 @@ img {
 										<div>人數選擇 </div>
 										<select class="custom-select my-1 mr-sm-4" id="inlineFormCustomSelectPref" style="width: 450px;" name="party_size">
 											
-											<option  value="2" ${(party_size==2)?'selected':'' }>2人</option>
+											<option  value="2" ${(party_size==2)?'selected':'selected' }>2人</option>
 											<option  value="3" ${(party_size==3)?'selected':'' }>3人</option>
 											<option  value="4" ${(party_size==4)?'selected':'' }>4人</option>
 											<option  value="5" ${(party_size==5)?'selected':'' }>5人</option>
@@ -336,14 +336,16 @@ img {
 							<input type="hidden" name="party_size" value="${param.party_size}">		
 						
 								<div class=" btn-group-toggle" data-toggle="buttons" id="btngp">
+								
 									<c:forEach var="exc" items="${lhs}">	
-									
+									<c:set var="exc3" value="${exc}"/>
 										<input class="btn2 btn-primary"  type="button" name="${exc.rto_no}" id="${exc.rto_no}"  value="${exc.booking_time}" onclick="sendMessage('${exc.rto_no}',${param.party_size});" >
+									
 									</c:forEach>
 									
-									<c:if test="${exc==null}">
+									<c:if test="${exc3==null}">
 									<font color="red">
-									<c:out value="本日的時段已銷售完畢"></c:out>
+									本日的時段已銷售完畢
 									</font>
 									</c:if>
 									
