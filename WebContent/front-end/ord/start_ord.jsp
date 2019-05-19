@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <%@ page import="com.ord.model.*"%>
 <%@ page import="com.vendor.model.*" %>
 
@@ -13,7 +13,7 @@
 <jsp:useBean id="commentSvc" scope="page" class="com.comments.model.CommentsService" />
 <jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 <jsp:useBean id="venSvc" scope="page" class="com.vendor.model.VendorService" />
-
+<jsp:useBean id="res_menuSvc" scope="page" class="com.restaurant_menu.model.Restaurant_MenuService" />
 
 <!DOCTYPE html>
 
@@ -266,19 +266,24 @@ img {
 			  <div class="bookingselect tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 <!-- 			  <h1>第二大塊</h1>	 -->
 
+  
 <div class="owl-carousel owl-theme">
-    <div class="item"><h4>1</h4></div>
-    <div class="item"><h4>2</h4></div>
-    <div class="item"><h4>3</h4></div>
-    <div class="item"><h4>4</h4></div>
-    <div class="item"><h4>5</h4></div>
-    <div class="item"><h4>6</h4></div>
-    <div class="item"><h4>7</h4></div>
-    <div class="item"><h4>8</h4></div>
-    <div class="item"><h4>9</h4></div>
-    <div class="item"><h4>10</h4></div>
-    <div class="item"><h4>11</h4></div>
-    <div class="item"><h4>12</h4></div>
+
+    <c:forEach var="menu_n" items="${res_menuSvc.getVendor(vendor_no)}">
+     <div class="item"><h4><img id="p${menu_n.menu_no}" src="<%= request.getContextPath()%>/ShowImg.do?menu_no='${menu_n.menu_no}'"/></h4></div> 
+     </c:forEach> 
+    
+<!--     <div class="item"><h4>2</h4></div> -->
+<!--     <div class="item"><h4>3</h4></div> -->
+<!--     <div class="item"><h4>4</h4></div> -->
+<!--     <div class="item"><h4>5</h4></div> -->
+<!--     <div class="item"><h4>6</h4></div> -->
+<!--     <div class="item"><h4>7</h4></div> -->
+<!--     <div class="item"><h4>8</h4></div> -->
+<!--     <div class="item"><h4>9</h4></div> -->
+<!--     <div class="item"><h4>10</h4></div> -->
+<!--     <div class="item"><h4>11</h4></div> -->
+<!--     <div class="item"><h4>12</h4></div> -->
 </div>
 		<!--  自動提交FORM開頭 -->
 			<div class="container">
@@ -687,12 +692,12 @@ function connect() {
 			if($(this).attr('id')==data){
 // 				btns[i].disabled=true;
 
- Swal.fire({
-			  type: 'warning',
-			  title: '非常抱歉.',
-			  text: $(this).val()+'此時段已銷售完畢,', 
+//  Swal.fire({
+// 			  type: 'warning',
+// 			  title: '非常抱歉.',
+// 			  text: $(this).val()+'此時段已銷售完畢,', 
 			
-			})
+// 			})
 // 				alert($(this).val());
 				$(this).hide(2000);
 			}
