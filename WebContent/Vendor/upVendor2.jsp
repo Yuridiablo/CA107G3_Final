@@ -131,6 +131,14 @@
 		    border-color: #28a745;
     	}
     </style>
+    <style>
+	    .divAlert {
+	   		position: fixed;
+	   		bottom: 0;
+	   		left: 0;
+	   		display: flex;
+	   	}
+    </style>
 
     <!-- edit -->
     <style type="text/css">
@@ -146,6 +154,24 @@
     	}
 
     </style>
+    <!-- load -->
+    <style type="text/css">
+       .item-edit {
+         position:relative;
+       }
+       .editLoad {
+       	display: none;
+         position:absolute;
+          z-index: 30; 
+          background-color:  
+          rgba(217, 215, 215, 0.7); 
+          width: 100%; 
+          height: 100%; 
+          top:0; 
+          left:0; 
+          text-align: center;
+       }
+     </style>
   </head>
   <body>
   
@@ -164,7 +190,7 @@
   	  		<div class="vInfoCard-block col" id="basic-left">
   	  			<div class="vInfoCard-item  ">
   	  				<div class="vItem-title">餐廳名稱</div>
-  	  				<div class="vItem-content item-show">
+  	  				<div class="vItem-content">
   	  					<%= vVO.getV_name() %>
   	  					<i class="material-icons">edit</i>  	  					
   	  				</div>
@@ -178,7 +204,7 @@
   	  			</div>
   	  			<div class="vInfoCard-item  ">
   	  				<div class="vItem-title">電話</div>
-  	  				<div class="vItem-content item-show">
+  	  				<div class="vItem-content">
   	  					<%= vVO.getV_n_code()+ " " + vVO.getV_tel() %>
   	  					<i class="material-icons">edit</i> 
   	  				</div>
@@ -193,7 +219,7 @@
   	  			</div>
   	  			<div class="vInfoCard-item  ">
   	  				<div class="vItem-title">地址</div>
-  	  				<div class="vItem-content item-show">
+  	  				<div class="vItem-content">
   	  					<%= vVO.getV_address1() + vVO.getV_address2() +vVO.getV_address3() %>
   	  					<i class="material-icons">edit</i> 
   	  				</div>
@@ -205,15 +231,16 @@
   	  					</div>
   	  				</div>
   	  			</div>
-  	  			<div class="vInfoCard-item  ">
+  	  			<div class="vInfoCard-item">
   	  				<div class="vItem-title">餐廳類型</div>
   	  				<div class="vItem-content item-show">
   	  					<%= vVO.getV_type()==null ? "無" :vVO.getV_type() %>
   	  					<i class="material-icons">edit</i> 
   	  				</div>
   	  				<div class="vItem-content-edit item-edit" data-cnt="<%= vVO.getV_type() %>">
+  	  					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
   	  					<div class="edit-container">
-							<select class="form-control"  name="v_type">
+							<select class="form-control inputVal"  name="v_type">
 							  <option value="請選擇" <%= vVO.getV_type()==null ? "selected" : "" %>>請選擇</option>                          
                               <option value="中式餐廳" <%= vVO.getV_type().equals("中式餐廳") ? "selected" : "" %>>中式餐廳</option>
                               <option value="日式料理"<%= vVO.getV_type().equals("日式料理") ? "selected" : "" %>>日式料理</option>
@@ -227,7 +254,7 @@
                               <option value="甜點店"<%= vVO.getV_type().equals("甜點店") ? "selected" : "" %>>甜點店</option>                              
                             </select>	  	  					
 	  	  					<i class="material-icons">cancel</i>
-	  	  					<i class="material-icons">check</i>
+	  	  					<i id="v_type" class="material-icons">check</i>
   	  					</div>
   	  				</div>
   	  			</div>
@@ -238,10 +265,11 @@
   	  					<i class="material-icons">edit</i> 
   	  				</div>
   	  				<div class="vItem-content-edit item-edit" data-cnt="<%= vVO.getV_text()==null ? "" : vVO.getV_text()%>">
+  	  					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
   	  					<div class="edit-container">
-	  	  					<textarea rows="6" cols="50" name="v_text" class="form-control" aria-label="v_text"><%= vVO.getV_text()==null ? "" : vVO.getV_text()%></textarea>
+	  	  					<textarea rows="6" cols="50" name="v_text" class="form-control inputVal" aria-label="v_text"><%= vVO.getV_text()==null ? "" : vVO.getV_text()%></textarea>
 	  	  					<i class="material-icons">cancel</i>
-	  	  					<i class="material-icons">check</i>
+	  	  					<i id="v_text" class="material-icons">check</i>
   	  					</div>
   	  				</div>
   	  			</div>
@@ -305,8 +333,9 @@
 					<i class="material-icons" style="padding-left: 20px; display: none;">edit</i>
 				</div> 							
   				<div class="vItem-content-edit item-edit" data-cnt="<%= vVO.getV_day() %>">
+					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
 					<div style="display: inline-flex;">
-						<div class="btn-group-toggle" data-toggle="buttons">
+						<div class="btn-group-toggle inputVal" data-toggle="buttons">
 					<%
 						for (int i = 0; i < 7; i++) { %>
 							<label class="btn btn-outline-success <%= oday[i] ? "active" : ""%>">							
@@ -317,7 +346,7 @@
 					
 						</div>
 	  					<i class="material-icons" style="padding-left: 20px; ">cancel</i>
-	  					<i class="material-icons">check</i>	
+	  					<i id="v_day" class="material-icons">check</i>	
 	  				</div>		
   				</div>
   			</div> <!-- End of vInfoCard-item -->
@@ -335,16 +364,16 @@
   				</div>
 
  				<div class="vItem-content-edit item-edit" data-cnt1="<%= TimeFmt.text2minute(vVO.getV_start_time()) %>" data-cnt2="<%= TimeFmt.text2minute(vVO.getV_end_time()) %>">
-
+					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
   					<div id="openTime" style="padding-bottom: 10px; font-size: 20px;">
   						<div style="display: flex;">  						
-	  						<div id="startTime"><%= TimeFmt.addSep(vVO.getV_start_time()) %></div>
+	  						<div id="startTime" class="inputVal"><%= TimeFmt.addSep(vVO.getV_start_time()) %></div>
 	  						<div>-</div>
-	  						<div id="endTime"><%= TimeFmt.addSep(vVO.getV_end_time()) %></div>
+	  						<div id="endTime" class="inputVal"><%= TimeFmt.addSep(vVO.getV_end_time()) %></div>
   						</div>
 						<div>
 	  						<i class="material-icons">cancel</i>
-		  					<i class="material-icons">check</i>
+		  					<i id="v_start_end_time" class="material-icons">check</i>
 	  					</div>
   					</div>
   					<div class="slider">
@@ -382,9 +411,9 @@
   	  		
   			<div id="turnTimeDiv" class="vInfoCard-item  " style="border-bottom: none;">
 
-  				<div class="vItem-content item-show">
+  				<div class="vItem-content item-show" style="padding-bottom: 10px; font-size: 20px;">
   					<div class="row">
-						<div style="padding-bottom: 10px; font-size: 20px;">
+						<div>
 							<%= vVO.getV_turn_time()==null ? "無" : TimeFmt.min2time(vVO.getV_turn_time()) %>
 						</div>
 						
@@ -393,15 +422,16 @@
   				</div>
 
   				<div class="vItem-content-edit item-edit" data-cnt="<%= vVO.getV_turn_time() %>">
+  					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
   					<div style="padding-bottom: 10px; font-size: 20px;"  class="d-f-sb">
 						<div id="turnTime"><%= vVO.getV_turn_time()==null ? "無" : TimeFmt.min2time(vVO.getV_turn_time()) %></div>
 						<div>
 	  					  	<i class="material-icons">cancel</i>
-			  				<i class="material-icons">check</i>
+			  				<i id="v_turn_time" class="material-icons">check</i>
 		  				</div>
   					</div>
   					<div class="slider">
-  						<div id="turnTime-slider-range"></div>
+  						<div id="turnTime-slider-range" class="inputVal"></div>
   						<div class="slider-tick-mark" style="display: flex">
   							<div class="tick">00:00</div>
   							<div class="tick">02:00</div>  							
@@ -433,15 +463,16 @@
   	  	<div class="vInfoCard-body">
   	  		
   			<div id="v_tablesDiv" class="vInfoCard-item  " style="border-bottom: none; ">
-  				<div class="vItem-content item-show">
+  				<div class="vItem-content item-show" style="font-size: 20px">
   					<div class="row">
-						<div id="v_tables_d" style="font-size: 20px"><%= vVO.getV_tables() %></div>
+						<div id="v_tables_d"><%= vVO.getV_tables() %></div>
 						<i class="material-icons" style="padding-left: 20px; display: none;">edit</i>
   					</div>
   				</div>			
   				<div class="vItem-content-edit item-edit" data-cnt="<%= vVO.getV_tables() %>">
-					<div class="row">
-						<input type="number" name="v_tables" value="<%= vVO.getV_tables() %>" min="0"step="1" required id="v_tables" style="display: none;"/>
+					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
+					<div class="row pl-3">
+						<input type="number" class="inputVal" name="v_tables" value="<%= vVO.getV_tables() %>" min="0"step="1" required id="v_tables" style="display: none;"/>
 					
 						<!-- input spinner -->
 						<div class="input-group" id="v_tables-spinner" style="width: 200px">						
@@ -455,7 +486,7 @@
 				        </div>
 				        <div style="padding-left: 20px;">
 	  					  	<i class="material-icons">cancel</i>
-			  				<i class="material-icons">check</i>
+			  				<i id="v_tables" class="material-icons">check</i>
 		  				</div>
 	  				</div>
   				</div>
@@ -469,7 +500,8 @@
 
 	</div> <!-- End of container -->
 
-
+<!-- alert -->
+<div id="result" class="divAlert"></div>
 
 
     <!-- Optional JavaScript -->
@@ -574,7 +606,6 @@
 			$("#v_tables").inputSpinner($("#v_tables-spinner"));
 		});	    
 	</script>
-
 	<!-- edit -->
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -585,7 +616,49 @@
 			$("i:contains('cancel')").click(function () {
 				$(this).parents(".vInfoCard-item").find(".item-edit").hide();
 			    $(this).parents(".vInfoCard-item").find(".item-show").show();
-			 });		
+			 });
+			$("i:contains('check')").click(function (e) {
+				var item = $(this).parents(".vInfoCard-item");
+				
+// 				console.log(e.target.id);
+				var tar = e.target.id;
+				var inputVal1;
+				var inputVal2;
+				switch(tar) {
+				case "v_type":
+					inputVal1 = $(item).find(".inputVal").val();
+					if (inputVal1 == "請選擇") return;
+// 					console.log(inputVal1);
+					break;
+				case "v_text":
+					inputVal1 = $(item).find(".inputVal").val();
+// 					console.log(inputVal1);					
+					break;
+				case "v_day":
+					inputVal1 = "";
+					$(item).find('input:checkbox').each(function(i) { 
+						inputVal1 += $(this).prop("checked") ? "1" : "0"; 
+					});
+// 					console.log(inputVal1);
+					break;
+				case "v_start_end_time":
+					inputVal1 = $(item).find(".inputVal").eq(0).html();
+					inputVal2 = $(item).find(".inputVal").eq(1).html();
+// 					console.log(inputVal1);
+// 					console.log(inputVal2);
+					break;
+				case "v_turn_time":
+					inputVal1 = $("#turnTime-slider-range").slider( "value" );
+// 					console.log(inputVal1);
+					break;
+				case "v_tables":
+					inputVal1 = $(item).find(".inputVal").val();
+// 					console.log(inputVal1);
+					break;
+				}
+// 				$(item).find(".editLoad").show();
+				sendReq(tar, inputVal1, inputVal2, item);
+			 });
 
 			$('.show-editPen').hover(
 				function () {
@@ -597,7 +670,74 @@
 			);
 		});
 	</script>	
+	<script>
+		function sendReq(tar, inputVal1, inputVal2, item) {
+			$.ajax({
+			    url: "<%=request.getContextPath()%>/Vendor/Vendor_v.do",
+			    type: 'post',
+			    data: {
+			      action : "updateVendorInfo",
+			      tar : tar,
+			      inputVal1 : inputVal1,
+			      inputVal2 : inputVal2,
+			      vendor_no : "<%= vendor_no %>"
+			    },
+			    tar : tar,
+			    inputVal1 : inputVal1,
+			    inputVal2 : inputVal2,
+			    dataType: "text",
+			    item: item,
+			    beforeSend : function() {
+			    	console.log("beforeSend ");
+			    	$(item).find(".editLoad").show();
+			    },
+			    complete  :function() {
+			    	console.log("ajaxComplete");
+			    	$(item).find(".editLoad").hide();
+			    },
+			    success: function(response) {
+			    	console.log(response);
+			    	showAlert("alert-success", "更新資料成功");
+					$(item).find(".item-edit").hide();
+				    $(item).find(".item-show").show();
+				    successAction(this.tar, this.inputVal1, this.inputVal2, this.item)
+			    },	    
+			    error: function(xhr) {
+			    	showAlert("alert-danger", "更新資料失敗");
+			    }
 
+			});	
+		}
+		function successAction(tar, inputVal1, inputVal2, item) {
+			
+			switch(tar) {
+			case "v_type":
+				$(item).find(".item-show").html(inputVal1);
+				break;
+			case "v_text":
+				$(item).find(".item-show").html(inputVal1);				
+				break;
+			case "v_day":
+				$(item).find('label').each(function(i) { 					
+					$(this).attr("class", inputVal1.charAt(i) == '1' ? "openTrue" : "openFalse")					 
+				});
+				break;
+			case "v_start_end_time":
+				$("#startTimeDiv").html(inputVal1);
+				$("#endTimeDiv").html(inputVal2);
+				openTimeSpan = $( "#openTime-slider-range" ).slider( "values", 1 ) - $( "#openTime-slider-range" ).slider( "values", 0 );
+				break;
+			case "v_turn_time":
+				$(item).find(".item-show").html(minToTime(parseInt(inputVal1)));
+				turnTime = parseInt(inputVal1);
+				break;
+			case "v_tables":
+				$(item).find(".item-show").html(inputVal1);
+				break;
+			}
+		}
+		 
+	</script>
 	<!-- upload image -->
  	<script type="text/javascript">
 $(document).ready(function(){
@@ -635,7 +775,7 @@ if (file) {
 			
     	})
     })
-    //$('#pic1').attr('src', e.target.result);
+    $('#pic1').attr('src', e.target.result);
   }
   
   reader.readAsDataURL(file)
@@ -668,8 +808,7 @@ if (file) {
 			data: { action: 'upAd', file: e.target.result, vendor_no: "<%= vendor_no %>"},
 			dataType: 'json',
 			async : false,
-			cache : false,//不快取頁面
-			
+			cache : false,//不快取頁面			
     	})
     })
     $('#ad1').attr('src', e.target.result);
@@ -681,7 +820,58 @@ if (file) {
 }); // End of document.ready
     </script>  
 
-    
+<!-- alert -->
+<script type="text/javascript">
+
+//alert-primary
+//alert-secondary
+//alert-success
+//alert-danger
+//alert-warning
+//alert-info
+//alert-light
+//alert-dark
+//showAlert("alert-info", msg)
+function showAlert(alertType, msg) {
+	var divAlert = createAlert(alertType, msg);
+    $("#result").prepend(divAlert);
+
+    window.setTimeout(function() {
+        $(divAlert).fadeTo(500, 0, function(){
+            $(this).remove(); 
+        });
+            
+    }, 4000);
+}
+
+function createAlert(alertType, msg) {
+	var divAlert = document.createElement("div");
+	
+	divAlert.className = "alert alert-dismissible fade show";
+	divAlert.classList.add(alertType);
+	divAlert.setAttribute("role", "alert");
+
+	var textMsg = document.createTextNode(msg);
+
+	var btnClose = document.createElement("button");
+	btnClose.setAttribute("type", "button");
+	btnClose.setAttribute("class", "close");
+	btnClose.setAttribute("data-dismiss", "alert");
+	btnClose.setAttribute("aria-label", "Close");
+	
+	var spanClose = document.createElement("span");
+	spanClose.setAttribute("aria-hidden","true");
+	spanClose.innerHTML = "&times;";
+
+	btnClose.appendChild(spanClose);
+
+	divAlert.appendChild(textMsg);
+	divAlert.appendChild(btnClose);
+
+	return divAlert;
+}
+
+</script>    
     <%@ include file="navbar/side_navbar_js.txt" %>    
   </body>
 </html>	

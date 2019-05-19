@@ -63,9 +63,51 @@ public class VendorService {
 		
 		dao.updateAd(vVO);
 		return vVO;
+	}	
+	
+	public void upType(String v_type,String vendor_no) {
+		VendorVO vVO = new VendorVO();
+		vVO.setV_type(v_type);
+		vVO.setVendor_no(vendor_no);
+		
+		dao.upType(vVO);
+	}		
+	public void upText(String v_text,String vendor_no) {
+		VendorVO vVO = new VendorVO();
+		vVO.setV_text(v_text);
+		vVO.setVendor_no(vendor_no);
+		
+		dao.upText(vVO);
 	}
-	
-	
+	public void upDay(String v_day,String vendor_no) {
+		VendorVO vVO = new VendorVO();
+		vVO.setV_day(v_day);
+		vVO.setVendor_no(vendor_no);
+		
+		dao.upDay(vVO);
+	}
+	public void upSEtime(String v_start_time, String v_end_time ,String vendor_no) {
+		VendorVO vVO = new VendorVO();
+		vVO.setV_start_time(v_start_time);
+		vVO.setV_end_time(v_end_time);
+		vVO.setVendor_no(vendor_no);
+		
+		dao.upSEtime(vVO);
+	}
+	public void upTtime(Integer v_turn_time,String vendor_no) {
+		VendorVO vVO = new VendorVO();
+		vVO.setV_turn_time(v_turn_time);
+		vVO.setVendor_no(vendor_no);
+		
+		dao.upTtime(vVO);
+	}
+	public void upTbls(String v_tables,String vendor_no) {
+		VendorVO vVO = new VendorVO();
+		vVO.setV_tables(v_tables);
+		vVO.setVendor_no(vendor_no);
+		
+		dao.upTbls(vVO);
+	}
 	public VendorVO findByAcc(String v_account) {
 		return dao.findByAcc(v_account);
 	}
