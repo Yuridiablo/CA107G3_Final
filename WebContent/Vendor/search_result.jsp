@@ -586,7 +586,8 @@ font-family:"微軟正黑體";
     
     </script>
     <!-- Map JS (Please change the API key below. Read documentation for more info) -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYZhprf58VI160spKuA98fVS9AcSeVuVg&libraries=places&callback=initMap" async defer></script>
+<!--     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYZhprf58VI160spKuA98fVS9AcSeVuVg&libraries=places&callback=initMap"  defer></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmWtV4d_p--xPdfSbOpQ9CvG3JHoXqI4s&libraries=places&callback=initMap"  defer></script>
 </body>
 
 </html>
