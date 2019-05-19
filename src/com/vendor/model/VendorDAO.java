@@ -225,7 +225,7 @@ public class VendorDAO implements VendorDAO_interface {
 				vendor.setV_pic(rs.getBytes(20));
 				vendor.setV_ad(rs.getBytes(21));
 				vendor.setV_status(rs.getString(22));
-				vendor.setV_wait_status(rs.getString(23));
+				vendor.setV_turn_time(rs.getInt(23));
 				vendor.setV_type(rs.getString(24));
 				vendor.setV_text(rs.getString(25));
 				
@@ -292,7 +292,7 @@ public class VendorDAO implements VendorDAO_interface {
 				vendor.setV_pic(rs.getBytes(20));
 				vendor.setV_ad(rs.getBytes(21));
 				vendor.setV_status(rs.getString(22));
-				vendor.setV_wait_status(rs.getString(23));
+				vendor.setV_turn_time(rs.getInt(23));
 				vendor.setV_type(rs.getString(24));
 				vendor.setV_text(rs.getString(25));
 				
@@ -422,7 +422,7 @@ public class VendorDAO implements VendorDAO_interface {
 				// vendor.setV_pic();
 				// vendor.setV_ad();
 				vendor.setV_status(rs.getString("v_status"));
-				vendor.setV_wait_status(rs.getString("v_wait_status"));
+				vendor.setV_turn_time(rs.getInt("v_turn_time"));
 				vendor.setV_type(rs.getString("v_type"));
 				vendor.setV_text(rs.getString("v_text"));
 				
@@ -491,7 +491,7 @@ public class VendorDAO implements VendorDAO_interface {
 				// vendor.setV_pic();
 				// vendor.setV_ad();
 				vendor.setV_status(rs.getString("v_status"));
-				vendor.setV_wait_status(rs.getString("v_wait_status"));
+				vendor.setV_turn_time(rs.getInt("v_turn_time"));
 				vendor.setV_type(rs.getString("v_type"));
 				vendor.setV_text(rs.getString("v_text"));
 				
@@ -637,7 +637,7 @@ public class VendorDAO implements VendorDAO_interface {
 				// vendor.setV_pic();
 				// vendor.setV_ad();
 				vendor.setV_status(rs.getString("v_status"));
-				vendor.setV_wait_status(rs.getString("v_wait_status"));
+				vendor.setV_turn_time(rs.getInt("v_turn_time"));
 				vendor.setV_type(rs.getString("v_type"));
 				vendor.setV_text(rs.getString("v_text"));
 				

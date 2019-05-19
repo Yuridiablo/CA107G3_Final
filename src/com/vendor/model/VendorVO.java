@@ -27,7 +27,7 @@ public class VendorVO implements Serializable {
 	private byte[] v_pic;
 	private byte[] v_ad;
 	private String v_status;
-	private String v_wait_status;
+	private Integer v_turn_time;
 	private String v_type;
 	private String v_text;
 
@@ -211,12 +211,12 @@ public class VendorVO implements Serializable {
 		this.v_status = v_status;
 	}
 
-	public String getV_wait_status() {
-		return v_wait_status;
+	public Integer getV_turn_time() {
+		return v_turn_time;
 	}
 
-	public void setV_wait_status(String v_wait_status) {
-		this.v_wait_status = v_wait_status;
+	public void setV_turn_time(Integer v_turn_time) {
+		this.v_turn_time = v_turn_time;
 	}
 
 	public String getV_type() {
