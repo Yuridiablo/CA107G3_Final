@@ -4,20 +4,23 @@
 <%@ page import="com.vendor.controller.*"%>
 
 <% 
-
+	VendorService vendorService = new VendorService();
 	VendorVO vVO = (VendorVO) session.getAttribute("vVO");
 	String vendor_no = null;
 	if (vVO != null && vVO.getVendor_no() != null) { // important!!!!!!!!!!!!!!!!!!!!!!!!!!
 		vendor_no = vVO.getVendor_no();
-	} else if (request.getParameter("vendor_no") == null) {
-		VendorService vendorService = new VendorService();
-		vendor_no = "V000001";	
-		vVO = vendorService.findByPK(vendor_no);
+	} else if (request.getParameter("vendor_no") == null) {		
+		vendor_no = "V000001";			
 	} else {
 		vendor_no = request.getParameter("vendor_no");
 	}	
+	vVO = vendorService.findByPK(vendor_no);
+// 	session.setAttribute("vVo", vVO);
 	
-	String vday = vVO.getV_day().equals("0") ? "0000000" : vVO.getV_day();	
+	String vday = vVO.getV_day();
+	if (vday == null || "0".equals(vday)) {
+		vday = "0000000";
+	}
 	boolean d1 = String.valueOf(vday.charAt(0)).equals("1");
 	boolean d2 = String.valueOf(vday.charAt(1)).equals("1");
 	boolean d3 = String.valueOf(vday.charAt(2)).equals("1");
@@ -251,7 +254,7 @@
   	  					<i id="v_pic_btn" class="material-icons">edit</i>
   	  				</div>
   	  				<div class="vItem-content">
-						<img src="<%= request.getContextPath() %>/Vendor/images/SeeKFoodA.png" style="max-width: 500px;">
+  	  					<img id="pic1" src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='<%= vendor_no %>'&pic=1" onerror="this.src='<%= request.getContextPath() %>/front-end/images/SeeKFoodA.png'"  style="max-width: 500px;">
   	  				</div>
   	  			</div> 			
   	  		</div>
@@ -271,7 +274,7 @@
   					<i id="v_ad_btn" class="material-icons">edit</i>
   				</div>  				
   				<div class="vItem-content">
-  					<img src="<%= request.getContextPath() %>/Vendor/images/SeeKFoodA.png" style="max-width: 500px;">
+  					<img id="ad1" src="<%= request.getContextPath()%>/ShowImg.do?vendor_no='<%= vendor_no %>'&ad=1" onerror="this.src='<%= request.getContextPath() %>/front-end/images/SeeKFoodA.png'"  style="max-width: 500px;">
   				</div>
   			</div> <!-- End of vInfoCard-item -->  	  			
   	  	</div> <!-- End of vInfoCard-body -->
@@ -623,9 +626,9 @@ if (file) {
     	console.log(file);
     	console.log(e.target.result);
     	$.ajax({
-    		url: "Vendor.do",
+    		url: "<%=request.getContextPath()%>/Vendor/Vendor_v.do",
             type : 'post',
-			data: { action: 'upPic', file: e.target.result},
+			data: { action: 'upPic', file: e.target.result, vendor_no: "<%= vendor_no %>"},
 			dataType: 'json',
 			async : false,//同步請求
 			cache : false,//不快取頁面
@@ -660,11 +663,11 @@ if (file) {
    
     }).then(function(file){
     	$.ajax({
-    		url: "Vendor.do",
+    		url: "<%= request.getContextPath() %>/Vendor/Vendor_v.do",
             type : 'post',
-			data: { action: 'upAd', file: e.target.result},
+			data: { action: 'upAd', file: e.target.result, vendor_no: "<%= vendor_no %>"},
 			dataType: 'json',
-			async : false,//同步請求
+			async : false,
 			cache : false,//不快取頁面
 			
     	})
