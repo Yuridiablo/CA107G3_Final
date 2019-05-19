@@ -3,7 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="com.vendor.model.*"%>
+<%
 
+response.setHeader("Pragma", "no-cache");
+
+response.setHeader("Cache-Control", "no-cache");
+
+response.setDateHeader("Expires", 0);
+
+response.flushBuffer();
+
+%>
 
 
 <!DOCTYPE html>
@@ -206,11 +216,11 @@ font-family:"微軟正黑體";
                                     <li class="page-item disabled">
                                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">上頁</a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=0&pageE=9">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=40&pageE=49">5</a></li>
                                     <li class="page-item">
                                         <a class="page-link" href="#">下頁</a>
                                     </li>
@@ -220,14 +230,15 @@ font-family:"微軟正黑體";
                     </div>
 
 <c:if test="${fn:length(searchMap) == 0}"><h2>查無結果，請重新操作！</h2></c:if>
-<c:forEach var="sMap" items="${searchMap}">
 
 <div id="mySidenav" class="sidenav">
 
   <a href="<%=request.getContextPath()%>/front-end/FrontPage.jsp" id="backHome">回首頁<span class="icon-home" style="float: right; text-align: right;"></span></a>
  
 </div>
-                    
+
+<c:forEach var="sMap" items="${searchMap}" begin="${param.pageS}" end="${param.pageE}" varStatus="loop">
+
                     <div class="container-fluid onerest">
                         <div class="col-12 featured-responsive" >
                             <div class="featured-place-wrap">
@@ -340,7 +351,7 @@ font-family:"微軟正黑體";
 		    
 
 		    function searched(){
-<c:forEach var="sMap" items="${searchMap}">  
+<c:forEach var="sMap" items="${searchMap}" begin="${param.pageS}" end="${param.pageE}" varStatus="loop">  
 		  	  var request${sMap.key.vendor_no} = {
 		  	          query: '${sMap.key.v_address1}${sMap.key.v_address2}${sMap.key.v_address3}',
 		  	          fields: ['name', 'geometry'],
@@ -553,7 +564,7 @@ font-family:"微軟正黑體";
     $('#s${sMap.value[5]}').starrr({
     	
     	max: 5,
-    	rating:${sMap.value[3]},
+    	rating:<c:out  value="${sMap.value[3]}" default="0"/>,
     	readOnly: true,
     	emptyClass: 'fa fa-star-o',
         fullClass: 'fa fa-star'

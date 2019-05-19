@@ -783,7 +783,7 @@ public class VendorServlet extends HttpServlet {
 		}
 		
 		if ("search".equals(action)) {
-			
+			HttpSession se = req.getSession();
 			System.out.println("開始查詢");
 			// v_name 本來指廠商名稱 現在定義為搜索關鍵字
 			String v_name = req.getParameter("v_name");
@@ -882,7 +882,7 @@ public class VendorServlet extends HttpServlet {
 						String menu1 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 						v_name = target[i];
 						address1 = target[i];
-//						address2 = target[i];
+						address2 = target[i];
 //						address3 = target[i];
 						menu1 = target[i];
 						List<Restaurant_MenuVO> themenu = rmSvc.search(menu1);
@@ -1021,7 +1021,6 @@ public class VendorServlet extends HttpServlet {
 						infoString.add(mVO.getMem_nickname());
 						
 						
-						
 					} else {
 						infoString.add("尚無評論！");
 					}
@@ -1046,14 +1045,14 @@ public class VendorServlet extends HttpServlet {
 				req.setAttribute("rmlist", rmlist);
 				req.setAttribute("searchlist", searchlist);
 				req.setAttribute("alllist", alllist);
-				req.setAttribute("searchMap", searchMap);
+				se.setAttribute("searchMap", searchMap);
 								
 				/*************************** 2.開始查詢資料 ****************************************/
 				
 				
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/Vendor/search_result.jsp";
+				String url = "/Vendor/search_result.jsp?pageS=0&pageE=9";
 //				res.sendRedirect(url);
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
