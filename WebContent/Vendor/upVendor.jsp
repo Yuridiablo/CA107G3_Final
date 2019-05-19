@@ -187,6 +187,9 @@ to {
 <!-- ============================================================================= -->
 
 <body>
+<script type="text/javascript">
+console.log("webContent/vendor/upvendor.jsp");
+</script>
 	<div class="container">
 		<div class="row">
 			<div class="col-6">

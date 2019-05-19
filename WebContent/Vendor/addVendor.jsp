@@ -134,15 +134,13 @@ margin-top:0%;
 
 <!-- Navbar -->
 	<nav class="navbar  bg-dark navbar-dark">
-		
-		
-		
 		<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/V_FrontPage.jsp"><span class="navbar-brand resTitle">歡迎使用餐廳管理畫面</span></a>
 		<span class="navbar-brand">Seek Food Table</span>
 	</nav>
+<%--	
 	<!-- Side Nav -->
 	<div id="sidenavOverlay"></div>
-
+ --%>
 
 	<div class="container">
 		<div class="row">

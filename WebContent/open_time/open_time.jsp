@@ -170,6 +170,9 @@ to {
 
 
 <body>
+<script type="text/javascript">
+console.log("webContent/open_time/open_time.jsp");
+</script>
 	<div class="container">
 		<div class="row">
 			<div class="col-6">
