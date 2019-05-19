@@ -91,10 +91,10 @@ CREATE TABLE VENDOR  (
 , V_N_CODE      VARCHAR2(10 BYTE) 
 , V_AD_CODE     VARCHAR2(10 BYTE)   NOT NULL 
 , V_ADDRESS1    VARCHAR2(10 BYTE)   NOT NULL 
-, V_ADDRESS2    VARCHAR2(10 BYTE)   NOT NULL 
+, V_ADDRESS2    VARCHAR2(30 BYTE)   NOT NULL 
 , V_ADDRESS3    VARCHAR2(100 BYTE)  NOT NULL 
 , V_WALLET      VARCHAR2(20 BYTE)   NOT NULL   
-, V_NAME      VARCHAR2(50 BYTE)   NOT NULL 
+, V_NAME      VARCHAR2(100 BYTE)   NOT NULL 
 , V_W_NO      NUMBER(10, 0)     DEFAULT 0 NOT NULL
 , V_N_NO      NUMBER(10, 0)     DEFAULT 0 NOT NULL
 , V_ALT_NO      NUMBER(10, 0)     DEFAULT 0 NOT NULL
@@ -105,7 +105,7 @@ CREATE TABLE VENDOR  (
 , V_PIC BLOB
 , V_AD BLOB
 , V_STATUS      VARCHAR2(2 BYTE)  DEFAULT '0' 
-, V_TURN_TIME   NUMBER    DEFAULT 60 
+, V_TURN_TIME   NUMBER 
 , V_TYPE          VARCHAR2(18 BYTE)    
 , V_TEXT          VARCHAR2(500 BYTE) 
 , CONSTRAINT VENDOR_VENDOR_NO_PK PRIMARY KEY (VENDOR_NO)
@@ -697,48 +697,52 @@ INSERT INTO EMPLOYEE VALUES ('E'||LPAD(to_char(EMPLOYEE_SEQ.nextval), 9, '0'),'�
 
 --VENDOR 廠商
   INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'aaaaaa','111111','jkl8519653@gmail.com','81017799','02','244',
- '台北市','信義區','市府路45號台北101購物中心','248677','鼎泰豐',1,1,1,'0900','2000','1111100','68',NULL,NULL,'1',60,'中式餐廳','經典台式小吃餐廳，排隊排到崩潰哦！');
+ '台北市','信義區','市府路45號台北101購物中心','248677','鼎泰豐',1,1,1,'0900','2000','1111100','68',Null,Null,'1',60,'中式餐廳','經典台式小吃餐廳，排隊排到崩潰哦！');
   INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'bbbbbb','222222','rmv6574499@gmail.com','27239987','02','110',
-'台北市','信義區','松壽路9號','2545','瓦城泰國料理 - 台北三越信義店',1,1,1,'0900','2000','1111100','20',NULL,NULL,'1',60,'泰國餐廳','我們瓦城，白飯一碗45元，東西都辣的');
+'台北市','信義區','松壽路9號','2545','瓦城泰國料理 - 台北三越信義店',1,1,1,'0900','2000','1111100','20',Null,Null,'1',60,'泰國餐廳','我們瓦城，白飯一碗45元，東西都辣的');
   INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'cccccc','333333','cth9614531@gmail.com','24652222','04','407',
- '台中市','西屯區','國安一路168號','9422','屋馬燒肉國安店',1,1,1,'1600','2300','1111111','40',NULL,NULL,'2',60,'燒烤餐廳','全台最強燒烤就在我們家');
+ '台中市','西屯區','國安一路168號','9422','屋馬燒肉國安店',1,1,1,'1600','2300','1111111','40',NULL,NULL,'2','0','燒烤餐廳','全台最強燒烤就在我們家');
   INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'dfh3689153','dfh3689153','dfh3689153@gmail.com','22271927','04','400',
- '台中市','中區','中山路20號','188372','宮原眼科',20,18,3,'1300','1700','1111111','60',NULL,NULL,'1',60,'甜點店','不是眼科的眼科，觀光客的最愛');
+ '台中市','中區','中山路20號','188372','宮原眼科',20,18,3,'1300','1700','1111111','60',Null,Null,'1',60,'甜點店','不是眼科的眼科，觀光客的最愛');
   INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'leg0543027','le123456','leg05430271@gmail.com','2165711','07','801',
- '高雄市','前金區','新田路207號','5231','辣癮食尚麻辣火鍋',10,7,1,'1300','1700','0101010','57',NULL,NULL,'1',60,'火鍋店','本店保證您吃完辣三天，不辣免費');
+ '高雄市','前金區','新田路207號','5231','辣癮食尚麻辣火鍋',10,7,1,'1300','1700','0101010','57',Null,Null,'1',60,'火鍋店','本店保證您吃完辣三天，不辣免費');
   INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'leg0543021','le123456','leg05430272@gmail.com','2165711','07','801',
- '高雄市','鹽埕區','光明里大仁路6號','44231','辣菊花食尚麻辣火鍋',50,45,0,'1300','1700','0101010','44',NULL,NULL,'1',60,'火鍋店','本店保證您吃完辣三天，辣到烙賽');
+ '高雄市','鹽埕區','光明里大仁路6號','44231','辣菊花食尚麻辣火鍋',50,45,0,'1300','1700','0101010','44',Null,Null,'1',60,'火鍋店','本店保證您吃完辣三天，辣到烙賽');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'leg0543022','le123456','leg05430273@gmail.com','2165711','07','801',
- '高雄市','小港區','港南里小港路158號','416531','榕樹下臭豆腐',27,26,0,'1300','1700','0101010','44',NULL,NULL,'2',60,'中式料理','好吃的臭豆腐,臭到要你命');
+ '高雄市','小港區','港南里小港路158號','416531','榕樹下臭豆腐',27,26,0,'1300','1700','0101010','44',NULL,NULL,'2','0','中式料理','好吃的臭豆腐,臭到要你命');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'leg0543023','le123456','leg05430274@gmail.com','2165711','07','801',
- '台中市','西區','精誠29街18號','225231','老媽媽芋園',25,25,1,'1300','1700','0101010','26',NULL,NULL,'1',60,'中式料理','老媽媽芋園,樸實古早味,夏天一碗透心涼');
+ '台中市','西區','精誠29街18號','225231','老媽媽芋園',25,25,1,'1300','1700','0101010','26',Null,Null,'1',60,'中式料理','老媽媽芋園,樸實古早味,夏天一碗透心涼');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'leg0543024','le123456','leg05430275@gmail.com','2165711','07','801',
- '桃園市','中壢區','中央路27號','315231','聖甲蟲500吃到飽',40,38,2,'1300','1700','0101010','14',NULL,NULL,'1',60,'吃到飽','聖甲蟲吃到飽,保證讓你500吃好吃滿');
+ '桃園市','中壢區','中央路27號','315231','聖甲蟲500吃到飽',40,38,2,'1300','1700','0101010','14',Null,Null,'1',60,'吃到飽','聖甲蟲吃到飽,保證讓你500吃好吃滿');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'leg0543025','le123456','leg05430276@gmail.com','2165711','07','801',
- '桃園市','八德區','中華路116號','884231','鶴麟綠咖哩',60,55,3,'1300','1700','0101010','86',NULL,NULL,'1',60,'東南亞風味','以老闆本人經驗製作,保證你吃完綠光罩頂');
+ '桃園市','八德區','中華路116號','884231','鶴麟綠咖哩',60,55,3,'1300','1700','0101010','86',Null,Null,'1',60,'東南亞風味','以老闆本人經驗製作,保證你吃完綠光罩頂');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake1231','le123456','fake1@gmail.com','2165711','07','801',
- '花蓮市','瑞穗區','瑞穗村成功南路19號','45231','小吳汁男湯',40,38,1,'1300','1700','0101010','37',NULL,NULL,'1',60,'日式料理','神級老師的醍醐味');
+ '花蓮市','瑞穗區','瑞穗村成功南路19號','45231','小吳汁男湯',40,38,1,'1300','1700','0101010','37',Null,Null,'1',60,'日式料理','神級老師的醍醐味');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake1232','le123456','fake2@gmail.com','2165711','07','801',
- '屏東縣','屏東市','台糖街61號','30231','騰政肉圓',60,58,3,'1300','1700','0101010','87',NULL,NULL,'1',60,'中式料理','以老闆多年賽車經驗,精心製作每顆肉圓');
+ '屏東縣','屏東市','台糖街61號','30231','騰政肉圓',60,58,3,'1300','1700','0101010','87',Null,Null,'1',60,'中式料理','以老闆多年賽車經驗,精心製作每顆肉圓');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake1233','le123456','fake3@gmail.com','2165711','07','801',
- '台北市','信義區','信義路五段7號','955231','泰時尚泰式料理',21,10,1,'1300','1700','0101010','44',NULL,NULL,'1',60,'東南亞風味','道地泰式料理配合精緻時尚內裝讓你一來再來');
+ '台北市','信義區','信義路五段7號','955231','泰時尚泰式料理',21,10,1,'1300','1700','0101010','44',Null,Null,'1',60,'東南亞風味','道地泰式料理配合精緻時尚內裝讓你一來再來');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake1234','le123456','fake4@gmail.com','2165711','07','801',
- '台南市','東區','大學路1號','645231','仲儀肥腸湯',5,2,0,'1300','1700','0101010','30',NULL,NULL,'1',60,'中式料理','神級老闆的醍醐味');
+ '台南市','東區','大學路1號','645231','仲儀肥腸湯',5,2,0,'1300','1700','0101010','30',Null,Null,'1',60,'中式料理','神級老闆的醍醐味');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake1235','le123456','fake5@gmail.com','2165711','07','801',
- '新竹市','東區','光復路二段101號','4875231','彥智炸雞',7,6,1,'1300','1700','0101010','44',NULL,NULL,'1',60,'美式餐廳','新鮮雞肉粿粉酥炸保證美味');
+ '新竹市','東區','光復路二段101號','4875231','彥智炸雞',7,6,1,'1300','1700','0101010','44',Null,Null,'1',60,'美式餐廳','新鮮雞肉粿粉酥炸保證美味');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake1236','le123456','fake6@gmail.com','2165711','07','801',
- '彰化縣','大村鄉','學府路168號','556231','美式早餐屋',8,8,0,'1300','1700','0101010','125',NULL,NULL,'1',60,'美式餐廳','經典美式早餐補充你一天的活力');
+ '彰化縣','大村鄉','學府路168號','556231','美式早餐屋',8,8,0,'1300','1700','0101010','125',Null,Null,'1',60,'美式餐廳','經典美式早餐補充你一天的活力');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake1237','le123456','fake7@gmail.com','2165711','07','801',
- '台南市','東區','大學路1號','69231','白鬍子牛排',20,15,1,'1300','1700','0101010','212',NULL,NULL,'1',60,'美式餐廳','學區的平價牛排卻不失美味');
+ '台南市','東區','大學路1號','69231','白鬍子牛排',20,15,1,'1300','1700','0101010','212',Null,Null,'1',60,'美式餐廳','學區的平價牛排卻不失美味');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake1238','le123456','fake8@gmail.com','2165711','07','801',
- '屏東縣','恆春鎮','天文路1號','955231','歐姆萊斯',55,66,77,'1300','1700','0101010','41',NULL,NULL,'1',60,'日式料理','滑嫩蛋皮配上濃厚咖哩醬的絕妙滋味');
+ '屏東縣','恆春鎮','天文路1號','955231','歐姆萊斯',55,66,77,'1300','1700','0101010','41',Null,Null,'1',60,'日式料理','滑嫩蛋皮配上濃厚咖哩醬的絕妙滋味');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake1239','le123456','fake9@gmail.com','2165711','07','801',
- '嘉義縣','番路鄉','觸口村車埕51號','4431','大中央牛排館',55,66,77,'1300','1700','0101010','55',NULL,NULL,'1',60,'東南亞風味','便宜平價超大份量不怕你吃不飽');
+ '嘉義縣','番路鄉','觸口村車埕51號','4431','大中央牛排館',55,66,77,'1300','1700','0101010','55',Null,Null,'1',60,'東南亞風味','便宜平價超大份量不怕你吃不飽');
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake124','le123456','fake10@gmail.com','2165711','07','801',
- '高雄市','鳳山區','光復路二段132號','62231','彥傑義大利麵',40,35,1,'1300','1700','0101010','91',NULL,NULL,'1',60,'義式料理','美味義大利麵讓你欲罷不能');  
+ '高雄市','鳳山區','光復路二段132號','62231','彥傑義大利麵',40,35,1,'1300','1700','0101010','91',Null,Null,'1',60,'義式料理','美味義大利麵讓你欲罷不能');  
     INSERT INTO VENDOR VALUES ('V'||LPAD(to_char(VENDOR_SEQ.NEXTVAL), 6, '0'),'fake125','le123456','fake110@gmail.com','2165771','03','337',
- '桃園市','大園區','沙崙里漁港路451巷25號','50005','鼎鈞香香煙',80,75,0,'1000','2100','0101010','91',NULL,NULL,'1',60,'東南亞風味','老闆吃什麼，你就吃什麼，老闆通常只需呼吸就會飽');
---WAIT_POS 候位明細
+ '桃園市','大園區','沙崙里漁港路451巷25號','50005','鼎鈞香香煙',80,75,0,'1000','2100','0101010','91',Null,Null,'1',60,'東南亞風味','老闆吃什麼，你就吃什麼，老闆通常只需呼吸就會飽');
+
+
+
+
+ --WAIT_POS 候位明細
 INSERT INTO WAIT_POS VALUES ('WP'||LPAD(to_char(WAIT_POS_SEQ.NEXTVAL), 8, '0'),'M000001','V000001',10,7,sysdate,3,2);
 INSERT INTO WAIT_POS VALUES ('WP'||LPAD(to_char(WAIT_POS_SEQ.NEXTVAL), 8, '0'),'M000002','V000001',15,6,sysdate,3,2);
 INSERT INTO WAIT_POS VALUES ('WP'||LPAD(to_char(WAIT_POS_SEQ.NEXTVAL), 8, '0'),'M000003','V000003',16,1,sysdate,3,2);
@@ -4400,13 +4404,19 @@ INSERT INTO CUSTOMER_SERVICE_RECORD VALUES('CU'||LPAD(to_char(CU_SE_RE_SEQ.NEXTV
 INSERT INTO CUSTOMER_SERVICE_RECORD VALUES('CU'||LPAD(to_char(CU_SE_RE_SEQ.NEXTVAL),8,'0'),'M000001','E000000001',NULL,'根據平臺規定幾天內都可以進行退定訂單',CURRENT_TIMESTAMP);
 
 --FRIEND_LIST 好友清單 
+--FRIEND_LIST 好友清單 
+INSERT INTO FRIEND_LIST VALUES('M000001','M000002',1);
+INSERT INTO FRIEND_LIST VALUES('M000002','M000001',2);
 INSERT INTO FRIEND_LIST VALUES('M000001','M000009',7);
+INSERT INTO FRIEND_LIST VALUES('M000009','M000001',7);
 INSERT INTO FRIEND_LIST VALUES('M000001','M000010',7);
+INSERT INTO FRIEND_LIST VALUES('M000010','M000001',7);
 INSERT INTO FRIEND_LIST VALUES('M000001','M000011',7);
+INSERT INTO FRIEND_LIST VALUES('M000011','M000001',7);
 INSERT INTO FRIEND_LIST VALUES('M000001','M000005',6);
+INSERT INTO FRIEND_LIST VALUES('M000005','M000001',5);
 INSERT INTO FRIEND_LIST VALUES('M000004','M000006',7);
 INSERT INTO FRIEND_LIST VALUES('M000006','M000004',7);
-
 --RESTAURANT_RESPONSES 餐廳回應清單
 INSERT INTO RESTAURANT_RESPONSES VALUES ('RR'||LPAD(to_char(RESTAURANT_RESPONSES_SEQ.NEXTVAL), 8, '0'),'C000001','感謝光臨，希望您再度蒞臨本店用餐！',CURRENT_TIMESTAMP);
 INSERT INTO RESTAURANT_RESPONSES VALUES ('RR'||LPAD(to_char(RESTAURANT_RESPONSES_SEQ.NEXTVAL), 8, '0'),'C000002','謝謝您的好評，很高興您能喜歡我們的服務與餐點哦! 祝順心~~',CURRENT_TIMESTAMP);
