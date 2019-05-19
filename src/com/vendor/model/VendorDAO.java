@@ -233,7 +233,7 @@ public class VendorDAO implements VendorDAO_interface {
 				
 				
 			}
-			System.out.println("查詢完畢");
+			System.out.println("VendorVO findByPK 查詢完畢");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
