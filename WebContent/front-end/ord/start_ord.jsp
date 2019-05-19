@@ -290,18 +290,18 @@ img {
 										<input type="hidden" name="action" id="action" value="updateDate">
 										<input type="hidden" name="vendor_no" value="${param.vendor_no}">
 										<div>用餐日期</div>
-										<input name="booking_date" id="f_date1" type="text" value="${ordVO.booking_date}"  style="width: 450px;">
+										<input name="booking_date" id="f_date1" type="text" value="${booking_date}"   style="width: 450px;">
 										<div>人數選擇 </div>
 										<select class="custom-select my-1 mr-sm-4" id="inlineFormCustomSelectPref" style="width: 450px;" name="party_size">
 											
-											<option name="2" value="2">二人</option>
-											<option name="3" value="3">三人</option>
-											<option name="4" value="4">四人</option>
-											<option name="5" value="5">五人</option>
-											<option name="6" value="6">六人</option>
-											<option name="7" value="7">七人</option>
-											<option name="8" value="8">八人</option>
-											<option name="9" value="10">十人</option>
+											<option  value="2" ${(party_size==2)?'selected':'' }>2人</option>
+											<option  value="3" ${(party_size==3)?'selected':'' }>3人</option>
+											<option  value="4" ${(party_size==4)?'selected':'' }>4人</option>
+											<option  value="5" ${(party_size==5)?'selected':'' }>5人</option>
+											<option  value="6" ${(party_size==6)?'selected':'' }>6人</option>
+											<option  value="7" ${(party_size==7)?'selected':'' }>7人</option>
+											<option  value="8" ${(party_size==8)?'selected':'' }>8人</option>
+											<option  value="10" ${(party_size==10)?'selected':'' }>10人</option>
 				
 										</select>
 							
@@ -332,8 +332,16 @@ img {
 						
 								<div class=" btn-group-toggle" data-toggle="buttons" id="btngp">
 									<c:forEach var="exc" items="${lhs}">	
+									
 										<input class="btn2 btn-primary"  type="button" name="${exc.rto_no}" id="${exc.rto_no}"  value="${exc.booking_time}" onclick="sendMessage('${exc.rto_no}',${param.party_size});" >
-									</c:forEach>	
+									</c:forEach>
+									
+									<c:if test="${exc==null}">
+									<font color="red">
+									<c:out value="本日的時段已銷售完畢"></c:out>
+									</font>
+									</c:if>
+									
 								</div>
 						
 			 				<input type="hidden" name="booking_time"  id="realyvalue"value="">  		 
@@ -643,8 +651,10 @@ $("#${exc.rto_no}").click(async function(event){
 		
 		
 })
- 
+
 </script>
+
+
 
 </c:forEach>
 <%-- <c:forEach var="exc" items="${lhs}"> --%>
