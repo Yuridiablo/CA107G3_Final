@@ -441,7 +441,7 @@ img {
 					                                </div>
 					                            </div>
 					                            <!-- end 1 -->
-					                        </div>
+					                        </div> 
 					                        <!-- xxxxxxxxxxxxxxxxxxxx -->
 					                        
 					                        
