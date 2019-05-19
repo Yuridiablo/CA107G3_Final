@@ -243,7 +243,7 @@ to {
 		
 				<!-- ===============================編輯區 開始====================================== -->
 
-
+ 
 
 <c:if test="${not empty rtllist}">
 <jsp:include page="/RES_Transaction_List/listVendor.jsp" />
