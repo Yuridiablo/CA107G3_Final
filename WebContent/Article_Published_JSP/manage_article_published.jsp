@@ -95,8 +95,10 @@ top: 0px;
 			<div class="card-body">
 				<div class="well">
 				<table class="table">
+<!-- 參考資料：
+	https://stackoverflow.com/questions/36747099/how-to-have-multiple-different-bootstrap-modals-in-a-jsp-page-using-jstls-forea -->				
 			      <tbody>
-			      	<c:forEach var="article_publishedVO" items="${list}">
+			      	<c:forEach var="article_publishedVO" items="${list}" varStatus="vs">
 			      	<tr>
 			          <th>文章標題</th>
 			          <th>文章內容</th>
@@ -136,44 +138,63 @@ top: 0px;
 			          </tr>
 			          <tr>
 			          	<td>
-			              <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">編輯</button>
-									<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-											<div class="modal-dialog">
-													<div class="modal-content">
-													  <FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/Article_Published/article_published.do" enctype="multipart/form-data">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-																&times;
-															</button>
-															
-															<h4 class="modal-title" id="myModalLabel">
-															<input name="art_title" value="${article_publishedVO.art_title}">
-															</h4>
-															
-															
-														</div>
-														<div class="modal-body">
-														<textarea name="art_content" cols="20" rows="20">${article_publishedVO.art_content}</textarea> 
-														<p><%=newart_time%></p>
-														<input type="file" name="art_pic1" size="40" accept="image/*">
-														<input type="file" name="art_pic2" size="40" accept="image/*">
-														<input type="file" name="art_pic3" size="40" accept="image/*">
-														<input type="file" name="art_pic4" size="40" accept="image/*">
-														<input type="file" name="art_pic5" size="40" accept="image/*">
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default" data-dismiss="modal">
-																關閉
-															</button>
-															<input type="submit" class="btn btn-primary" value="編輯完成">
-															<input type="hidden" name="action" value="updateformyself">
-															<input type="hidden" name="art_no" value="${article_publishedVO.art_no}">
-															<input type="hidden" name="art_time" value="<%=newart_time%>">
-														</div>
-													  </FORM>
-													</div>
-										</div>
-									</div>
+<!-- ---------------------------------------------------------------------------------------------- -->
+			          	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">編輯</button>
+			                   <FORM METHOD="POST" ACTION="<%=request.getContextPath()%>/Article_Published/article_published.do" enctype="multipart/form-data">
+			                  <!-- Modal -->
+			                  <div class="modal fade" id="myModal${vs.index}" role="dialog">
+			                    <div class="modal-dialog">
+			
+			                      <!-- Modal content-->
+			                      <div class="modal-content">
+			                        <div class="modal-header">
+			                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			                          <h4 class="modal-title"><input name="art_title" value="${article_publishedVO.art_title}"></h4>
+			                        </div>
+			                        <div class="modal-body">
+			                          <div class="img">
+			                           
+			                          </div>
+			                          <div class="detail">
+			                              <div class="row">
+			                              <textarea name="art_content" cols="20" rows="20">${article_publishedVO.art_content}</textarea>
+			                              </div>
+			                              <hr>
+			                              <div class="row">
+			                              <p><%=newart_time%></p>
+			                              </div>
+			                              <div class="row">
+			                              <input type="file" name="art_pic1" size="40" accept="image/*">
+			                              </div>
+			                              <div class="row">
+			                              <input type="file" name="art_pic2" size="40" accept="image/*">
+			                              </div>
+			                              <div class="row">
+			                              <input type="file" name="art_pic3" size="40" accept="image/*">
+			                              </div>
+			                              <div class="row">
+			                              <input type="file" name="art_pic4" size="40" accept="image/*">
+			                              </div>
+			                              <div class="row">
+			                              <input type="file" name="art_pic5" size="40" accept="image/*">
+			                              </div>
+			                              <div class="row">
+			                              </div>
+			                          </div>
+			                        </div>
+			                        <div class="modal-footer">
+			                          <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+										      <input type="submit" class="btn btn-primary" value="編輯完成">
+											  <input type="hidden" name="action" value="updateformyself">
+											  <input type="hidden" name="art_no" value="${article_publishedVO.art_no}">
+											  <input type="hidden" name="art_time" value="<%=newart_time%>">
+			                        </div>
+			                      </div>
+			
+			                    </div>
+			                  </div>
+			                  </FORM>
+<!-- ---------------------------------------------------------------------------------------------- -->
 			          </td>
 			          </tr>
 			         </c:forEach>
