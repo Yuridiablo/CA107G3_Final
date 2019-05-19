@@ -107,15 +107,15 @@
 		<servlet-name>OrdServlet</servlet-name>
 		<url-pattern>/ord/ord.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
-    	<servlet-name>OrdServlet_vendor</servlet-name>
-    	<servlet-class>com.ord.controller.OrdServlet_vendor</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
-  	  <servlet-name>OrdServlet_vendor</servlet-name>
-  	  <url-pattern>/ord/ord_vendor.do</url-pattern>
- 	 </servlet-mapping>
+		<servlet-name>OrdServlet_vendor</servlet-name>
+		<servlet-class>com.ord.controller.OrdServlet_vendor</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrdServlet_vendor</servlet-name>
+		<url-pattern>/ord/ord_vendor.do</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>Comments_Servlet</servlet-name>
@@ -167,14 +167,14 @@
 
 	<servlet>
 		<servlet-name>Wait_PosServlet2</servlet-name>
-		<servlet-class>android.wait_pos.controller.Wait_PosServlet2</servlet-class>
+		<servlet-class>com.wait_pos.controller.Wait_PosServlet2</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Wait_PosServlet2</servlet-name>
 		<url-pattern>/wait_pos/wait_pos2.do</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 	<servlet>
 		<servlet-name>TablesServlet</servlet-name>
 		<servlet-class>com.tables.controller.TablesServlet</servlet-class>
@@ -184,7 +184,7 @@
 		<servlet-name>TablesServlet</servlet-name>
 		<url-pattern>/tables/tables.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SearchServlet</servlet-name>
 		<servlet-class>com.search.controller.SearchServlet</servlet-class>
@@ -193,88 +193,176 @@
 		<servlet-name>SearchServlet</servlet-name>
 		<url-pattern>/search/search.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
-    <servlet-name>Friend_ListServlet</servlet-name>
-    <servlet-class>com.friend_list.controller.Friend_ListServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Friend_ListServlet</servlet-name>
-    <url-pattern>/Friend_List/friend_list.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>Article_PublishedServlet</servlet-name>
-    <servlet-class>com.article_published.controller.Article_PublishedServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Article_PublishedServlet</servlet-name>
-    <url-pattern>/Article_Published/article_published.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>DBGifReader1</servlet-name>
-    <servlet-class>com.article_published.controller.DBGifReader1</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DBGifReader1</servlet-name>
-    <url-pattern>/Article_Published/DBGifReader1</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>DBGifReader2</servlet-name>
-    <servlet-class>com.article_published.controller.DBGifReader2</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DBGifReader2</servlet-name>
-    <url-pattern>/Article_Published/DBGifReader2</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>DBGifReader3</servlet-name>
-    <servlet-class>com.article_published.controller.DBGifReader3</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DBGifReader3</servlet-name>
-    <url-pattern>/Article_Published/DBGifReader3</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>DBGifReader4</servlet-name>
-    <servlet-class>com.article_published.controller.DBGifReader4</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DBGifReader4</servlet-name>
-    <url-pattern>/Article_Published/DBGifReader4</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>DBGifReader5</servlet-name>
-    <servlet-class>com.article_published.controller.DBGifReader5</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DBGifReader5</servlet-name>
-    <url-pattern>/Article_Published/DBGifReader5</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>Article_ReportedServlet</servlet-name>
-    <servlet-class>com.article_reported.controller.Article_ReportedServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Article_ReportedServlet</servlet-name>
-    <url-pattern>/Article_Reported/article_reported.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>Chat_RecordServlet</servlet-name>
-    <servlet-class>com.chat_record.controller.Chat_RecordServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Chat_RecordServlet</servlet-name>
-    <url-pattern>/Chat_Record/chat_record.do</url-pattern>
-  </servlet-mapping>
-	
-	
+		<servlet-name>Friend_ListServlet</servlet-name>
+		<servlet-class>com.friend_list.controller.Friend_ListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Friend_ListServlet</servlet-name>
+		<url-pattern>/Friend_List/friend_list.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Article_PublishedServlet</servlet-name>
+		<servlet-class>com.article_published.controller.Article_PublishedServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Article_PublishedServlet</servlet-name>
+		<url-pattern>/Article_Published/article_published.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DBGifReader1</servlet-name>
+		<servlet-class>com.article_published.controller.DBGifReader1</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DBGifReader1</servlet-name>
+		<url-pattern>/Article_Published/DBGifReader1</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DBGifReader2</servlet-name>
+		<servlet-class>com.article_published.controller.DBGifReader2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DBGifReader2</servlet-name>
+		<url-pattern>/Article_Published/DBGifReader2</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DBGifReader3</servlet-name>
+		<servlet-class>com.article_published.controller.DBGifReader3</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DBGifReader3</servlet-name>
+		<url-pattern>/Article_Published/DBGifReader3</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DBGifReader4</servlet-name>
+		<servlet-class>com.article_published.controller.DBGifReader4</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DBGifReader4</servlet-name>
+		<url-pattern>/Article_Published/DBGifReader4</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DBGifReader5</servlet-name>
+		<servlet-class>com.article_published.controller.DBGifReader5</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DBGifReader5</servlet-name>
+		<url-pattern>/Article_Published/DBGifReader5</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Article_ReportedServlet</servlet-name>
+		<servlet-class>com.article_reported.controller.Article_ReportedServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Article_ReportedServlet</servlet-name>
+		<url-pattern>/Article_Reported/article_reported.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Chat_RecordServlet</servlet-name>
+		<servlet-class>com.chat_record.controller.Chat_RecordServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Chat_RecordServlet</servlet-name>
+		<url-pattern>/Chat_Record/chat_record.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- android -->
+
+	<servlet>
+		<servlet-name>MemberServlet_android</servlet-name>
+		<servlet-class>android.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet_android</servlet-name>
+		<url-pattern>/member/member.ad</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>VendorServlet_android</servlet-name>
+		<servlet-class>android.vendor.controller.VendorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VendorServlet_android</servlet-name>
+		<url-pattern>/vendor/vendor.ad</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>VendorServlet2_android</servlet-name>
+		<servlet-class>android.vendor.controller.VendorServlet2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VendorServlet2_android</servlet-name>
+		<url-pattern>/vendor/vendor2.ad</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>Fav_ResServlet_android</servlet-name>
+		<servlet-class>android.fav_res.controller.Fav_ResServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Fav_ResServlet_android</servlet-name>
+		<url-pattern>/fav_res/fav_res.ad</url-pattern>
+	</servlet-mapping>
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>Wait_PosServlet_android</servlet-name> -->
+<!-- 		<servlet-class>android.wait_pos.controller.Wait_PosServlet</servlet-class> -->
+<!-- 		<load-on-startup>10</load-on-startup> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>Wait_PosServlet_android</servlet-name> -->
+<!-- 		<url-pattern>/wait_pos/wait_pos.ad</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>Wait_PosServlet2_android</servlet-name> -->
+<!-- 		<servlet-class>android.wait_pos.controller.Wait_PosServlet2</servlet-class> -->
+<!-- 	</servlet> -->
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>Wait_PosServlet2_android</servlet-name> -->
+<!-- 		<url-pattern>/wait_pos/wait_pos2.ad</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+
+<!-- 	<listener> -->
+<!-- 		<listener-class>android.wait_pos.controller.MemberWS</listener-class> -->
+<!-- 	</listener> -->
+<!-- 	<listener> -->
+<!-- 		<listener-class>android.wait_pos.controller.VendorWS</listener-class> -->
+<!-- 	</listener> -->
+
+	<servlet>
+		<servlet-name>Friend_ListServlet_android</servlet-name>
+		<servlet-class>android.friend_list.controller.Friend_ListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Friend_ListServlet_android</servlet-name>
+		<url-pattern>/friend_list/friend_list.ad</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>OrdServlet_android</servlet-name>
+		<servlet-class>android.ord.controller.OrdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrdServlet_android</servlet-name>
+		<url-pattern>/ord/ord.ad</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>OrdServlet2_android</servlet-name>
+		<servlet-class>android.ord.controller.OrdServlet2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrdServlet2_android</servlet-name>
+		<url-pattern>/ord/ord2.ad</url-pattern>
+	</servlet-mapping>
+
+
+
+	<!-- android -->
+
+
 	<listener>
-    	<listener-class>com.wait_pos.controller.MemberWS</listener-class>
-  	</listener>
+		<listener-class>com.wait_pos.controller.MemberWS</listener-class>
+	</listener>
 
 	<filter>
 		<filter-name>setCharacterEncoding</filter-name>
