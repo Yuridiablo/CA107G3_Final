@@ -785,12 +785,14 @@ public class VendorServlet extends HttpServlet {
 		if ("search".equals(action)) {
 			
 			System.out.println("開始查詢");
+			// v_name 本來指廠商名稱 現在定義為搜索關鍵字
 			String v_name = req.getParameter("v_name");
-
+			
 			VendorService vSvc = new VendorService();
 			CommentsService cSvc = new CommentsService();
 			OrdService oSvc = new OrdService();
 			MemberService mSvc = new MemberService();
+			Restaurant_MenuService rmSvc = new Restaurant_MenuService();
 			String scoreWant = req.getParameter("scoreSelect");
 			String v_type = req.getParameter("v_type");
 			String v_position = req.getParameter("v_position");
@@ -860,16 +862,82 @@ public class VendorServlet extends HttpServlet {
 					}
 					
 				}else {
-					searchlist = vSvc.search(v_name);
+					String target[] = v_name.split(" ");
+					
+					Set<String> targetVendor = new HashSet<>();
+					Set<String> targetSet = new HashSet<>();
+					for (int i = 0 ; i<target.length;i++) {
+						targetSet.add(target[i]);
+					}
+					
+					Set<String> vSet = new HashSet<>();
+					Set<String> vvSet = new HashSet<>();
+					for (int i = 0 ; i<target.length;i++) {
+						System.out.println(target[i]);
+					
+						v_name = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+						String address1 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+						String address2 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+						String address3 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+						String menu1 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+						v_name = target[i];
+						address1 = target[i];
+//						address2 = target[i];
+//						address3 = target[i];
+						menu1 = target[i];
+						List<Restaurant_MenuVO> themenu = rmSvc.search(menu1);
+						List<VendorVO> thelist = vSvc.search(v_name, address1, address2, address3);
+
+						for (VendorVO v : thelist) {
+							vSet.add(v.getVendor_no());
+//							vvSet.add(v);
+							targetSet.remove(v.getV_address1());
+							targetSet.remove(v.getV_address2());
+							targetSet.remove(v.getV_address3());
+							targetSet.remove(v.getV_address1().substring(0, 2));
+							targetSet.remove(v.getV_address2().substring(0, 2));
+							targetSet.remove(v.getV_address3().substring(0, 2));
+						}
+						if (target.length == 1 ) {
+							for (Restaurant_MenuVO rmrm : themenu) {
+								vSet.add(rmrm.getVendor_no());
+							}
+						}
+					}
+					
+					if (target.length >= 2) {
+						for (String menuS : targetSet) {
+							for (String vvv : vSet) {
+								for(Restaurant_MenuVO rmmVO : rmSvc.search(menuS)) {
+									if(rmmVO.getVendor_no().equals(vvv)) {
+										vvSet.add(vvv);
+									}
+										
+									
+								}
+								
+							}
+							
+						}
+					}	else {
+						for(String s : vSet) {
+							
+							vvSet.add(s);
+						}
+					}			
+					
+					System.out.println(vSet);
+					System.out.println(vvSet);
+					System.out.println(targetSet);
+					for(String str : vvSet) {
+						searchlist.add(vSvc.findByPK(str));
+					}
 				}
 				
 				System.out.println(searchlist.size());
 				
 				List<VendorVO> alllist = vSvc.getAll().stream().filter(v -> v.getV_status().equals("1")).collect(Collectors.toList());
 				List<CommentsVO> allComList = cSvc.getAll();
-				
-			
-					
 				
 				
 				//廠商大打包
@@ -974,13 +1042,14 @@ public class VendorServlet extends HttpServlet {
 					}
 				}
 //				List<CommentsVO> oneComment = cSvc.getOneVendor(vendor_no);
-				
+				List<Restaurant_MenuVO> rmlist = rmSvc.getAll();
+				req.setAttribute("rmlist", rmlist);
 				req.setAttribute("searchlist", searchlist);
 				req.setAttribute("alllist", alllist);
 				req.setAttribute("searchMap", searchMap);
 								
 				/*************************** 2.開始查詢資料 ****************************************/
-		
+				
 				
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/

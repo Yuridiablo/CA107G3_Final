@@ -1,7 +1,10 @@
 package com.reservation_time.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +20,7 @@ import com.exception_date.model.Exception_DateService;
 import com.exception_date.model.Exception_DateVO;
 import com.reservation_table_number.model.Reservation_Table_NumberService;
 import com.reservation_table_number.model.Reservation_Table_NumberVO;
+import com.reservation_table_ordered.model.Reservation_Table_OrderedService;
 import com.reservation_time.model.Reservation_TimeDAO;
 import com.reservation_time.model.Reservation_TimeService;
 import com.reservation_time.model.Reservation_TimeVO;
@@ -90,7 +94,7 @@ public class Res_timeServlet extends HttpServlet {
 			Reservation_Table_NumberService res_t_nSvc=new Reservation_Table_NumberService();
 			
 			String vendor_no=req.getParameter("vendor_no");
-		
+		System.out.println("vendor_no========="+vendor_no);
 			//取得廠商輸入的開放訂位時段,並且過濾重複的以及空值
 			LinkedHashSet<String> rt_list =new LinkedHashSet<String>();
 			String open_hours[]=req.getParameterValues("open_hours");
@@ -156,8 +160,41 @@ public class Res_timeServlet extends HttpServlet {
 			}
 			
 			
-			res_t_nSvc.addReservation_Table_Number(vendor_no, rtbl_o_num1, rtbl_o_num2, rtbl_o_num3, rtbl_o_num4, rtbl_o_num5);
 			
+			java.sql.Date booking_date =new java.sql.Date(System.currentTimeMillis());
+			
+			System.out.println(booking_date);
+			
+			res_t_nSvc.addReservation_Table_Number(vendor_no, rtbl_o_num1, rtbl_o_num2, rtbl_o_num3, rtbl_o_num4, rtbl_o_num5);
+			Integer tbl_o_num1=rtbl_o_num1;
+			Integer tbl_o_num2=rtbl_o_num2;
+			Integer tbl_o_num3=rtbl_o_num3;
+			Integer tbl_o_num4=rtbl_o_num4;
+			Integer tbl_o_num5=rtbl_o_num5;
+			Integer tbl_ordered1=tbl_o_num1-1;
+			Integer tbl_ordered2=tbl_o_num2-1;
+			Integer tbl_ordered3=tbl_o_num3-1;
+			Integer tbl_ordered4=tbl_o_num4-1;
+			Integer tbl_ordered5=tbl_o_num5-1;
+			Reservation_Table_OrderedService rtoSvc=new Reservation_Table_OrderedService();
+			int count=0;
+			 int startdate=(int)booking_date.getTime()/(60*60*24*1000);//今天日期
+			 System.out.println(startdate);
+			 int enddate=(int)(booking_date.getTime()+(30*60*60*24*1000))/(60*60*24*1000);//30天後日期
+			 
+			 for(int i=1;i<=50;i++){
+				 count++;
+				 System.out.println("count===="+count);
+				 booking_date=new java.sql.Date(booking_date.getTime()+(1*(1000*60*60*24)));
+				 for(String booking_time:rt_list ) {
+				 
+						
+				 rtoSvc.addEmp(vendor_no, booking_date, booking_time, tbl_o_num1, tbl_o_num2, tbl_o_num3, tbl_o_num4, tbl_o_num5, tbl_ordered1, tbl_ordered2, tbl_ordered3, tbl_ordered4, tbl_ordered5);
+			 }
+			
+			}
+			 
+			System.out.println("執行玩了");
 		}
 		
 		

@@ -63,10 +63,25 @@ public class OutImg extends HttpServlet {
 			} else {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
-			rs.close();
-			stmt.close();
+		
 		} catch (Exception e) {
 			System.out.println(e);
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
 		}
 	}
 

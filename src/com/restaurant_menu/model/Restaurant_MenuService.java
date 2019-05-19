@@ -93,4 +93,8 @@ public class Restaurant_MenuService {
 		return dao.getm_name(vendor_no);
 	}
 	
+	public List<Restaurant_MenuVO> search(String menu_name){
+		return dao.search(menu_name);
+	}
+	
 }
