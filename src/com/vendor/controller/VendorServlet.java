@@ -1042,8 +1042,8 @@ public class VendorServlet extends HttpServlet {
 					}
 				}
 //				List<CommentsVO> oneComment = cSvc.getOneVendor(vendor_no);
-				List<Restaurant_MenuVO> rrmlist = rmSvc.getAll();
-				se.setAttribute("rrmlist", rrmlist);
+				List<Restaurant_MenuVO> rmlist_search = rmSvc.getAll();
+				se.setAttribute("rmlist_search", rmlist_search);
 				req.setAttribute("searchlist", searchlist);
 				se.setAttribute("alllist", alllist);
 				se.setAttribute("searchMap", searchMap);

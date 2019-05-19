@@ -145,7 +145,7 @@ font-family:"微軟正黑體";
       </div>
       <div class="modal-body">
 
-<c:forEach var="rmVO" items="${rrmlist}">
+<c:forEach var="rmVO" items="${rmlist_search}">
     <div style="display:none" class="item showfood ${rmVO.vendor_no}"><h4>${rmVO.menu_name}</h4></div>
 </c:forEach>
 
@@ -212,18 +212,87 @@ font-family:"微軟正黑體";
                  
                         <div class="col-12">
                             <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">上頁</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=0&pageE=9">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=40&pageE=49">5</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">下頁</a>
-                                    </li>
+                                <ul class="pagination justify-content-center" id="pagebar">
+                                	<c:if test="${param.pageS == 0 && fn:length(searchMap) >10}">
+	                                    <li class="page-item disabled">
+	                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" id="pagePre">上頁</a>
+	                                    </li>
+	                                   	<li class="page-item active" aria-current="page">
+									       <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=0&pageE=9">1</a>
+									    </li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19">2</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29">3</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39">4</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=40&pageE=49">5</a></li>
+	                                    <li class="page-item">
+	                                        <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19" id="pageNext">下頁</a>
+	                                    </li>
+                                    </c:if>
+                                    
+                                	<c:if test="${param.pageS == 10 && fn:length(searchMap) >20}">
+	                                    <li class="page-item">
+	                                        <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=0&pageE=9"  id="pagePre">上頁</a>
+	                                    </li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=0&pageE=9">1</a></li>
+	                                    <li class="page-item active" aria-current="page">
+									       <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19">2</a>
+									    </li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29">3</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39">4</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=40&pageE=49">5</a></li>
+	                                    <li class="page-item">
+	                                        <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29" id="pageNext">下頁</a>
+	                                    </li>
+                                    </c:if>
+                                    
+                                	<c:if test="${param.pageS == 20 && fn:length(searchMap) >30 }">
+	                                    <li class="page-item">
+	                                        <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19"  id="pagePre">上頁</a>
+	                                    </li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=0&pageE=9">1</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19">2</a></li>
+	                                    <li class="page-item active" aria-current="page">
+									       <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29">3</a>
+									    </li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39">4</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=40&pageE=49">5</a></li>
+	                                    <li class="page-item">
+	                                        <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39" id="pageNext">下頁</a>
+	                                    </li>
+                                    </c:if>
+                                    
+                                	<c:if test="${param.pageS == 30 && fn:length(searchMap) >40 }">
+	                                    <li class="page-item">
+	                                        <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29"  id="pagePre">上頁</a>
+	                                    </li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=0&pageE=9">1</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19">2</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29">3</a></li>
+	                                    <li class="page-item active" aria-current="page">
+									       <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39">4</a>
+									    </li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=40&pageE=49">5</a></li>
+	                                    <li class="page-item">
+	                                        <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=40&pageE=49" id="pageNext">下頁</a>
+	                                    </li>
+                                    </c:if>
+                                    
+                                	<c:if test="${param.pageS == 40 && fn:length(searchMap) >50}">
+	                                    <li class="page-item">
+	                                        <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39"  id="pagePre">上頁</a>
+	                                    </li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=0&pageE=9">1</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=10&pageE=19">2</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=20&pageE=29">3</a></li>
+	                                    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=30&pageE=39">4</a></li>
+	                                    <li class="page-item active" aria-current="page">
+									       <a class="page-link" href="<%=request.getContextPath()%>/Vendor/search_result.jsp?pageS=40&pageE=49">5</a>
+									    </li>
+	                                    <li class="page-item disabled">
+	                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" id="pagePre">下頁</a>
+	                                    </li>
+                                    </c:if>
+                                    
                                 </ul>
                             </nav>
                         </div>
@@ -589,12 +658,16 @@ font-family:"微軟正黑體";
     	    } 
     	    return true; 
     	  }); 
+    	  
+    	  
     	});
    	
     $('#exampleModalCenter').on('hidden.bs.modal', function () {
     	 $('.showfood').hide();
     	})
     
+    	
+    	
     </script>
     <!-- Map JS (Please change the API key below. Read documentation for more info) -->
 <!--     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYZhprf58VI160spKuA98fVS9AcSeVuVg&libraries=places&callback=initMap"  defer></script> -->
