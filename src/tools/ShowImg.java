@@ -89,8 +89,8 @@ public class ShowImg extends HttpServlet {
 			} else {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
-			rs.close();
-			stmt.close();
+//			rs.close();
+//			stmt.close();
 		} catch (Exception e) {
 			System.err.println(e);
 		} finally {
