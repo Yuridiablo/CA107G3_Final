@@ -398,7 +398,7 @@
                         <h3>最新評價</h3>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div class="row">
 <!--                 <div class="col-md-4 featured-responsive"> -->
 <!--                     <div class="featured-place-wrap"> -->
