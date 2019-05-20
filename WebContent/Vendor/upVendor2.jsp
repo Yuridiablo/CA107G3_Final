@@ -427,13 +427,7 @@
   			<div id="turnTimeDiv" class="vInfoCard-item  " style="border-bottom: none;">
 
   				<div class="vItem-content item-show" style="padding-bottom: 10px; font-size: 20px;">
-  					<div class="row">
-						<div>
-							<%= TimeFmt.min2time(turnTime) %>
-						</div>
-						
-						<i class="material-icons" style="padding-left: 20px; display: none;">edit</i>				  				
-  					</div>
+					<%= TimeFmt.min2time(turnTime) %>
   				</div>
 
   				<div class="vItem-content-edit item-edit" data-cnt="<%= turnTime %>">

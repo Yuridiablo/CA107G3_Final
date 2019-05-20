@@ -57,8 +57,11 @@ public class GQL_Generator {
 		Gson gson = new Gson();
 		
 	for(int j=0;j<wholeCityList.size();j++) {
-		
+
+
+
 		String sb = jsonDataFactory(wholeCityList.get(j),"龍蝦");
+
 		
 
 		// 解析json內容
