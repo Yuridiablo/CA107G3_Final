@@ -8,6 +8,7 @@
 <%@ page import="com.vendor.model.*" %>
 
 <%
+System.out.println(session);
 VendorVO vVO = (VendorVO) session.getAttribute("vVO");
 String vendor_no = null;
 if (vVO != null) {
@@ -261,7 +262,7 @@ for (int i = 0; i < wait_line_queue.size(); i++){
 	
 	<div class="divPersonInfo">
 		<h5 class="divMem_name">
-		<%= wait_line_queue.get(i)%>
+		<%= wait_line_queue.getValue(i).getMem_name()%>
 		</h5>
 		<p class="divParty_size">	
 		<%= wait_line_queue.getValue(i).getParty_size()%> &nbsp; 人
@@ -609,7 +610,7 @@ function checkMember(btnChkMem){
 				
 			var divMem_name = document.createElement("h5");
 				divMem_name.className = "divMem_name";
-				divMem_name.innerHTML = w_line[n].mem_no;
+				divMem_name.innerHTML = w_line[n].mem_name;
 				
 			var divParty_size = document.createElement("p");
 				divParty_size.className = "divParty_size";

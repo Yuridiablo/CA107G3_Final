@@ -185,7 +185,7 @@
   	  	<div class="vInfoCard-header">
   	  		<div class="vInfoCard-title">基本資料</div>  	  		
   	  	</div>
-  	  	<div class="vInfoCard-body row">
+  	  	<div class="vInfoCard-body row flex-nowrap">
 
   	  		<div class="vInfoCard-block col" id="basic-left">
   	  			<div class="vInfoCard-item  ">

@@ -50,6 +50,7 @@ public class Wait_PosServlet2 extends HttpServlet {
 		if ("insertPhone".equals(action)) {
 
 			String mem_no = jsonObject.get("mem_no").getAsString();
+			String mem_name = jsonObject.get("mem_name").getAsString();
 			Integer party_size = jsonObject.get("party_size").getAsInt();
 
 			String result = null;
@@ -128,7 +129,7 @@ public class Wait_PosServlet2 extends HttpServlet {
 					}
 
 					// put the member in line
-					PersonInLine personInLine = new PersonInLine(mem_no, party_size, wait_line.getNumberPlate(),
+					PersonInLine personInLine = new PersonInLine(mem_no, mem_name, party_size, wait_line.getNumberPlate(),
 							(Set) ((Map) getServletContext().getAttribute("member_sessions")).get(mem_no));
 					wait_line.getWait_line().put(mem_no, personInLine);
 
