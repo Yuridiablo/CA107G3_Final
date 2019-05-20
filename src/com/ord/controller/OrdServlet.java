@@ -46,6 +46,7 @@ import com.restaurant_menu.model.Restaurant_MenuService;
 import com.restaurant_menu.model.Restaurant_MenuVO;
 import com.restaurant_responses.model.Restaurant_ResponsesService;
 import com.restaurant_responses.model.Restaurant_ResponsesVO;
+import com.restaurant_transaction_list.model.RES_Transaction_ListService;
 import com.vendor.model.VendorService;
 import com.vendor.model.VendorVO;
 
@@ -1247,7 +1248,14 @@ public class OrdServlet extends HttpServlet {
 							testList.add(Order_DetailVO);
 						}
 						
-						dao.insertWithOrd_detail(ordVO,testList);
+						OrdVO ordVO2=dao.insertWithOrd_detail(ordVO,testList);
+						ordVO.setOrd_no(ordVO2.getOrd_no());
+						
+						//進廠商錢包
+						RES_Transaction_ListService rtlSvc=new RES_Transaction_ListService();
+						Double amountt=Double.parseDouble(total);
+						rtlSvc.addList(vendor_no, amountt, ordVO2.getOrd_no(), 1);
+						
 						
 						redisService.removeshare("ord"+share_mem_no11);
 						redisService.removeshare("ord"+share_mem_no22);
@@ -1403,6 +1411,12 @@ public class OrdServlet extends HttpServlet {
 							
 							OrdVO ordVO2=dao.insertWithOrd_detail(ordVO,testList);
 									ordVO.setOrd_no(ordVO2.getOrd_no());
+									
+									//進廠商錢包
+									RES_Transaction_ListService rtlSvc=new RES_Transaction_ListService();
+									Double amountt=total.doubleValue();
+									rtlSvc.addList(vendor_no, amountt, ordVO2.getOrd_no(), 1);
+									
 							System.out.println("ordVO2.getOrd_no()==="+ordVO2.getOrd_no());
 //							
 //								String menu_no = (String) session.getAttribute("menu_no");
@@ -1584,6 +1598,11 @@ public class OrdServlet extends HttpServlet {
 							mwlVO.setMem_no(mem_no);
 							mwlVO.setPay_for(ordVO2.getOrd_no());
 							
+							
+							//進廠商錢包
+							RES_Transaction_ListService rtlSvc=new RES_Transaction_ListService();
+							Double amountt=total.doubleValue();
+							rtlSvc.addList(vendor_no, amountt, ordVO2.getOrd_no(), 1);
 						mwlSvc.insertwithord(mem_no, list_wit, list_stat, ordVO2.getOrd_no());
 //								String menu_no = (String) session.getAttribute("menu_no");
 //								Integer price =(Integer) session.getAttribute("price");
