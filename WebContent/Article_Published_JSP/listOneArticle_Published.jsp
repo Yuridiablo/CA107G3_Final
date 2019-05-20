@@ -191,7 +191,7 @@ body {
 															<input type="submit" class="btn btn-danger" value="提出檢舉">
 															<input type="hidden" name="action" value="insert">
 															<input type="hidden" name="art_no" value="${article_publishedVO.art_no}">
-															<input type="hidden" name="mem_no" value="${article_publishedVO.mem_no}">
+															<input type="hidden" name="mem_no" value="${memberVO.mem_no}">
 															<input type="hidden" name="artre_time" value="<%=artre_time%>">
 															<input type="hidden" name="flag" value="<%=flag%>">
 															<input type="hidden" name="artre_code" value="1">
