@@ -51,7 +51,7 @@ public class VendorServlet2 extends HttpServlet {
 		while ((line = br.readLine()) != null) {
 			jsonIn.append(line);
 		}
-		System.out.println("input: " + jsonIn);
+//		System.out.println("input: " + jsonIn);
 
 		VendorService vendorSvc = new VendorService();
 
@@ -69,7 +69,11 @@ public class VendorServlet2 extends HttpServlet {
 				res.setContentType("image/jpeg");
 				res.setContentLength(image.length);
 			}
-			os.write(image);
+			try {
+				os.write(image);
+			}catch (NullPointerException e) {
+				
+			}
 		} 
 
 		else {
@@ -83,7 +87,7 @@ public class VendorServlet2 extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		out.print(outText);
 		out.close();
-		System.out.println("outText: " + outText);
+//		System.out.println("outText: " + outText);
 	}
 
 }
