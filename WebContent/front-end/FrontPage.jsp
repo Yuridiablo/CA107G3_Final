@@ -691,7 +691,7 @@
 
 		<c:if test="${account!=null}">
 			<script>
-				if($.cookie("helloMsg")!="seen"){
+				if($.cookie("helloMsg")!="seen"||${updatePwdRedirect!=null}){
 					
 		    		Swal.fire({
 						  position: 'center',
@@ -702,7 +702,8 @@
 						});
 			    		$.cookie("helloMsg", "seen");
 				}
-			</script> 
+			</script>
+			<% session.removeAttribute("updatePwdRedirect"); %>> 
 		</c:if>
 		
 		<c:if test="${account==null}">
