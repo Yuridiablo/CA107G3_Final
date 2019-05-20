@@ -108,7 +108,7 @@ public class OrdServlet_vendor extends HttpServlet {
 			case 1:
 //				ordStatus = "已付款";
 				// 預定時間的前後 10 min 可驗證
-				int tlim = 10 * 60 * 1000;
+				long tlim = 2 * 24 * 60 * 60 * 1000;
 				long diff = System.currentTimeMillis() - bookingTimestamp.getTime();
 				if (diff > tlim) {
 					status = 5;

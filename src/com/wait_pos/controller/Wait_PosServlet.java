@@ -247,6 +247,7 @@ public class Wait_PosServlet extends HttpServlet {
 		if ("insert".equals(action)) {
 			
 			String mem_no = req.getParameter("mem_no");
+			String mem_name = req.getParameter("mem_name");
 
 			String result = null;
 			
@@ -291,7 +292,7 @@ public class Wait_PosServlet extends HttpServlet {
 					}
 					
 					// put the member in line
-					PersonInLine personInLine = new PersonInLine(mem_no, party_size, wait_line.getNumberPlate(),(Set) ((Map) getServletContext().getAttribute("member_sessions")).get(mem_no));
+					PersonInLine personInLine = new PersonInLine(mem_no, mem_name, party_size, wait_line.getNumberPlate(),(Set) ((Map) getServletContext().getAttribute("member_sessions")).get(mem_no));
 					wait_line.getWait_line().put(mem_no, personInLine);
 					out.println("隊伍現況 " + wait_line.getWait_line() + "<br>"); // message for member
 					out.println("號碼牌 " + wait_line.getWait_line().get(mem_no).getNumberPlate() + "<br>"); // message for member
