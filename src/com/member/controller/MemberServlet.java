@@ -265,6 +265,7 @@ public class MemberServlet extends HttpServlet {
 					return;
 				}
 				if(session.getAttribute("checklogin")!=null) {
+					session.removeAttribute("checklogin");
 					String url = "/front-end/ord/checkout.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 					successView.forward(req, res);
