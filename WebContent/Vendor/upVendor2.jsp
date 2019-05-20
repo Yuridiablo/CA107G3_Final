@@ -234,25 +234,21 @@
   	  			<div class="vInfoCard-item">
   	  				<div class="vItem-title">餐廳類型</div>
   	  				<div class="vItem-content item-show">
-  	  					<%= vVO.getV_type()==null ? "無" :vVO.getV_type() %>
+  	  					<%= vVO.getV_type()==null ? "請選擇餐廳類型" :vVO.getV_type() %>
   	  					<i class="material-icons">edit</i> 
   	  				</div>
   	  				<div class="vItem-content-edit item-edit" data-cnt="<%= vVO.getV_type() %>">
   	  					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
   	  					<div class="edit-container">
 							<select class="form-control inputVal"  name="v_type">
-							  <option value="請選擇" <%= vVO.getV_type()==null ? "selected" : "" %>>請選擇</option>                          
-                              <option value="中式餐廳" <%= vVO.getV_type().equals("中式餐廳") ? "selected" : "" %>>中式餐廳</option>
-                              <option value="日式料理"<%= vVO.getV_type().equals("日式料理") ? "selected" : "" %>>日式料理</option>
-                              <option value="泰國餐廳"<%= vVO.getV_type().equals("泰國餐廳") ? "selected" : "" %>>泰國餐廳</option>
-                              <option value="燒烤餐廳"<%= vVO.getV_type().equals("燒烤餐廳") ? "selected" : "" %>>燒烤餐廳</option>
-                              <option value="東南亞風味"<%= vVO.getV_type().equals("東南亞風味") ? "selected" : "" %>>東南亞風味</option>
-                              <option value="義式料理"<%= vVO.getV_type().equals("義式料理") ? "selected" : "" %>>義式料理</option>
-                              <option value="吃到飽"<%= vVO.getV_type().equals("吃到飽") ? "selected" : "" %>>吃到飽</option>
-                              <option value="美式餐廳"<%= vVO.getV_type().equals("美式餐廳")? "selected" : "" %>>美式餐廳</option>
-                              <option value="火鍋店"<%= vVO.getV_type().equals("火鍋店") ? "selected" : "" %>>火鍋店</option>
-                              <option value="甜點店"<%= vVO.getV_type().equals("甜點店") ? "selected" : "" %>>甜點店</option>                              
-                            </select>	  	  					
+							<%
+								String[] typeArr = {"請選擇", "中式餐廳", "日式料理", "泰國餐廳", "燒烤餐廳", "東南亞風味", "義式料理", "吃到飽", "美式餐廳", "火鍋店", "甜點店"};
+								for (int i = 0; i < typeArr.length; i++) { %>
+
+								<option value="<%= typeArr[i] %>" <%= typeArr[i].equals(vVO.getV_type()) ? "selected" : "" %>><%= typeArr[i] %></option>
+							
+							<% } %>
+ 							 </select>	  	  					
 	  	  					<i class="material-icons">cancel</i>
 	  	  					<i id="v_type" class="material-icons">check</i>
   	  					</div>
@@ -261,7 +257,7 @@
   	  			<div class="vInfoCard-item  " style="border-bottom: none;">
   	  				<div class="vItem-title">餐廳說明</div>
   	  				<div class="vItem-content item-show">
-  	  					<%= vVO.getV_text()==null ? "" : vVO.getV_text()%>
+  	  					<%= vVO.getV_text()==null ? "請填寫餐廳說明" : vVO.getV_text()%>
   	  					<i class="material-icons">edit</i> 
   	  				</div>
   	  				<div class="vItem-content-edit item-edit" data-cnt="<%= vVO.getV_text()==null ? "" : vVO.getV_text()%>">
@@ -350,26 +346,39 @@
 	  				</div>		
   				</div>
   			</div> <!-- End of vInfoCard-item -->
-
+			
+		<% 
+		String sTimeStr = "0800";
+		String eTimeStr = "2000";		
+		if (!("0".equals(vVO.getV_end_time())|| vVO.getV_end_time()==null ||"0".equals(vVO.getV_start_time())|| vVO.getV_start_time()==null)) {
+			sTimeStr = vVO.getV_start_time();
+			eTimeStr = vVO.getV_end_time();
+		} 
+		int sTime = TimeFmt.text2minute(sTimeStr);
+		int eTime = TimeFmt.text2minute(eTimeStr);
+		String sTimeStrSep = TimeFmt.addSep(sTimeStr);
+		String eTimeStrSep = TimeFmt.addSep(eTimeStr);
+		%>
   			<div id="openTimeDiv" class="vInfoCard-item" style="border-bottom: none;">
   				<div class="vItem-title">時間</div> 	
 
   				<div class="vItem-content item-show" style="display: flex;">
+
   					<div style="display: flex; padding-bottom: 10px; font-size: 20px;">  						
-  						<div id="startTimeDiv"><%= TimeFmt.addSep(vVO.getV_start_time()) %></div>
+  						<div id="startTimeDiv"><%= sTimeStrSep %></div>
   						<div>-</div>
-  						<div id="endTimeDiv"><%= TimeFmt.addSep(vVO.getV_end_time()) %></div> 						
-  					</div>
+  						<div id="endTimeDiv"><%= eTimeStrSep %></div> 						
+  					</div>  				
   					<i class="material-icons" style="padding-left: 20px; display: none;">edit</i> 
   				</div>
 
- 				<div class="vItem-content-edit item-edit" data-cnt1="<%= TimeFmt.text2minute(vVO.getV_start_time()) %>" data-cnt2="<%= TimeFmt.text2minute(vVO.getV_end_time()) %>">
+ 				<div class="vItem-content-edit item-edit" data-cnt1="<%= sTimeStrSep %>" data-cnt2="<%= eTimeStrSep %>">
 					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
   					<div id="openTime" style="padding-bottom: 10px; font-size: 20px;">
   						<div style="display: flex;">  						
-	  						<div id="startTime" class="inputVal"><%= TimeFmt.addSep(vVO.getV_start_time()) %></div>
+	  						<div id="startTime" class="inputVal"><%= sTimeStrSep %></div>
 	  						<div>-</div>
-	  						<div id="endTime" class="inputVal"><%= TimeFmt.addSep(vVO.getV_end_time()) %></div>
+	  						<div id="endTime" class="inputVal"><%= eTimeStrSep %></div>  					
   						</div>
 						<div>
 	  						<i class="material-icons">cancel</i>
@@ -401,7 +410,13 @@
   	  	</div> <!-- End of vInfoCard-body -->
   	  </div> <!-- End of 營業時間 -->
 
-
+	
+	<%
+	Integer turnTime = vVO.getV_turn_time();
+	 if (turnTime==null || turnTime < 30) {
+		 turnTime = 30;
+	 }
+	%>
   	  <!-- 用餐時間限制 -->
   	  <div class="vInfoCard">
   	  	<div class="vInfoCard-header">
@@ -414,17 +429,17 @@
   				<div class="vItem-content item-show" style="padding-bottom: 10px; font-size: 20px;">
   					<div class="row">
 						<div>
-							<%= vVO.getV_turn_time()==null ? "無" : TimeFmt.min2time(vVO.getV_turn_time()) %>
+							<%= TimeFmt.min2time(turnTime) %>
 						</div>
 						
 						<i class="material-icons" style="padding-left: 20px; display: none;">edit</i>				  				
   					</div>
   				</div>
 
-  				<div class="vItem-content-edit item-edit" data-cnt="<%= vVO.getV_turn_time() %>">
+  				<div class="vItem-content-edit item-edit" data-cnt="<%= turnTime %>">
   					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
   					<div style="padding-bottom: 10px; font-size: 20px;"  class="d-f-sb">
-						<div id="turnTime"><%= vVO.getV_turn_time()==null ? "無" : TimeFmt.min2time(vVO.getV_turn_time()) %></div>
+						<div id="turnTime"><%= TimeFmt.min2time(turnTime) %></div>
 						<div>
 	  					  	<i class="material-icons">cancel</i>
 			  				<i id="v_turn_time" class="material-icons">check</i>
@@ -464,10 +479,7 @@
   	  		
   			<div id="v_tablesDiv" class="vInfoCard-item  " style="border-bottom: none; ">
   				<div class="vItem-content item-show" style="font-size: 20px">
-  					<div class="row">
-						<div id="v_tables_d"><%= vVO.getV_tables() %></div>
-						<i class="material-icons" style="padding-left: 20px; display: none;">edit</i>
-  					</div>
+					<div id="v_tables_d"><%= vVO.getV_tables() %></div>
   				</div>			
   				<div class="vItem-content-edit item-edit" data-cnt="<%= vVO.getV_tables() %>">
 					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
@@ -519,8 +531,8 @@
 	
 	<!-- turn time and open time -->
 	<script>
-		var turnTime = <%= vVO.getV_turn_time()==null ? "30" : vVO.getV_turn_time() %>;
-		var openTimeSpan= <%= TimeFmt.text2minute(vVO.getV_end_time()) - TimeFmt.text2minute(vVO.getV_start_time()) %>;
+		var turnTime = <%= turnTime %>;		
+		var openTimeSpan= <%=eTime - sTime %>;
 	</script>
 	<!-- open time -->
 	<script type="text/javascript">
@@ -531,7 +543,7 @@
 	      min: 0,
 	      max: 1440,
 	      step: 30,
-	      values: [ <%= TimeFmt.text2minute(vVO.getV_start_time()) %>, <%= TimeFmt.text2minute(vVO.getV_end_time()) %> ],
+	      values: [ <%= sTime %>, <%= eTime %> ],
 	      slide: function( event, ui ) {
           
           if ((ui.values[ 1 ] - ui.values[ 0 ]) < turnTime ) {
@@ -574,7 +586,7 @@
 	      min: 0,
 	      max: 1440,
 	      step: 30,
-	      value: <%= vVO.getV_turn_time()==null ? "30" : vVO.getV_turn_time() %>,
+	      value: <%= turnTime %>,
 	      slide: function( event, ui ) {
 	      	if(ui.value < 30) {
 	      		$(this).value(30); // error
@@ -718,7 +730,7 @@
 				$(item).find(".item-show").html(inputVal1);				
 				break;
 			case "v_day":
-				$(item).find('label').each(function(i) { 					
+				$(item).find('.item-show label').each(function(i) { 					
 					$(this).attr("class", inputVal1.charAt(i) == '1' ? "openTrue" : "openFalse")					 
 				});
 				break;
