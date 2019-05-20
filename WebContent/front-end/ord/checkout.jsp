@@ -147,6 +147,7 @@ margin-right:60px;
      <jsp:include page="/front-end/ord/share_sel.jsp" flush="true" />
   	</c:if>
    </div>
+   
 </div>
 
    
@@ -155,5 +156,6 @@ margin-right:60px;
 
 <%@ include file="/front-end/header_footer/footer.txt" %>
 <%@ include file="/front-end/header_footer/footer_js.txt" %>
+
 </body>
 </html>

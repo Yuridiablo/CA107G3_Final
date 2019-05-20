@@ -336,4 +336,17 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
+  <filter>
+    <filter-name>memberloginFilter</filter-name>
+    <filter-class>filters.MemberLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>memberloginFilter</filter-name>
+    <url-pattern>/front-end/ord/checkout.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
 </web-app>
