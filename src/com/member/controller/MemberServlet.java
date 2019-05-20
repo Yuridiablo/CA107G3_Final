@@ -264,16 +264,20 @@ public class MemberServlet extends HttpServlet {
 					res.sendRedirect(url);
 					return;
 				}
-				
-				String url = "/front-end/FrontPage.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				successView.forward(req, res);
+				if(session.getAttribute("checklogin")!=null) {
+					String url = "/front-end/ord/checkout.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+					successView.forward(req, res);
+				}else {
+					String url = "/front-end/FrontPage.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+					successView.forward(req, res);
+				}	
+
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/FrontPage.jsp");
 				failureView.forward(req, res);
-
 			}
 		}
 		if ("logout".equals(action)) {
