@@ -58,7 +58,7 @@ public class GQL_Generator {
 		
 	for(int j=0;j<wholeCityList.size();j++) {
 		
-		String sb = jsonDataFactory(wholeCityList.get(j),"餐廳");
+		String sb = jsonDataFactory(wholeCityList.get(j),"小吃");
 		
 
 		// 解析json內容
