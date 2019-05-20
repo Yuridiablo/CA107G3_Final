@@ -325,7 +325,7 @@ $("#pay").click(async function(event){
 	  title: '您的預訂程序已完成,請留意信箱',
 	  showConfirmButton: false,
 	  timer: 100000
-	})
+	}) 
 	})
 	</script>
 	<script type="text/javascript">
