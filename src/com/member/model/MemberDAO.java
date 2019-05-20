@@ -34,7 +34,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT * FROM MEMBER WHERE MEM_NO = ?";
 	private static final String GET_ONE_STMT_BY_ACCOUNT = "SELECT * FROM MEMBER WHERE MEM_ACCOUNT = ?";
 	private static final String GET_ALL_STMT_BY_NICKNAME = "SELECT * FROM MEMBER WHERE MEM_NICKNAME LIKE ?";
-	private static final String GET_ALL_STMT_BY_NAME = "SELECT * FROM MEMBER WHERE MEM_NAME = ?";
+	private static final String GET_ALL_STMT_BY_NAME = "SELECT * FROM MEMBER WHERE MEM_NAME LIKE ?";
 	private static final String GET_ALL_STMT = "SELECT * FROM MEMBER ";
 
 	
@@ -283,7 +283,7 @@ public class MemberDAO implements MemberDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstm = con.prepareStatement(GET_ALL_STMT_BY_NAME);
-			pstm.setString(1, mem_name);
+			pstm.setString(1, "%" + mem_name + "%");
 			rs = pstm.executeQuery();
 			while (rs.next()) {
 				member = new MemberVO();
