@@ -676,18 +676,18 @@ NOCACHE;                       -- 不快取,防止掉號
 --假資料開始
 
 --Member 會員
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'小當家','qq1234','aa1234','M','qq123@gmail.com','A123456789','0975954468','2',NULL,51561,'聖甲甲');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'嘟嘟','f1234561','f1234561','M','qaz123@gmail.com','H107242497','0970268373','1',NULL,499,'黑狗');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'及第師父','f1234562','f1234562','M','sapien@metuean.com','A132729384','0988647356','3',NULL,599,'白狗');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'四郎','f1234563','f1234563','F','Proin@dolorDgla.com','A116709980','0953147021','3',NULL,699,'峰子');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'解師傅','f1234564','f1234564','F','at.velit.Cras@orci.edu','A162110259','0963418454','1',NULL,799,'瞌睡王');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'雷恩','f1234565','f1234565','F','f1@faucibusleoin.org','F172002313','0930779472','2',NULL,899,'JJ');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'劉瑪琉','f1234566','f1234566','F','f2@faucibusleoin.org','F172002314','0930779472','2',NULL,899,'紅頂商人');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'張雲','f1234567','f1234567','F','f3@faucibusleoin.org','F172002315','0930779472','2',NULL,899,'維尼');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'珂玲','f1234568','f1234568','F','f4@faucibusleoin.org','F172002316','0930779472','2',NULL,899,'做功德');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'十全大師','f1234569','f1234569','F','f5@faucibusleoin.org','F172002317','0930779472','2',NULL,899,'花媽');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'小吳','f12345610','f12345610','F','f6@faucibusleoin.org','F172002318','0930779472','2',NULL,899,'小英');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'大吳','f12345611','f12345611','F','f7@faucibusleoin.org','F172002318','0930779472','2',NULL,899,'小英');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'小當家','qq1234','aa1234','M','qq123@gmail.com','A123456789','0975954468','2',NULL,51561,'小當家');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'嘟嘟','f1234561','f1234561','M','qaz123@gmail.com','H107242497','0970268373','1',NULL,499,'嘟嘟');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'及第師父','f1234562','f1234562','M','sapien@metuean.com','A132729384','0988647356','3',NULL,599,'及第師父');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'四郎','f1234563','f1234563','F','Proin@dolorDgla.com','A116709980','0953147021','3',NULL,699,'四郎');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'解師傅','f1234564','f1234564','F','at.velit.Cras@orci.edu','A162110259','0963418454','1',NULL,799,'解師傅');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'雷恩','f1234565','f1234565','F','f1@faucibusleoin.org','F172002313','0930779472','2',NULL,899,'雷恩');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'劉瑪琉','f1234566','f1234566','F','f2@faucibusleoin.org','F172002314','0930779472','2',NULL,899,'劉瑪琉');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'張雲','f1234567','f1234567','F','f3@faucibusleoin.org','F172002315','0930779472','2',NULL,899,'張雲');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'珂玲','f1234568','f1234568','F','f4@faucibusleoin.org','F172002316','0930779472','2',NULL,899,'珂玲');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'十全大師','f1234569','f1234569','F','f5@faucibusleoin.org','F172002317','0930779472','2',NULL,899,'十全大師');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'小吳','f12345610','f12345610','F','f6@faucibusleoin.org','F172002318','0930779472','2',NULL,899,'小吳');
+INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'大吳','f12345611','f12345611','F','f7@faucibusleoin.org','F172002319','0930779472','2',NULL,899,'大吳');
 
 --EMPLOYEE 後台員工
 INSERT INTO EMPLOYEE VALUES ('E'||LPAD(to_char(EMPLOYEE_SEQ.nextval), 9, '0'),'林俊傑','M','Jimmy123','c123456','duckk@gmail.com',TO_DATE('2019-03-28','YYYY-MM-DD'),TO_DATE('2019-03-30','YYYY-MM-DD'),2);

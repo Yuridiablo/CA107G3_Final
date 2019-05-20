@@ -13,6 +13,7 @@ import java.util.Set;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.vendor.model.VendorService;
 
 public class GQL_Generator {
 	// 關鍵字搜尋
@@ -48,19 +49,21 @@ public class GQL_Generator {
 //			sb.append(str);
 //		br.close();
 //		System.out.println(sb);
-		
+		int count = 1;
 		String wholeCityArray[] = {"基隆","台北","桃園","新竹","苗栗","新北","台中","彰化","南投","雲林","嘉義","台南","高雄","屏東","宜蘭","花蓮","台東"};	
 		List<String> wholeCityList =  Arrays.asList(wholeCityArray);
-
 		
+
+
 		Set repeatCheckSet = new HashSet();
 		Gson gson = new Gson();
 		
 	for(int j=0;j<wholeCityList.size();j++) {
+		
 
 
 
-		String sb = jsonDataFactory(wholeCityList.get(j),"龍蝦");
+		String sb = jsonDataFactory(wholeCityList.get(j),"餐廳");
 
 		
 
@@ -72,7 +75,7 @@ public class GQL_Generator {
 				while(nextPageToken!="end"||nextPageToken.equals("lastTime")) {
 					JsonArray jArray = jObj.get("results").getAsJsonArray();
 					for (int i = 0; i < jArray.size(); i++) {
-
+						
 						JsonObject obj = jArray.get(i).getAsJsonObject();
 						String id = obj.get("place_id").getAsString();
 						String detailData = detailDataFactory(id);
@@ -127,9 +130,12 @@ public class GQL_Generator {
 							String v_mail = v_account+"@gmail.com"; 
 							
 							String insertSql = sqlFactory(v_account, v_mail, v_address1, v_address2, v_address3, v_name, v_type);
+							
 							System.out.println(insertSql);
+							
 
 
+							count++;
 					}
 					if(jObj.has("next_page_token")) {
 						nextPageToken = jObj.get("next_page_token").getAsString();
@@ -149,6 +155,16 @@ public class GQL_Generator {
 		}
 
 	}
+	int countForMenu = 1;
+	while(countForMenu<=count) {
+		String v_no="V"+String.format("%06d", countForMenu);
+		Set<String> commSql = commentSqlFactory(v_no);
+		for(String com:commSql) {
+			System.out.println(com);
+		}
+		countForMenu++;
+	}
+	
 }
 	
 	public static String sqlFactory(String v_account,String v_mail,String v_address1,String v_address2,String v_address3,String v_name,String v_type) {
@@ -291,6 +307,38 @@ public class GQL_Generator {
 		br.close();
 		
 		return sb.toString();
+	}
+	
+	public static Set commentSqlFactory(String vendor_no) {
+		String menu[] = {"白飯","炒飯","炒麵","砂鍋魚頭","宮保雞丁","螞蟻上樹","鐵板豆腐","咖哩雞丁","麻油豬肝","鳳梨蝦球","鐵板牛柳","莎朗牛排","串燒雞柳",
+		"醉蝦","蟹黃豆腐","魚翅羹","臭豆腐","蝦仁煎","鴨肉飯","燒麻糬","蔥爆羊肉","羊肉炒麵","蝦仁炒飯","脆皮雞排","拔絲地瓜","鐵板麵","蔥燒牛","牛肉麵","椒麻雞"};
+		String commenInner[] = {"超好吃","不好吃不用錢","老闆的血汗結晶","精選食材製作","當季新鮮食材","好吃又好玩","沒吃過這麼好吃的","一定要嘗試一遍"};
+		List<String> menuList = Arrays.asList(menu);
+		List<String> commInnerList = Arrays.asList(commenInner); 
+		Set<String> commSet = new HashSet<String>();
+		Set<Integer> checkMenuSet = new HashSet();
+		
+		Random rand = new Random();
+		int price = rand.nextInt(900)+100;
+		int menuQuentity = rand.nextInt(9)+1;
+		
+		while(commSet.size()<menuQuentity) {
+			int menuIndex = 0;
+			int preCheckMenuSize = checkMenuSet.size();
+			while(preCheckMenuSize>=checkMenuSet.size()) {
+				menuIndex = rand.nextInt(28)+1;
+				checkMenuSet.add(menuIndex);
+			}
+			int commIndex = rand.nextInt(7)+1;
+			String comm = commInnerList.get(commIndex);
+			String meals = menuList.get(menuIndex);
+			String insertSql = "INSERT INTO RESTAURANT_MENU VALUES ('RM'||LPAD(to_char(RESTAURANT_MENU_SEQ.NEXTVAL), 8, '0')"
+							+","+"'"+vendor_no+"'"+","+"'"+meals+"'"+","+"'"+price+"'"+",null"+",'1'"+","+"'"+comm+"'"+");";
+			commSet.add(insertSql);
+		}
+
+		return commSet;
+		
 	}
 
 }
