@@ -185,9 +185,10 @@ img {
 
 <%@ include file="/front-end/header_footer/header.txt" %>
 
-
+<c:set  var="vendorVO" value="${venSvc.findByPK(param.vendor_no)}" /> 
 <div class="container">
 <div class="row justify-content-center"> 
+<h2 class="text-warning">${vendorVO.v_name }</h2>
 <div class="col-md-12">	
 	<div id="pushtop">
 			<nav>
@@ -204,7 +205,7 @@ img {
 			  <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 <!-- 				  <h1>第一大塊</h1> -->
 			  		 	<div class="container">
-							<div class="row">
+							<div class="row ">
 								<div class="col-6">
 										<div id="map" style="width:90%; height:380px; margin-top:2%;" ></div>
 								</div>
@@ -218,39 +219,37 @@ img {
 									</div>	
 								</div>	
 							</div>	
-							<div class="row">
+							<div class="row ">
 								<div class="col-12">
 								
 								<c:set  var="vendorVO" value="${venSvc.findByPK(param.vendor_no)}" /> 
-       
+       							
 								<dl data-v-2ee1f21e="" class="info-list reset-list">
-								<dt data-v-2ee1f21e="">餐廳位置</dt>
+								<div class="p-2 mb-2 bg-warning text-dark">餐廳位置</div>
 								<hr>
 								<dd data-v-2ee1f21e="">${vendorVO.v_address1}${vendorVO.v_address2}${vendorVO.v_address3}</dd>
-								<hr>
+								
 								<input type="hidden" id="addr" value=" ${vendorVO.v_address1}${vendorVO.v_address2}${vendorVO.v_address3}">
 									      
 								<hr>
-								<dt data-v-2ee1f21e="">餐廳E-mail</dt>
+								<div class="p-2 mb-2 bg-warning text-dark">餐廳E-mail</div>
 								<hr>
 								<dd data-v-2ee1f21e="">${ vendorVO.v_mail}</dd>
 								<!---->
 								<hr>
-								<dt data-v-2ee1f21e="">店家電話</dt>
+								<div class="p-2 mb-2 bg-warning text-dark">店家電話</div>
 								<hr>
 								<dd data-v-2ee1f21e="">
 									<a data-v-2ee1f21e="">${vendorVO.v_n_code}-${vendorVO.v_tel}</a>
 								</dd>
 								<hr>
-								<dt data-v-2ee1f21e="">營業時間</dt>
+								<div class="p-2 mb-2 bg-warning text-dark">營業時間</div>
 								<hr>
 								<dd data-v-2ee1f21e="">${vendorVO.v_start_time}~${vendorVO.v_end_time}</dd>
 								<hr>
-								<dt data-v-2ee1f21e="">可接受付款方式</dt>
+								<div class="p-2 mb-2 bg-warning text-dark">餐廳資訊</div>
 								<hr>
-								<dd data-v-2ee1f21e="">現金、禮券(禮券、商品禮券、電子券類、餘代卡)、信用卡 (VISA、
-									MASTERCARD、 JCB、 AE、銀聯卡、晶片金融卡、Apple Pay 、Android Pay、Samsung
-									Pay )、LINE Pay 、微信支付、支付寶</dd>
+								<dd data-v-2ee1f21e="">${vendorVO.v_text }</dd>
 								<hr>
 								</dl>
 								

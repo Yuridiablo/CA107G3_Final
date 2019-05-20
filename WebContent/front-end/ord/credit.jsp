@@ -97,7 +97,7 @@ body { margin-top:20px; }
                                 <div class="form-group">
                                     <label for="cardNumber">CARD NUMBER</label>
                                     <div class="input-group">
-                                        <input 
+                                        <input id="cardNumber"
                                             type="tel"
                                             class="form-control"
                                             name="cardNumber"
@@ -115,6 +115,7 @@ body { margin-top:20px; }
                                 <div class="form-group">
                                     <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
                                     <input 
+                                    	id="exp"
                                         type="tel" 
                                         class="form-control" 
                                         name="cardExpiry"
@@ -128,6 +129,7 @@ body { margin-top:20px; }
                                 <div class="form-group">
                                     <label for="cardCVC">CV CODE</label>
                                     <input 
+                                    	id="code"
                                         type="tel" 
                                         class="form-control"
                                         name="cardCVC"
@@ -137,6 +139,9 @@ body { margin-top:20px; }
                                     />
                                 </div>
                             </div>
+                            <div>
+				          	<button type="button" id="fillCreditMsg"></button>
+				          </div>
                             <div class="col-xs-5 col-md-5 pull-right">
                                 <div class="form-group">
                                     <label for="cardCVC">AMOUNT</label>
@@ -322,6 +327,18 @@ $("#pay").click(async function(event){
 	  timer: 100000
 	})
 	})
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#fillCreditMsg").on('click', function() {
+			$("#cardNumber").val("2268396820141740");
+// 			$("#exp").val("0876");
+			$("#code").val("678");
+			
+		});
+		
+	})
+	
 	</script>
 <%@ include file="/front-end/header_footer/footer.txt" %>
 <%@ include file="/front-end/header_footer/footer_js.txt" %>
