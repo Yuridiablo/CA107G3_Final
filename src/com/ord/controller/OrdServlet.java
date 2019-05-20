@@ -1252,7 +1252,7 @@ public class OrdServlet extends HttpServlet {
 						redisService.removeshare("ord"+share_mem_no11);
 						redisService.removeshare("ord"+share_mem_no22);
 						redisService.removetotal("total");
-//						＝＝＝＝拿取會員姓名＝＝＝＝
+//						＝＝＝＝拿取會員姓名＝＝＝＝ 
 						MemberService memSvc=new MemberService();
 						MemberVO memVO=memSvc.getOneMember(mem_no);
 						String m_name=memVO.getMem_name();
