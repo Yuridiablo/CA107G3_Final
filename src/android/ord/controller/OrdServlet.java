@@ -10,6 +10,7 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +26,9 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.tables.controller.Bill;
+import com.tables.controller.Tbls;
+
 import android.member.Util.ImageUtil;
 import android.ord.model.OrdService;
 import android.vendor.model.*;
@@ -67,11 +71,68 @@ public class OrdServlet extends HttpServlet {
 
 		if (ordSvc.isOrd(ord_no, mem_no, vendor_no, verif_code)) {
 			writeText(res, String.valueOf(ordSvc.isOrd(ord_no, mem_no, vendor_no, verif_code)));
+			
+			
+			
+			com.ord.model.OrdService oscv = new com.ord.model.OrdService();
+			com.ord.model.OrdVO ordVO = oscv.getOneOrd(ord_no);
+			
+			// 轉至桌位
+			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+			
+			if (tbls_all != null) {
+				System.out.println("------");
+				
+				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);
+				if (vendor_tbls == null) {
+					vendor_tbls = new Tbls(vendor_no);
+					tbls_all.put(vendor_no, vendor_tbls);
+				}
+				Bill bill = new Bill(ordVO);
+				synchronized (vendor_tbls) {
+					vendor_tbls.getBills().put(bill.getBill_no(), bill);
+					// push to vendor
+				}
+
+			} else {
+				System.out.println("####");
+				System.out.println(vendor_no + " server 桌位管理功能未初始化");
+			}
+
+			
+			
+			
+			
 		} else {
 			writeText(res, String.valueOf("false"));
 		}
 
-
+//		if (action.equals("checkok")) {
+//
+//			com.ord.model.OrdService oscv = new com.ord.model.OrdService();
+//			String ord_no = jsonObject.get("ord_no").getAsString();
+//			String vendor_no = jsonObject.get("vendor_no").getAsString();
+//			com.ord.model.OrdVO ordVO = oscv.getOneOrd(ord_no);
+//
+//			// 轉至桌位
+//			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+//			if (tbls_all != null) {
+//				Tbls vendor_tbls = (Tbls) tbls_all.get(vendor_no);
+//				if (vendor_tbls == null) {
+//					vendor_tbls = new Tbls(vendor_no);
+//					tbls_all.put(vendor_no, vendor_tbls);
+//				}
+//				Bill bill = new Bill(ordVO);
+//				synchronized (vendor_tbls) {
+//					vendor_tbls.getBills().put(bill.getBill_no(), bill);
+//					// push to vendor
+//				}
+//
+//			} else {
+//				System.out.println(vendor_no + " server 桌位管理功能未初始化");
+//			}
+//
+//		}
 
 	}
 
