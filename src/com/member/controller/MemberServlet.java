@@ -352,11 +352,6 @@ public class MemberServlet extends HttpServlet {
 					errorMsgs.add("密碼錯誤");
 				}
 
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO);
@@ -365,34 +360,37 @@ public class MemberServlet extends HttpServlet {
 					return;
 				}
 				
-				System.out.println("2222222222222222222222222222222222");
-
+				System.out.println("50");
 				MemberService memberSvc = new MemberService();
+				System.out.println("40");
 				byte prePic[] = memberVO.getMem_pic();
-				if(mem_pic.length==0&&prePic.length==0) {
+				System.out.println("30");
+				if(mem_pic==null&&prePic==null) {
+							System.out.println("20");
 							memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
 							mem_tel, memberVO.getMem_status(), null, memberVO.getMem_balance(), mem_nickname,
 							memberVO.getMem_account());
-				}else if(mem_pic.length==0&&prePic.length!=0){
+				}else if(mem_pic==null&&prePic!=null){
+					System.out.println("10");
 					memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
 							mem_tel, memberVO.getMem_status(), prePic, memberVO.getMem_balance(), mem_nickname,
 							memberVO.getMem_account());
-					
 				}else{
+					System.out.println("0");
 							memberSvc.updateMember(memberVO.getMem_name(), mem_pwd, memberVO.getMem_gender(), mem_mail,
 							mem_tel, memberVO.getMem_status(), mem_pic, memberVO.getMem_balance(), mem_nickname,
 							memberVO.getMem_account());
 				}
-
+				System.out.println("60");
 				memberVO = memberSvc.getOneMemberByAccount(memberVO.getMem_account());
 				session.setAttribute("memberVO", memberVO);
-				
-				System.out.println("----------------update---------------------");
+				System.out.println("70");
 				String url = "/front-end/motherboard.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 
 			} catch (Exception e) {
+				System.out.println("dllllllllllllllllllllllllllllllll");
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/motherboard.jsp");
 				failureView.forward(req, res);
