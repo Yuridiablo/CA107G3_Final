@@ -34,9 +34,14 @@ public class Reservation_TimeService {
 
 		return rtVO;
 	}
-
 	public void deleteReservation_timeDAO(String rt_no) {
 		dao.delete(rt_no);
+	}
+	public void deleteV_no(String vendor_no) {
+		dao.deleteV_no(vendor_no);
+	}
+	public void deleteVtime(String vendor_no, String r_time) {
+		dao.deleteVtime(vendor_no, r_time);
 	}
 
 	public Reservation_TimeVO getOneReservation_timeDAO(String rt_no) {

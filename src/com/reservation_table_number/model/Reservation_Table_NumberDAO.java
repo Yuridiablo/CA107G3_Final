@@ -33,11 +33,25 @@ public class Reservation_Table_NumberDAO implements Reservation_Table_NumberDAO_
 	
 	private static final String GET_ONE_STMT = 
 			"SELECT RTN_NO, VENDOR_NO, RTBL_O_NUM1,RTBL_O_NUM2, RTBL_O_NUM3,RTBL_O_NUM4,RTBL_O_NUM5 FROM RESERVATION_TABLE_NUMBER WHERE RTN_NO =?";
-	
+	private static final String GET_ONE_STMT_V = 
+			"SELECT RTN_NO, VENDOR_NO, RTBL_O_NUM1,RTBL_O_NUM2, RTBL_O_NUM3,RTBL_O_NUM4,RTBL_O_NUM5 FROM RESERVATION_TABLE_NUMBER WHERE VENDOR_NO =?";
+	private static final String DELETE_V = 
+			"DELETE FROM RESERVATION_TABLE_NUMBER WHERE VENDOR_NO = ?";
 	private static final String DELETE = 
 			"DELETE FROM RESERVATION_TABLE_NUMBER WHERE RTN_NO = ?";
 	private static final String UPDATE = 
 			"UPDATE RESERVATION_TABLE_NUMBER SET VENDOR_NO=?, RTBL_O_NUM1=?,RTBL_O_NUM2=?,RTBL_O_NUM3=?,RTBL_O_NUM4=?,RTBL_O_NUM5=? where RTN_NO=?";
+	private static final String UPDATE_T1 = 
+			"UPDATE RESERVATION_TABLE_NUMBER SET RTBL_O_NUM1=? where VENDOR_NO=?";
+	private static final String UPDATE_T2 = 
+			"UPDATE RESERVATION_TABLE_NUMBER SET RTBL_O_NUM2=? where VENDOR_NO=?";
+	private static final String UPDATE_T3 = 
+			"UPDATE RESERVATION_TABLE_NUMBER SET RTBL_O_NUM3=? where VENDOR_NO=?";
+	private static final String UPDATE_T4 = 
+			"UPDATE RESERVATION_TABLE_NUMBER SET RTBL_O_NUM4=? where VENDOR_NO=?";
+	private static final String UPDATE_T5 = 
+			"UPDATE RESERVATION_TABLE_NUMBER SET RTBL_O_NUM5=? where VENDOR_NO=?";
+	
 	private static final String GET_BY_VENDOR = 
 			"SELECT * FROM RESERVATION_TABLE_NUMBER WHERE VENDOR_NO=?";
 	
@@ -433,5 +447,291 @@ public class Reservation_Table_NumberDAO implements Reservation_Table_NumberDAO_
 		}
 		return list;
 		
+	}
+
+	@Override
+	public void deleteV_no(String vendor_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE_V);
+
+			pstmt.setString(1, vendor_no);
+
+			pstmt.executeUpdate();
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+	}
+
+	@Override
+	public Reservation_Table_NumberVO findByV_no(String vendor_no) {
+		Reservation_Table_NumberVO reservation_Table_NumberVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT_V);
+
+			pstmt.setString(1, vendor_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVo �]�٬� Domain objects
+				reservation_Table_NumberVO = new Reservation_Table_NumberVO();
+				reservation_Table_NumberVO.setRtn_no(rs.getString("rtn_no"));
+				reservation_Table_NumberVO.setVendor_no(rs.getString("vendor_no"));
+				reservation_Table_NumberVO.setRtbl_o_num1(rs.getInt("Rtbl_o_num1"));
+				reservation_Table_NumberVO.setRtbl_o_num2(rs.getInt("Rtbl_o_num2"));
+				reservation_Table_NumberVO.setRtbl_o_num3(rs.getInt("Rtbl_o_num3"));
+				reservation_Table_NumberVO.setRtbl_o_num4(rs.getInt("Rtbl_o_num4"));
+				reservation_Table_NumberVO.setRtbl_o_num5(rs.getInt("Rtbl_o_num5"));
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return reservation_Table_NumberVO;
+	}
+
+	@Override
+	public void update_t1(Reservation_Table_NumberVO reservation_table_numberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_T1);
+			
+			pstmt.setInt(1, reservation_table_numberVO.getRtbl_o_num1() );
+			pstmt.setString(2, reservation_table_numberVO.getVendor_no() );
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void update_t2(Reservation_Table_NumberVO reservation_table_numberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_T2);
+			
+			pstmt.setInt(1, reservation_table_numberVO.getRtbl_o_num2() );
+			pstmt.setString(2, reservation_table_numberVO.getVendor_no() );
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void update_t3(Reservation_Table_NumberVO reservation_table_numberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_T3);
+			
+			pstmt.setInt(1, reservation_table_numberVO.getRtbl_o_num3() );
+			pstmt.setString(2, reservation_table_numberVO.getVendor_no() );
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void update_t4(Reservation_Table_NumberVO reservation_table_numberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_T4);
+			
+			pstmt.setInt(1, reservation_table_numberVO.getRtbl_o_num4() );
+			pstmt.setString(2, reservation_table_numberVO.getVendor_no() );
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void update_t5(Reservation_Table_NumberVO reservation_table_numberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_T5);
+			
+			pstmt.setInt(1, reservation_table_numberVO.getRtbl_o_num5() );
+			pstmt.setString(2, reservation_table_numberVO.getVendor_no() );
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 }

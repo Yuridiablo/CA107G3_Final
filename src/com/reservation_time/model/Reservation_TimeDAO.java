@@ -39,6 +39,10 @@ public class Reservation_TimeDAO implements Reservation_TimeDAO_Interface {
 	
 	private static final String DELETE = 
 			"DELETE FROM RESERVATION_TIME WHERE RT_NO = ?";
+	private static final String DELETE_V = 
+			"DELETE FROM RESERVATION_TIME WHERE VENDOR_NO = ?";
+	private static final String DELETE_VT = 
+			"DELETE FROM RESERVATION_TIME WHERE VENDOR_NO = ? and R_TIME=?";
 	private static final String UPDATE = 
 			"UPDATE RESERVATION_TIME SET VENDOR_NO=?, R_TIME=? where RT_NO=?";
 	
@@ -173,6 +177,7 @@ public class Reservation_TimeDAO implements Reservation_TimeDAO_Interface {
 
 	}
 
+	
 
 	
 	@Override
@@ -456,6 +461,83 @@ public class Reservation_TimeDAO implements Reservation_TimeDAO_Interface {
 			return list;
 			
 		}
+
+	@Override
+	public void deleteV_no(String vendor_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE_V);
+
+			pstmt.setString(1, vendor_no);
+
+			pstmt.executeUpdate();
+				System.out.println("OKOK");
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
+	}
+
+	@Override
+	public void deleteVtime(String vendor_no, String r_time) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE_VT);
+
+			pstmt.setString(1, vendor_no);
+			pstmt.setString(2, r_time);
+
+			pstmt.executeUpdate();
+				System.out.println("OKOK");
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}			
+	}
 	
 
 

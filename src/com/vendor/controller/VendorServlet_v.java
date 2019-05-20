@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.reservation_table_number.model.Reservation_Table_NumberService;
+import com.reservation_table_number.model.Reservation_Table_NumberVO;
 import com.vendor.model.TimeFmt;
 import com.vendor.model.VendorService;
 import com.vendor.model.VendorVO;
@@ -54,6 +56,35 @@ public class VendorServlet_v extends HttpServlet {
 			case "v_tables":
 				vs.upTbls(inputVal1, vendor_no);
 				break;
+			}
+			
+		}
+		if ("updateBookingSet".equals(action)) {
+			String tar = req.getParameter("tar");
+			String inputVal1 = req.getParameter("inputVal1");
+			String inputVal2 = req.getParameter("inputVal2");
+//			System.out.println(tar);
+//			System.out.println(inputVal1);
+//			System.out.println(inputVal2);
+			Reservation_Table_NumberService rtblSvc = new Reservation_Table_NumberService();
+			Reservation_Table_NumberVO rtnVO = rtblSvc.findByV_no(vendor_no);
+			switch(tar) {
+			case "tbl1":
+				rtblSvc.update_t1(vendor_no, Integer.parseInt(inputVal1));
+				break;
+			case "tbl2":
+				rtblSvc.update_t2(vendor_no, Integer.parseInt(inputVal1));
+				break;
+			case "tbl3":
+				rtblSvc.update_t3(vendor_no, Integer.parseInt(inputVal1));
+				break;
+			case "tbl4":
+				rtblSvc.update_t4(vendor_no, Integer.parseInt(inputVal1));
+				break;
+			case "tbl5":
+				rtblSvc.update_t5(vendor_no, Integer.parseInt(inputVal1));
+				break;
+
 			}
 			
 		}

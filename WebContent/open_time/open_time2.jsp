@@ -1,3 +1,5 @@
+<%@page import="com.reservation_table_number.model.Reservation_Table_NumberVO"%>
+<%@page import="com.reservation_table_number.model.Reservation_Table_NumberService"%>
 <%@page import="com.reservation_time.model.Reservation_TimeVO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.*"%>
@@ -157,6 +159,7 @@
   				<!-- <div class="vItem-title">星期</div>	 -->
   										
   				<div class="vItem-content">
+  					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div>
 				<% 
 // 					String sTimeStr = "0800";
 // 					String eTimeStr = "2000";		
@@ -221,7 +224,22 @@
 		
 
 
-
+		<% 
+		Reservation_Table_NumberService rtblSvc = new Reservation_Table_NumberService();
+		Reservation_Table_NumberVO rtnVO = rtblSvc.findByV_no(vendor_no);
+		Integer rtbl_o_num1 = rtnVO.getRtbl_o_num1();
+		Integer rtbl_o_num2 = rtnVO.getRtbl_o_num2();
+		Integer rtbl_o_num3 = rtnVO.getRtbl_o_num3();
+		Integer rtbl_o_num4 = rtnVO.getRtbl_o_num4();
+		Integer rtbl_o_num5 = rtnVO.getRtbl_o_num5();
+		if (rtbl_o_num1 == null) rtbl_o_num1 = 0;
+		if (rtbl_o_num2 == null) rtbl_o_num2 = 0;
+		if (rtbl_o_num3 == null) rtbl_o_num3 = 0;
+		if (rtbl_o_num4 == null) rtbl_o_num4 = 0;
+		if (rtbl_o_num5 == null) rtbl_o_num5 = 0;
+		Integer[] rtbl_o = {rtbl_o_num1, rtbl_o_num2, rtbl_o_num3, rtbl_o_num4, rtbl_o_num5}; 
+		
+		%>
   	  <!-- 開放桌位數 -->
   	  <div class="vInfoCard">
 
@@ -235,37 +253,39 @@
   	  		<% for (int i =  1; i <= 5; i++) { %>
   	  		
   	  		
-  			<div id="" class="vInfoCard-item">
+  			<div class="vInfoCard-item" style="<%= i==5?"border:none":""%>">
 
 				<div class="vItem-title">
 					<%=i*2 %>&nbsp;人桌
 				</div> <!-- End of vItem-title -->
 				<div class="vItem-content item-show">
-					<span class="tblNum">0</span>						
+					<span class="tblNum"><%= rtbl_o[i-1] %></span>						
 					<span class="tblUnit">張</span>
 	  				
   				</div> <!-- End of vItem-content -->
-  				<div class="vItem-content item-edit tblSpinnerDiv">
-					
-						<!-- input spinner -->
-						<input type="number" name="v_tables" value="0" min="0"step="1" required id="v_tables" style="display: none;"/>
-						<div class="input-group" id="v_tables-spinner">						
-					        <div class="input-group-prepend">
-					        	<button style="min-width:2.5rem" class="btn btn-decrement btn-outline-secondary" type="button"><strong>-</strong></button>
-					        </div>
-					        <input type="text" style="text-align:center" class="form-control" value="0"/>
-					        <div class="input-group-append">
-					        	<button style="min-width: 2.5rem" class="btn btn-increment btn-outline-secondary" type="button"><strong>+</strong></button>
-					        </div>
-				        </div> <!-- End of input spinner -->
-	  				
-  				</div> <!-- End of vItem-content -->
-				<div class="vItem-footer item-edit">
-					<div>
-					<button type="button" class="btn btn-outline-primary btnSave">儲存</button>
-					<button type="button" class="btn btn-outline-secondary btnCancel">取消</button>
-					</div>
-				</div> <!-- End of vItem-footer -->
+  				<div class="item-edit">
+  					<div class="editLoad"><img src="images/ui-anim_basic_16x16.gif"></div> 				
+	  				<div class="vItem-content tblSpinnerDiv">					
+							<!-- input spinner -->
+							<input type="number" class="inputVal" name="v_tables" value="<%= rtbl_o[i-1] %>" min="0"step="1" required id="inputS<%= i %>" style="display: none;"/>
+							<div class="input-group" id="tbl-spinner<%=i%>">						
+						        <div class="input-group-prepend">
+						        	<button style="min-width:2.5rem" class="btn btn-decrement btn-outline-secondary" type="button"><strong>-</strong></button>
+						        </div>
+						        <input type="text" style="text-align:center" class="form-control" value="<%= rtbl_o[i-1] %>"/>
+						        <div class="input-group-append">
+						        	<button style="min-width: 2.5rem" class="btn btn-increment btn-outline-secondary" type="button"><strong>+</strong></button>
+						        </div>
+					        </div> <!-- End of input spinner -->
+		  				
+	  				</div> <!-- End of vItem-content -->
+					<div class="vItem-footer">
+						<div>
+						<button id="tbl<%= i %>" type="button" class="btn btn-outline-primary btnSave">儲存</button>
+						<button type="button" class="btn btn-outline-secondary btnCancel">取消</button>
+						</div>
+					</div> <!-- End of vItem-footer -->
+				</div>
   			</div> <!-- End of vInfoCard-item -->
 			<% } %>
 
@@ -289,7 +309,16 @@
 	
 	<script src="<%= request.getContextPath() %>/Vendor/bootstrap-input-spinner.js"></script>
 	
-	
+	<!-- input spinner -->
+	<script>		
+		$(document).ready(function(){
+			$("#inputS1").inputSpinner($("#tbl-spinner1"));
+			$("#inputS2").inputSpinner($("#tbl-spinner2"));
+			$("#inputS3").inputSpinner($("#tbl-spinner3"));
+			$("#inputS4").inputSpinner($("#tbl-spinner4"));
+			$("#inputS5").inputSpinner($("#tbl-spinner5"));
+		});	    
+	</script>	
 	
 	 <script type="text/javascript">
 	$(document).ready(function(){
@@ -307,7 +336,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 
-			$("i:contains('check')").click(function (e) {
+			$(".btnSave").click(function (e) {
 				var item = $(this).parents(".vInfoCard-item");
 				
 // 				console.log(e.target.id);
@@ -315,38 +344,18 @@
 				var inputVal1;
 				var inputVal2;
 				switch(tar) {
-				case "v_type":
+				case "tbl1":case "tbl2":case "tbl3":case "tbl4":case "tbl5":
 					inputVal1 = $(item).find(".inputVal").val();
-					if (inputVal1 == "請選擇") return;
-// 					console.log(inputVal1);
+					console.log(inputVal1);
 					break;
 				case "v_text":
 					inputVal1 = $(item).find(".inputVal").val();
 // 					console.log(inputVal1);					
 					break;
-				case "v_day":
-					inputVal1 = "";
-					$(item).find('input:checkbox').each(function(i) { 
-						inputVal1 += $(this).prop("checked") ? "1" : "0"; 
-					});
-// 					console.log(inputVal1);
-					break;
-				case "v_start_end_time":
-					inputVal1 = $(item).find(".inputVal").eq(0).html();
-					inputVal2 = $(item).find(".inputVal").eq(1).html();
-// 					console.log(inputVal1);
-// 					console.log(inputVal2);
-					break;
-				case "v_turn_time":
-					inputVal1 = $("#turnTime-slider-range").slider( "value" );
-// 					console.log(inputVal1);
-					break;
-				case "v_tables":
-					inputVal1 = $(item).find(".inputVal").val();
-// 					console.log(inputVal1);
-					break;
+
+
+
 				}
-// 				$(item).find(".editLoad").show();
 				sendReq(tar, inputVal1, inputVal2, item);
 			 });
 
@@ -359,7 +368,7 @@
 			    url: "<%=request.getContextPath()%>/Vendor/Vendor_v.do",
 			    type: 'post',
 			    data: {
-			      action : "updateVendorInfo",
+			      action : "updateBookingSet",
 			      tar : tar,
 			      inputVal1 : inputVal1,
 			      inputVal2 : inputVal2,
@@ -394,8 +403,8 @@
 		function successAction(tar, inputVal1, inputVal2, item) {
 			
 			switch(tar) {
-			case "v_type":
-				$(item).find(".item-show").html(inputVal1);
+			case "tbl1":case "tbl2":case "tbl3":case "tbl4":case "tbl5":
+				$(item).find(".item-show .tblNum").html(inputVal1);
 				break;
 			case "v_text":
 				$(item).find(".item-show").html(inputVal1);				

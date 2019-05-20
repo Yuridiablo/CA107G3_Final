@@ -8,6 +8,8 @@ public interface Reservation_TimeDAO_Interface {
 	public void insert(Reservation_TimeVO reservation_timeVO );
     public void update(Reservation_TimeVO reservation_timeVO);
     public void delete(String rt_no);
+    public void deleteV_no(String vendor_no);
+    public void deleteVtime(String vendor_no, String r_time);
     public Reservation_TimeVO findByPrimaryKey(String rt_no);
     public List<Reservation_TimeVO> getAll();
    
