@@ -76,9 +76,11 @@ public class OrdServlet extends HttpServlet {
 			
 			com.ord.model.OrdService oscv = new com.ord.model.OrdService();
 			com.ord.model.OrdVO ordVO = oscv.getOneOrd(ord_no);
+			oscv.updateOrdStatus(ord_no, 4);
 			
 			// 轉至桌位
 			Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+			
 			
 			if (tbls_all != null) {
 				System.out.println("------");
