@@ -48,10 +48,11 @@
     		padding: 10px;
     		font-size:24px;
     		font-weight:bold;
+
     	}
     	.vInfoCard-item {
     		padding: 10px;
-    		border-bottom:#ddd 1px solid;  
+    		/*border-bottom:#ddd 1px solid;  */
     	}
     	.vItem-title {
     		font-size:18px;
@@ -60,9 +61,14 @@
     	}
     	.vItem-content {
     		font-size:16px;
-    		padding-left: 40px;
+    		/*padding-left: 40px;*/
     	}
-   	
+   		.vItem-footer {
+    		/*font-size:18px;*/
+    		/*font-weight:bold;*/
+    		/*margin-bottom: 10px;
+    		margin-bottom: 10px;*/
+    	}
     </style>
     <!-- open table number -->
     <style type="text/css">
@@ -148,33 +154,57 @@
   										
   				<div class="vItem-content">
 				<% 
-					String sTimeStr = vVO.getV_start_time();
-					String eTimeStr = vVO.getV_end_time();
-					Integer turnTime = vVO.getV_turn_time();
+// 					String sTimeStr = "0800";
+// 					String eTimeStr = "2000";		
+// 					if (!("0".equals(vVO.getV_end_time())|| vVO.getV_end_time()==null ||"0".equals(vVO.getV_start_time())|| vVO.getV_start_time()==null)) {
+// 						sTimeStr = vVO.getV_start_time();
+// 						eTimeStr = vVO.getV_end_time();
+// 					} 
+// 					int sTime = TimeFmt.text2minute(sTimeStr);
+// 					int eTime = TimeFmt.text2minute(eTimeStr);
+
+// 					Integer turnTime = vVO.getV_turn_time();
+// 					 if (turnTime==null || turnTime < 30) {
+// 						 turnTime = 30;
+// 					 }
+				%>
+				
+				
+				<%
+				String sTimeStr = vVO.getV_start_time();
+				String eTimeStr = vVO.getV_end_time();
+				Integer turnTime = vVO.getV_turn_time();
+				int sTime = 0;
+				int eTime = 0;
+				if ("0".equals(sTimeStr)|| sTimeStr==null ||"0".equals(eTimeStr)|| eTimeStr==null||turnTime==null || turnTime < 30) {
+				%>
+				請先設定營業時間及用餐時間限制	
+				<%} else {
+					sTime = TimeFmt.text2minute(sTimeStr);
+					eTime = TimeFmt.text2minute(eTimeStr);								
 				%>
 						<div class="btn-group-toggle" data-toggle="buttons">
-						  <label class="btn btn-outline-success">
-						    <input type="checkbox" autocomplete="off"> 08:00
-						  </label>					
-						  <label class="btn btn-outline-success active">
-						    <input type="checkbox" checked autocomplete="off"> 09:00
-						  </label>
-						  <label class="btn btn-outline-success active">
-						    <input type="checkbox" checked autocomplete="off"> 10:00
-						  </label>
-						  <label class="btn btn-outline-success active">
-						    <input type="checkbox" checked autocomplete="off"> 11:00
-						  </label>
-						  <label class="btn btn-outline-success active">
-						    <input type="checkbox" checked autocomplete="off"> 12:00
-						  </label>
-						  <label class="btn btn-outline-success active">
-						    <input type="checkbox" checked autocomplete="off"> 13:00
-						  </label>
-						  <label class="btn btn-outline-success">
-						    <input type="checkbox" autocomplete="off"> 14:00
-						  </label>
-						</div> <!-- End of btn-group -->
+						<%
+							int bTime = sTime;
+							do { %>
+							<label class="btn btn-outline-success">
+							    <input type="checkbox" autocomplete="off">
+							    <%= TimeFmt.min2time(bTime) %>
+							 </label>								
+							<%	bTime += turnTime;
+							} while (bTime < eTime);
+							%>
+				
+						</div> <!-- End of btn-group -->	
+				<% } %>
+						
+							
+				
+<!-- 						  <label class="btn btn-outline-success active"> -->
+<!-- 						    <input type="checkbox" checked autocomplete="off"> 09:00 -->
+<!-- 						  </label> -->
+						  
+						
 
 	  				
   				</div> <!-- End of vItem-content -->
@@ -196,10 +226,13 @@
 
   	  	<div class="vInfoCard-body row hItem">
   	  		
+  	  		<% for (int i =  1; i <= 5; i++) { %>
+  	  		
+  	  		
   			<div id="" class="vInfoCard-item">
 
 				<div class="vItem-title">
-					2&nbsp;人桌
+					<%=i*2 %>&nbsp;人桌
 				</div> <!-- End of vItem-title -->
 				<div class="vItem-content item-show">
 					<span class="tblNum">12</span>						
@@ -228,7 +261,7 @@
 					</div>
 				</div> <!-- End of vItem-footer -->
   			</div> <!-- End of vInfoCard-item -->
-
+			<% } %>
 
   	  	</div> <!-- End of vInfoCard-body -->
   	  </div> <!-- End of 開放桌位數 -->
