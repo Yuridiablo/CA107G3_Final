@@ -73,7 +73,7 @@ if (vVO != null) {
 	<link rel="stylesheet" href="css/themify-icons.css">
 	<link rel="stylesheet" href="fonts/Material+Icons.css">
 
-	<%@ include file="navbar/nav_css.txt" %>
+	<%@ include file="/ord_jsp/navbar/nav_css.txt" %>
 
 	<!-- Timeline -->
 <style type="text/css">
@@ -281,7 +281,7 @@ margin-left: 20px;
 	 
 	</nav>
 	
-	<%@ include file="navbar/side_navbar.txt" %>
+	<%@ include file="/ord_jsp/navbar/side_navbar.txt" %>
 	
 	<!-- Content -->
 		<div class="outer">
@@ -786,7 +786,7 @@ function createAlert(alertType, msg) {
 
 </script>
 
-<%@ include file="navbar/side_navbar_js.txt" %>
+<%@ include file="/ord_jsp/navbar/side_navbar_js.txt" %>
    
   </body>
 </html>

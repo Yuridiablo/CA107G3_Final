@@ -41,7 +41,7 @@ pageContext.setAttribute("list", list);
 	<!-- Input type=number -->
 	<script src="<%=request.getContextPath()%>/tables_jsp/bootstrap-input-spinner.js"></script>
 	
-	<%@ include file="navbar/nav_css.txt" %>
+	<%@ include file="/ord_jsp/navbar/nav_css.txt" %>
 	
 	<style>
 		#fgiTblNum {
@@ -50,8 +50,8 @@ pageContext.setAttribute("list", list);
 	</style>
 </head>
 <body>
-	<%@ include file="navbar/navbar.txt" %>
-	<%@ include file="navbar/side_navbar.txt" %>
+	<%@ include file="/ord_jsp/navbar/navbar.txt" %>
+	<%@ include file="/ord_jsp/navbar/side_navbar.txt" %>
 
 	<div class="container-fluid">
 		<div class="row justify-content-around p-3">
@@ -122,7 +122,7 @@ pageContext.setAttribute("list", list);
 
 			<!-- Table List -->			
 			<div class="col-6">
-<%@ include file="page1.file" %>
+<%@ include file="/tables_jsp/page1.file" %>
 				<table class="table table-hover table-light">
 				  <thead>
 				    <tr>
@@ -183,7 +183,7 @@ pageContext.setAttribute("list", list);
 
 			<!-- Edit Tables -->
 			<div class="col-3 bg-light">
-				<form id="editTableForm" method="get" action="<%=request.getContextPath()%>/tables/tables.do">
+				<form id="editTableForm" method="post" action="<%=request.getContextPath()%>/tables/tables.do">
 					<legend>編輯桌位</legend>
 
 					<!-- Table Name / Prefix -->
@@ -298,6 +298,6 @@ pageContext.setAttribute("list", list);
             
         });
     </script>
-	<%@ include file="navbar/side_navbar_js.txt" %>	
+	<%@ include file="/ord_jsp/navbar/side_navbar_js.txt" %>	
   </body>
 </html>

@@ -38,7 +38,7 @@ int tblWidth = 100;
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/tables_jsp/bootstrap/jquery-ui.css">
 	
-	<%@ include file="navbar/nav_css.txt" %>
+	<%@ include file="/ord_jsp/navbar/nav_css.txt" %>
 
 	<style type="text/css">
 
@@ -52,6 +52,11 @@ int tblWidth = 100;
 			background-size: 40px 40px;
 		    background-image: linear-gradient(to right, #b4bd9e 1px, transparent 1px), linear-gradient(#b4bd9e 1px, transparent 1px);
 		
+		}
+		
+		#accordion{
+			overflow-y:auto;
+			height:500px;
 		}
 		.tblList .tbl {
 			z-index: 3;
@@ -97,8 +102,8 @@ int tblWidth = 100;
 
   <!-- ============================================================================= -->
   <body>
-	<%@ include file="navbar/navbar.txt" %>
-	<%@ include file="navbar/side_navbar.txt" %>
+	<%@ include file="/ord_jsp/navbar/navbar.txt" %>
+	<%@ include file="/ord_jsp/navbar/side_navbar.txt" %>
 
 	<!-- Content -->
 	<div class="container-fluid">
@@ -107,7 +112,7 @@ int tblWidth = 100;
 			<!-- Table List -->
 			<div class="col-3 bg-light">
 			
-				<form method="get" action="<%=request.getContextPath()%>/tables/tables.do" id="formTblAxis">
+				<form method="post" action="<%=request.getContextPath()%>/tables/tables.do" id="formTblAxis">
 					<button type="submit" class="btn btn-secondary btn-block" id="btnSaveAxis">儲存</button>
 					<input type="hidden" name="action" value="updateAxis">
 					<input type="hidden" name="vendor_no"	value="<%= vendor_no %>">
@@ -358,7 +363,7 @@ int tblWidth = 100;
     <<!-- jQuery UI -->
 	<script src="<%=request.getContextPath()%>/tables_jsp/bootstrap/jquery-ui.min.js"></script>
 
-    <%@ include file="navbar/side_navbar_js.txt" %>
+    <%@ include file="/ord_jsp/navbar/side_navbar_js.txt" %>
 	
 	<!-- floorplan -->    
 	<script type="text/javascript">

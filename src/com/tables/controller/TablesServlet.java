@@ -70,7 +70,7 @@ public class TablesServlet extends HttpServlet {
 					req.setAttribute("tbl_size_add", tbl_size);
 					
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/tables/table_management_list.jsp");
+							.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -92,7 +92,9 @@ public class TablesServlet extends HttpServlet {
 				
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
-				errorMsgs.add("新增資料失敗:"+e.getMessage());
+				String emsg = e.getMessage();
+				if (emsg.contains("ORA-00001")) emsg = "桌位名稱請誤重複";
+				errorMsgs.add("新增資料失敗: "+emsg);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
 				failureView.forward(req, res);
@@ -130,7 +132,7 @@ public class TablesServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("tablesVO", tablesVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/tables/table_management_list.jsp");
+							.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -191,7 +193,7 @@ public class TablesServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/tables/table_management_list.jsp");
+						.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -250,7 +252,7 @@ public class TablesServlet extends HttpServlet {
 //				if (!errorMsgs.isEmpty()) {
 //					req.setAttribute("tablesVO", tablesVO); // 含有輸入格式錯誤的empVO物件,也存入req
 //					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/tables/table_management_list.jsp");
+//							.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
 //					failureView.forward(req, res);
 //					return; //程式中斷
 //				}
@@ -268,7 +270,7 @@ public class TablesServlet extends HttpServlet {
 //			} catch (Exception e) {
 //				errorMsgs.add("修改資料失敗:"+e.getMessage());
 //				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/tables/table_management_list.jsp");
+//						.getRequestDispatcher("/tables_jsp/table_management_list.jsp");
 //				failureView.forward(req, res);
 //			}
 			

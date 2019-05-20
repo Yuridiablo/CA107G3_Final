@@ -17,7 +17,7 @@
 廠商編號<input type="text" name="vendor_no"> <br>
 
 會員編號<input type="text" name="mem_no"> <br>
-
+會員姓名<input type="text" name="mem_name"> <br>
 人數<input type="number"  name="party_size" min="1" max="10" value="1"> <br>
 
 <button type="submit" class="getPosNum">候位取號</button>
