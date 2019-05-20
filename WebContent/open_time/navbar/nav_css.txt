@@ -1,0 +1,130 @@
+﻿<style type="text/css">
+body {
+	background-color: #eee;
+	font-family: "微軟正黑體";
+}
+
+#sidenavOverlay {
+	display: none;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 998;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+#sidenavOverlay.active {
+	display: block;
+}
+
+#sidenav {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 280px;
+	left: -280px;
+	z-index: 999;
+	background: #fff;
+	color: #000;
+}
+
+.fullbar {
+	animation-name: full;
+	animation-duration: 0.5s;
+	animation-fill-mode: both;
+}
+
+.invibar {
+	animation-name: invi;
+	animation-duration: 0.5s;
+	animation-fill-mode: forwards;
+}
+
+.col-form-label {
+	text-align: right;
+	font: 18px 微軟正黑體;
+}
+
+#refreshconfirm {
+	text-align: right;
+	margin-bottom: 5px;
+}
+
+.nav-link .btn-primary {
+	background-color: orange;
+	border-color: orange;
+	margin-top: 10%;
+}
+
+#topicBar {
+	border: 1px;
+	border: solid;
+	border-color: #7c7c7c;
+	background-color: #7c7c7c;
+	color: white;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#confirmletter {
+	display: inline-block;
+	font: 15px/40px Helvetica;
+	text-align: center;
+	background: #F5F5F5;
+	border: 1px solid #cccccc;
+	color: #000000;
+	margin: 0px 8px 0px 0px;
+	position: relative;
+	top: -2px; #
+	top: 1px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.needs-validation {
+	margin-top: 15%;
+}
+
+.form-row {
+	margin-top: 2%;
+}
+
+.resTitle {
+	font-size: 30px;
+	margin-left: 5%;
+}
+
+.nav .btn{
+	margin-top:80%;
+ padding-left: 123px;
+ padding-right: 123px;
+ box-sizing: border-box;
+
+}
+
+.nav .text-white:hover{
+	background-color: #f00;
+}
+
+@keyframes full {from { left:-280px;
+	
+}
+
+to {
+	left: 0px;
+}
+
+}
+@keyframes invi {from { left:0px;
+	
+}
+
+to {
+	left: -280px;
+}
+}
+
+</style>

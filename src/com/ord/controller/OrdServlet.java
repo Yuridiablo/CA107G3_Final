@@ -469,80 +469,104 @@ public class OrdServlet extends HttpServlet {
 			}
 						
 			CommentsService C_Svc=new CommentsService();
+			List<Restaurant_ResponsesVO>rrlist=new ArrayList<>();
+			Map<MemberVO, CommentsVO> cMap = new LinkedHashMap<>();
 			
-			//拿到這家廠商的所有評論
-			List<CommentsVO>C_list=C_Svc.getVendor(vendor_no);
-			Collections.reverse(C_list);
-			//拿到這家廠商的所有評論裡面的每一比訂單
+			OrdService ordSvc=new OrdService();
+			MemberService mSvc=new MemberService();
+			CommentsService cSvc=new CommentsService();
+			Restaurant_ResponsesService rrSvc=new Restaurant_ResponsesService();
 			
-				OrdService ordSvc=new OrdService();
-				MemberService mSvc=new MemberService();
-				CommentsService cSvc=new CommentsService();
-				Restaurant_ResponsesService rrSvc=new Restaurant_ResponsesService();
-				List<Restaurant_ResponsesVO>rrlist=new ArrayList<>();
-				Map<MemberVO, CommentsVO> cMap = new LinkedHashMap<>();
-				
-				//拿到這家廠商所有訂單ＶＯ
-				List<OrdVO> olist = ordSvc.findByvendor_no(vendor_no);
-				//拿到每一筆訂單的會員編號
-				//娶到每個會員的ＶＯ
-				//拿到每筆評論的ＶＯ
-//				全部放在ＭＡＰ裡面
-				for ( OrdVO oVO : olist) {
-					String mmm = oVO.getMem_no();
-					MemberVO mVO = mSvc.getOneMember(mmm);
-					CommentsVO cVO = cSvc.findByord_no(oVO.getOrd_no());
-					
-					
-					cMap.put(mVO, cVO);
-				}
-				
-				for(CommentsVO cVO:C_list) {
-					Restaurant_ResponsesVO rrVO=new Restaurant_ResponsesVO();
-					String aaa=cVO.getCmnt_no();
-					rrVO=rrSvc.findPk(aaa);
-					rrlist.add(rrVO);
-				}
-				
-				
-//				以java8的串流搭配濾器拿到某一家廠商的所有評論,並且取出所有評分做平均
-			List<CommentsVO> ALlccomment=	cSvc.getAll();
-		
-			OptionalDouble avgscore=ALlccomment.stream()
-					.filter(v -> v.getVendor_no().equals(vendor_no))
-					.mapToDouble(v->v.getScore())
-					.average();
+			
+			
+			//拿到這家廠商所有訂單ＶＯ
+			List<OrdVO> olist = ordSvc.findByvendor_no(vendor_no);
+			
 			
 			String result=null;
-			if(avgscore.isPresent()) {
-				result=String.format("%.1f", avgscore.getAsDouble());
+			int A=0;
+			int B=0;
+			int C=0;
+			int D=0;
+			int E=0;
+			
+			
+			try {
+				//拿到這家廠商的所有評論
+				List<CommentsVO>C_list=C_Svc.getVendor(vendor_no);
+				Collections.reverse(C_list);
+				//拿到這家廠商的所有評論裡面的每一比訂單
+				
+					
+					//拿到每一筆訂單的會員編號
+					//娶到每個會員的ＶＯ
+					//拿到每筆評論的ＶＯ
+//					全部放在ＭＡＰ裡面
+					for ( OrdVO oVO : olist) {
+						String mmm = oVO.getMem_no();
+						MemberVO mVO = mSvc.getOneMember(mmm);
+						CommentsVO cVO = cSvc.findByord_no(oVO.getOrd_no());
+						
+						
+						cMap.put(mVO, cVO);
+					}
+					
+					for(CommentsVO cVO:C_list) {
+						Restaurant_ResponsesVO rrVO=new Restaurant_ResponsesVO();
+						String aaa=cVO.getCmnt_no();
+						rrVO=rrSvc.findPk(aaa);
+						rrlist.add(rrVO);
+					}
+					
+					
+//					以java8的串流搭配濾器拿到某一家廠商的所有評論,並且取出所有評分做平均
+				List<CommentsVO> ALlccomment=	cSvc.getAll();
+			
+				OptionalDouble avgscore=ALlccomment.stream()
+						.filter(v -> v.getVendor_no().equals(vendor_no))
+						.mapToDouble(v->v.getScore())
+						.average();
+				
+				
+				if(avgscore.isPresent()) {
+					result=String.format("%.1f", avgscore.getAsDouble());
+					
+				}
+				List<CommentsVO> c_vo=cSvc.getVendor(vendor_no);
+				int a=0;int b=0; int c=0; int d=0; int e=0;
+				for(CommentsVO c_volist:c_vo) {
+					Integer i=c_volist.getScore();
+					if(i==1) {
+						a++;
+					}else if(i==2){
+						b++;
+					}else if(i==3) {
+						c++;
+					}else if(i==4) {
+						d++;
+					}else {
+						e++;
+					}
+				}
+				int x=a+b+c+d+e;
+				System.out.println(a+"-"+b+"-"+c+"-"+d+"-"+e);
+				
+				
+			 A=(a*100/x);
+			 B=(b*100/x);
+			 C=(c*100/x);
+			 D=(d*100/x);
+			 E=(e*100/x);
+			}catch(Exception e) {
+				 A=0;
+				 B=0;
+				 C=0;
+				 D=0;
+				 E=0;
+				 result="0";
 				
 			}
-			List<CommentsVO> c_vo=cSvc.getVendor(vendor_no);
-			int a=0;int b=0; int c=0; int d=0; int e=0;
-			for(CommentsVO c_volist:c_vo) {
-				Integer i=c_volist.getScore();
-				if(i==1) {
-					a++;
-				}else if(i==2){
-					b++;
-				}else if(i==3) {
-					c++;
-				}else if(i==4) {
-					d++;
-				}else {
-					e++;
-				}
-			}
-			int x=a+b+c+d+e;
-			System.out.println(a+"-"+b+"-"+c+"-"+d+"-"+e);
 			
-			
-		int A=(a*100/x);
-		int B=(b*100/x);
-		int C=(c*100/x);
-		int D=(d*100/x);
-		int E=(e*100/x);
 			
 				System.out.println(A+"-"+B+"-"+C+"-"+D+"-"+E);
 				

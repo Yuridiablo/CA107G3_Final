@@ -34,6 +34,12 @@ public class VendorDAO implements VendorDAO_interface {
 	private static final String UPDATE_WALLET = "UPDATE VENDOR SET v_wallet = ? WHERE vendor_no=?";
 	private static final String UPDATE_PIC = "UPDATE VENDOR SET v_pic = ? WHERE vendor_no=?";
 	private static final String UPDATE_AD = "UPDATE VENDOR SET v_ad = ? WHERE vendor_no=?";
+	private static final String UPDATE_TYPE = "UPDATE VENDOR SET v_type = ? WHERE vendor_no=?";
+	private static final String UPDATE_TEXT = "UPDATE VENDOR SET v_text = ? WHERE vendor_no=?";
+	private static final String UPDATE_DAY = "UPDATE VENDOR SET v_day = ? WHERE vendor_no=?";
+	private static final String UPDATE_SE_TIME = "UPDATE VENDOR SET v_start_time = ?, v_end_time = ? WHERE vendor_no=?";
+	private static final String UPDATE_TTIME = "UPDATE VENDOR SET v_turn_time = ? WHERE vendor_no=?";
+	private static final String UPDATE_TBLS = "UPDATE VENDOR SET v_tables = ? WHERE vendor_no=?";
 	private static final String DELETE = "DELETE FROM Vendor WHERE vendor_no =?";
 	private static final String GET_ONE_STMT = "SELECT * FROM Vendor WHERE Vendor_NO = ?";
 	private static final String GET_ACC_STMT = "SELECT * FROM Vendor WHERE v_account = ?";
@@ -226,14 +232,14 @@ public class VendorDAO implements VendorDAO_interface {
 				vendor.setV_pic(rs.getBytes(20));
 				vendor.setV_ad(rs.getBytes(21));
 				vendor.setV_status(rs.getString(22));
-				vendor.setV_wait_status(rs.getString(23));
+				vendor.setV_turn_time(rs.getInt(23));
 				vendor.setV_type(rs.getString(24));
 				vendor.setV_text(rs.getString(25));
 				
 				
 				
 			}
-			System.out.println("查詢完畢");
+			System.out.println("VendorVO findByPK 查詢完畢");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -300,7 +306,7 @@ public class VendorDAO implements VendorDAO_interface {
 				vendor.setV_pic(rs.getBytes(20));
 				vendor.setV_ad(rs.getBytes(21));
 				vendor.setV_status(rs.getString(22));
-				vendor.setV_wait_status(rs.getString(23));
+				vendor.setV_turn_time(rs.getInt(23));
 				vendor.setV_type(rs.getString(24));
 				vendor.setV_text(rs.getString(25));
 				
@@ -437,7 +443,7 @@ public class VendorDAO implements VendorDAO_interface {
 				// vendor.setV_pic();
 				// vendor.setV_ad();
 				vendor.setV_status(rs.getString("v_status"));
-				vendor.setV_wait_status(rs.getString("v_wait_status"));
+				vendor.setV_turn_time(rs.getInt("v_turn_time"));
 				vendor.setV_type(rs.getString("v_type"));
 				vendor.setV_text(rs.getString("v_text"));
 				
@@ -516,7 +522,7 @@ public class VendorDAO implements VendorDAO_interface {
 				// vendor.setV_pic();
 				// vendor.setV_ad();
 				vendor.setV_status(rs.getString("v_status"));
-				vendor.setV_wait_status(rs.getString("v_wait_status"));
+				vendor.setV_turn_time(rs.getInt("v_turn_time"));
 				vendor.setV_type(rs.getString("v_type"));
 				vendor.setV_text(rs.getString("v_text"));
 				
@@ -627,9 +633,224 @@ public class VendorDAO implements VendorDAO_interface {
 		
 	}
 	
+	@Override
+	public void upType(VendorVO vVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_TYPE);
+			
+
+			pstmt.setString(1, vVO.getV_type());
+			pstmt.setString(2, vVO.getVendor_no());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}	
 	
+	@Override
+	public void upText(VendorVO vVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_TEXT);
+			
+
+			pstmt.setString(1, vVO.getV_text());
+			pstmt.setString(2, vVO.getVendor_no());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	
-	
+	@Override
+	public void upDay(VendorVO vVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_DAY);
+			
+
+			pstmt.setString(1, vVO.getV_day());
+			pstmt.setString(2, vVO.getVendor_no());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	@Override
+	public void upSEtime(VendorVO vVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_SE_TIME);
+			
+
+			pstmt.setString(1, vVO.getV_start_time());
+			pstmt.setString(2, vVO.getV_end_time());
+			pstmt.setString(3, vVO.getVendor_no());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	@Override
+	public void upTtime(VendorVO vVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_TTIME);
+			
+
+			pstmt.setInt(1, vVO.getV_turn_time());
+			pstmt.setString(2, vVO.getVendor_no());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	@Override
+	public void upTbls(VendorVO vVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_TBLS);
+
+			pstmt.setString(1, vVO.getV_tables());
+			pstmt.setString(2, vVO.getVendor_no());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	@Override
 	public List<VendorVO> findByType(String v_type) {
 		List<VendorVO> vlist = new ArrayList<>();
@@ -669,7 +890,7 @@ public class VendorDAO implements VendorDAO_interface {
 				// vendor.setV_pic();
 				// vendor.setV_ad();
 				vendor.setV_status(rs.getString("v_status"));
-				vendor.setV_wait_status(rs.getString("v_wait_status"));
+				vendor.setV_turn_time(rs.getInt("v_turn_time"));
 				vendor.setV_type(rs.getString("v_type"));
 				vendor.setV_text(rs.getString("v_text"));
 				

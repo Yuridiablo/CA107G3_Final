@@ -152,15 +152,9 @@ font-size:30px;
 <body>
 	<!-- Navbar -->
 	<nav class="navbar  bg-dark navbar-dark">
-		
-		
-		
 		<span class="navbar-brand resTitle">歡迎使用餐廳管理畫面</span>
 		<span class="navbar-brand">Seek Food Table</span>
 	</nav>
-	<!-- Side Nav -->
-	<div id="sidenavOverlay"></div>
-
 
 	<div class="container">
 		<div class="row">
@@ -170,7 +164,7 @@ font-size:30px;
 
 				<div class="row justify-content-center">
 
-			<img src="../front-end/images/SeeKFoodB.png">
+			<img src="<%= request.getContextPath() %>/front-end/images/SeeKFoodB.png">
 
 				</div>	
 				<div class="row  justify-content-center">
@@ -264,14 +258,12 @@ font-size:30px;
 	<script src="<%= request.getContextPath() %>/front-end/js/jquery-3.3.1.min.js" type="text/javascript"></script>
 	<script src="<%= request.getContextPath() %>/front-end/js/popper.min.js" type="text/javascript"></script>
 	<script src="<%= request.getContextPath() %>/front-end/js/bootstrap-4.3.1.min.js" type="text/javascript"></script>
-	<!-- Input type=number -->
-<!-- 	<script src="bootstrap-input-spinner.js"></script> -->
+
 	<!--     sweetalert -->
 	<script src="<%= request.getContextPath() %>/front-end/js/sweetalert2.min.js" type="text/javascript"></script>
-<!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> -->
-<!-- 	<script> -->
-<!--      $("input[type='number']").inputSpinner() -->
-<!--     </script> -->
+<%--
+	<!-- 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> -->
+	
 	<!-- Side Nav -->
 	<script type="text/javascript">
     $(document).ready(function() {
@@ -288,8 +280,8 @@ font-size:30px;
         });
     });
 
-
     </script>
+ --%>
     
     <c:if test="${newAcc == true}">
     <script>

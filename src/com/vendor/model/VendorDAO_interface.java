@@ -36,6 +36,12 @@ public interface VendorDAO_interface {
 	//修改廣告圖片(OK)
 	public int updateAd(VendorVO vendorVO);
 	
+	public void upType(VendorVO vendorVO);
+	public void upText(VendorVO vendorVO);
+	public void upDay(VendorVO vendorVO);
+	public void upSEtime(VendorVO vendorVO);
+	public void upTtime(VendorVO vendorVO);
+	public void upTbls(VendorVO vendorVO);
 	
 	//以帳號查一間餐廳(登入用)(OK)
 	public VendorVO findByAcc(String v_account);

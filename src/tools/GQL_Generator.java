@@ -58,7 +58,11 @@ public class GQL_Generator {
 		
 	for(int j=0;j<wholeCityList.size();j++) {
 		
+<<<<<<< HEAD
 		String sb = jsonDataFactory(wholeCityList.get(j),"小吃");
+=======
+		String sb = jsonDataFactory(wholeCityList.get(j),"龍蝦");
+>>>>>>> branch 'master' of https://github.com/Yuridiablo/CA107G3_Final.git
 		
 
 		// 解析json內容

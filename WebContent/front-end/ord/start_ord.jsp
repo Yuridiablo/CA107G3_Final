@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <%@ page import="com.ord.model.*"%>
 <%@ page import="com.vendor.model.*" %>
 
@@ -13,7 +13,7 @@
 <jsp:useBean id="commentSvc" scope="page" class="com.comments.model.CommentsService" />
 <jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 <jsp:useBean id="venSvc" scope="page" class="com.vendor.model.VendorService" />
-
+<jsp:useBean id="res_menuSvc" scope="page" class="com.restaurant_menu.model.Restaurant_MenuService" />
 
 <!DOCTYPE html>
 
@@ -266,19 +266,24 @@ img {
 			  <div class="bookingselect tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 <!-- 			  <h1>第二大塊</h1>	 -->
 
+  
 <div class="owl-carousel owl-theme">
-    <div class="item"><h4>1</h4></div>
-    <div class="item"><h4>2</h4></div>
-    <div class="item"><h4>3</h4></div>
-    <div class="item"><h4>4</h4></div>
-    <div class="item"><h4>5</h4></div>
-    <div class="item"><h4>6</h4></div>
-    <div class="item"><h4>7</h4></div>
-    <div class="item"><h4>8</h4></div>
-    <div class="item"><h4>9</h4></div>
-    <div class="item"><h4>10</h4></div>
-    <div class="item"><h4>11</h4></div>
-    <div class="item"><h4>12</h4></div>
+
+    <c:forEach var="menu_n" items="${res_menuSvc.getVendor(vendor_no)}">
+     <div class="item"><h4><img id="p${menu_n.menu_no}" src="<%= request.getContextPath()%>/ShowImg.do?menu_no='${menu_n.menu_no}'"/></h4></div> 
+     </c:forEach> 
+    
+<!--     <div class="item"><h4>2</h4></div> -->
+<!--     <div class="item"><h4>3</h4></div> -->
+<!--     <div class="item"><h4>4</h4></div> -->
+<!--     <div class="item"><h4>5</h4></div> -->
+<!--     <div class="item"><h4>6</h4></div> -->
+<!--     <div class="item"><h4>7</h4></div> -->
+<!--     <div class="item"><h4>8</h4></div> -->
+<!--     <div class="item"><h4>9</h4></div> -->
+<!--     <div class="item"><h4>10</h4></div> -->
+<!--     <div class="item"><h4>11</h4></div> -->
+<!--     <div class="item"><h4>12</h4></div> -->
 </div>
 		<!--  自動提交FORM開頭 -->
 			<div class="container">
@@ -290,18 +295,18 @@ img {
 										<input type="hidden" name="action" id="action" value="updateDate">
 										<input type="hidden" name="vendor_no" value="${param.vendor_no}">
 										<div>用餐日期</div>
-										<input name="booking_date" id="f_date1" type="text" value="${ordVO.booking_date}"  style="width: 450px;">
+										<input name="booking_date" id="f_date1" type="text" value="${booking_date}"   style="width: 450px;">
 										<div>人數選擇 </div>
 										<select class="custom-select my-1 mr-sm-4" id="inlineFormCustomSelectPref" style="width: 450px;" name="party_size">
 											
-											<option name="2" value="2">二人</option>
-											<option name="3" value="3">三人</option>
-											<option name="4" value="4">四人</option>
-											<option name="5" value="5">五人</option>
-											<option name="6" value="6">六人</option>
-											<option name="7" value="7">七人</option>
-											<option name="8" value="8">八人</option>
-											<option name="9" value="10">十人</option>
+											<option  value="2" ${(party_size==2)?'selected':'selected' }>2人</option>
+											<option  value="3" ${(party_size==3)?'selected':'' }>3人</option>
+											<option  value="4" ${(party_size==4)?'selected':'' }>4人</option>
+											<option  value="5" ${(party_size==5)?'selected':'' }>5人</option>
+											<option  value="6" ${(party_size==6)?'selected':'' }>6人</option>
+											<option  value="7" ${(party_size==7)?'selected':'' }>7人</option>
+											<option  value="8" ${(party_size==8)?'selected':'' }>8人</option>
+											<option  value="10" ${(party_size==10)?'selected':'' }>10人</option>
 				
 										</select>
 							
@@ -331,9 +336,19 @@ img {
 							<input type="hidden" name="party_size" value="${param.party_size}">		
 						
 								<div class=" btn-group-toggle" data-toggle="buttons" id="btngp">
+								
 									<c:forEach var="exc" items="${lhs}">	
+									<c:set var="exc3" value="${exc}"/>
 										<input class="btn2 btn-primary"  type="button" name="${exc.rto_no}" id="${exc.rto_no}"  value="${exc.booking_time}" onclick="sendMessage('${exc.rto_no}',${param.party_size});" >
-									</c:forEach>	
+									
+									</c:forEach>
+									
+									<c:if test="${exc3==null}">
+									<font color="red">
+									本日的時段已銷售完畢
+									</font>
+									</c:if>
+									
 								</div>
 						
 			 				<input type="hidden" name="booking_time"  id="realyvalue"value="">  		 
@@ -433,7 +448,7 @@ img {
 					                                </div>
 					                            </div>
 					                            <!-- end 1 -->
-					                        </div>
+					                        </div> 
 					                        <!-- xxxxxxxxxxxxxxxxxxxx -->
 					                        
 					                        
@@ -643,8 +658,10 @@ $("#${exc.rto_no}").click(async function(event){
 		
 		
 })
- 
+
 </script>
+
+
 
 </c:forEach>
 <%-- <c:forEach var="exc" items="${lhs}"> --%>
@@ -677,12 +694,12 @@ function connect() {
 			if($(this).attr('id')==data){
 // 				btns[i].disabled=true;
 
- Swal.fire({
-			  type: 'warning',
-			  title: '非常抱歉.',
-			  text: $(this).val()+'此時段已銷售完畢,', 
+//  Swal.fire({
+// 			  type: 'warning',
+// 			  title: '非常抱歉.',
+// 			  text: $(this).val()+'此時段已銷售完畢,', 
 			
-			})
+// 			})
 // 				alert($(this).val());
 				$(this).hide(2000);
 			}
