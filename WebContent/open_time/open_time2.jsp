@@ -1,3 +1,7 @@
+<%@page import="com.reservation_time.model.Reservation_TimeVO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.*"%>
+<%@page import="com.reservation_time.model.Reservation_TimeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.vendor.model.*"%>
@@ -168,7 +172,16 @@
 // 						 turnTime = 30;
 // 					 }
 				%>
-				
+	  	  		<%
+	  	  		Reservation_TimeService rtSvc = new Reservation_TimeService();
+	  	  		List<Reservation_TimeVO> rtList = rtSvc.getVendor(vendor_no);
+	  	  		List<Integer> irtList = new LinkedList<>();
+	  	  		
+	  	  		for(int i = 0; i < rtList.size(); i++) {
+	  	  			irtList.add(TimeFmt.text2minute(rtList.get(i).getR_time()));
+	  	  			System.out.println(rtList.get(i).getR_time());
+	  	  		}
+	  	  		%>				
 				
 				<%
 				String sTimeStr = vVO.getV_start_time();
@@ -187,8 +200,8 @@
 						<%
 							int bTime = sTime;
 							do { %>
-							<label class="btn btn-outline-success">
-							    <input type="checkbox" autocomplete="off">
+							<label class="btn btn-outline-success <%= irtList.contains(bTime) ? "active" : ""%>">
+							    <input type="checkbox" autocomplete="off" <%= irtList.contains(bTime) ? "checked" : ""%>>
 							    <%= TimeFmt.min2time(bTime) %>
 							 </label>								
 							<%	bTime += turnTime;
@@ -197,14 +210,6 @@
 				
 						</div> <!-- End of btn-group -->	
 				<% } %>
-						
-							
-				
-<!-- 						  <label class="btn btn-outline-success active"> -->
-<!-- 						    <input type="checkbox" checked autocomplete="off"> 09:00 -->
-<!-- 						  </label> -->
-						  
-						
 
 	  				
   				</div> <!-- End of vItem-content -->
@@ -225,6 +230,7 @@
   	  	</div> <!-- End of vInfoCard-header -->
 
   	  	<div class="vInfoCard-body row hItem">
+
   	  		
   	  		<% for (int i =  1; i <= 5; i++) { %>
   	  		
@@ -235,7 +241,7 @@
 					<%=i*2 %>&nbsp;人桌
 				</div> <!-- End of vItem-title -->
 				<div class="vItem-content item-show">
-					<span class="tblNum">12</span>						
+					<span class="tblNum">0</span>						
 					<span class="tblUnit">張</span>
 	  				
   				</div> <!-- End of vItem-content -->

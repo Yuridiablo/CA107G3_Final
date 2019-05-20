@@ -24,7 +24,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 	
 	private static final String INSERT_STMT = "INSERT INTO employee (emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,emp_hire,emp_resign,emp_stat) VALUES ('E'||LPAD(to_char(EMPLOYEE_SEQ.nextval), 9, '0'), ?, ?, ?, ?, ?, ?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee order by emp_no";
-	private static final String GET_ALL_STMT_BYNAME = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_name=? order by emp_no";
+	private static final String GET_ALL_STMT_BYNAME = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_name LIKE ? order by emp_no";
 	private static final String GET_ONE_STMT_BYACCOUNT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_acc=?";
 	private static final String GET_ONE_STMT = "SELECT emp_no,emp_name,emp_sex,emp_acc,emp_pwd,emp_mail,to_char(emp_hire,'yyyy-mm-dd') emp_hire,to_char(emp_resign,'yyyy-mm-dd') emp_resign,emp_stat FROM employee where emp_no = ?";
 	private static final String DELETE = "DELETE FROM employee where emp_no = ?";
@@ -144,7 +144,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT_BYNAME);
 			
-			pstmt.setString(1, emp_name);
+			pstmt.setString(1, "%" + emp_name + "%");
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

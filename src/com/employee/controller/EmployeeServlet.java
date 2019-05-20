@@ -180,11 +180,11 @@ public class EmployeeServlet extends HttpServlet {
 			try {
 				
 				String emp_name = req.getParameter("emp_name");
-				String emp_nameReg = "^[\u4E00-\u9FA5]{2,4}$";
+				String emp_nameReg = "^[\u4E00-\u9FA5]{1,4}$";
 				if (emp_name == null || (emp_name.trim()).length() == 0) {
 					errorMsgs.add("請輸入姓名");
 				} else if (!emp_name.trim().matches(emp_nameReg)) {
-					errorMsgs.add("姓名只能填入2~4個中文字");
+					errorMsgs.add("姓名只能填入1~4個中文字");
 				}
 				
 				if (!errorMsgs.isEmpty()) {

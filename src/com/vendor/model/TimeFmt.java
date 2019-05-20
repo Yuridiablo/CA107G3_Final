@@ -17,8 +17,8 @@ public class TimeFmt {
 	}
 // 1000 to minutes
 	public static int text2minute(String t) {
-		int hr = Integer.parseInt(t.substring(0,2));
-		int min = Integer.parseInt(t.substring(2,4));
+		int hr = Integer.parseInt(t.trim().substring(0,2));
+		int min = Integer.parseInt(t.trim().substring(2,4));
 		return hr * 60 + min;
 	}
 	public static Date text2date(String t) {

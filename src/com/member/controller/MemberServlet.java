@@ -259,7 +259,6 @@ public class MemberServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				session.setAttribute("account", req.getParameter("mem_account"));
 				session.setAttribute("memberVO", memberVO);
-
 				if("/front-end/FrontPage.jsp".equals(req.getParameter("requestURL"))) {
 					String url = req.getContextPath() + "/front-end/FrontPage.jsp";
 					res.sendRedirect(url);
@@ -445,7 +444,7 @@ public class MemberServlet extends HttpServlet {
 				
 					session.removeAttribute("account");
 					session.removeAttribute("memberVO");
-
+					session.setAttribute("updatePwdRedirect", "updatePwdRedirect");
 				
 				
 				System.out.println("----------------update---------------------");
