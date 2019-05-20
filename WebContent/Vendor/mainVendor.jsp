@@ -222,7 +222,7 @@ to {
 	<div id="sidenavOverlay"></div>
 	<nav class="nav navbar-nav bg-dark" id="sidenav">
 	
-		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/mainVendor.jsp">概況一覽</a> 
+		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/upVendor2.jsp">概況一覽</a> 
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upVendor">資訊修改</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/Vendor/Vendor.do?action=upOpenTime">開放時段設定</a>
 		<a class="nav-link text-white p-3" href="<%=request.getContextPath()%>/tables_jsp/table_management_list.jsp">桌型資料設定</a>
