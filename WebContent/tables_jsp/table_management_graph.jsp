@@ -53,6 +53,11 @@ int tblWidth = 100;
 		    background-image: linear-gradient(to right, #b4bd9e 1px, transparent 1px), linear-gradient(#b4bd9e 1px, transparent 1px);
 		
 		}
+		
+		#accordion{
+			overflow-y:auto;
+			height:500px;
+		}
 		.tblList .tbl {
 			z-index: 3;
 		}
@@ -107,7 +112,7 @@ int tblWidth = 100;
 			<!-- Table List -->
 			<div class="col-3 bg-light">
 			
-				<form method="get" action="<%=request.getContextPath()%>/tables/tables.do" id="formTblAxis">
+				<form method="post" action="<%=request.getContextPath()%>/tables/tables.do" id="formTblAxis">
 					<button type="submit" class="btn btn-secondary btn-block" id="btnSaveAxis">儲存</button>
 					<input type="hidden" name="action" value="updateAxis">
 					<input type="hidden" name="vendor_no"	value="<%= vendor_no %>">
