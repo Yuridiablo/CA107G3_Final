@@ -4,6 +4,9 @@ package com.wait_pos.controller;
 import java.util.Set;
 import java.util.Timer;
 
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
+
 
 public class PersonInLine {
 	private String mem_no;
@@ -16,9 +19,14 @@ public class PersonInLine {
 	private Set memSessionSet;
 	private int party_size;
 	private Timer callMemTimer;
+	private String mem_name;
 	
-	public PersonInLine(String mem_no, int party_size, int numberPlate, Set memSessionSet) {
+	public PersonInLine(String mem_no, String mem_name, int party_size, int numberPlate, Set memSessionSet) {
 		this.mem_no = mem_no;
+		this.mem_name = mem_name;
+//		MemberService ms = new MemberService();		
+//		MemberVO memVO = ms.getOneMember(mem_no);
+//		this.mem_name = memVO.getMem_name();
 		this.party_size = party_size;
 		this.numberPlate = numberPlate;
 		this.memSessionSet = memSessionSet;
@@ -97,6 +105,14 @@ public class PersonInLine {
 
 	public void setCallMemTimer(Timer callMemTimer) {
 		this.callMemTimer = callMemTimer;
+	}
+
+	public String getMem_name() {
+		return mem_name;
+	}
+
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
 	}
 	
 

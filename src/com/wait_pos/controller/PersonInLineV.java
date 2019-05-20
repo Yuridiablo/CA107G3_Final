@@ -4,6 +4,7 @@ import javax.websocket.Session;
 
 public class PersonInLineV {
 	private String mem_no;
+	private String mem_name;
 	private int numberPlate;
 	private Boolean isCall = false;
 	private long deadline;
@@ -12,6 +13,7 @@ public class PersonInLineV {
 	
 	public PersonInLineV(PersonInLine personInLine) {
 		this.mem_no = personInLine.getMem_no();
+		this.mem_name = personInLine.getMem_name();
 		this.numberPlate = personInLine.getNumberPlate();
 		this.isCall = personInLine.getIsCall();
 		this.hasPassed = personInLine.getHasPassed();
