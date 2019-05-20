@@ -109,7 +109,7 @@ top: 0px;
 			        <tr>
 			          <td>${article_publishedVO.art_title}</td>
 			          <td><div class="form-group">
-							  <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="8">${article_publishedVO.art_content}</textarea>
+							  <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="8" readonly="readonly">${article_publishedVO.art_content}</textarea>
 						  </div>
 			          </td>
 			          <td>${article_publishedVO.art_time}</td>
