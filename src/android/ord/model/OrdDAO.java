@@ -18,7 +18,7 @@ public class OrdDAO implements OrdDAO_interface {
 
 	// SQL
 	private static final String GET_ONE_STMT = "SELECT * FROM ORD WHERE  ord_no = ? AND mem_no = ? AND vendor_no= ? AND verif_code= ?";
-	private static final String GET_ORD = "SELECT * FROM ORD WHERE  mem_no = ?";
+	private static final String GET_ORD = "SELECT * FROM ORD WHERE  mem_no = ? AND status='1' ";
 	static {
 		try {
 			Context ctx = new InitialContext();
