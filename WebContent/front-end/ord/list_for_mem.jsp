@@ -170,7 +170,7 @@ height:1px
 				</c:if>
 			</td>
 			</tr>
-                    </c:forEach>
+                    </c:forEach> 
                      </tbody>
                     </table>
                     
