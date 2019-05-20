@@ -265,7 +265,7 @@ public class VendorDAO implements VendorDAO_interface {
 		return picture;
 
 	}
-	
+
 	@Override
 	public List<VendorVO> getAll() {
 
@@ -274,6 +274,7 @@ public class VendorDAO implements VendorDAO_interface {
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		VendorVO vendor = null;
+		int conut = 0;
 
 		try {
 //			con = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -282,6 +283,10 @@ public class VendorDAO implements VendorDAO_interface {
 			rs = pstm.executeQuery();
 
 			while (rs.next()) {
+				conut++;
+				if (conut >= 50) {
+					break;
+				}
 				vendor = new VendorVO();
 
 				vendor.setVendor_no(rs.getString(1));
