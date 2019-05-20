@@ -47,7 +47,7 @@ if (vVO != null) {
 
     <title>桌位管理_列表</title>
 
-<%@ include file="navbar/nav_css.txt" %>
+<%@ include file="/ord_jsp/navbar/nav_css.txt" %>
 
 	<style type="text/css">
 		#order-detail {
@@ -64,7 +64,7 @@ if (vVO != null) {
 
   <!-- ============================================================================= -->
   <body>
-<%@ include file="navbar/navbar.txt" %>
+<%@ include file="/ord_jsp/navbar/navbar.txt" %>
 	<!-- sub Navbar -->
 	<nav class="navbar bg-light navbar-light subNavbar justify-content-center">
 	  <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" id="btnBack">
@@ -93,7 +93,7 @@ if (vVO != null) {
 
 	 
 	</nav>
-<%@ include file="navbar/side_navbar.txt" %>	
+<%@ include file="/ord_jsp/navbar/side_navbar.txt" %>	
 	
 	<div class="container-fluid">
 		<div class="row  p-3">			
@@ -182,7 +182,7 @@ if (vVO != null) {
 	<script src="bootstrap/popper.min.js"></script>
 	<script src="bootstrap/bootstrap.min.js"></script>
 	
-<%@ include file="navbar/side_navbar_js.txt" %>
+<%@ include file="/ord_jsp/navbar/side_navbar_js.txt" %>
     <!-- reservation list -->
     <script type="text/javascript">
     	$(document).ready(function(){    		

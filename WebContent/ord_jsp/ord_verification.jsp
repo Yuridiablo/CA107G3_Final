@@ -29,7 +29,7 @@ if (vVO != null) {
 	<!-- jQuery UI CSS -->
     <link rel="stylesheet" href="bootstrap/jquery-ui.css">
     
-	<%@ include file="navbar/nav_css.txt" %>
+	<%@ include file="/ord_jsp/navbar/nav_css.txt" %>
 	
 	<style>
 	  .ui-autocomplete-loading {
@@ -45,8 +45,8 @@ if (vVO != null) {
 
   <!-- ============================================================================= -->
   <body>
-	<%@ include file="navbar/navbar.txt" %>
-	<%@ include file="navbar/side_navbar.txt" %>
+	<%@ include file="/ord_jsp/navbar/navbar.txt" %>
+	<%@ include file="/ord_jsp/navbar/side_navbar.txt" %>
 
 	<div class="container-fluid">
 	
@@ -112,7 +112,7 @@ if (vVO != null) {
     <!-- jQuery UI -->
 	<script src="bootstrap/jquery-ui.min.js"></script>
 	
-	<%@ include file="navbar/side_navbar_js.txt" %>
+	<%@ include file="/ord_jsp/navbar/side_navbar_js.txt" %>
     
 <script>
 $( function() {

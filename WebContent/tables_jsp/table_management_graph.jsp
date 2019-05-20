@@ -38,7 +38,7 @@ int tblWidth = 100;
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/tables_jsp/bootstrap/jquery-ui.css">
 	
-	<%@ include file="navbar/nav_css.txt" %>
+	<%@ include file="/ord_jsp/navbar/nav_css.txt" %>
 
 	<style type="text/css">
 
@@ -97,8 +97,8 @@ int tblWidth = 100;
 
   <!-- ============================================================================= -->
   <body>
-	<%@ include file="navbar/navbar.txt" %>
-	<%@ include file="navbar/side_navbar.txt" %>
+	<%@ include file="/ord_jsp/navbar/navbar.txt" %>
+	<%@ include file="/ord_jsp/navbar/side_navbar.txt" %>
 
 	<!-- Content -->
 	<div class="container-fluid">
@@ -358,7 +358,7 @@ int tblWidth = 100;
     <<!-- jQuery UI -->
 	<script src="<%=request.getContextPath()%>/tables_jsp/bootstrap/jquery-ui.min.js"></script>
 
-    <%@ include file="navbar/side_navbar_js.txt" %>
+    <%@ include file="/ord_jsp/navbar/side_navbar_js.txt" %>
 	
 	<!-- floorplan -->    
 	<script type="text/javascript">
