@@ -145,7 +145,7 @@ margin-right:60px;
       	
 	<c:if test="${(share1234 )==3}">
      <jsp:include page="/front-end/ord/share_sel.jsp" flush="true" />
-  	</c:if>
+  	</c:if>  
    </div>
    
 </div>
