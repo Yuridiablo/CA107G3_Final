@@ -133,8 +133,7 @@ public class VendorServlet extends HttpServlet {
 				
 				se.setAttribute("v_account", req.getParameter("v_account"));
 				se.setAttribute("vVO", vVO);
-				
-				String url = "/Vendor/mainVendor.jsp";
+				String url = "/Vendor/upVendor2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 				System.out.println(se.toString());
