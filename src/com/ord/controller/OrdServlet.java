@@ -1081,8 +1081,8 @@ public class OrdServlet extends HttpServlet {
 					      RedislService redisService =new RedislService();
 					      //存入redis
 					      redisService.insettotal("total", total);
-					      redisService.insertshare(share_mem_no1,amount );
-					      redisService.insertshare(share_mem_no2, amount);
+					      redisService.insertshare("ord"+share_mem_no1,amount);
+					      redisService.insertshare("ord"+share_mem_no2,amount);
 					      session.setAttribute("share_mem_no1", share_mem_no1);
 					      session.setAttribute("share_mem_no2", share_mem_no2);
 					      
@@ -1154,7 +1154,7 @@ public class OrdServlet extends HttpServlet {
 					String amount=req.getParameter("AMOUNT");
 					String share_mem_no1=req.getParameter("share_mem_no");
 					 RedislService redisService =new RedislService();
-					 redisService.insertshare(share_mem_no1, amount);
+					 redisService.insertshare("ord"+share_mem_no1, amount);
 					 
 					 //從redis取出total以及兩個分攤金額
 					 //11,22代表要付款的會員編號
@@ -1167,16 +1167,16 @@ public class OrdServlet extends HttpServlet {
 					 //取出share_amount2已經付的錢
 					 Integer share_amount1=0;
 					 Integer share_amount2=0;
-					 if(redisService.gettotal(share_mem_no11).length()==0) {
+					 if(redisService.gettotal("ord"+share_mem_no11).length()==0) {
 						  share_amount1=0;
 					 }else {
-						 share_amount1=Integer.parseInt((redisService.gettotal(share_mem_no11)));
+						 share_amount1=Integer.parseInt((redisService.gettotal("ord"+share_mem_no11)));
 					 }
 					 
-					 if(redisService.gettotal(share_mem_no22).equals("")) {
+					 if(redisService.gettotal("ord"+share_mem_no22).equals("")) {
 						share_amount2=0;
 					 }else {
-						  share_amount2=Integer.parseInt((redisService.gettotal(share_mem_no22)));
+						  share_amount2=Integer.parseInt((redisService.gettotal("ord"+share_mem_no22)));
 					 }
 
 					 //判斷兩個付款相加有沒有等於總共要付的款項
@@ -1249,9 +1249,9 @@ public class OrdServlet extends HttpServlet {
 						
 						dao.insertWithOrd_detail(ordVO,testList);
 						
-						redisService.removeshare(share_mem_no11);
-						redisService.removeshare(share_mem_no22);
-						redisService.removetotal(total);
+						redisService.removeshare("ord"+share_mem_no11);
+						redisService.removeshare("ord"+share_mem_no22);
+						redisService.removetotal("total");
 //						＝＝＝＝拿取會員姓名＝＝＝＝
 						MemberService memSvc=new MemberService();
 						MemberVO memVO=memSvc.getOneMember(mem_no);
