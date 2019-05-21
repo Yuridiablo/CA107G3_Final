@@ -209,6 +209,7 @@
             <label for="recipient-name" class="col-form-label">消息標題 :</label>
             <input type="text" class="form-control" placeholder="輸入消息標題" id="recipient-name"
             name="news_cont">
+            <input type="button" id="newsMsg">
           </div>
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">消息內文 :</label>
@@ -276,7 +277,10 @@
 			    $(this).find('.modal-body').css('max-height', height_body).css('overflow', 'auto');
 			});
 			
-
+			$("#newsMsg").on('click', function() {
+				$("#recipient-name").val("好吃大咖哩");
+				$(".newsInnerText").val("好吃大咖哩,天然食材加上精選醬料,吃過的都說讚,只要吃過一次保證你天天都會懷念這個好滋味,現在限時特價兩人同行還有優惠,優惠名額有限要來要快喔,好吃大咖哩等待您的光臨");
+			});
 		});
 		var loadFile = function(e) {
 			var output = document.getElementById('output');
