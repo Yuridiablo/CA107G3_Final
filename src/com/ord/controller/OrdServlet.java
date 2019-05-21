@@ -1071,7 +1071,7 @@ public class OrdServlet extends HttpServlet {
 					    		  "\r\n"+ 
 					    		  "請在2小時內完成付款，否則訂單不成立"; 
 					      
-					      System.out.println(URL);
+					      System.out.println(URL); 
 					      System.out.println(URL1);
 					      
 					      //拿到總數,以及兩個朋友應該分攤的金額redis
