@@ -1,3 +1,4 @@
+<%@page import="com.ord.controller.OrdVOn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
@@ -35,7 +36,11 @@ if (vVO != null) {
 	}
 		
 	OrdService ordService = new OrdService();
-	List<OrdVO> list = ordService.getAllVendorDate(vendor_no, new java.sql.Date(System.currentTimeMillis()));
+	List<OrdVO> list2 = ordService.getAllVendorDate(vendor_no, new java.sql.Date(System.currentTimeMillis()));
+	List<OrdVOn> list = new ArrayList<OrdVOn>();
+	for(int i = 0; i < list2.size(); i++) {
+		list.add(new OrdVOn(list2.get(i)));
+	}
 	pageContext.setAttribute("list", list);
 	
 	TablesService tablesService = new TablesService();
@@ -313,15 +318,15 @@ margin-left: 20px;
 				      <div class="card-body p-0" id="card-body<%= i %>">
 
 						<% 
-							List<OrdVO> newList = new ArrayList<>();
+							List<OrdVOn> newList = new ArrayList<>();
 							newList = list.stream()
 									.filter(e -> e.getParty_size() <= tblSize  && e.getParty_size() >= tblSize - 1)
-									.sorted(Comparator.comparing(OrdVO::getBooking_time))
+									.sorted(Comparator.comparing(OrdVOn::getBooking_time))
 									.collect(Collectors.toList());
 						%>
 						<% if (newList != null) { %>
 							<% for(int j = 0 ; j < newList.size(); j++) { %>
-								<% OrdVO ordVOa = newList.get(j); %>
+								<% OrdVOn ordVOa = newList.get(j); %>
 									<% if (ordVOa.getTbl_no() == null) { %>
 										<% 
 										java.util.Date bookingTime = null;
@@ -338,7 +343,7 @@ margin-left: 20px;
 				        <div class="cardOutline" id="<%= ordVOa.getOrd_no() %>" style="left: <%= left %>px;">		
 							<div class="cardLeft"><i class="material-icons">account_circle</i>	</div>
 							<div class="cardRight">
-								<div class="name"><%= ordVOa.getMem_no() %></div>
+								<div class="name"><%= ordVOa.getMem_name() %></div>
 								<div class="cardRBottom">	
 									<div class="partySize"><i class="material-icons">group</i>&nbsp;<span><%= ordVOa.getParty_size() %></span></div>
 									<div class="bookingTime"><i class="material-icons">access_time</i>&nbsp;<span><%= ordVOa.getBooking_time().substring(0,2).concat(":").concat(ordVOa.getBooking_time().substring(2,4)) %></span></div>
@@ -381,7 +386,7 @@ margin-left: 20px;
 	  					<% for(int i = 0; i < tblList.size(); i++) { %>
 							<div class="tblRow" id="<%= tblList.get(i).getTbl_no() %>">								
 								<% for(int j = 0 ; j < list.size(); j++) { %>
-									<% OrdVO ordVOa = list.get(j); %>
+									<% OrdVOn ordVOa = list.get(j); %>
 									<% if (tblList.get(i).getTbl_no().equals(ordVOa.getTbl_no())) { %>
 										<% 
 										java.util.Date bookingTime = null;
@@ -398,7 +403,7 @@ margin-left: 20px;
 						        <div class="cardOutline" id="<%= ordVOa.getOrd_no() %>" style="left: <%= left %>px;">		
 									<div class="cardLeft"><i class="material-icons">account_circle</i>	</div>
 									<div class="cardRight">
-										<div class="name"><%= ordVOa.getMem_no() %></div>
+										<div class="name"><%= ordVOa.getMem_name() %></div>
 										<div class="cardRBottom">	
 											<div class="partySize"><i class="material-icons">group</i>&nbsp;<span><%= ordVOa.getParty_size() %></span></div>
 											<div class="bookingTime"><i class="material-icons">access_time</i>&nbsp;<span><%= ordVOa.getBooking_time().substring(0,2).concat(":").concat(ordVOa.getBooking_time().substring(2,4)) %></span></div>
@@ -648,7 +653,7 @@ function getOrdByDate(date) {
 	    	
 	    	if (len != 0) {
 	    		for (var i = 0; i < len; i++) {
-	    			var newCard = mkCard(response[i].ord_no, response[i].mem_no, response[i].party_size, timeFmt(response[i].booking_time));
+	    			var newCard = mkCard(response[i].ord_no, response[i].mem_name, response[i].party_size, timeFmt(response[i].booking_time));
 	    			if (response[i].tbl_no) {
 	    				$("#" + response[i].tbl_no).append(newCard);
 	    			} else {

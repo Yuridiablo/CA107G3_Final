@@ -230,10 +230,12 @@ public class TablesServlet extends HttpServlet {
 					if (vendor_tbls != null) {
 						synchronized(vendor_tbls) {
 							for(int i = 0;  i < tbl_no_arr.length; i++) {
-								TablesVO tblVO = vendor_tbls.getTbls().get(tbl_no_arr[i]).getTblVO();
-								tblVO.setTbl_type(tbl_type_arr[i] == "" ? null: Integer.valueOf(tbl_type_arr[i]));
-								tblVO.setTbl_x(tbl_x_arr[i] == "" ? null: Integer.valueOf(tbl_x_arr[i]));
-								tblVO.setTbl_y(tbl_y_arr[i] == "" ? null: Integer.valueOf(tbl_y_arr[i]));
+								if (vendor_tbls.getTbls().get(tbl_no_arr[i]) != null) {
+									TablesVO tblVO = vendor_tbls.getTbls().get(tbl_no_arr[i]).getTblVO();
+									tblVO.setTbl_type(tbl_type_arr[i] == "" ? null: Integer.valueOf(tbl_type_arr[i]));
+									tblVO.setTbl_x(tbl_x_arr[i] == "" ? null: Integer.valueOf(tbl_x_arr[i]));
+									tblVO.setTbl_y(tbl_y_arr[i] == "" ? null: Integer.valueOf(tbl_y_arr[i]));
+								}
 							}
 						}				
 					} else {
