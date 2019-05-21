@@ -961,7 +961,7 @@ public class OrdServlet extends HttpServlet {
 					 String share_mem_no=null;
 					 String share_mem_no1=null; 
 					 String share_mem_no2=null;
-				try {
+//				try {
 					 if( (req.getParameterValues("share_mem_no")==null)&&(req.getParameterValues("share_amount")==null)) {
 						 java.sql.Date booking_date=null;
 							try {
@@ -1097,12 +1097,12 @@ public class OrdServlet extends HttpServlet {
 							RequestDispatcher rd = req.getRequestDispatcher(url);
 							rd.forward(req, res);
 //					      
-				 } catch (Exception e) {
-						errorMsgs.add("請輸入正確資訊:" + e.getMessage());
-						RequestDispatcher failureView = req
-								.getRequestDispatcher("/front-end/ord/checkout.jsp");
-						failureView.forward(req, res);
-					}
+//				 } catch (Exception e) {
+//						errorMsgs.add("請輸入正確資訊:" + e.getMessage());
+//						RequestDispatcher failureView = req
+//								.getRequestDispatcher("/front-end/ord/checkout.jsp");
+//						failureView.forward(req, res);
+//					}
 	}
 				 
 				 
@@ -1149,11 +1149,14 @@ public class OrdServlet extends HttpServlet {
 				 
 				 	//繳費後檢查是否分攤好友皆有完成
 				 if("share_pay".equals(action)) { 
+					 System.out.println("shar_pay===有");
 //					 String share_mem_no1=(String) session.getAttribute("share_mem_no1");
 					 
 					//取得付款的人以及金額並且存進redis
 					String amount=req.getParameter("AMOUNT");
+					System.out.println("amount==="+amount);
 					String share_mem_no1=req.getParameter("share_mem_no");
+					System.out.println("share_mem_no1==="+share_mem_no1);
 					 RedislService redisService =new RedislService();
 					 redisService.insertshare("ord"+share_mem_no1, amount);
 					 
@@ -1163,7 +1166,9 @@ public class OrdServlet extends HttpServlet {
 					String share_mem_no22=(String) session.getAttribute("share_mem_no2");
 					//總共要付的金額
 					 String total=(redisService.gettotal("total"));//此時是字串
-					 Integer total1=(int)(Double.parseDouble(total));//此時是Integer
+					 System.out.println("total====="+total);
+					 Integer total1=(Integer.parseInt(total));//此時是Integer
+					 System.out.println("total1===="+total1);
 					 //取出share_amount1已經付的錢
 					 //取出share_amount2已經付的錢
 					 Integer share_amount1=0;
