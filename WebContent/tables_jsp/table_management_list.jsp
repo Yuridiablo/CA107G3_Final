@@ -183,7 +183,10 @@ pageContext.setAttribute("list", list);
 
 			<!-- Edit Tables -->
 			<div class="col-3 bg-light">
-				<form id="editTableForm" method="post" action="<%=request.getContextPath()%>/tables/tables.do">
+				<div id="non-edit" style="font-size:25px;">
+					請選擇桌位以編輯
+				</div>
+				<form style="display:none" id="editTableForm" method="post" action="<%=request.getContextPath()%>/tables/tables.do">
 					<legend>編輯桌位</legend>
 
 					<!-- Table Name / Prefix -->
@@ -265,7 +268,8 @@ pageContext.setAttribute("list", list);
 
             // 修改資料
             $(".tblObj").on('click', function() {
-            	
+            	$("#non-edit").hide();
+            	$("#editTableForm").show();
             	var tbl_name = $(this).children('input[name="tbl_name"]').val();
             	$("#editTableForm").find('input[name="tbl_name"]').val(tbl_name);
             	

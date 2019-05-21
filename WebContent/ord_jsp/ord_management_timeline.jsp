@@ -287,7 +287,7 @@ margin-left: 20px;
 		<div class="outer">
 			<!-- Ord List -->
 			<div class="bg-light divLeft">
-				<div id="accordion" class="ordList">
+				<div id="accordion" class="ordList" style="overflow-y:auto">
 				
 				
 				<% for(int i = 1; i <=5; i++) { %>

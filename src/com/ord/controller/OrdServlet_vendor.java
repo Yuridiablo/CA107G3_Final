@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,9 +47,12 @@ public class OrdServlet_vendor extends HttpServlet {
 			long date = Long.parseLong(req.getParameter("date"));
 			OrdService ordService = new OrdService();
 			List<OrdVO> list = ordService.getAllVendorDate(vendor_no, new java.sql.Date(date));
-			
+			List<OrdVOn> list2 = new LinkedList<OrdVOn>();
+			for(int i = 0; i < list.size(); i++) {
+				list2.add(new OrdVOn(list.get(i)));
+			}
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			String jsonStr = gson.toJson(list);
+			String jsonStr = gson.toJson(list2);
 			out.println(jsonStr);			
 		}
 		
@@ -188,7 +192,9 @@ public class OrdServlet_vendor extends HttpServlet {
 				result = "訂單桌位修改成功";
 				status = 1;
 			} catch (Exception e) {
-				result = "訂單桌位修改失敗:"+e.getMessage();
+				String emsg = e.getMessage();
+				if (emsg.contains("ORA-00001")) emsg = "該時段已安排訂單";
+				result = "訂單桌位修改失敗: "+emsg;
 				status = 0;
 			}
 			

@@ -1,3 +1,7 @@
+<%@page import="com.tables.model.TablesVO"%>
+<%@page import="com.member.model.MemberVO"%>
+<%@page import="com.tables.model.TablesService"%>
+<%@page import="com.member.model.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>      
@@ -115,19 +119,35 @@ if (vVO != null) {
 					  </thead>
 					  <tbody>
 <% if (list.size() != 0) { %>				  
-<c:forEach var="ordVO" items="${list}">					  
+<%-- <c:forEach var="ordVO" items="${list}"> --%>
+<%
+MemberService ms = new MemberService();
+TablesService ts = new TablesService();
+%>
+<% for (int i = 0; i < list.size(); i++) { 
+	OrdVO ordVO = list.get(i);
+	MemberVO memVO = ms.getOneMember(ordVO.getMem_no());
+	TablesVO tblVO = ts.getOneTables(ordVO.getTbl_no());
+	String tblName = null;
+	if (ordVO.getTbl_no() == null) {
+		tblName = "";
+	} else {
+		tblName = tblVO.getTbl_name();
+	}
+	%>				  
 					    <tr>
-					      <input type="hidden" name="ord_no" value="${ordVO.ord_no}">					      
-					      <td>${OrdFmt.OrdStatus(ordVO.status)}</td>
-					      <td>${ordVO.ord_no}</td>
-					      <td>${ordVO.mem_no}</td>
-					      <td>${ordVO.party_size}</td>
-					      <td>${ordVO.booking_date}</td>	
-					      <td>${ordVO.booking_time.substring(0,2).concat(":").concat(ordVO.booking_time.substring(2,4)) }</td>
-					      <td>${ordVO.total}</td>
-					      <td>${ordVO.tbl_no}</td>						     
+					      <input type="hidden" name="ord_no" value="<%= ordVO.getOrd_no()%>">					      
+					      <td><%= OrdFmt.OrdStatus(ordVO.getStatus())%></td>
+					      <td><%= ordVO.getOrd_no()%></td>
+					      <td><%= memVO.getMem_name() %></td>
+					      <td><%= ordVO.getParty_size()%></td>
+					      <td><%= ordVO.getBooking_date()%></td>	
+					      <td><%= ordVO.getBooking_time().substring(0,2).concat(":").concat(ordVO.getBooking_time().substring(2,4)) %></td>
+					      <td><%= ordVO.getTotal()%></td>
+					      <td><%= tblName%></td>						     
 					    </tr>
-</c:forEach>
+<% } %>
+<%-- </c:forEach> --%>
 <% } else { %>
 						<tr>
 					      <td colspan="6">查無資料</td>						     
@@ -369,12 +389,12 @@ $(document).ready(function(){
 							      "<input type='hidden' name='ord_no' value='" + response[i].ord_no + "'>" +				      
 							      "<td>" + OrdStatus(response[i].status) + "</td>" +
 							      "<td>" + response[i].ord_no + "</td>" +
-							      "<td>" + response[i].mem_no + "</td>" +
+							      "<td>" + response[i].mem_name + "</td>" +
 							      "<td>" + response[i].party_size + "</td>" +
 							      "<td>" + response[i].booking_date + "</td>" +	
 							      "<td>" + timeFmt(response[i].booking_time) + "</td>" +
 							      "<td>" + response[i].total + "</td>" +
-							      "<td>" + response[i].tbl_no + "</td>" +
+							      "<td>" + response[i].tbl_name + "</td>" +
 							    "</tr>" 		 			
 		    		 		);
 				    	}
