@@ -95,6 +95,7 @@
     	text-align:center;
     	border-radius: 10px;
     	font-size: 25px;
+    	color: #FFF;
     }
     </style>
 </head>
@@ -651,12 +652,14 @@
     	
     	$("#logoutButton").hide();
     	$("#navbarDropdownMenuLink2").hide();
+    	$("#topBarForMem_name").hide();
     	
     	if(${account!=null}){
 			$("#addButton").hide();
         	$("#loginButton").hide();
         	$("#logoutButton").show();
         	$("#navbarDropdownMenuLink2").show();
+        	$("#topBarForMem_name").show();
     	}
     	
     	$(".img-center").on('click',function(){

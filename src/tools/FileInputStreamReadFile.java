@@ -19,7 +19,7 @@ public class FileInputStreamReadFile {
 	private static final String PASSWORD = "123456";
 	private static final String INSERT_MEM_PIC = "UPDATE MEMBER SET MEM_PIC=? WHERE MEM_NO = ?";
 	private static final String INSERT_NEWS_PIC = "UPDATE NEWS SET NEWS_PIC=? WHERE NEWS_NO = ?";
-	private static final String INSERT_MENU_PIC = "UPDATE RESTAURANT_MENU SET MENU_PIC=? WHERE MENU_NO = ?";
+	private static final String INSERT_MENU_PIC = "UPDATE RESTAURANT_MENU SET MENU_PIC=? WHERE MENU_NAME = ?";
 	
 	
 	public static void main(String args[]) throws IOException {
