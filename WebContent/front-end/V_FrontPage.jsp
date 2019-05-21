@@ -221,6 +221,7 @@ font-size:30px;
                     <input type="hidden" name="action" value="login">
                     		<div class="col-12 d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary d-flex justify-content-center" id="submit">登入 Login</button>
+                    <button id="autoWrite" type="button" style="height:10px;"></button>
                     </div>
            
         
@@ -302,6 +303,15 @@ font-size:30px;
     	    })
     </script>
 	</c:if>
+	
+	<script>
+	$("#autoWrite").click(function(){
+		$("#v_account").val("V123456");
+		$("#v_pwd").val("V123456");
+		
+	});
+	
+	</script>
 </body>
 
 </html>
