@@ -77,14 +77,46 @@ public class TablesServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				TablesService tablesService = new TablesService();
+//				if (tbl_number == 1) {
+//					TablesVO tablesVO = tablesService.addTables(vendor_no, tbl_name, tbl_size, null, null, null);
+//				} else {
+//					for (int i = 1; i <= tbl_number; i++) {
+//						TablesVO tablesVO = tablesService.addTables(vendor_no, tbl_name + i, tbl_size, null, null, null);
+//					}
+//				}
+				// 修改 記憶體裡的桌位資料
+				Map<String, Tbls> tbls_all = (Map) getServletContext().getAttribute("tbls_all");
+				Tbls vendor_tbls = null;
+				if (tbls_all != null) 
+					 vendor_tbls = (Tbls) tbls_all.get(vendor_no);
+				
 				if (tbl_number == 1) {
-					TablesVO tablesVO = tablesService.addTables(vendor_no, tbl_name, tbl_size, null, null, null);
+					Map map1 = tablesService.addTables2(vendor_no, tbl_name, tbl_size, null, null, null);
+					if (vendor_tbls != null) {
+						synchronized(vendor_tbls) {							
+							TablesVO tblVO = (TablesVO) map1.get("tblVO");
+							String tbl_no = (String) map1.get("tbl_no");
+							Tbl tbl = new Tbl(tblVO);
+							vendor_tbls.getTbls().put(tbl_no, tbl);
+
+						}				
+					} 
 				} else {
 					for (int i = 1; i <= tbl_number; i++) {
-						TablesVO tablesVO = tablesService.addTables(vendor_no, tbl_name + i, tbl_size, null, null, null);
+						Map map2 = tablesService.addTables2(vendor_no, tbl_name + i, tbl_size, null, null, null);
+						if (vendor_tbls != null) {
+							synchronized(vendor_tbls) {							
+								TablesVO tblVO = (TablesVO) map2.get("tblVO");
+								String tbl_no = (String) map2.get("tbl_no");
+								Tbl tbl = new Tbl(tblVO);
+								vendor_tbls.getTbls().put(tbl_no, tbl);
+
+							}				
+						} 
 					}
 				}
 				
+			
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/tables_jsp/table_management_list.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp

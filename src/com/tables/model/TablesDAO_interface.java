@@ -4,6 +4,7 @@ import java.util.*;
 
 public interface TablesDAO_interface {
 	public void insert(TablesVO tablesVO);
+	public String insert2(TablesVO tablesVO);
     public void update(TablesVO tablesVO);
     public void updateBasic(TablesVO tablesVO);
     public void updateAxis(TablesVO tablesVO);

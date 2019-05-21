@@ -24,7 +24,7 @@ if (vVO != null) {
 	VendorService vendorService = new VendorService();
 	VendorVO vendorVO = vendorService.findByPK(vendor_no);
 	
-	int stime = Integer.parseInt(vendorVO.getV_start_time().substring(0,2));
+	int stime = Integer.parseInt(vendorVO.getV_start_time().substring(0,2)); // null bug
 	int etime = Integer.parseInt(vendorVO.getV_end_time().substring(0,2));
 	
 	SimpleDateFormat format = new SimpleDateFormat("HHmm");

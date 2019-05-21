@@ -1,6 +1,8 @@
 package com.tables.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.tables.model.TablesDAO_interface;
 import com.tables.model.TablesDAO;
@@ -26,7 +28,22 @@ public class TablesService {
 		
 		 
 	}
-
+	public Map addTables2(String vendor_no, String tbl_name, Integer tbl_size, Integer tbl_type, Integer tbl_x, Integer tbl_y) {
+		TablesVO tablesVO = new TablesVO();
+		tablesVO.setVendor_no(vendor_no);
+		tablesVO.setTbl_name(tbl_name);
+		tablesVO.setTbl_size(tbl_size);
+		tablesVO.setTbl_type(tbl_type);
+		tablesVO.setTbl_x(tbl_x);
+		tablesVO.setTbl_y(tbl_y);
+		String next_tblno = dao.insert2(tablesVO);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tbl_no", next_tblno);
+		map.put("tblVO", tablesVO);
+		return map;
+		
+		 
+	}
 	public TablesVO updateTables(String tbl_no, String vendor_no, String tbl_name, Integer tbl_size, Integer tbl_type, Integer tbl_x, Integer tbl_y) {
 		TablesVO tablesVO = new TablesVO();
 		tablesVO.setTbl_no(tbl_no);

@@ -82,9 +82,9 @@ public class Bill {
 		this.mem_no = pil.getMem_no();
 		this.party_size = pil.getParty_size();
 		this.bill_items = new LinkedHashMap<String, Bill_item>();
-		MemberService ms = new MemberService();
-		MemberVO memVO = ms.getOneMember(mem_no);
-		this.mem_name = memVO.getMem_name();
+//		MemberService ms = new MemberService();
+//		MemberVO memVO = ms.getOneMember(mem_no);
+		this.mem_name = pil.getMem_name();
 	}
 	
 

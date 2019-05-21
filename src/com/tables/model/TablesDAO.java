@@ -42,7 +42,6 @@ public class TablesDAO implements TablesDAO_interface {
 	public void insert(TablesVO tablesVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
 		try {
 
 			con = ds.getConnection();
@@ -70,14 +69,17 @@ public class TablesDAO implements TablesDAO_interface {
 				pstmt.setNull(6, java.sql.Types.INTEGER);
 			}
 			
-			pstmt.executeUpdate();
 
+			pstmt.executeUpdate();
+			
+			
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
+		
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -93,8 +95,83 @@ public class TablesDAO implements TablesDAO_interface {
 				}
 			}
 		}
+//		return next_tblno;
 	}
+	@Override
+	public String insert2(TablesVO tablesVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String next_tblno = null;		
+		try {
+			System.out.println("hi");
+			con = ds.getConnection();
+			
+			String cols[] = { "TBL_NO" };
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
 
+			pstmt.setString(1, tablesVO.getVendor_no());
+			pstmt.setString(2, tablesVO.getTbl_name());
+			pstmt.setInt(3, tablesVO.getTbl_size());
+			
+			if (tablesVO.getTbl_type() != null) {
+				pstmt.setInt(4, tablesVO.getTbl_type());
+			} else {
+				pstmt.setNull(4, java.sql.Types.INTEGER);
+			}
+			
+			if (tablesVO.getTbl_x() != null) {
+				pstmt.setInt(5, tablesVO.getTbl_x());
+			} else {
+				pstmt.setNull(5, java.sql.Types.INTEGER);
+			}
+			
+			if (tablesVO.getTbl_y() != null) {
+				pstmt.setInt(6, tablesVO.getTbl_y());
+			} else {
+				pstmt.setNull(6, java.sql.Types.INTEGER);
+			}
+			
+
+			pstmt.executeUpdate();
+			rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				next_tblno = rs.getString(1);
+//				System.out.println("自增主鍵值 = " + next_tblno + "(剛新增成功的桌位編號)");
+			} else {
+//				System.out.println("未取得自增主鍵值");
+			}
+			
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return next_tblno;
+	}
 	@Override
 	public void update(TablesVO tablesVO) {
 		Connection con = null;
