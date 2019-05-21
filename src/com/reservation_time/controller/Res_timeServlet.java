@@ -195,7 +195,7 @@ public class Res_timeServlet extends HttpServlet {
 			}
 			 
 			System.out.println("執行玩了");
-			String url = "/Vendor/mainVendor.jsp";
+			String url = "/Vendor/upVendor2.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
