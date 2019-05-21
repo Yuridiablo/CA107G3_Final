@@ -49,6 +49,78 @@ public class OrdVOn {
 		}		
 		this.tbl_name = tblName;
 	}
+	public String getOrd_no() {
+		return ord_no;
+	}
+	public void setOrd_no(String ord_no) {
+		this.ord_no = ord_no;
+	}
+	public String getMem_no() {
+		return mem_no;
+	}
+	public void setMem_no(String mem_no) {
+		this.mem_no = mem_no;
+	}
+	public String getMem_name() {
+		return mem_name;
+	}
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
+	public String getVendor_no() {
+		return vendor_no;
+	}
+	public void setVendor_no(String vendor_no) {
+		this.vendor_no = vendor_no;
+	}
+	public String getTbl_no() {
+		return tbl_no;
+	}
+	public void setTbl_no(String tbl_no) {
+		this.tbl_no = tbl_no;
+	}
+	public String getTbl_name() {
+		return tbl_name;
+	}
+	public void setTbl_name(String tbl_name) {
+		this.tbl_name = tbl_name;
+	}
+	public Integer getParty_size() {
+		return party_size;
+	}
+	public void setParty_size(Integer party_size) {
+		this.party_size = party_size;
+	}
+	public java.sql.Date getBooking_date() {
+		return booking_date;
+	}
+	public void setBooking_date(java.sql.Date booking_date) {
+		this.booking_date = booking_date;
+	}
+	public String getBooking_time() {
+		return booking_time;
+	}
+	public void setBooking_time(String booking_time) {
+		this.booking_time = booking_time;
+	}
+	public Integer getTotal() {
+		return total;
+	}
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+	public String getVerif_code() {
+		return verif_code;
+	}
+	public void setVerif_code(String verif_code) {
+		this.verif_code = verif_code;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	
 }
