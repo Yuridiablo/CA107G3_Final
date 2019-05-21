@@ -20,10 +20,25 @@ if (vVO != null) {
 } else {
 	vendor_no = request.getParameter("vendor_no");
 }
-	
 	VendorService vendorService = new VendorService();
 	VendorVO vendorVO = vendorService.findByPK(vendor_no);
 	
+	String sTimeStr = vendorVO.getV_start_time();
+	String eTimeStr = vendorVO.getV_end_time();
+%>
+
+
+<%
+if ( sTimeStr == null || eTimeStr == null || "0".equals(sTimeStr.trim()) || "0".equals(eTimeStr.trim())) { 
+	String url = "/ord_jsp/ord_management_timeline2.jsp";
+	RequestDispatcher successView = request.getRequestDispatcher(url);
+	successView.forward(request, response);	
+	return;
+ } 
+%>
+
+
+<%	
 	int stime = Integer.parseInt(vendorVO.getV_start_time().substring(0,2)); // null bug
 	int etime = Integer.parseInt(vendorVO.getV_end_time().substring(0,2));
 	

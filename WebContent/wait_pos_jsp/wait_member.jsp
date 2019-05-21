@@ -3,7 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ page import="java.util.*" %>
     
-    
+ <% 
+
+
+
+%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +15,9 @@
 <title>wait_member</title>
 </head>
 <body>
+
+
+
 
 <form action="<%=request.getContextPath()%>/wait_pos/wait_pos.do">
 
