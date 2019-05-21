@@ -132,7 +132,7 @@ $( function() {
 			    success: function(data) {
 			    	response($.map(data, function(item){
 			    		return {
-			    			label: item.ord_no + " | "+ item.mem_no + " | "+ item.verif_code,
+			    			label: item.ord_no + " | "+ item.mem_name + " | "+ item.verif_code,
 			    			value: item.verif_code
 			    		};
 			    	}));
@@ -203,12 +203,12 @@ function showOrd(response) {
 		      "<input type='hidden' name='ord_no' value='" + response.ord_no + "'>" +				      
 		      "<td>" + OrdStatus(response.status) + "</td>" +
 		      "<td>" + response.ord_no + "</td>" +
-		      "<td>" + response.mem_no + "</td>" +
+		      "<td>" + response.mem_name + "</td>" +
 		      "<td>" + response.party_size + "</td>" +
 		      "<td>" + response.booking_date + "</td>" +	
 		      "<td>" + timeFmt(response.booking_time) + "</td>" +
 		      "<td>" + response.total + "</td>" +
-		      "<td>" + response.tbl_no + "</td>" +					     
+		      "<td>" + response.tbl_name + "</td>" +					     
 		    "</tr>" 		 			
 		);    	
 	} else {
@@ -224,7 +224,7 @@ function showOrdDetail(response) {
 	if (len != 0) {
 		for (var i = 0; i < len; i++) {
     		$(odTbody).append(
-	 			"<tr><td>"+response[i].menu_no+"</td><td>"+response[i].qty+"</td><td>"+response[i].price+"</td></tr>" 		 			
+	 			"<tr><td>"+response[i].menu_name+"</td><td>"+response[i].qty+"</td><td>"+response[i].price+"</td></tr>" 		 			
 	 		);
     	}  	
 	} else {

@@ -19,6 +19,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.ord.model.OrdService;
 import com.ord.model.OrdVO;
+import com.ord_detail.controller.OdVOn;
 import com.ord_detail.model.Order_DetailService;
 import com.ord_detail.model.Order_DetailVO;
 import com.tables.controller.Bill;
@@ -61,9 +62,12 @@ public class OrdServlet_vendor extends HttpServlet {
 			String verif_code = req.getParameter("verif_code");
 			OrdService ordService = new OrdService();
 			List<OrdVO> list = ordService.getAllVendorVerif(vendor_no, verif_code);
-			
+			List<OrdVOn> list2 = new LinkedList<OrdVOn>();
+			for(int i = 0; i < list.size(); i++) {
+				list2.add(new OrdVOn(list.get(i)));
+			}			
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-			String jsonStr = gson.toJson(list);
+			String jsonStr = gson.toJson(list2);
 			out.println(jsonStr);
 		}
 		
@@ -73,13 +77,18 @@ public class OrdServlet_vendor extends HttpServlet {
 			
 			OrdService ordService = new OrdService();
 			OrdVO ordVO = ordService.getOneOrdVerif(vendor_no, verif_code);
+			OrdVOn ordVOn = new OrdVOn(ordVO);
 			
 			Order_DetailService ord_DetailService = new Order_DetailService();
 			List<Order_DetailVO> list =  ord_DetailService.findbyOrd_no(ordVO.getOrd_no());
+			List<OdVOn> list2 = new LinkedList<OdVOn>();
+			for (int i = 0; i < list.size(); i++) {
+				list2.add(new OdVOn(list.get(i)));
+			}			
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 				
-			JsonElement jeOrd = gson.toJsonTree(ordVO);
-			JsonElement jeOrdDetail = gson.toJsonTree(list);
+			JsonElement jeOrd = gson.toJsonTree(ordVOn);
+			JsonElement jeOrdDetail = gson.toJsonTree(list2);
 			
 			JsonObject joOrdAll = new JsonObject();
 			joOrdAll.add("ord", jeOrd);
