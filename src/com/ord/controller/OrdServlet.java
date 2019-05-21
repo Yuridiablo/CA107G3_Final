@@ -961,7 +961,7 @@ public class OrdServlet extends HttpServlet {
 					 String share_mem_no=null;
 					 String share_mem_no1=null; 
 					 String share_mem_no2=null;
-//				try {
+				try {
 					 if( (req.getParameterValues("share_mem_no")==null)&&(req.getParameterValues("share_amount")==null)) {
 						 java.sql.Date booking_date=null;
 							try {
@@ -1097,12 +1097,12 @@ public class OrdServlet extends HttpServlet {
 							RequestDispatcher rd = req.getRequestDispatcher(url);
 							rd.forward(req, res);
 //					      
-//				 } catch (Exception e) {
-//						errorMsgs.add("請輸入正確資訊:" + e.getMessage());
-//						RequestDispatcher failureView = req
-//								.getRequestDispatcher("/front-end/ord/checkout.jsp");
-//						failureView.forward(req, res);
-//					}
+				 } catch (Exception e) {
+						errorMsgs.add("請輸入正確資訊:" + e.getMessage());
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/front-end/ord/checkout.jsp");
+						failureView.forward(req, res);
+					}
 	}
 				 
 				 
@@ -1246,16 +1246,20 @@ public class OrdServlet extends HttpServlet {
 							Order_DetailVO.setPrice(Integer.parseInt(RVO.getMenu_price()));
 							Order_DetailVO.setQty(RVO.getQuantity());
 							testList.add(Order_DetailVO);
+							
+							
 						}
 						
 						OrdVO ordVO2=dao.insertWithOrd_detail(ordVO,testList);
 						ordVO.setOrd_no(ordVO2.getOrd_no());
 						
-						//進廠商錢包
+						//進廠商明細
 						RES_Transaction_ListService rtlSvc=new RES_Transaction_ListService();
 						Double amountt=Double.parseDouble(total);
 						rtlSvc.addList(vendor_no, amountt, ordVO2.getOrd_no(), 1);
-						
+						//進廠商錢包
+						VendorService vSvc=new VendorService();
+						vSvc.upWallet(total, vendor_no);
 						
 						redisService.removeshare("ord"+share_mem_no11);
 						redisService.removeshare("ord"+share_mem_no22);
@@ -1412,10 +1416,14 @@ public class OrdServlet extends HttpServlet {
 							OrdVO ordVO2=dao.insertWithOrd_detail(ordVO,testList);
 									ordVO.setOrd_no(ordVO2.getOrd_no());
 									
-									//進廠商錢包
+									//進廠商明細
 									RES_Transaction_ListService rtlSvc=new RES_Transaction_ListService();
 									Double amountt=total.doubleValue();
 									rtlSvc.addList(vendor_no, amountt, ordVO2.getOrd_no(), 1);
+									//進廠商錢包金額
+									String v_wallet=String.valueOf(total);
+									VendorService vSvc=new VendorService();
+									vSvc.upWallet(v_wallet, vendor_no);
 									
 							System.out.println("ordVO2.getOrd_no()==="+ordVO2.getOrd_no());
 //							
@@ -1599,9 +1607,14 @@ public class OrdServlet extends HttpServlet {
 							mwlVO.setPay_for(ordVO2.getOrd_no());
 							
 							
-							//進廠商錢包
+							//進廠商明細
 							RES_Transaction_ListService rtlSvc=new RES_Transaction_ListService();
 							Double amountt=total.doubleValue();
+							
+							//進廠商錢包金額
+							String v_wallet=String.valueOf(total);
+							VendorService vSvc=new VendorService();
+							vSvc.upWallet(v_wallet, vendor_no);
 							rtlSvc.addList(vendor_no, amountt, ordVO2.getOrd_no(), 1);
 						mwlSvc.insertwithord(mem_no, list_wit, list_stat, ordVO2.getOrd_no());
 //								String menu_no = (String) session.getAttribute("menu_no");
