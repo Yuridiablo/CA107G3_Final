@@ -7,7 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Timer;
 
-
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
+import com.ord.controller.OrdVOn;
 import com.ord.model.OrdVO;
 import com.ord_detail.model.Order_DetailService;
 import com.ord_detail.model.Order_DetailVO;
@@ -31,7 +33,16 @@ public class Bill {
 	// ----------------------
 //	MemberVO
 	String mem_no;
+	String mem_name;
 	
+	public String getMem_name() {
+		return mem_name;
+	}
+
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
+
 	// from 訂位
 	public Bill(OrdVO ordVO) {
 		this.source = 1;
@@ -59,6 +70,9 @@ public class Bill {
 		for(Order_DetailVO odVO: odList) {
 			this.bill_items.put(odVO.getMenu_no(), new Bill_item(odVO));
 		}
+		
+		OrdVOn oVO2 = new OrdVOn(ordVO);
+		this.mem_name = oVO2.getMem_name();
 	}
 	
 	// from 候位
@@ -67,7 +81,10 @@ public class Bill {
 		this.status = 0;
 		this.mem_no = pil.getMem_no();
 		this.party_size = pil.getParty_size();
-		this.bill_items = new LinkedHashMap<String, Bill_item>(); 		
+		this.bill_items = new LinkedHashMap<String, Bill_item>();
+		MemberService ms = new MemberService();
+		MemberVO memVO = ms.getOneMember(mem_no);
+		this.mem_name = memVO.getMem_name();
 	}
 	
 

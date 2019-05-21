@@ -275,7 +275,7 @@ int hrWidth = 220;
 			</div>
 			<div class="cardRight">
 				<div class="cardRTop">
-					<div class="name"> <%= bill.getMem_no()==null ? "Anonymous" : bill.getMem_no() %></div>
+					<div class="name"> <%= bill.getMem_no()==null ? "Anonymous" : bill.getMem_name() %></div>
 					<div class="tblName"> <%= bill.getTbl_no()==null ? "" : tbls.get(bill.getTbl_no()).getTblVO().getTbl_name() %> </div>
 				</div>	
 				<div class="cardRBottom">
