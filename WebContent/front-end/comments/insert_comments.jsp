@@ -17,6 +17,9 @@
 	.rating input {
     -webkit-appearance:none;
 }
+#message{
+	width:700px;
+}
 	
 </style>
 <style>
@@ -93,8 +96,8 @@ width:220%;
 						</div>
                                   
                
-                <textarea class="form-control input-sm " type="textarea" name="cmnt" id="message" placeholder="Message" maxlength="140" rows="7"></textarea>
-                    <span class="help-block"><p id="characterLeft" class="help-block "></p></span>                    
+                <textarea class="form-control input-sm " type="textarea" name="cmnt" id="message" placeholder="Message" maxlength="140" rows="4"></textarea>
+                    <span class="help-block"></span>                    
             </div>  
              
             
