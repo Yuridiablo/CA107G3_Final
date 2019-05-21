@@ -237,6 +237,7 @@ TablesService ts = new TablesService();
 			    dataType: "json",
 			    ord_no : $(ord_row).find("input[name=ord_no]").val(),
 			    success: function(response) {
+			    	console.log(response);
 			    	var spanOrd_no = $("#order-detail-list caption span.ord_no");
 			    	$(spanOrd_no).empty();
 			    	$(spanOrd_no).append(" (" + this.ord_no + ")");
@@ -246,7 +247,7 @@ TablesService ts = new TablesService();
 			    	if (len != 0) {
 			    		for (var i = 0; i < len; i++) {
 				    		$(odTbody).append(
-		    		 			"<tr><td>"+response[i].menu_no+"</td><td>"+response[i].qty+"</td><td>"+response[i].price+"</td></tr>" 		 			
+		    		 			"<tr><td>"+response[i].menu_name+"</td><td>"+response[i].qty+"</td><td>"+response[i].price+"</td></tr>" 		 			
 		    		 		);
 				    	}  	
 			    	} else {

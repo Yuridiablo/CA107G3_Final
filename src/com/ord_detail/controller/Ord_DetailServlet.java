@@ -31,7 +31,7 @@ public class Ord_DetailServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
+		res.setCharacterEncoding("UTF-8");
 		
 	
 		
@@ -199,8 +199,12 @@ public class Ord_DetailServlet extends HttpServlet {
 				String ord_no = req.getParameter("ord_no");
 				Order_DetailService ord_DetailService = new Order_DetailService();
 				List<Order_DetailVO> list =  ord_DetailService.findbyOrd_no(ord_no);
+				List<OdVOn> list2 = new LinkedList<OdVOn>();
+				for (int i = 0; i < list.size(); i++) {
+					list2.add(new OdVOn(list.get(i)));
+				}
 				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-				String jsonStr = gson.toJson(list);
+				String jsonStr = gson.toJson(list2);
 				out.println(jsonStr);			
 			}
 			
