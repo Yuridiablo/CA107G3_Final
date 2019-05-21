@@ -381,10 +381,10 @@ margin-top:0%;
 
 		$("#magic").on('click', function() {
 			$("#v_name").val("大衛海鮮");
-			$("#v_account").val("eeeeee");
-			$("#v_pwd").val("555555");
-			$("#v_pwd_confirm").val("555555");
-			$("#v_mail").val("adttyyuunnfasf@afsfsaf");
+			$("#v_account").val("V123456");
+			$("#v_pwd").val("V123456");
+			$("#v_pwd_confirm").val("V123456");
+			$("#v_mail").val("seafood@foodtable.com");
 			$("#v_n_code").val("02");
 			$("#v_tel").val("33344455");
 			$("#v_address1").val("新北市");

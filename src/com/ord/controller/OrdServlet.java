@@ -1049,7 +1049,7 @@ public class OrdServlet extends HttpServlet {
 					
 						
 						
-						  String  URL= "http://localhost:8081/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
+						  String  URL= "http://34.80.101.33:8081/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no1+"&amount="+share_amount1+"&name="+name;
 						  String subject = "請點擊付款";
 					      String messageText = "Hello! " + name + 
 					    		  " 您的好友已完成訂位及選購餐點 ，您需要支付的金額為"
@@ -1060,7 +1060,7 @@ public class OrdServlet extends HttpServlet {
 					    		  "\r\n"+ 
 					    		  "請在2小時內完成付款，否則訂單不成立"; 
 					      
-					      String  URL1= "http://localhost:8081/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no2+"&amount="+share_amount2+"&name1="+name1;
+					      String  URL1= "http://34.80.101.33:8081/CA107G3/front-end/ord/share_pay1.jsp?mem_no="+share_mem_no2+"&amount="+share_amount2+"&name1="+name1;
 						  String subject1 = "請點擊付款";
 					      String messageText1= "Hello! " + name1 + 
 					    		  " 您的好友已完成訂位及選購餐點 ，您需要支付的金額為"
