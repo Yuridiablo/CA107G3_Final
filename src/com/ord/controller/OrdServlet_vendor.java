@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +19,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.ord.model.OrdDAO;
 import com.ord.model.OrdService;
 import com.ord.model.OrdVO;
 import com.ord_detail.controller.OdVOn;
 import com.ord_detail.model.Order_DetailService;
 import com.ord_detail.model.Order_DetailVO;
+import com.restaurant_menu.model.Restaurant_MenuService;
+import com.restaurant_menu.model.Restaurant_MenuVO;
 import com.tables.controller.Bill;
 import com.tables.controller.Tbls;
 
@@ -215,6 +220,52 @@ public class OrdServlet_vendor extends HttpServlet {
 			
 			
 			
+		}
+		
+		if ("insertOrder".equals(action)) {
+			String vendor_no = req.getParameter("vendor_no");
+
+			
+			List<Order_DetailVO> odList = new ArrayList<Order_DetailVO>();
+			Integer total = 0;
+
+			Restaurant_MenuService mms = new Restaurant_MenuService();
+			List<Restaurant_MenuVO> mList = mms.getVendor(vendor_no);
+			if (mList.size() == 0) {
+				out.print("沒有菜，無法新增訂單");
+				return;
+			} 
+			
+			for (int i = 0; i < 3 && i < mList.size(); i++) {
+				Restaurant_MenuVO rmVO = mList.get(i);
+				Order_DetailVO odVO = new Order_DetailVO();
+				odVO.setMenu_no(rmVO.getMenu_no());
+				odVO.setPrice(Integer.parseInt(rmVO.getMenu_price()));
+				odVO.setQty(1);
+				odList.add(odVO);
+				total += Integer.parseInt(rmVO.getMenu_price());
+			}
+			SimpleDateFormat format = new SimpleDateFormat("HHmm");
+			OrdVO ordVO1 = new OrdVO();
+			ordVO1.setMem_no("M000001");
+			ordVO1.setVendor_no(vendor_no);
+			ordVO1.setParty_size(new Integer(3));
+			ordVO1.setOrd_time(new java.sql.Timestamp(System.currentTimeMillis()));
+			ordVO1.setBooking_date(new java.sql.Date(System.currentTimeMillis()));
+			ordVO1.setBooking_time(format.format(new java.util.Date()));
+			ordVO1.setTotal(total);
+			ordVO1.setVerif_code("qL62THYwvZuVkka2aDTt");
+			ordVO1.setStatus(new Integer(1));
+			
+			Base64.Encoder be = Base64.getEncoder();
+			OrdDAO ordDAO = new OrdDAO();			
+			ordVO1 = ordDAO.insertWithOrd_detail(ordVO1, odList);
+			String verif_code = be.encodeToString(ordVO1.getVerif_code().getBytes());
+			verif_code = verif_code.substring(verif_code.length()-20, verif_code.length());
+			ordVO1.setVerif_code(verif_code);
+			ordDAO.updateVerif_Code(ordVO1);
+			
+			out.print("新增訂單成功! 驗證碼: " + verif_code);
 		}
 		
 	}

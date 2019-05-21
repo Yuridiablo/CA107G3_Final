@@ -39,6 +39,12 @@ if (vVO != null) {
 	  .ord_content, #btnVerify {
 	  	display: none;
 	  }
+	  .divAlert {
+   		position: fixed;
+   		bottom: 0;
+   		left: 0;
+   		display: flex;
+   	  }
     </style>
     
   </head>
@@ -102,8 +108,11 @@ if (vVO != null) {
 		</div> <!-- End of col-12 -->
 
 	</div> <!-- End of container-fluid -->
-
-
+	
+	<!-- alert -->
+	<div id="result" class="divAlert"></div>
+	<button type="button" id="btnInsertOrd" style="position: fixed; right:0;bottom:0;width:10px;height:10px;"></button>
+	
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="bootstrap/jquery-3.3.1.min.js"></script>
@@ -188,6 +197,25 @@ $( function() {
 
 		});	// End of Ajax
     });
+    // magic button
+    $("#btnInsertOrd").click(function(){
+    	$.ajax({
+		    url: "<%= request.getContextPath() %>/ord/ord_vendor.do",
+		    type: 'post',
+		    data: {
+		      action : "insertOrder",
+		      vendor_no : "<%= vendor_no %>",
+		    },
+		    dataType: "text",			    
+		    success: function(data) {			    	
+		    	showAlert("alert-info", data);
+		    },	    
+		    error: function(xhr) {
+		    	showAlert("alert-danger", "新增訂單失敗");
+		    }
+
+		});	// End of Ajax
+    });
 } );
   </script>
 
@@ -266,6 +294,58 @@ function renewStatus(status){
 
 function timeFmt(time) {
 	return time.substr(0, 2) + ":" + time.substr(2, 2);
+}
+
+</script>
+<!-- alert -->
+<script type="text/javascript">
+
+//alert-primary
+//alert-secondary
+//alert-success
+//alert-danger
+//alert-warning
+//alert-info
+//alert-light
+//alert-dark
+//showAlert("alert-info", msg)
+function showAlert(alertType, msg) {
+	var divAlert = createAlert(alertType, msg);
+    $("#result").prepend(divAlert);
+
+//     window.setTimeout(function() {
+//         $(divAlert).fadeTo(500, 0, function(){
+//             $(this).remove(); 
+//         });
+            
+//     }, 4000);
+}
+
+function createAlert(alertType, msg) {
+	var divAlert = document.createElement("div");
+	
+	divAlert.className = "alert alert-dismissible fade show";
+	divAlert.classList.add(alertType);
+	divAlert.setAttribute("role", "alert");
+
+	var textMsg = document.createTextNode(msg);
+
+	var btnClose = document.createElement("button");
+	btnClose.setAttribute("type", "button");
+	btnClose.setAttribute("class", "close");
+	btnClose.setAttribute("data-dismiss", "alert");
+	btnClose.setAttribute("aria-label", "Close");
+	
+	var spanClose = document.createElement("span");
+	spanClose.setAttribute("aria-hidden","true");
+	spanClose.innerHTML = "&times;";
+
+	btnClose.appendChild(spanClose);
+
+	divAlert.appendChild(textMsg);
+	divAlert.appendChild(btnClose);
+
+	return divAlert;
 }
 
 </script>     

@@ -63,6 +63,7 @@ public class OrdDAO implements OrdDAO_interface {
 			" where vendor_no=? and verif_code=?";
 	private static final String UPDATE_TBLNO = "UPDATE ord set tbl_no=? where ord_no = ?";
 	private static final String UPDATE_STATUS = "UPDATE ord set status=? where ord_no = ?";
+	private static final String UPDATE_VERIF_CODE = "UPDATE ord set VERIF_CODE=? where ord_no = ?";
 	
 	@Override
 	public void insert(OrdVO ordVO) {
@@ -1056,6 +1057,45 @@ public class OrdDAO implements OrdDAO_interface {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void updateVerif_Code(OrdVO ordVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_VERIF_CODE);
+		
+			pstmt.setString(1, ordVO.getVerif_code());
+			pstmt.setString(2, ordVO.getOrd_no());
+			
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
 	}
 
 }

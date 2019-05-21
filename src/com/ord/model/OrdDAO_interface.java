@@ -23,5 +23,6 @@ public interface OrdDAO_interface {
     public OrdVO findOrdByVerifCode(String vendor_no, String verif_code);
     public void updateTbl_no(OrdVO ordVO);
     public void updateStatus(OrdVO ordVO);
+    public void updateVerif_Code(OrdVO ordVO);
     
 }
