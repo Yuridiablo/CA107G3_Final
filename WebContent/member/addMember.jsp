@@ -321,9 +321,9 @@ body{
 					
 					
 					$("#fillmsg").on('click', function() {
-						$("#mem_name").val("陳鶴凌");
+						$("#mem_name").val("光棍解");
 						$("#customRadioInline1").attr("checked", "true");
-						$("#mem_nickname").val("鶴凌");
+						$("#mem_nickname").val("光棍");
 						$("#mem_mail").val("ciguana1995@gmail.com");
 						mem_mail = $("#mem_mail").val();
 						$("#mem_id").val("B123005470");
