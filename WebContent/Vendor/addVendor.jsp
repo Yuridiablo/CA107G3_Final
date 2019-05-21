@@ -382,8 +382,8 @@ margin-top:0%;
 		$("#magic").on('click', function() {
 			$("#v_name").val("大衛海鮮");
 			$("#v_account").val("V123456");
-			$("#v_pwd").val("V123456");
-			$("#v_pwd_confirm").val("V123456");
+			$("#pwd").val("V123456");
+			$("#pwdconfirm").val("V123456");
 			$("#v_mail").val("seafood@foodtable.com");
 			$("#v_n_code").val("02");
 			$("#v_tel").val("33344455");
