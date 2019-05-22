@@ -356,7 +356,7 @@
     <url-pattern>/ord_jsp/*</url-pattern>
     <url-pattern>/Restaurant_Menu/*</url-pattern>
     <url-pattern>/Restaurant_Responses/*</url-pattern>
-    <url-pattern>/wait_pos_jsp/*</url-pattern>
+    <url-pattern>/wait_pos_jsp/wait_vendor.jsp</url-pattern>
     <url-pattern>/tables_jsp/*</url-pattern>
     <url-pattern>/Vendor/upVendor.jsp</url-pattern>
     <url-pattern>/Vendor/upVendor2.jsp</url-pattern>
