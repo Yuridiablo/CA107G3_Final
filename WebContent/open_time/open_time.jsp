@@ -256,6 +256,10 @@ console.log("webContent/open_time/open_time.jsp");
 		</div>
 	</div>
 
+<!--  magic button -->
+<div style="position: fixed;left:0;bottom:0">		
+	<button id="btnAddTbl" type="button" style="width: 10px; height: 10px">桌位數量</button>				
+</div>
 	
 
 	<script
@@ -308,7 +312,16 @@ console.log("webContent/open_time/open_time.jsp");
 });
 </script>
 
+<!-- magic button -->
+<script type="text/javascript">
 
+	$(document).ready(function() {
+	
+	$("#btnAddTbl").on("click", function(){
+		$(".res_num").val("2");
+	})
+});
+</script>
 
 </body>
 </html>
