@@ -109,6 +109,18 @@
 			width: 45px;
 			border-radius: 999em;
 		}
+		
+	#topBarForMem_name{
+    	margin-right: 30px;
+    	background-color: green;
+    	width: 130px;
+    	height: 50px;
+    	padding-top: 8px;
+    	text-align:center;
+    	border-radius: 10px;
+    	font-size: 25px;
+    	color: #FFF;
+    	}
     </style>
 
 </head>
@@ -171,6 +183,7 @@
                                             <a class="dropdown-item" href="${pageContext.request.contextPath}/member/member.do?action=myWallet"><span class="icon-wallet"></span>我的錢包</a>
                                         </div>
                                     </li>
+                                    <li><div id="topBarForMem_name">${memberVO.mem_name}</div></li>
                                     <li><a href="#" class="btn btn-outline-light top-btn" id="loginBut" data-toggle="modal" data-target="#loginBar"><span class="icon-login"></span>登入</a></li>
                                     <li><a href="${pageContext.request.contextPath}/member/member.do?action=logout" class="btn btn-outline-light top-btn" id="logoutBut"><span class="icon-logout"></span>登出</a></li>
                                 </ul>
@@ -351,6 +364,7 @@
     		
         	if(${account!=null}){
             	$("#loginBut").hide();
+            	$("#topBarForMem_name").show();
         	}
         	
         	if(${account!=null}){
