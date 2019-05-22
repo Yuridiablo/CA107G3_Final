@@ -90,7 +90,7 @@ margin-top:10px;
 
 	<tr>
 		<td>品名:</td>
-		<td><input type="TEXT" name="menu_name" size="45"	value="${rmVO.menu_name}" /></td>
+		<td><input id="magicName" type="TEXT" name="menu_name" size="45"	value="${rmVO.menu_name}" /></td>
 	</tr>
 	<tr>
 		<td>圖片:</td>
@@ -98,7 +98,7 @@ margin-top:10px;
 	</tr>
 	<tr>
 		<td>價格:</td>
-		<td><input type="TEXT" name="menu_price" size="45"	value="${rmVO.menu_price}" /></td>
+		<td><input id="magicPrice" type="TEXT" name="menu_price" size="45"	value="${rmVO.menu_price}" /></td>
 	</tr>
 	<tr>
 		<td>狀態:</td>
@@ -112,7 +112,7 @@ margin-top:10px;
 	</tr>
 	<tr>
 		<td>說明:</td>
-		<td><input type="TEXT" name="menu_text" size="45"	value="${rmVO.menu_text}" /></td>
+		<td><input id="magicText" type="TEXT" name="menu_text" size="45"	value="${rmVO.menu_text}" /></td>
 	</tr>
 	
 </table>
@@ -121,6 +121,13 @@ margin-top:10px;
 <%-- <input type="hidden" name="menu_no" value="${rmVO.menu_no}"> --%>
 <input type="submit" value="送出" id="modal_submit">
 </FORM>
+
+<span id="magic1" class="badge badge-primary">神</span>
+<span id="magic2" class="badge badge-success">奇</span>
+<span id="magic3" class="badge badge-danger">小</span>
+<span id="magic4" class="badge badge-warning">按</span>
+<span id="magic5" class="badge badge-info">鈕</span>
+<span id="magic6" class="badge badge-dark">！</span>
 
 <img src="" alt="" id="upimg">
               <c:if test="${not empty errorMsgs}">
@@ -358,6 +365,51 @@ $("#zz${rmVO.menu_no}").click(function() {
 		
 		document.getElementsByTagName("img")[0].src = URL.createObjectURL(event.target.files[0]); 		
 	}
+	
+	$('#magic1').on('click', function(){
+		
+		$('#magicName').val('寶山飛龍鍋');
+		$('#magicPrice').val('360');
+		$('#magicText').val('大衛海鮮表示我在四川的山裡長大，只用了一個紙鍋就做出來了。');
+		
+	})
+	$('#magic2').on('click', function(){
+		
+		$('#magicName').val('烈冰鮮鯛山');
+		$('#magicPrice').val('666');
+		$('#magicText').val('靈感據說出自只會切生魚片的男人。');
+		
+	})
+	$('#magic3').on('click', function(){
+		
+		$('#magicName').val('昇龍餃子');
+		$('#magicPrice').val('1024');
+		$('#magicText').val('這位先生叫做David吧，你有沒有想過品嘗美食的人真正追求的是什麼呢？');
+		
+	})
+	$('#magic4').on('click', function(){
+		
+		$('#magicName').val('彈跳甲魚湯');
+		$('#magicPrice').val('100');
+		$('#magicText').val('將甲魚燒好之後下水煮,去除雜質之後用薄鹽調味,然後將它倒到挖空的哈密瓜裡,連湯帶哈密瓜,在蒸籠裡面蒸,如此甲魚的土味和腥味就會消失之後讓它冷卻,使裡頭的湯凝固。');
+		
+	})
+	$('#magic5').on('click', function(){
+		
+		$('#magicName').val('彈跳甲魚湯');
+		$('#magicPrice').val('100');
+		$('#magicText').val('將甲魚燒好之後下水煮,去除雜質之後用薄鹽調味,然後將它倒到挖空的哈密瓜裡,連湯帶哈密瓜,在蒸籠裡面蒸,如此甲魚的土味和腥味就會消失之後讓它冷卻,使裡頭的湯凝固。');
+		
+	})
+	$('#magic6').on('click', function(){
+		
+		$('#magicName').val('炸鳳尾蝦');
+		$('#magicPrice').val('700');
+		$('#magicText').val('所以我說那個醬汁呢？這道菜每次上菜的時候都還要過一分鐘才會送醬汁上來，忠實呈現面具廚師的魂魄。');
+		
+	})
+	
+	
 </script>
 </body>
 </html>
