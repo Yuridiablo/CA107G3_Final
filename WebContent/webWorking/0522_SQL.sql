@@ -678,8 +678,6 @@ NOCACHE;                       -- 不快取,防止掉號
 --Member 會員
 INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'小當家','qq1234','aa1234','M','qq123@gmail.com','A123456789','0975954468','2',NULL,51561,'小當家');
 INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'嘟嘟','f1234561','f1234561','M','qaz123@gmail.com','H107242497','0970268373','1',NULL,499,'嘟嘟');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'四川小當家','qq1234','aa1234','M','qq123@gmail.com','A123456789','0975954468','2',NULL,51561,'黨證廚師');
-INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'嘟嘟','f1234561','f1234561','M','qaz123@gmail.com','H107242497','0970268373','2',NULL,41199,'肉包子');
 INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'GD師傅','f1234562','f1234562','M','sapien@metuean.com','A132729384','0988647356','2',NULL,51199,'及第師傅');
 INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'四郎','f1234563','f1234563','F','Proin@dolorDgla.com','A116709980','0953147021','2',NULL,61199,'路人四郎');
 INSERT INTO MEMBER VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'),'麵點師傅','f1234564','f1234564','M','at.velit.Cras@orci.edu','A162110259','0963418454','1',NULL,741199,'解師傅');
