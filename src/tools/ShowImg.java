@@ -26,8 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowImg extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Connection con = null;
-	Statement stmt = null;
-	ResultSet rs = null;
+//	Statement stmt = null;
+//	ResultSet rs = null;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
@@ -67,12 +67,15 @@ public class ShowImg extends HttpServlet {
 			SQL = "SELECT MEM_PIC FROM MEMBER WHERE MEM_NO = " + req.getParameter("mem_no");
 		}
 		
+		Statement stmt = null;
+		ResultSet rs = null;
+		
 		try {
-			Statement stmt = con.createStatement();
+			stmt = con.createStatement();
 			
 //			String SQL ="SELECT MENU_PIC FROM RESTAURANT_MENU WHERE MENU_NO = 'RM00000008'";
 			System.out.println(SQL);
-			ResultSet rs = stmt.executeQuery(SQL);
+			rs = stmt.executeQuery(SQL);
 
 			if (rs.next()) {
 				if(rs.getBinaryStream(picName)!=null) {
@@ -86,6 +89,8 @@ public class ShowImg extends HttpServlet {
 				}
 
 				in.close();
+				rs.close();
+				stmt.close();
 				}
 			} else {
 				rs.close();

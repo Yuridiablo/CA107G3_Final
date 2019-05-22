@@ -31,7 +31,7 @@ public class FileInputStreamReadFile {
 	public static void main(String args[]) throws IOException, InterruptedException {
 		insertPic("member",INSERT_MEM_PIC);
 		insertPic("news",INSERT_NEWS_PIC);
-//		insertPicForMenu("restaurant_menu",INSERT_MENU_PIC);
+		insertPicForMenu("restaurant_menu",INSERT_MENU_PIC);
 	}
 	
 	public static void insertPic(String tableName,String sql) throws IOException, InterruptedException {
