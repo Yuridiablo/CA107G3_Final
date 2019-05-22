@@ -380,7 +380,7 @@ margin-top:0%;
 		});
 
 		$("#magic").on('click', function() {
-			$("#v_name").val("大衛海鮮");
+			$("#v_name").val("大衛活海鮮");
 			$("#v_account").val("V123456");
 			$("#pwd").val("V123456");
 			$("#pwdconfirm").val("V123456");
