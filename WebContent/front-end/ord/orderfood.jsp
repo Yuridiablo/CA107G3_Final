@@ -51,6 +51,11 @@
       .yourmenu .card-body li{
       	height:100px;
       }
+      .card-body img{
+          height: 200px;
+		  max-width: 300px;
+		  object-fit: cover;
+      }
     </style>
     <!-- Custom styles for this template -->
    
