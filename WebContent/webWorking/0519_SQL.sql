@@ -795,16 +795,31 @@ INSERT INTO FAV_RES VALUES ('M000009','V000009');
 INSERT INTO FAV_RES VALUES ('M000010','V000010');
 
 --TABLES 桌位
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','A1', 1,1,200,200);
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','A2', 1,1,NULL,NULL);
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','A3', 1,1,NULL,NULL);
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','B1', 2,2,300,400);
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','B2', 2,1,500,250);
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','B3', 2,1,20,30);
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','C1', 3,1,150,200);
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','C2', 3,2,200,200);
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','D1', 4,1,400,230);
-INSERT INTO TABLES VALUES ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','E1', 5,1,300,120);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','A2',1,2,154,18);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','A3',1,2,279,18);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','A4',1,2,401,18);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','A5',1,2,533,19);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','B1',2,1,31,128);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','B2',2,1,157,126);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','B3',2,1,275,130);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','B4',2,1,412,133);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','B5',2,1,529,130);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','C1',3,2,22,234);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','C2',3,2,153,235);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','C3',3,2,274,240);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','C4',3,2,410,244);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','A1',1,2,24,19);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','C5',3,2,531,247);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','D1',4,1,30,344);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','D2',4,1,151,345);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','D3',4,1,275,347);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','D4',4,1,410,350);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','D5',4,1,532,353);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','E1',5,2,27,459);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','E2',5,2,151,457);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','E3',5,2,278,459);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','E4',5,2,407,459);
+Insert into TABLES (TBL_NO,VENDOR_NO,TBL_NAME,TBL_SIZE,TBL_TYPE,TBL_X,TBL_Y) values ('T'||LPAD(to_char(tables_seq.NEXTVAL), 6, '0'),'V000001','E5',5,2,538,460);
 
 
 
