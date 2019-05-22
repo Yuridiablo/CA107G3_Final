@@ -25,6 +25,8 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.restaurant_menu.model.Restaurant_MenuVO;
+
 import android.member.Util.ImageUtil;
 import android.vendor.model.*;
 
@@ -94,6 +96,14 @@ public class VendorServlet extends HttpServlet {
 			}
 			
 		} 
+		
+		if (action.equals("getmenu")) {
+			com.restaurant_menu.model.Restaurant_MenuService mscv=new com.restaurant_menu.model.Restaurant_MenuService();
+			String vendor_no = jsonObject.get("vendor_no").getAsString();
+			List<Restaurant_MenuVO> mlist = mscv.getM_name(vendor_no);
+			writeText(res, gson.toJson(mlist));
+		}
+		
 
 		else {
 			writeText(res, "");
