@@ -302,7 +302,7 @@ public class Restaurant_MenuDAO implements Restaurant_MenuDAO_interface {
 				rm.setVendor_no(rs.getString("vendor_no"));
 				rm.setMenu_name(rs.getString("menu_name"));
 				rm.setMenu_price(rs.getString("menu_price"));
-				rm.setMenu_pic(rs.getBytes("menu_pic"));
+//				rm.setMenu_pic(rs.getBytes("menu_pic"));
 				rm.setMenu_stat(rs.getInt("menu_stat"));
 				rm.setMenu_text(rs.getString("menu_text"));
 			}
@@ -361,7 +361,7 @@ public class Restaurant_MenuDAO implements Restaurant_MenuDAO_interface {
 						rm.setMenu_name(rs.getString("menu_name"));
 						rm.setMenu_price(rs.getString("menu_price"));
 						
-						rm.setMenu_pic(rs.getBytes("menu_pic"));
+//						rm.setMenu_pic(rs.getBytes("menu_pic"));
 						
 						rm.setMenu_stat(rs.getInt("menu_stat"));
 						rm.setMenu_text(rs.getString("menu_text"));
@@ -472,7 +472,7 @@ public class Restaurant_MenuDAO implements Restaurant_MenuDAO_interface {
 	
 				
 				rm.setMenu_price(rs.getString("menu_price"));
-				rm.setMenu_pic(rs.getBytes("menu_pic"));
+//				rm.setMenu_pic(rs.getBytes("menu_pic"));
 				rm.setMenu_stat(rs.getInt("menu_stat"));
 				rm.setMenu_text(rs.getString("menu_text"));
 				rm.setMenu_no(rs.getString("menu_no"));

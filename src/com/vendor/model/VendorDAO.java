@@ -229,8 +229,8 @@ public class VendorDAO implements VendorDAO_interface {
 				vendor.setV_end_time(rs.getString(17));
 				vendor.setV_day(rs.getString(18));
 				vendor.setV_tables(rs.getString(19));
-				vendor.setV_pic(rs.getBytes(20));
-				vendor.setV_ad(rs.getBytes(21));
+//				vendor.setV_pic(rs.getBytes(20));
+//				vendor.setV_ad(rs.getBytes(21));
 				vendor.setV_status(rs.getString(22));
 				vendor.setV_turn_time(rs.getInt(23));
 				vendor.setV_type(rs.getString(24));
