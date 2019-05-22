@@ -246,6 +246,46 @@ pageContext.setAttribute("list", list);
 	</div>
 	
 
+<!--  magic button -->
+<div style="position: fixed;left:0;bottom:0">
+<form method="post" action="<%=request.getContextPath()%>/tables/tables.do">		
+<input type="hidden" name="tbl_size" value="2"> 
+<input type="hidden" name="tbl_number" value="2"/>					
+<input type="hidden" name="tbl_name" value="B"/>		
+<button type="submit" style="width: 10px; height: 10px">4</button>				
+<input type="hidden" name="action" value="insert">
+<input type="hidden" name="vendor_no"	value="<%= vendor_no %>">
+</form>
+
+<form method="post" action="<%=request.getContextPath()%>/tables/tables.do">		
+<input type="hidden" name="tbl_size" value="3"> 
+<input type="hidden" name="tbl_number" value="2"/>					
+<input type="hidden" name="tbl_name" value="C"/>		
+<button type="submit" style="width: 10px; height: 10px">6</button>				
+<input type="hidden" name="action" value="insert">
+<input type="hidden" name="vendor_no"	value="<%= vendor_no %>">
+</form>
+
+<form method="post" action="<%=request.getContextPath()%>/tables/tables.do">		
+<input type="hidden" name="tbl_size" value="4"> 
+<input type="hidden" name="tbl_number" value="2"/>					
+<input type="hidden" name="tbl_name" value="D"/>		
+<button type="submit" style="width: 10px; height: 10px">8</button>				
+<input type="hidden" name="action" value="insert">
+<input type="hidden" name="vendor_no"	value="<%= vendor_no %>">
+</form>
+
+<form method="post" action="<%=request.getContextPath()%>/tables/tables.do">		
+<input type="hidden" name="tbl_size" value="5"> 
+<input type="hidden" name="tbl_number" value="2"/>					
+<input type="hidden" name="tbl_name" value="E"/>		
+<button type="submit" style="width: 10px; height: 10px">10</button>				
+<input type="hidden" name="action" value="insert">
+<input type="hidden" name="vendor_no"	value="<%= vendor_no %>">
+</form>
+</div>
+
+
 	<script>		
 		$(document).ready(function(){
 			$("#fgiTblNum").inputSpinner($("#html2"));
