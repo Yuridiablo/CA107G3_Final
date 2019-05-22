@@ -100,7 +100,7 @@ public class VendorServlet extends HttpServlet {
 		if (action.equals("getmenu")) {
 			com.restaurant_menu.model.Restaurant_MenuService mscv=new com.restaurant_menu.model.Restaurant_MenuService();
 			String vendor_no = jsonObject.get("vendor_no").getAsString();
-			List<Restaurant_MenuVO> mlist = mscv.getM_name(vendor_no);
+			List<Restaurant_MenuVO> mlist = mscv.getVendor(vendor_no);
 			writeText(res, gson.toJson(mlist));
 		}
 		
