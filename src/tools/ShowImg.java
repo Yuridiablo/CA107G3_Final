@@ -102,10 +102,14 @@ public class ShowImg extends HttpServlet {
 		} catch (Exception e) {
 			System.err.println(e);
 		} finally {
+			System.out.println("555555");
+			System.out.println("rs="+rs);
 			if (rs != null) {
 				try {
+					System.out.println("6666666");
 					rs.close();
 				} catch (SQLException se) {
+					System.out.println("777777777");
 					se.printStackTrace(System.err);
 				}
 			}
