@@ -269,7 +269,7 @@ img {
 <div class="owl-carousel owl-theme">
 
     <c:forEach var="menu_n" items="${res_menuSvc.getVendor(vendor_no)}">
-     <div class="item"><h4><img id="p${menu_n.menu_no}" src="<%= request.getContextPath()%>/ShowImg.do?menu_no='${menu_n.menu_no}'"/></h4></div> 
+     <div class="item"><h4><img id="p${menu_n.menu_no}" src="<%= request.getContextPath()%>/ShowImg.do?menu_no='${menu_n.menu_no}'" onerror="this.src='../front-end/images/SeeKFoodA.png'/"></h4></div> 
      </c:forEach> 
     
 <!--     <div class="item"><h4>2</h4></div> -->
