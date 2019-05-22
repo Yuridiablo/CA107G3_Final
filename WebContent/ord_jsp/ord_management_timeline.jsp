@@ -11,6 +11,8 @@
 <%@ page import="com.vendor.model.*" %>
 
 <%
+System.out.println("jsp========================");
+
 VendorVO vVO = (VendorVO) session.getAttribute("vVO");
 String vendor_no = null;
 if (vVO != null) {

@@ -31,8 +31,6 @@
     <servlet-name>VendorServlet</servlet-name>
     <url-pattern>/Vendor/Vendor.do</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
     <servlet-name>VendorServlet_v</servlet-name>
     <servlet-class>com.vendor.controller.VendorServlet_v</servlet-class>
@@ -41,7 +39,6 @@
     <servlet-name>VendorServlet_v</servlet-name>
     <url-pattern>/Vendor/Vendor_v.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>RES_Transaction_ListServlet</servlet-name>
     <servlet-class>com.restaurant_transaction_list.controller.RES_Transaction_ListServlet</servlet-class>
@@ -349,4 +346,25 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
+  <filter>
+    <filter-name>resErrorFilter</filter-name>
+    <filter-class>filters.ResErrorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>resErrorFilter</filter-name>
+    <url-pattern>/open_time/*</url-pattern>
+    <url-pattern>/ord_jsp/*</url-pattern>
+    <url-pattern>/Restaurant_Menu/*</url-pattern>
+    <url-pattern>/Restaurant_Responses/*</url-pattern>
+    <url-pattern>/wait_pos_jsp/*</url-pattern>
+    <url-pattern>/tables_jsp/*</url-pattern>
+    <url-pattern>/Vendor/upVendor.jsp</url-pattern>
+    <url-pattern>/Vendor/upVendor2.jsp</url-pattern>
+<!--     <url-pattern>/Vendor/Vendor.do</url-pattern> -->
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>  
 </web-app>
