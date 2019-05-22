@@ -396,9 +396,9 @@ $("#zz${rmVO.menu_no}").click(function() {
 	})
 	$('#magic5').on('click', function(){
 		
-		$('#magicName').val('彈跳甲魚湯');
-		$('#magicPrice').val('100');
-		$('#magicText').val('將甲魚燒好之後下水煮,去除雜質之後用薄鹽調味,然後將它倒到挖空的哈密瓜裡,連湯帶哈密瓜,在蒸籠裡面蒸,如此甲魚的土味和腥味就會消失之後讓它冷卻,使裡頭的湯凝固。');
+		$('#magicName').val('轉生春捲');
+		$('#magicPrice').val('400');
+		$('#magicText').val('放太久的鯛魚只要炸過你們也吃不出來，彷彿又找回了剛捕捉到時的新鮮度啊！');
 		
 	})
 	$('#magic6').on('click', function(){

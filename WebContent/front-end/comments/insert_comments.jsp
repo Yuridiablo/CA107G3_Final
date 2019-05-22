@@ -104,7 +104,7 @@ width:220%;
         <br style="clear:both">
         <div class="form-group col-md-2">
         <button class="form-control input-sm btn btn-success disabled" id="btnSubmit" name="btnSubmit" type="submit" style="height:35px"> Send</button>    
-    
+    <span id="magic00" class="badge badge-warning">神奇評論</span>
     </div>
     <input type="hidden" name="vendor_no" value="${vendor_no}">
      <input type="hidden" name="ord_no" value="${ord_no}">
@@ -150,5 +150,11 @@ $(document).ready(function(){
 			$("label:lt("+(i+2)+") path:nth-child(2)").css("fill","#fa0");
 			$("label:gt("+(i+1)+") path:nth-child(2)").css("fill","#ccc");
 		});	
+	
+	$('#magic00').on('click', function(){
+
+		$('#message').text('吃完學會了JAVA,有沒有這麼誇張,我堂堂麵點師只是去吃了一頓飯,就會了JAVA,雖然老闆感覺有點ㄎㄧㄤ,但是非常熱情！值得推薦');
+		
+	})
 </script>
 </html>
