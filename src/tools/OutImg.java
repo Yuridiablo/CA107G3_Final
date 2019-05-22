@@ -53,13 +53,15 @@ public class OutImg extends HttpServlet {
 			ResultSet rs = stmt.executeQuery(SQL);
 
 			if (rs.next()) {
-				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream(serchData));
-				byte[] buf = new byte[4 * 1024]; // 4K buffer
-				int len;
-				while ((len = in.read(buf)) != -1) {
-					out.write(buf, 0, len);
+				if(rs.getBinaryStream(serchData)!=null) {
+					BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream(serchData));
+					byte[] buf = new byte[4 * 1024]; // 4K buffer
+					int len;
+					while ((len = in.read(buf)) != -1) {
+						out.write(buf, 0, len);
+					}
+					in.close();
 				}
-				in.close();
 			} else {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}

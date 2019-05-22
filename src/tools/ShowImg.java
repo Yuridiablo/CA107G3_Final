@@ -75,7 +75,7 @@ public class ShowImg extends HttpServlet {
 			ResultSet rs = stmt.executeQuery(SQL);
 
 			if (rs.next()) {
-				
+				if(rs.getBinaryStream(picName)!=null) {
 				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream(picName));
 			
 				
@@ -86,6 +86,7 @@ public class ShowImg extends HttpServlet {
 				}
 
 				in.close();
+				}
 			} else {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
