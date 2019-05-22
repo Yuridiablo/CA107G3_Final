@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 public class OutImg extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Connection con = null;
-	Statement stmt = null;
-	ResultSet rs = null;
+//	Statement stmt = null;
+//	ResultSet rs = null;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		System.out.println("doGet");
@@ -32,13 +32,15 @@ public class OutImg extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		Statement stmt = null;
+		ResultSet rs = null;
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
 
 		try {
+
 			System.out.println("--------------------------outoutout-----------------------------");
-			Statement stmt = con.createStatement();
+			stmt = con.createStatement();
 			String SQL=null;
 			String serchData = null;
 			if(req.getParameter("mem_no")!=null) {
@@ -50,7 +52,7 @@ public class OutImg extends HttpServlet {
 			}
 			
 			System.out.println(SQL);
-			ResultSet rs = stmt.executeQuery(SQL);
+			rs = stmt.executeQuery(SQL);
 
 			if (rs.next()) {
 				if(rs.getBinaryStream(serchData)!=null) {
